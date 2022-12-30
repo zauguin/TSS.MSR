@@ -604,7 +604,7 @@ bool TpmTbsDevice::Connect()
     if (TpmInfo != 0)
         return true;
 
-    int fd = open("/dev/tpm0", O_RDWR);
+    int fd = open("/dev/tpm1", O_RDWR);
     if (fd < 0) {
 #if USE_TCTI
         Tcti.Ctx = load_abrmd(&Tcti.DyLib);
@@ -615,9 +615,9 @@ bool TpmTbsDevice::Connect()
             return true;
         }
 #endif
-        fd = open("/dev/tpmrm0", O_RDWR);
+        fd = open("/dev/tpmrm1", O_RDWR);
         if (fd < 0) {
-            printf("Unable to open tpm0, abrmd, or tpmrm0: error %d (%s)\n", errno, strerror(errno));
+            printf("Unable to open tpm1, abrmd, or tpmrm1: error %d (%s)\n", errno, strerror(errno));
             return ConnectToLinuxuserModeTrm();
         }
         TpmInfo |= TpmUsesTrm;
