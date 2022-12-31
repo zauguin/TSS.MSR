@@ -5,125 +5,56 @@
 
 #include "stdafx.h"
 #include "Crypto.h"
+#include "cryptopp/aes.h"
+#include "cryptopp/rsa.h"
+#include "cryptopp/filters.h"
+#include "cryptopp/modes.h"
+#include "cryptopp/osrng.h"
 
-extern "C" {
-#include <openssl/aes.h>
-#include <openssl/evp.h>
-#include <openssl/ossl_typ.h>
-#include <openssl/sha.h>
-#include <openssl/hmac.h>
-#include <openssl/rand.h>
-#include <openssl/evp.h>
-#include <openssl/rsa.h>
-
-
-
-#if !defined(OPENSSL_NO_SM3) && OPENSSL_VERSION_NUMBER > 0x1010100FL
+#if !defined(NO_SM3)
 #   define ALG_SM3_256  1
-#   include <openssl/sm3.h>
+#   include <cryptopp/sm3.h>
 #endif
 
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-#   include <openssl/param_build.h>
-#elif OPENSSL_VERSION_NUMBER >= 0x10200000L
-    // Check the rsa_st and RSA_PRIME_INFO definitions in crypto/rsa/rsa_lcl.h and
-    // either update the version check or provide the new definition for this version.
-#   error Untested OpenSSL version
-#elif OPENSSL_VERSION_NUMBER >= 0x10100000L
-    // from crypto/rsa/rsa_lcl.h
-    typedef struct rsa_prime_info_st {
-        BIGNUM *r;
-        BIGNUM *d;
-        BIGNUM *t;
-        BIGNUM *pp;
-        BN_MONT_CTX *m;
-    } RSA_PRIME_INFO;
-
-    DEFINE_STACK_OF(RSA_PRIME_INFO)
-
-    struct rsa_st {
-        int pad;
-        int32_t version;
-        const RSA_METHOD *meth;
-        ENGINE *engine;
-        BIGNUM *n;
-        BIGNUM *e;
-        BIGNUM *d;
-        BIGNUM *p;
-        BIGNUM *q;
-        BIGNUM *dmp1;
-        BIGNUM *dmq1;
-        BIGNUM *iqmp;
-        STACK_OF(RSA_PRIME_INFO) *prime_infos;
-        RSA_PSS_PARAMS *pss;
-        CRYPTO_EX_DATA ex_data;
-        int references;
-        int flags;
-        /* Used to cache montgomery values */
-        BN_MONT_CTX *_method_mod_n;
-        BN_MONT_CTX *_method_mod_p;
-        BN_MONT_CTX *_method_mod_q;
-        char *bignum_data;
-        BN_BLINDING *blinding;
-        BN_BLINDING *mt_blinding;
-        CRYPTO_RWLOCK *lock;
-    };
-
-#endif // OPENSSL_VERSION_NUMBER
-
-}
-
-typedef INT16     CRYPT_RESULT;
-
 typedef struct {
-    UINT16        size;
-    BYTE          buffer[4096];
+    std::uint16_t  size;
+    CryptoPP::byte buffer[4096];
 } TPM2B;
 
 typedef struct {
-    UINT32        exponent;      // The public exponent pointer
-    TPM2B        *publicKey;     // Pointer to the public modulus
-    TPM2B        *privateKey;    // The private exponent (not a prime)
+    UINT32  exponent;      // The public exponent pointer
+    TPM2B  *publicKey;     // Pointer to the public modulus
 } RSA_KEY;
 
-#define CRYPT_FAIL          ((CRYPT_RESULT)  1)
-#define CRYPT_SUCCESS       ((CRYPT_RESULT)  0)
-#define CRYPT_NO_RESULT     ((CRYPT_RESULT) -1)
-#define CRYPT_SCHEME        ((CRYPT_RESULT) -2)
-#define CRYPT_PARAMETER     ((CRYPT_RESULT) -3)
-#define CRYPT_UNDERFLOW     ((CRYPT_RESULT) -4)
-#define CRYPT_POINT         ((CRYPT_RESULT) -5)
-#define CRYPT_CANCEL        ((CRYPT_RESULT) -6)
+enum class CryptResult {
+  FAIL      =  1,
+  SUCCESS   =  0,
+  NO_RESULT = -1,
+  SCHEME    = -2,
+  PARAMETER = -3,
+  UNDERFLOW = -4,
+  POINT     = -5,
+  CANCEL    = -6,
+};
 
 
 _TPMCPP_BEGIN
 
 using namespace std;
 
-
-static CRYPT_RESULT
-_cpri__ValidateSignatureRSA(const RSA_KEY   *key,       // IN: key to use
-                            TPM_ALG_ID       scheme,    // IN: the scheme to use
-                            TPM_ALG_ID       hashAlg,   // IN: hash algorithm
-                            UINT32           hInSize,   // IN: size of digest to be checked
-                            const BYTE      *hIn,       // IN: digest buffer
-                            UINT32           sigInSize, // IN: size of signature
-                            const BYTE      *sigIn,     // IN: signature
-                            UINT16         /*saltSize*/); // IN: salt size for PSS
-
-static int TpmAlgIdToNid(TPM_ALG_ID hashAlg)
-{
+template<template<typename> typename Trait, typename ... Args>
+std::unique_ptr<typename Trait<void>::type> buildForHash(TPM_ALG_ID hashAlg, Args &&...args) {
+    using ReturnType = std::unique_ptr<typename Trait<void>::type>;
     switch (hashAlg) {
-        case TPM_ALG_NULL:  return 0;
-        case TPM_ALG_ID::SHA1:   return NID_sha1;
-        case TPM_ALG_ID::SHA256: return NID_sha256;
-        case TPM_ALG_ID::SHA384: return NID_sha384;
-        case TPM_ALG_ID::SHA512: return NID_sha512;
+        case TPM_ALG_ID::SHA1:   return ReturnType(new typename Trait<CryptoPP::SHA1>::type(std::forward<Args>(args)...));
+        case TPM_ALG_ID::SHA256: return ReturnType(new typename Trait<CryptoPP::SHA256>::type(std::forward<Args>(args)...));
+        case TPM_ALG_ID::SHA384: return ReturnType(new typename Trait<CryptoPP::SHA384>::type(std::forward<Args>(args)...));
+        case TPM_ALG_ID::SHA512: return ReturnType(new typename Trait<CryptoPP::SHA512>::type(std::forward<Args>(args)...));
 #if ALG_SM3_256
-        case TPM_ALG_ID::SM3_256: return NID_sm3;
+        case TPM_ALG_ID::SM3_256: return ReturnType(new typename Trait<CryptoPP::SM3>::type(std::forward<Args>(args)...));
 #endif
     }
-    throw domain_error("TpmAlgIdToNid(): Unknown or not a hash algorithm");
+    throw domain_error("buildForHash: Unknown or not a hash algorithm");
 }
 
 
@@ -156,6 +87,75 @@ UINT16 Crypto::HashLength(TPM_ALG_ID hashAlg)
     return 0;
 }
 
+namespace {
+template<typename Hash>
+class NoopHash : public CryptoPP::HashTransformation {
+  public:
+    static constexpr auto DIGESTSIZE = Hash::DIGESTSIZE;
+    void Update(const CryptoPP::byte *input, std::size_t length) override {
+        written = std::copy(input, input + length, written);
+    }
+    unsigned DigestSize() const override { return DIGESTSIZE; }
+    void TruncatedFinal(CryptoPP::byte *digest, std::size_t length) override {
+        _ASSERT(written == hash.end());
+        std::memcpy(digest, hash.data(), length);
+    }
+    static const char *StaticAlgorithmName() {
+        return Hash::StaticAlgorithmName();
+    }
+  private:
+    CryptoPP::SecByteBlock hash{DIGESTSIZE};
+    CryptoPP::SecByteBlock::iterator written = hash.begin();
+};
+}
+_TPMCPP_END
+
+namespace CryptoPP {
+template<typename Hash>
+struct PKCS_DigestDecoration<_TPMCPP NoopHash<Hash>> : PKCS_DigestDecoration<Hash> {};
+}
+
+_TPMCPP_BEGIN
+namespace {
+template<typename Hash>
+struct GetHash {
+    using type = Hash;
+};
+template<>
+struct GetHash<void> {
+    using type = CryptoPP::HashTransformation;
+};
+template<typename Hash>
+struct GetHMAC {
+    using type = CryptoPP::HMAC<Hash>;
+};
+template<>
+struct GetHMAC<void> {
+    using type = CryptoPP::HMAC_Base;
+};
+template<typename Hash>
+struct GetSigner {
+    using type = typename CryptoPP::RSASS<CryptoPP::PKCS1v15, NoopHash<Hash>>::Signer;
+};
+template<>
+struct GetSigner<void> {
+    using type = CryptoPP::PK_Signer;
+};
+template<typename Hash>
+struct GetVerifier {
+    using type = typename CryptoPP::RSASS<CryptoPP::PKCS1v15, NoopHash<Hash>>::Verifier;
+};
+template<>
+struct GetVerifier<void> {
+    using type = CryptoPP::PK_Verifier;
+};
+
+CryptoPP::RandomNumberGenerator &getRNG() {
+    thread_local static CryptoPP::DefaultAutoSeededRNG rng;
+    return rng;
+}
+}
+
 ByteVec Crypto::Hash(TPM_ALG_ID hashAlg, const ByteVec& toHash, size_t startPos, size_t len)
 {
     if (toHash.size() < startPos + len)
@@ -164,7 +164,8 @@ ByteVec Crypto::Hash(TPM_ALG_ID hashAlg, const ByteVec& toHash, size_t startPos,
                                             to_string(startPos) + ", " + to_string(len) + ")");
     }
 
-    ByteVec digest(HashLength(hashAlg));
+    auto hash = buildForHash<GetHash>(hashAlg);
+    ByteVec digest(hash->DigestSize());
     if (!len)
     {
         len = toHash.size() - startPos;
@@ -172,75 +173,27 @@ ByteVec Crypto::Hash(TPM_ALG_ID hashAlg, const ByteVec& toHash, size_t startPos,
             return digest;
     }
 
-    const BYTE *message = &toHash[0] + startPos;
-    BYTE *digestBuf = &digest[0];
-
-    switch (hashAlg) {
-        case TPM_ALG_ID::SHA1:
-            ::SHA1(message, len, digestBuf);
-            break;
-
-        case TPM_ALG_ID::SHA256:
-			::SHA256(message, len, digestBuf);
-            break;
-
-        case TPM_ALG_ID::SHA384:
-			::SHA384(message, len, digestBuf);
-            break;
-
-        case TPM_ALG_ID::SHA512:
-			::SHA512(message, len, digestBuf);
-            break;
-
-#if ALG_SM3_256
-        case TPM_ALG_ID::SM3_256:
-        {
-            SM3_CTX ctx;
-            sm3_init(&ctx);
-            sm3_update(&ctx, message, len);
-            sm3_final(digestBuf, &ctx);
-            break;
-        }
-#endif
-        default:
-            throw domain_error("Hash(): Unknown or not a hash algorithm");
-    }
-
-    _ASSERT(HashLength(hashAlg) == digest.size());
+    hash->Update(toHash.data() + startPos, len);
+    hash->Final(digest.data());
     return digest;
 }
 
 ByteVec Crypto::HMAC(TPM_ALG_ID hashAlg, const ByteVec& key, const ByteVec& toHash)
 {
-    size_t messageLen = toHash.size();
-    const BYTE *message = toHash.data();
+    auto hmac = buildForHash<GetHMAC>(hashAlg, key.data(), key.size());
 
-    const BYTE *pKey = key.data();
-    int keyLen = (int)key.size();
+    hmac->Update(toHash.data(), toHash.size());
+    ByteVec result(hmac->DigestSize());
+    hmac->Final(result.data());
 
-    const EVP_MD *evp;
-    switch (hashAlg) {
-        case TPM_ALG_ID::SHA1: evp = EVP_sha1(); break;
-        case TPM_ALG_ID::SHA256: evp = EVP_sha256(); break;
-        case TPM_ALG_ID::SHA384: evp = EVP_sha384(); break;
-        case TPM_ALG_ID::SHA512: evp = EVP_sha512(); break;
-#if ALG_SM3_256
-        case TPM_ALG_ID::SM3_256: evp = EVP_sm3(); break;
-#endif
-        default: throw domain_error("Not a hash algorithm");
-    }
-
-    // We will use the OpenSSL allocated buffer
-    BYTE *digestBuf = ::HMAC(evp, pKey, keyLen, message, messageLen, NULL, NULL);
-
-    return ByteVec(digestBuf, digestBuf + HashLength(hashAlg));
+    return result;
 }
 
 /// <summary> Default source of random numbers is OpenSSL </summary>
 ByteVec Crypto::GetRand(size_t numBytes)
 {
     ByteVec resp(numBytes);
-    RAND_bytes(&resp[0], (int)numBytes);
+    getRNG().GenerateBlock(resp.data(), resp.size());
     return resp;
 }
 
@@ -285,229 +238,27 @@ bool Crypto::ValidateSignature(const TPMT_PUBLIC& pubKey, const ByteVec& signedD
         throw domain_error("ValidateSignature: Only RSASSA scheme is supported");
 
     TPM2B_PUBLIC_KEY_RSA *rsaPubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*pubKey.unique);
-    TPM2B rsaPubKeyBuf;
-    rsaPubKeyBuf.size = (UINT16)rsaPubKey->buffer.size();
-    memcpy(rsaPubKeyBuf.buffer, &rsaPubKey->buffer[0], rsaPubKey->buffer.size());
-    RSA_KEY theKey;
-    theKey.publicKey = &rsaPubKeyBuf;
-    theKey.exponent = rsaParms->exponent;
 
-    CRYPT_RESULT res = _cpri__ValidateSignatureRSA(&theKey, TPM_ALG_ID::RSASSA, GetSigningHashAlg(pubKey),
-                                                   (UINT32)signedDigest.size(), &signedDigest[0],
-                                                   (UINT32)rsaSig->sig.size(), &rsaSig->sig[0], 0);
-    return res == CRYPT_SUCCESS;
-}
+    CryptoPP::Integer n;
+    n.Decode(rsaPubKey->buffer.data(), rsaPubKey->buffer.size());
+    CryptoPP::RSA::PublicKey pkey;
+    pkey.Initialize(n, rsaParms->exponent);
 
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-static EVP_PKEY *CreatePKeyFromPublic(const RSA_KEY *key) {
-    _ASSERT(key != nullptr);
+    auto verifier = buildForHash<GetVerifier>(GetSigningHashAlg(pubKey), pkey);
 
-    EVP_PKEY_CTX *rsa_ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
-    if (!rsa_ctx || EVP_PKEY_fromdata_init(rsa_ctx) <= 0)
-        return nullptr;
-
-    BIGNUM *bn_mod = BN_bin2bn(key->publicKey->buffer, key->publicKey->size, NULL);
-
-    OSSL_PARAM_BLD *bld = OSSL_PARAM_BLD_new();
-    if (!bld || !OSSL_PARAM_BLD_push_BN(bld, "n", bn_mod)
-             || !OSSL_PARAM_BLD_push_uint32(bld, "e", key->exponent))
-        return nullptr;
-    OSSL_PARAM *params = OSSL_PARAM_BLD_to_param(bld);
-
-    OSSL_PARAM_BLD_free(bld);
-    BN_free(bn_mod);
-
-    EVP_PKEY *pkey = nullptr;
-    if (!params || EVP_PKEY_fromdata(rsa_ctx, &pkey, EVP_PKEY_PUBLIC_KEY, params) <= 0)
-        return nullptr;
-    OSSL_PARAM_free(params);
-    EVP_PKEY_CTX_free(rsa_ctx);
-
-    return pkey;
-}
-#endif
-
-CRYPT_RESULT
-_cpri__ValidateSignatureRSA(const RSA_KEY   *key,       // IN: key to use
-                            TPM_ALG_ID     /*scheme*/,  // IN: the scheme to use
-                            TPM_ALG_ID       hashAlg,   // IN: hash algorithm
-                            UINT32           hInSize,   // IN: size of digest to be checked
-                            const BYTE      *hIn,       // IN: digest buffer
-                            UINT32           sigInSize, // IN: size of signature
-                            const BYTE      *sigIn,     // IN: signature
-                            UINT16         /*saltSize*/)  // IN: salt size for PSS
-{
-    _ASSERT(key != NULL && sigIn != NULL && hIn != NULL);
-
-    // Errors that might be caused by calling parameters
-    if (sigInSize != key->publicKey->size)
-        return CRYPT_FAIL;
-
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-    EVP_PKEY *pkey = CreatePKeyFromPublic(key);
-
-    if (!pkey)
-        return CRYPT_FAIL;
-
-    EVP_PKEY_CTX *rsa_ctx = EVP_PKEY_CTX_new(pkey, NULL);
-    if (!rsa_ctx || EVP_PKEY_verify_init(rsa_ctx) <= 0
-                 || EVP_PKEY_CTX_set_rsa_padding(rsa_ctx, RSA_PKCS1_PADDING) <= 0
-                 || EVP_PKEY_CTX_set_signature_md(rsa_ctx, EVP_get_digestbynid(TpmAlgIdToNid(hashAlg))) <= 0)
-        return CRYPT_FAIL;
-
-    int res = EVP_PKEY_verify(rsa_ctx, sigIn, sigInSize, hIn, hInSize);
-    EVP_PKEY_free(pkey);
-    EVP_PKEY_CTX_free(rsa_ctx);
-#else
-    RSA *keyX;
-    BIGNUM *bn_mod = NULL;
-    BIGNUM *bn_exp = NULL;
-    BYTE exponent[] {1, 0, 1};
-    bn_mod = BN_bin2bn(key->publicKey->buffer, key->publicKey->size, NULL);
-    bn_exp = BN_bin2bn(exponent, 3, NULL);
-
-    keyX = RSA_new();
-    keyX->n = bn_mod;
-    keyX->e = bn_exp;
-    keyX->d = NULL;
-    keyX->p = NULL;
-    keyX->q = NULL;
-
-    int res = RSA_verify(TpmAlgIdToNid(hashAlg), hIn, hInSize, const_cast<BYTE*>(sigIn), sigInSize, keyX);
-    RSA_free(keyX);
-#endif
-    return res == 1 ? CRYPT_SUCCESS : CRYPT_FAIL;
-}
-
-size_t RsaEncrypt(const RSA_KEY *key,         // IN: key to use
-                  TPM_ALG_ID /*scheme*/,      // IN: the scheme to use
-                  TPM_ALG_ID /*hashAlg*/,     // IN: hash algorithm
-                  UINT32       secretSize,    // IN: size of digest to be checked
-                  const BYTE   *secret,       // IN: digest buffer
-                  UINT32       paddingSize,   // IN: size of signature
-                  const BYTE  *padding,       // IN: signature
-                  UINT32      *outBufferSize, // IN: salt size for PSS
-                  BYTE        *outBuffer
-)
-{
-
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-    EVP_PKEY *pkey = CreatePKeyFromPublic(key);
-
-    if (!pkey)
-        throw logic_error("RSA key parsing failed");
-
-    EVP_PKEY_CTX *rsa_ctx = EVP_PKEY_CTX_new(pkey, NULL);
-    if (!rsa_ctx || EVP_PKEY_encrypt_init(rsa_ctx) <= 0
-                 || EVP_PKEY_CTX_set_rsa_padding(rsa_ctx, RSA_PKCS1_OAEP_PADDING) <= 0)
-        throw logic_error("RSA encryption error");
-
-    if (paddingSize != 0) {
-        void *label = OPENSSL_memdup(padding, paddingSize);
-        if (EVP_PKEY_CTX_set0_rsa_oaep_label(rsa_ctx, label, paddingSize) <= 0)
-            throw logic_error("RSA encryption error");
-    }
-
-    std::size_t numBytes = *outBufferSize;
-    if (EVP_PKEY_encrypt(rsa_ctx, outBuffer, &numBytes, secret, secretSize) <= 0)
-        throw logic_error("RSA encryption error");
-    *outBufferSize = numBytes;
-
-    EVP_PKEY_CTX_free(rsa_ctx);
-    EVP_PKEY_free(pkey);
-#else
-    BYTE encBuffer[4096];
-    RSA *keyX;
-
-    BIGNUM *bn_mod = NULL;
-    BIGNUM *bn_exp = NULL;
-    BYTE exponent[] {1, 0, 1};
-
-    bn_mod = BN_bin2bn(key->publicKey->buffer, key->publicKey->size, NULL);
-    bn_exp = BN_bin2bn(exponent, 3, NULL);
-
-    keyX = RSA_new();
-    keyX->n = bn_mod;
-    keyX->e = bn_exp;
-    keyX->d = NULL;
-    keyX->p = NULL;
-    keyX->q = NULL;
-
-    int wasNumBytes = (int) * outBufferSize;
-    int numBytes = 0;
-
-    if (paddingSize == 0)
-        numBytes = RSA_public_encrypt(secretSize, secret, outBuffer, keyX, RSA_PKCS1_OAEP_PADDING);
-    else {
-        int encLen = key->publicKey->size;
-        RSA_padding_add_PKCS1_OAEP(encBuffer, encLen, secret, secretSize, padding, paddingSize);
-        numBytes = RSA_public_encrypt(encLen, encBuffer, outBuffer, keyX, RSA_NO_PADDING);
-    }
-
-    // Note, we will already've written the buffer if this assert fails, but perhaps it will help.
-    _ASSERT(wasNumBytes >= numBytes);
-
-    *outBufferSize = numBytes;
-    RSA_free(keyX);
-#endif
-    return numBytes;
+    return verifier->VerifyMessage(signedDigest.data(), signedDigest.size(), rsaSig->sig.data(), rsaSig->sig.size());
 }
 
 void Crypto::CreateRsaKey(int bits, int exponent, ByteVec& outPublic, ByteVec& outPrivate)
 {
-    BIGNUM *e = BN_new();
-    if (!e)
-        throw logic_error("RSA keygen failed");
-    BN_set_word(e, exponent ? exponent : 65537);
+    CryptoPP::RSA::PrivateKey key;
+    key.Initialize(getRNG(), bits, exponent ? exponent : 65537);
 
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-    EVP_PKEY_CTX *rsa_ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
-    if (!rsa_ctx || EVP_PKEY_keygen_init(rsa_ctx) <= 0
-                 || EVP_PKEY_CTX_set_rsa_keygen_bits(rsa_ctx, bits) <= 0
-                 || EVP_PKEY_CTX_set1_rsa_keygen_pubexp(rsa_ctx, e) <= 0)
-        throw logic_error("RSA keygen failed");
+    outPublic.resize(key.GetModulus().MinEncodedSize());
+    key.GetModulus().Encode(outPublic.data(), outPublic.size());
 
-    EVP_PKEY *pkey = NULL;
-    if (EVP_PKEY_keygen(rsa_ctx, &pkey) <= 0)
-        throw logic_error("RSA keygen failed");
-    EVP_PKEY_CTX_free(rsa_ctx);
-
-    BIGNUM *bn_pub = NULL;
-    if (!EVP_PKEY_get_bn_param(pkey, "n", &bn_pub))
-        throw logic_error("RSA keygen failed");
-    outPublic.resize(BN_num_bytes(bn_pub));
-    BN_bn2bin(bn_pub, &outPublic[0]);
-    BN_free(bn_pub);
-
-    BIGNUM *bn_priv = NULL;
-    if (!EVP_PKEY_get_bn_param(pkey, "rsa-factor1", &bn_priv))
-        throw logic_error("RSA keygen failed");
-    outPrivate.resize(BN_num_bytes(bn_priv));
-    BN_bn2bin(bn_priv, &outPrivate[0]);
-    BN_free(bn_priv);
-
-    EVP_PKEY_free(pkey);
-#else
-    RSA *newKey = NULL;
-
-    newKey = RSA_new();
-
-    if (!newKey)
-        return;
-
-    if (!RSA_generate_key_ex(newKey, bits, e, NULL))
-        return;
-
-    outPublic.resize(BN_num_bytes(newKey->n));
-    outPrivate.resize(BN_num_bytes(newKey->p));
-
-    BN_bn2bin(newKey->n, &outPublic[0]);
-    BN_bn2bin(newKey->p, &outPrivate[0]);
-
-    RSA_free(newKey);
-#endif
-
-    BN_free(e);
+    outPrivate.resize(key.GetPrime1().MinEncodedSize());
+    key.GetPrime1().Encode(outPrivate.data(), outPrivate.size());
 }
 
 ByteVec Crypto::Encrypt(const TPMT_PUBLIC& pubKey,
@@ -518,31 +269,20 @@ ByteVec Crypto::Encrypt(const TPMT_PUBLIC& pubKey,
         throw domain_error("Only RSA encryption is supported");
 
     TPM2B_PUBLIC_KEY_RSA *rsaPubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*pubKey.unique);
-    TPM2B rsaPubKeyBuf;
-    rsaPubKeyBuf.size = (UINT16)rsaPubKey->buffer.size();
-    memcpy(rsaPubKeyBuf.buffer, &rsaPubKey->buffer[0], rsaPubKey->buffer.size());
-    RSA_KEY theKey;
-    theKey.publicKey = &rsaPubKeyBuf;
-    theKey.exponent = rsaParms->exponent;
 
-    UINT32 bufferSize = 4096;
-    BYTE encryptionBuffer[4096];
-    BYTE null { 0 };
-    const BYTE *encoding = &null;
+    CryptoPP::Integer n;
+    n.Decode(rsaPubKey->buffer.data(), rsaPubKey->buffer.size());
+    CryptoPP::RSA::PublicKey pkey;
+    pkey.Initialize(n, rsaParms->exponent);
 
-    if (!encodingParms.empty())
-        encoding = &encodingParms[0];
-
-    size_t encBlobSize = RsaEncrypt(&theKey, TPM_ALG_ID::OAEP, pubKey.nameAlg,
-                                    (UINT32)secret.size(), &secret[0],
-                                    (UINT32)encodingParms.size(), encoding,
-                                    &bufferSize, encryptionBuffer);
-    if (encBlobSize < 0)
-        throw logic_error("RSA encryption error");
+    CryptoPP::RSAES_OAEP_SHA_Encryptor encryptor(pkey); // pubKey.nameAlg(?)
+    std::size_t encBlobSize = encryptor.CiphertextLength(secret.size());
 
     ByteVec res(encBlobSize);
-    for (size_t j = 0; j < encBlobSize; j++)
-        res[j] = encryptionBuffer[j];
+
+    encryptor.Encrypt(getRNG(), secret.data(), secret.size(), res.data(), MakeParameters
+        (CryptoPP::Name::EncodingParameters(), CryptoPP::ConstByteArrayParameter(encodingParms.data(), encodingParms.size()))
+    );
 
     return res;
 }
@@ -557,7 +297,6 @@ SignResponse Crypto::Sign(const TSS_KEY& key, const ByteVec& toSign,
         throw domain_error("Only RSA signing is supported");
 
     TPM2B_PUBLIC_KEY_RSA *rsaPubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*pubKey.unique);
-    ByteVec priv = key.privatePart;
 
     TPM_ALG_ID schemeAlg = rsaParms->schemeScheme(),
                expSchemeAlg = explicitScheme.GetUnionSelector();
@@ -575,89 +314,30 @@ SignResponse Crypto::Sign(const TSS_KEY& key, const ByteVec& toSign,
     else if (expSchemeAlg != TPM_ALG_NULL)
         throw domain_error("Crypto::Sign: Non-default scheme can only be used for a key with no scheme of its own");
 
-    BN_CTX *ctxt = BN_CTX_new();
+    CryptoPP::Integer n;
+    n.Decode(rsaPubKey->buffer.data(), rsaPubKey->buffer.size());
+    CryptoPP::Integer e = rsaParms->exponent;
+    CryptoPP::Integer p;
+    p.Decode(key.privatePart.data(), key.privatePart.size());
 
-    BIGNUM *bn_mod = BN_bin2bn(&rsaPubKey->buffer[0], (int)rsaPubKey->buffer.size(), NULL);
-    BIGNUM *bn_exp = BN_new();
-    BN_set_word(bn_exp, rsaParms->exponent);
-    BIGNUM *bn_p = BN_bin2bn(&priv[0], (int)priv.size(), NULL);
+    CryptoPP::Integer q = n/p;
+    CryptoPP::Integer phi = n;
+    phi -= p;
+    phi -= q;
+    phi += 1;
 
-    BIGNUM *bn_q = BN_new();
-    BN_div(bn_q, NULL, bn_mod, bn_p, ctxt);
+    CryptoPP::Integer d = e.InverseMod(phi);
 
-    BIGNUM *bnPhi = BN_new();
-    // Get compute Phi = (p - 1)(q - 1) = pq - p - q + 1 = n - p - q + 1
-    if (BN_copy(bnPhi, bn_mod) == NULL
-        || !BN_sub(bnPhi, bnPhi, bn_p)
-        || !BN_sub(bnPhi, bnPhi, bn_q)
-        || !BN_add_word(bnPhi, 1))
-    {
-        _ASSERT(FALSE);
-    }
-
-    BIGNUM *bn_d = BN_new();
-    if (!BN_mod_inverse(bn_d, bn_exp, bnPhi, ctxt))
-        _ASSERT(FALSE);
-    BN_clear_free(bnPhi);
-    BN_CTX_free(ctxt);
-
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-    BN_clear_free(bn_p);
-    BN_clear_free(bn_q);
-
-    EVP_PKEY_CTX *rsa_ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
-    if (!rsa_ctx)
-        throw logic_error("Signature error");
-    EVP_PKEY *pkey = NULL;
-
-    if (EVP_PKEY_fromdata_init(rsa_ctx) <= 0)
-        throw logic_error("Signature error");
-
-    OSSL_PARAM_BLD *bld = OSSL_PARAM_BLD_new();
-    if (!bld || !OSSL_PARAM_BLD_push_BN(bld, "n", bn_mod)
-             || !OSSL_PARAM_BLD_push_BN(bld, "e", bn_exp)
-             || !OSSL_PARAM_BLD_push_BN(bld, "d", bn_d))
-        throw logic_error("Signature error");
-    OSSL_PARAM *params = OSSL_PARAM_BLD_to_param(bld);
-    OSSL_PARAM_BLD_free(bld);
-    BN_free(bn_mod);
-    BN_free(bn_exp);
-    BN_clear_free(bn_d);
-    if (!params || EVP_PKEY_fromdata(rsa_ctx, &pkey, EVP_PKEY_KEYPAIR, params) <= 0)
-        throw logic_error("Signature error");
-    OSSL_PARAM_free(params);
-    EVP_PKEY_CTX_free(rsa_ctx);
-#else
-    RSA *keyX = RSA_new();
-    keyX->n = bn_mod;
-    keyX->e = bn_exp;
-    keyX->d = bn_d;
-    keyX->q = bn_q;
-    keyX->p = bn_p;
-#endif
+    CryptoPP::RSA::PrivateKey pkey;
+    pkey.Initialize(n, e, d);
 
     const int maxBuf = 4096;
     BYTE signature[maxBuf];
 
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-    rsa_ctx = EVP_PKEY_CTX_new(pkey, NULL);
-    if (!rsa_ctx || EVP_PKEY_sign_init(rsa_ctx) <= 0
-                 || EVP_PKEY_CTX_set_rsa_padding(rsa_ctx, RSA_PKCS1_PADDING) <= 0
-                 || EVP_PKEY_CTX_set_signature_md(rsa_ctx, EVP_get_digestbynid(TpmAlgIdToNid(scheme->hashAlg))) <= 0)
-        throw logic_error("Signature error");
-    size_t sigLen = 4096;
-    int res = EVP_PKEY_sign(rsa_ctx, &signature[0], &sigLen, &toSign[0], (unsigned)toSign.size());
+    auto signer = buildForHash<GetSigner>(scheme->hashAlg, pkey);
 
-    EVP_PKEY_free(pkey);
-    EVP_PKEY_CTX_free(rsa_ctx);
-#else
-    UINT32 sigLen = 4096;
-    int res = RSA_sign(TpmAlgIdToNid(scheme->hashAlg), &toSign[0], (unsigned)toSign.size(),
-                       &signature[0], &sigLen, keyX);
-    RSA_free(keyX);
-#endif
+    size_t sigLen = signer->SignMessage(getRNG(), toSign.data(), toSign.size(), signature);
 
-    _ASSERT(res != 0);
     _ASSERT(sigLen <= maxBuf);
 
     SignResponse resp;
@@ -685,28 +365,23 @@ ByteVec Crypto::CFBXcrypt(bool encrypt, TPM_ALG_ID algId,
 
     int num = 0;
 
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-    EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
-    if (!ctx)
-        throw logic_error("Symmetric encryption failed");
-
-    if (EVP_CipherInit_ex(ctx, EVP_aes_128_cfb128(), NULL, &keyBytes[0], pIv, encrypt) <= 0)
-        throw logic_error("Symmetric encryption failed");
-    if (EVP_CIPHER_CTX_set_padding(ctx, false) <= 0)
-        throw logic_error("Symmetric encryption failed");
-
-    if (EVP_CipherUpdate(ctx, &res[0], &num, &data[0], data.size()) <= 0)
-        throw logic_error("Symmetric encryption failed");
-    if (EVP_CipherFinal_ex(ctx, &res[num], &num) <= 0)
-        throw logic_error("Symmetric encryption failed");
-
-    EVP_CIPHER_CTX_free(ctx);
-#else
-    AES_KEY key;
-
-    AES_set_encrypt_key(&keyBytes[0], (int)keyBytes.size() * 8, &key);
-    AES_cfb128_encrypt(&data[0], &res[0], data.size(), &key, pIv, &num, encrypt ? AES_ENCRYPT : AES_DECRYPT);
-#endif
+    if (encrypt) {
+      CryptoPP::CFB_Mode<CryptoPP::AES>::Encryption encryptor;
+      encryptor.SetKeyWithIV(keyBytes.data(), keyBytes.size(), pIv);
+      CryptoPP::StringSource source(data.data(), data.size(), true,
+          new CryptoPP::StreamTransformationFilter(
+            encryptor,
+            new CryptoPP::ArraySink(res.data(), res.size()),
+            CryptoPP::StreamTransformationFilter::NO_PADDING));
+    } else {
+      CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption decryptor;
+      decryptor.SetKeyWithIV(keyBytes.data(), keyBytes.size(), pIv);
+      CryptoPP::StringSource source(data.data(), data.size(), true,
+          new CryptoPP::StreamTransformationFilter(
+            decryptor,
+            new CryptoPP::ArraySink(res.data(), res.size()),
+            CryptoPP::StreamTransformationFilter::NO_PADDING));
+    }
     return res;
 }
 
