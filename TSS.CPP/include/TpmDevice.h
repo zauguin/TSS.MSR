@@ -25,7 +25,7 @@ typedef int SOCKET;
 #define WSACleanup()
 #define WSAGetLastError() (-1)
 
-#define USE_TCTI    1
+#define USE_TCTI    0
 
 #endif // __linux__
 
