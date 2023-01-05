@@ -6,31 +6,32 @@ find_package(cryptopp REQUIRED)
 aux_source_directory(Src source_files)
 aux_source_directory(Samples sample_files)
 
-add_library(TSS_static STATIC ${source_files})
-add_library(TSS_shared SHARED ${source_files})
+list(APPEND LIB_MODES SHARED STATIC)
+list(APPEND LIB_TARGETS TSS.CPP TSS.CPP_static)
 
-target_link_libraries(TSS_static cryptopp::cryptopp)
-target_link_libraries(TSS_shared cryptopp::cryptopp)
+foreach(target mode IN ZIP_LISTS LIB_TARGETS LIB_MODES)
+  add_library(${target} ${mode} ${source_files})
 
-set_property(TARGET TSS_static PROPERTY CXX_STANDARD 11)
-set_property(TARGET TSS_static PROPERTY CXX_STANDARD_REQUIRED ON)
-set_property(TARGET TSS_shared PROPERTY CXX_STANDARD 11)
-set_property(TARGET TSS_shared PROPERTY CXX_STANDARD_REQUIRED ON)
+  target_link_libraries(${target} cryptopp::cryptopp)
 
-target_compile_definitions(TSS_static PUBLIC
-  "$<$<CONFIG:Debug>:DEBUG;_DEBUG>"
-)
-target_compile_definitions(TSS_static PRIVATE _TPMCPPLIB)
-target_include_directories(TSS_static PUBLIC include)
+  set_property(TARGET ${target} PROPERTY CXX_STANDARD 11)
+  set_property(TARGET ${target} PROPERTY CXX_STANDARD_REQUIRED ON)
 
-target_compile_definitions(TSS_shared PUBLIC
-  "$<$<CONFIG:Debug>:DEBUG;_DEBUG>"
-)
-target_compile_definitions(TSS_shared PRIVATE _TPMCPPLIB)
-target_include_directories(TSS_shared PUBLIC include)
+  target_compile_definitions(${target} PUBLIC
+    "$<$<CONFIG:Debug>:DEBUG;_DEBUG>"
+  )
+  target_compile_definitions(${target} PRIVATE _TPMCPPLIB)
+  target_include_directories(${target} PUBLIC include)
 
-target_compile_definitions(TSS_static PRIVATE NO_SM3)
-target_compile_definitions(TSS_shared PRIVATE NO_SM3)
+  target_compile_definitions(${target} PRIVATE NO_SM3)
+endforeach()
 
 add_executable(Samples ${sample_files})
-target_link_libraries(Samples TSS_static)
+target_link_libraries(Samples TSS.CPP_static)
+
+install(TARGETS ${LIB_TARGETS})
+install(DIRECTORY "include/" # source directory
+        DESTINATION "include/TSS.CPP" # target directory
+        FILES_MATCHING # install only matched files
+        PATTERN "*.h" # select header files
+)
