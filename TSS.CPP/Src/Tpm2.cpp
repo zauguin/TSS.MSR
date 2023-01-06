@@ -411,7 +411,6 @@ bool Tpm2::DispatchIn(TPM_CC cmdCode, RespStructure& resp)
     if (!errMsg.empty())
     {
         Sessions.clear();
-        DebugPrint(errMsg);
         throw system_error((UINT32)LastResponseCode, system_category(), errMsg);
     }
     else if (LastResponseCode != TPM_RC::SUCCESS)
@@ -780,18 +779,6 @@ TPMT_HA Tpm2::_GetAuditHash() const
         throw runtime_error("Command audit is not enabled");
 
     return CommandAuditHash;
-}
-
-void Tpm2::DebugPrint(const string& _message)
-{
-    WCHAR    str[1024];
-
-    if (_message.length() < 1023) {
-        OutputDebugString(L"************** -- TPM Exception: ");
-        MultiByteToWideChar(0, 0, _message.c_str(), (int)_message.length() + 1, str, 1024);
-        OutputDebugString(str);
-        OutputDebugString(L"\n");
-    }
 }
 
 }

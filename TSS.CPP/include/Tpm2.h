@@ -274,7 +274,6 @@ protected:
 
     void RollNonces();
     void DoParmEncryption(const CmdStructure& cmdInfo, TpmBuffer& paramBuf, size_t startPos, bool request);
-    void DebugPrint(const string& message);
 
     /// <summary> Automatically set the name and AuthVal in the calling programs handles </summary>
     void UpdateRequestHandles(TPM_CC cc, ReqStructure& req);

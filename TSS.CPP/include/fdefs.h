@@ -8,7 +8,6 @@
 
 #pragma once
 
-#   define _NORETURN_  [[noreturn]]
 #ifdef _MSC_VER
 #   ifdef _TPMCPPLIB
 #       define _DLLEXP_ __declspec(dllexport)
@@ -39,9 +38,6 @@
 
 #   undef _DLLEXP_
 #   define _DLLEXP_
-
-#   define OutputDebugString wprintf
-#   define MultiByteToWideChar(a,b,c,d,e,f) assert(d<=f);mbtowc(e,c,d);
 #endif
 
 
