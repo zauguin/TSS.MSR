@@ -198,24 +198,8 @@ namespace CodeGen
 
             if (actions.HasFlag(Action.ExtractFromDoc) || !File.Exists(rawTables))
             {
-                // Kill Word processes
-                Process[] wordProcesses = Process.GetProcessesByName("WINWORD");
-                if (wordProcesses.Length != 0)
-                {
-                    DialogResult res = MessageBox.Show("There are word processes running.  Kill them?", "Kill Word Processes?", MessageBoxButtons.YesNo);
-                    if (res == DialogResult.Yes)
-                    {
-                        foreach (Process p in wordProcesses) try
-                        {
-                            p.Kill();
-                        }
-                        catch (Exception) {}
-                        Thread.Sleep(2000);
-                    }
-                }
-
-                TableExtractor extractor = new TableExtractor(specPath);
-                XmlSerializeToFile(rawTables, RawTables.Tables);
+                Console.WriteLine("Extraction is not supported, please retrieve RawTables.xml and try again.");
+                return;
             }
 
             // Load the XML description of the tables, and extract into in-memory data structures
