@@ -5,7 +5,7 @@
 
 #include "stdafx.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 string TpmStructure::Serialize(SerializationType format)
 {
@@ -46,4 +46,4 @@ TPM_HANDLE RespStructure::getHandle() const
     return {};
 }
 
-_TPMCPP_END
+}

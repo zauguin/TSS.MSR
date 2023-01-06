@@ -9,7 +9,7 @@
 #include <cassert>
 #include <stdexcept>
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 struct SizedStructInfo
 {
@@ -328,4 +328,4 @@ public:
 class _DLLEXP_ _TPMT_SYM_DEF_OBJECT;
 class _DLLEXP_ _TPMT_SYM_DEF;
 
-_TPMCPP_END
+}

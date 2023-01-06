@@ -22,7 +22,7 @@
 #include "Helpers.h"
 #include "Tss.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 /// <summary> Function type for user-installable callback </summary>
 typedef void(*TpmResponseCallbackHandler)(const ByteVec& tpmCommand,
@@ -4913,4 +4913,4 @@ public:
     AsyncMethods Async;
 };
 
-_TPMCPP_END
+}

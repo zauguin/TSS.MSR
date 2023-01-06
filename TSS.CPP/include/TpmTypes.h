@@ -27,7 +27,7 @@
 #undef _C2
 #endif
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 class _DLLEXP_ Tpm2;
 
@@ -16761,4 +16761,4 @@ public:
     virtual TpmStructure* Clone() const { return new TPM2B_DIGEST_KEYEDHASH(*this); }
 }; // class TPM2B_DIGEST_KEYEDHASH
 
-_TPMCPP_END
+}

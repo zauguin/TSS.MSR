@@ -6,7 +6,7 @@
 #pragma once
 #include <stdexcept>
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -208,7 +208,7 @@ protected:
     bool    my_commaExpected,
             my_newLine;
 
-    static _NORETURN_ void throwUnsupported()
+    static void throwUnsupported [[noreturn]] ()
     {
         throw runtime_error("This serializer does not use binary representation");
     }
@@ -413,4 +413,4 @@ public:
 }; // class TextSerializer
 
 
-_TPMCPP_END
+}

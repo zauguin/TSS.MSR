@@ -5,7 +5,7 @@
 
 #pragma once
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 typedef ByteVec ByteVec;
 class  TpmException;
@@ -91,4 +91,4 @@ class _DLLEXP_ Crypto {
 [[deprecated("Use Crypto instead")]]
 typedef Crypto CryptoServices;
 
-_TPMCPP_END
+}

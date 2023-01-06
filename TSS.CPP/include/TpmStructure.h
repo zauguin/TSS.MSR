@@ -9,7 +9,7 @@
 #include "TpmMarshal.h"
 #include "Serialize.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 /// <summary> Serialization format enumeration. </summary>
 enum class SerializationType
@@ -216,4 +216,4 @@ private:
     ValueType value;
 };
 
-_TPMCPP_END
+}

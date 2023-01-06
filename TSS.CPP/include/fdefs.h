@@ -8,21 +8,8 @@
 
 #pragma once
 
-#define _TPMCPP_BEGIN namespace TpmCpp {
-#define _TPMCPP_END }
-
-#ifdef _TPMCPPLIB
-#define _TPMCPP_USING using namespace TpmCpp;
-#define _TPMCPP ::TpmCpp::
-#define EXPIMP_TEMPLATE
-#else
-#define _TPMCPP_USING
-#define _TPMCPP
-#define EXPIMP_TEMPLATE extern
-#endif
-
+#   define _NORETURN_  [[noreturn]]
 #ifdef _MSC_VER
-#   define _NORETURN_  __declspec(noreturn)
 #   ifdef _TPMCPPLIB
 #       define _DLLEXP_ __declspec(dllexport)
 #   else
@@ -50,7 +37,6 @@
 #   include <assert.h>
 #   include <string.h>
 
-#   define _NORETURN_  __attribute__((noreturn))
 #   undef _DLLEXP_
 #   define _DLLEXP_
 
@@ -85,7 +71,7 @@ using WCHAR = wchar_t;
 #endif
 
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using std::vector;
 using std::map;
@@ -106,16 +92,11 @@ class TPMS_TAGGED_PCR_SELECT;
 class PABase;
 class TPMT_SENSITIVE;
 
-_TPMCPP_END
+}
 
 #ifdef _TPMCPPLIB
-EXPIMP_TEMPLATE template class _DLLEXP_ std::vector<BYTE>;
-EXPIMP_TEMPLATE template class _DLLEXP_ std::vector<UINT32>;
-EXPIMP_TEMPLATE template class _DLLEXP_ std::vector<int>;
-EXPIMP_TEMPLATE template class _DLLEXP_ std::vector<char>;
-EXPIMP_TEMPLATE template class _DLLEXP_ std::basic_string<char>;
 
-_TPMCPP_USING
+using namespace TpmCpp;
 
 #endif // _TPMCPPLIB
 

@@ -14,7 +14,7 @@
 #   include <unistd.h>
 #endif
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 namespace Helpers
 {
@@ -414,4 +414,4 @@ template<class B, class D>
 const vector_of_bases_for<D, B> to_base(const vector<D>& v) { return vector_of_bases_for<D, B>(v); }
 
 
-_TPMCPP_END
+}

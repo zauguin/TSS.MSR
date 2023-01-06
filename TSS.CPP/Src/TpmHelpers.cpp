@@ -8,7 +8,7 @@
 extern map<size_t, map<uint32_t, string>> Enum2StrMap;
 extern map<size_t, map<string, uint32_t>> Str2EnumMap;
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -208,4 +208,4 @@ namespace Helpers
 } // namespace Helpers
 
 
-_TPMCPP_END
+}

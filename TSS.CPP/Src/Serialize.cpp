@@ -7,17 +7,17 @@
 #include "Serialize.h"
 
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
 
-static _NORETURN_ void throwMissingAt(const string& what, size_t at)
+static void throwMissingAt [[noreturn]] (const string& what, size_t at)
 {
     throw runtime_error("Invalid serial data: '" + what +  "' missing at pos " + to_string(at));
 }
 
-static _NORETURN_ void throwWrongName(const string& what, const string& actual, const string& expected)
+static void throwWrongName [[noreturn]] (const string& what, const string& actual, const string& expected)
 {
     throw runtime_error("Wrong " + what + " name: '" + actual + "' instead of '" + expected + "'");
 }
@@ -720,4 +720,4 @@ void PlainTextSerializer::writeEnumArr(const void* arr, size_t size, size_t valS
 }
 
 
-_TPMCPP_END
+}

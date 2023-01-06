@@ -7,7 +7,7 @@
 
 #include "TpmTypes.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 // Convenience aliases
 using TPM_ALG = TPM_ALG_ID;
@@ -16,14 +16,14 @@ using TPM_HASH = TPMT_HA;
 constexpr auto TPM_ALG_NULL = TPM_ALG_ID::_NULL;
 constexpr auto TPM_RH_NULL = TPM_RH::_NULL;
 
-_TPMCPP_END
+}
 
 #include "TpmHelpers.h"
 #include "TpmPolicy.h"
 #include "Crypto.h"
 
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 // TODO: Better encapsulation and better constructors
 
@@ -147,4 +147,4 @@ class DuplicationBlob {
         operator TPM2B_PRIVATE () const { return DuplicateObject; }
 };
 
-_TPMCPP_END
+}

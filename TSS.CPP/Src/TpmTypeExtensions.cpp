@@ -5,7 +5,7 @@
 
 #include "stdafx.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -514,4 +514,4 @@ void TPMT_HA::Reset()
     fill(digest.begin(), digest.end(), (BYTE)0);
 }
 
-_TPMCPP_END
+}

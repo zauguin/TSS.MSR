@@ -14,7 +14,7 @@
 #   include <dlfcn.h>
 #endif
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -730,4 +730,4 @@ bool TpmTbsDevice::ResponseIsReady() const
 
 #endif // __linux__
 
-_TPMCPP_END
+}

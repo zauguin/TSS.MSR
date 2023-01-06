@@ -38,7 +38,7 @@ enum class CryptResult {
 };
 
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -108,14 +108,14 @@ class NoopHash : public CryptoPP::HashTransformation {
     CryptoPP::SecByteBlock::iterator written = hash.begin();
 };
 }
-_TPMCPP_END
+}
 
 namespace CryptoPP {
 template<typename Hash>
-struct PKCS_DigestDecoration<_TPMCPP NoopHash<Hash>> : PKCS_DigestDecoration<Hash> {};
+struct PKCS_DigestDecoration<TpmCpp::NoopHash<Hash>> : PKCS_DigestDecoration<Hash> {};
 }
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 namespace {
 template<typename Hash>
 struct GetHash {
@@ -397,4 +397,4 @@ ByteVec Crypto::StringToEncodingParms(const string& s)
     return parms;
 }
 
-_TPMCPP_END
+}

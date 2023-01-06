@@ -117,10 +117,10 @@ class Samples {
         TPM_HANDLE MakeEndorsementKey();
         void TestAuthSession(AUTH_SESSION& sess);
 
-        _TPMCPP Tpm2 tpm;
-        _TPMCPP TpmDevice *device;
+        TpmCpp::Tpm2 tpm;
+        TpmCpp::TpmDevice *device;
 
-        std::map<_TPMCPP TPM_CC, int> commandsInvoked;
-        std::map<_TPMCPP TPM_RC, int> responses;
-        std::vector<_TPMCPP TPM_CC> commandsImplemented;
+        std::map<TpmCpp::TPM_CC, int> commandsInvoked;
+        std::map<TpmCpp::TPM_RC, int> responses;
+        std::vector<TpmCpp::TPM_CC> commandsImplemented;
 };

@@ -5,7 +5,7 @@
 
 #pragma once
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 #if __linux__
 #include <sys/types.h>
@@ -278,4 +278,4 @@ protected:
 #endif // __linux__
 };
 
-_TPMCPP_END
+}

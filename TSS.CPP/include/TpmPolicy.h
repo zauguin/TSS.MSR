@@ -5,7 +5,7 @@
 
 #pragma once
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 //
 // TpmPolicy.h/cpp contains code supporting TPM policies. All TPM policy commands have an associated
@@ -613,4 +613,4 @@ public:
     virtual PABase *Clone() const { return new PolicyDuplicationSelect(*this); }
 };
 
-_TPMCPP_END
+}

@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "Tpm2.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -173,4 +173,4 @@ ByteVec AUTH_SESSION::ParamXcrypt(ByteVec& parm, bool request)
     return Crypto::CFBXcrypt(request, TPM_ALG_ID::AES, key, iv, parm);
 }
 
-_TPMCPP_END
+}

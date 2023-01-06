@@ -11,7 +11,7 @@
 #   include <unistd.h>
 #endif
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 namespace Helpers
 {
@@ -30,4 +30,4 @@ namespace Helpers
 
 TPM_ALG_ID GetSigningHashAlg(const TPMT_PUBLIC& pub);
 
-_TPMCPP_END
+}

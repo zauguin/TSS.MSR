@@ -5,7 +5,7 @@
 
 #include "stdafx.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -593,4 +593,4 @@ void PolicyTicket::Execute(Tpm2&, PolicyTree&)
     _ASSERT(FALSE);
 }
 
-_TPMCPP_END
+}

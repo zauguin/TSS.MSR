@@ -5,7 +5,7 @@
 
 #include "stdafx.h"
 
-_TPMCPP_BEGIN
+namespace TpmCpp {
 
 using namespace std;
 
@@ -794,4 +794,4 @@ void Tpm2::DebugPrint(const string& _message)
     }
 }
 
-_TPMCPP_END
+}

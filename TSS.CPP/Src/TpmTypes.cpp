@@ -14,7 +14,7 @@
 
 #include "stdafx.h"
 
-_TPMCPP_USING
+using namespace TpmCpp;
 
 #define null  {}
 
