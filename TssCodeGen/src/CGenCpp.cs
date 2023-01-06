@@ -15,20 +15,20 @@ namespace CodeGen
         // Maps enum type to a map of enumerator names to values
         Dictionary<string, Dictionary<string, string>> EnumMap;
 
-        public CGenCpp(string rootDir) : base(rootDir, @"Src\TpmExtensions.cpp.snips") {}
+        public CGenCpp(string rootDir) : base(rootDir, @"Src/TpmExtensions.cpp.snips") {}
 
         internal override void Generate()
         {
             EnumMap = new Dictionary<string, Dictionary<string, string>>();
 
             GenerateTpmTypesHdr();
-            UpdateExistingSource(@"include\TpmTypes.h");
+            UpdateExistingSource(@"include/TpmTypes.h");
 
             GenerateTpmCommandPrototypes();
-            UpdateExistingSource(@"include\Tpm2.h");
+            UpdateExistingSource(@"include/Tpm2.h");
 
             GenerateTpmTypesCpp();
-            UpdateExistingSource(@"Src\TpmTypes.cpp");
+            UpdateExistingSource(@"Src/TpmTypes.cpp");
         }
 
         /// <summary> Determines whether this struct is represented as a typedef in C++ </summary>

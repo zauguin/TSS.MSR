@@ -219,7 +219,7 @@ namespace CodeGen
                     continue;
                 var tssName = "TSS." + langName(lang).Replace("DotNet", "Net");
                 Console.WriteLine($"\nGenerating {tssName}...");
-                var cg = TargetLang.NewCodeGen(lang, tssRootPath + tssName + '\\');
+                var cg = TargetLang.NewCodeGen(lang, tssRootPath + tssName + '/');
                 TargetLang.SetTargetLang(lang);
                 cg.Generate();
             }
