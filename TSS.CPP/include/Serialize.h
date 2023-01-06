@@ -8,8 +8,6 @@
 
 namespace TpmCpp {
 
-using namespace std;
-
 struct Serializer;
 
 struct _DLLEXP_ Serializable
@@ -40,7 +38,7 @@ protected:
      *  @param size  Number of elements in the array.
      *  @param valSize  Size of an array element in bytes (1, 2, 4, or 8)
      */
-    virtual void writeEnumArr(const void* arr, size_t size, size_t valSize, size_t enumID) = 0;
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t enumID) = 0;
 
     /** Deserializes an array of integers
      *  @param arr  Pointer to the array. If nullptr, then param `size` is ignored and the method
@@ -50,7 +48,7 @@ protected:
      *  @param valSize  Size of an array element in bytes (1, 2, 4, or 8)
      *  @return  The size of the array
      */
-    virtual size_t readEnumArr(void* arr, size_t size, size_t valSize, size_t enumID) = 0;
+    virtual std::size_t readEnumArr(void* arr, std::size_t size, std::size_t valSize, std::size_t enumID) = 0;
 
 public:
     virtual ~Serializer() {}
@@ -59,10 +57,10 @@ public:
     virtual void reset() = 0;
 
     /** @return  Current reading position in the serialization buffer. */
-    virtual size_t getCurPos () const = 0;
+    virtual std::size_t getCurPos () const = 0;
 
     /** Sets new current reading position in the serialization buffer. */
-    virtual void setCurPos (size_t pos) = 0;
+    virtual void setCurPos (std::size_t pos) = 0;
 
     /** Sets qualifiers of the object/value serialized by the next write operation or expected 
      *  qualifiers of the object/value read by the next read operation. Erased by successful
@@ -92,10 +90,10 @@ public:
      *  @param  val  Enum value to serialize
      *  @param  enumID  Opaque handle used to covert between numeric and textual representation of the enum value
      */
-    virtual void writeEnum(uint32_t val, size_t enumID) = 0;
+    virtual void writeEnum(uint32_t val, std::size_t enumID) = 0;
 
     /** Deserializes an enum value */
-    virtual uint32_t readEnum(size_t enumID) = 0;
+    virtual uint32_t readEnum(std::size_t enumID) = 0;
 
     virtual void writeSizedByteBuf(const ByteVec& buf) = 0;
 
@@ -169,7 +167,7 @@ public:
     template<typename E>
     void readEnumArr(vector<E>& arr)
     {
-        size_t size = readEnumArr(nullptr, 0, sizeof(E), 0);
+        std::size_t size = readEnumArr(nullptr, 0, sizeof(E), 0);
         arr.resize(size);
         readEnumArr(nullptr, arr.size(), sizeof(E), typeid(E).hash_code());
     }
@@ -194,7 +192,7 @@ class _DLLEXP_ TextSerializer : public Serializer
     void EndArrSizeOp();
 
 protected:
-    static constexpr size_t TabSize = 4;
+    static constexpr std::size_t TabSize = 4;
     static constexpr auto eol = "\n";
     static constexpr auto nstr = "";
     static constexpr auto npos = string::npos;
@@ -203,14 +201,14 @@ protected:
     const char  *my_valName, *my_valType,
                 *my_sizeName, *my_sizeType;
 
-    size_t  my_pos;
-    int     my_indent;
-    bool    my_commaExpected,
-            my_newLine;
+    std::size_t  my_pos;
+    int          my_indent;
+    bool         my_commaExpected,
+                 my_newLine;
 
     static void throwUnsupported [[noreturn]] ()
     {
-        throw runtime_error("This serializer does not use binary representation");
+        throw std::runtime_error("This serializer does not use binary representation");
     }
 
     void Reset();
@@ -255,14 +253,14 @@ protected:
     virtual void BeginWriteNamedEntry(bool objEntry = false) = 0;
     virtual void BeginReadNamedEntry() = 0;
 
-    virtual void WriteArrSize(size_t size);
-    virtual size_t ReadArrSize();
+    virtual void WriteArrSize(std::size_t size);
+    virtual std::size_t ReadArrSize();
 
     virtual void WriteNum(uint64_t val) = 0;
     virtual uint64_t ReadNum() = 0;
 
-    virtual void WriteEnum(uint32_t val, size_t enumID) = 0;
-    virtual uint32_t ReadEnum(size_t enumID) = 0;
+    virtual void WriteEnum(uint32_t val, std::size_t enumID) = 0;
+    virtual uint32_t ReadEnum(std::size_t enumID) = 0;
 
     virtual void WriteObj(const Serializable& obj) = 0;
     virtual void ReadObj(Serializable& obj) = 0;
@@ -290,8 +288,8 @@ public:
      */
     virtual const string& getTextBuffer() const { return my_buf; }
 
-    virtual size_t getCurPos () const { return my_pos; }
-    virtual void setCurPos (size_t pos) { my_pos = pos; }
+    virtual std::size_t getCurPos () const { return my_pos; }
+    virtual void setCurPos (std::size_t pos) { my_pos = pos; }
 
     virtual TextSerializer& with(const char* name = "", const char* type = "",
                                  const char* sizeName = "", const char* sizeType = "");
@@ -302,8 +300,8 @@ public:
     virtual void writeNum(uint64_t val);
     virtual uint64_t readNum();
 
-    virtual void writeEnum(uint32_t val, size_t /*enumID*/ = 0);
-    virtual uint32_t readEnum(size_t /*enumID*/ = 0);
+    virtual void writeEnum(uint32_t val, std::size_t /*enumID*/ = 0);
+    virtual uint32_t readEnum(std::size_t /*enumID*/ = 0);
 
     virtual void writeObj(const Serializable& obj);
     virtual void readObj(Serializable& obj);
@@ -314,8 +312,8 @@ public:
     virtual void writeObjArr(const vector_of_bases<Serializable>& arr);
     virtual void readObjArr(vector_of_bases<Serializable>&& arr);
 
-    virtual void writeEnumArr(const void* arr, size_t size, size_t valSize, size_t enumID) = 0;
-    virtual size_t readEnumArr(void* arr, size_t arrSize, size_t valSize, size_t enumID);
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t enumID) = 0;
+    virtual std::size_t readEnumArr(void* arr, std::size_t arrSize, std::size_t valSize, std::size_t enumID);
 
     //
     // Helpers & aliases for compatibility with the original TSS.CPP API
@@ -337,8 +335,8 @@ protected:
     virtual void WriteNum(uint64_t val);
     virtual uint64_t ReadNum();
 
-    virtual void WriteEnum(uint32_t val, size_t enumID);
-    virtual uint32_t ReadEnum(size_t enumID);
+    virtual void WriteEnum(uint32_t val, std::size_t enumID);
+    virtual uint32_t ReadEnum(std::size_t enumID);
 
     virtual void WriteObj(const Serializable& obj);
     virtual void ReadObj(Serializable& obj);
@@ -350,20 +348,20 @@ public:
     virtual void writeSizedByteBuf(const ByteVec& buf);
     virtual ByteVec readSizedByteBuf();
 
-    virtual void writeEnumArr(const void* arr, size_t size, size_t valSize, size_t /*enumID*/);
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t /*enumID*/);
 }; // class JsonSerializer
 
 
 class _DLLEXP_ PlainTextSerializer : public TextSerializer
 {
     /** Default value for `my_maxLineLen` */
-    constexpr static size_t DefaultMaxLineLen = 120;
+    constexpr static std::size_t DefaultMaxLineLen = 120;
 
     /** Size of byte group printed without separating space between them */
-    constexpr static size_t WordSize = 4;
+    constexpr static std::size_t WordSize = 4;
 
     /** Max number of bytes per line for byte buffer hex representation */
-    constexpr static size_t BytesPerLine = 32;
+    constexpr static std::size_t BytesPerLine = 32;
 
 protected:
     bool my_useComma = false;
@@ -373,9 +371,9 @@ protected:
     bool my_precise = false;
 
     /** Best effort (not guaranteed) limit of the serialized text line length */
-    size_t my_maxLineLen = DefaultMaxLineLen;
+    std::size_t my_maxLineLen = DefaultMaxLineLen;
 
-    size_t GetCurLineLen() const;
+    std::size_t GetCurLineLen() const;
 
     void WriteHexCopy(uint64_t val);
 
@@ -383,7 +381,7 @@ protected:
      *  of the given value, and moves the current reading position to the char following it */
     void NextHexCopy(uint64_t val);
 
-    void WriteByteBufFrag(const ByteVec& buf, size_t pos, size_t len);
+    void WriteByteBufFrag(const ByteVec& buf, std::size_t pos, std::size_t len);
 
     virtual void WriteComma(bool newLine = true);
     virtual void ReadComma();
@@ -394,14 +392,14 @@ protected:
     virtual void WriteNum(uint64_t val);
     virtual uint64_t ReadNum();
 
-    virtual void WriteEnum(uint32_t val, size_t enumID);
-    virtual uint32_t ReadEnum(size_t enumID);
+    virtual void WriteEnum(uint32_t val, std::size_t enumID);
+    virtual uint32_t ReadEnum(std::size_t enumID);
 
     virtual void WriteObj(const Serializable& obj);
     virtual void ReadObj(Serializable& obj);
 
 public:
-    PlainTextSerializer(bool precise = true, size_t maxLineLen = DefaultMaxLineLen)
+    PlainTextSerializer(bool precise = true, std::size_t maxLineLen = DefaultMaxLineLen)
         : my_precise(precise), my_maxLineLen(maxLineLen)
     {}
     PlainTextSerializer(const string& textBuf) : TextSerializer(textBuf) {}
@@ -409,7 +407,7 @@ public:
     virtual void writeSizedByteBuf(const ByteVec& buf);
     virtual ByteVec readSizedByteBuf();
 
-    virtual void writeEnumArr(const void* arr, size_t size, size_t valSize, size_t enumID);
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t enumID);
 }; // class TextSerializer
 
 
