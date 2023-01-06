@@ -5,8 +5,8 @@
 
 #include "stdafx.h"
 
-extern map<size_t, map<uint32_t, string>> Enum2StrMap;
-extern map<size_t, map<string, uint32_t>> Str2EnumMap;
+extern std::map<std::size_t, std::map<std::uint32_t, std::string>> Enum2StrMap;
+extern std::map<std::size_t, std::map<std::string, std::uint32_t>> Str2EnumMap;
 
 namespace TpmCpp {
 

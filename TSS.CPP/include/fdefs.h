@@ -90,10 +90,4 @@ class TPMT_SENSITIVE;
 
 }
 
-#ifdef _TPMCPPLIB
-
-using namespace TpmCpp;
-
-#endif // _TPMCPPLIB
-
 //#include "TpmTypes.h"
