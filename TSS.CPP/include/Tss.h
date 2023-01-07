@@ -13,8 +13,8 @@ namespace TpmCpp {
 using TPM_ALG = TPM_ALG_ID;
 using TPM_HASH = TPMT_HA;
 
-constexpr auto TPM_ALG_NULL = TPM_ALG_ID::_NULL;
-constexpr auto TPM_RH_NULL = TPM_RH::_NULL;
+constexpr auto TPM_ALG_NULL = TPM_ALG_ID::TPM_NULL;
+constexpr auto TPM_RH_NULL = TPM_RH::TPM_NULL;
 
 }
 
@@ -76,8 +76,7 @@ protected:
     bool CanEncrypt();
 
     bool HasSymmetricCipher() {
-
-        return (Symmetric.algorithm != TPM_ALG_ID::_NULL);
+        return (Symmetric.algorithm != TPM_ALG_ID::TPM_NULL);
     }
 
     ByteVec GetAuthHmac(const ByteVec& parmHash, bool directionIn,

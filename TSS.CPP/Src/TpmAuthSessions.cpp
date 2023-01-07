@@ -19,7 +19,7 @@ AUTH_SESSION Tpm2::StartAuthSession(TPM_SE sessionType,
     ByteVec nonceCaller(Helpers::RandomBytes(Crypto::HashLength(authHash)));
     TPM_HANDLE tpmKey;
     TPM_HANDLE bindHandle;
-    TPMT_SYM_DEF symDef = TPMT_SYM_DEF(TPM_ALG_ID::_NULL, 0, TPM_ALG_ID::_NULL);
+    TPMT_SYM_DEF symDef = TPMT_SYM_DEF(TPM_ALG_ID::TPM_NULL, 0, TPM_ALG_ID::TPM_NULL);
     TPMA_SESSION attr = TPMA_SESSION::continueSession;
     ByteVec salt;
 

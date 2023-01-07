@@ -414,7 +414,7 @@ namespace CodeGen
             if (char.IsNumber(name[0]) ||
                 TargetLang.Cpp && name.IsOneOf(ConflictingStdCppMacros))
             {
-                name = "_" + name;
+                name = "TPM_" + name;
             }
             return name;
         }

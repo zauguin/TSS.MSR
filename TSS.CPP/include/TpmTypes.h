@@ -45,7 +45,7 @@ struct TPM_ALG_ID : public TpmEnum<std::uint16_t>
     TPM_ENUM_PROLOGUE(TPM_ALG_ID)
 
     /// <summary> Should not occur </summary>
-    _ERROR = 0x0000,
+    TPM_ERROR = 0x0000,
 
     /// <summary> An object type that contains an RSA key </summary>
     FIRST = 0x0001,
@@ -89,7 +89,7 @@ struct TPM_ALG_ID : public TpmEnum<std::uint16_t>
     SHA512 = 0x000D,
 
     /// <summary> Indication that no algorithm is selected </summary>
-    _NULL = 0x0010,
+    TPM_NULL = 0x0010,
 
     /// <summary> Hash algorithm producing a 256-bit digest </summary>
     SM3_256 = 0x0012,
@@ -350,8 +350,8 @@ const EnumID &enumID<SHA3_512>::value;
 struct Logic : public TpmEnum<byte>
 {
     TPM_ENUM_PROLOGUE(Logic)
-    _TRUE = 1,
-    _FALSE = 0,
+    TPM_TRUE = 1,
+    TPM_FALSE = 0,
     YES = 1,
     NO = 0,
     SET = 1,
@@ -1002,31 +1002,31 @@ struct TPM_RC : public TpmEnum<std::uint32_t>
     S = 0x800,
 
     /// <summary> Add to a parameter-, handle-, or session-related error </summary>
-    _1 = 0x100,
+    TPM_1 = 0x100,
 
     /// <summary> Add to a parameter-, handle-, or session-related error </summary>
-    _2 = 0x200,
+    TPM_2 = 0x200,
 
     /// <summary> Add to a parameter-, handle-, or session-related error </summary>
-    _3 = 0x300,
+    TPM_3 = 0x300,
 
     /// <summary> Add to a parameter-, handle-, or session-related error </summary>
-    _4 = 0x400,
+    TPM_4 = 0x400,
 
     /// <summary> Add to a parameter-, handle-, or session-related error </summary>
-    _5 = 0x500,
+    TPM_5 = 0x500,
 
     /// <summary> Add to a parameter-, handle-, or session-related error </summary>
-    _6 = 0x600,
+    TPM_6 = 0x600,
 
     /// <summary> Add to a parameter-, handle-, or session-related error </summary>
-    _7 = 0x700,
+    TPM_7 = 0x700,
 
     /// <summary> Add to a parameter-related error </summary>
-    _8 = 0x800,
+    TPM_8 = 0x800,
 
     /// <summary> Add to a parameter-related error </summary>
-    _9 = 0x900,
+    TPM_9 = 0x900,
 
     /// <summary> Add to a parameter-related error </summary>
     A = 0xA00,
@@ -1267,7 +1267,7 @@ struct TPM_ST : public TpmEnum<std::uint16_t>
     RSP_COMMAND = 0x00C4,
 
     /// <summary> No structure type specified </summary>
-    _NULL = 0X8000,
+    TPM_NULL = 0X8000,
 
     /// <summary> Tag value for a command/response for a command defined in this
     /// specification; indicating that the command/response has no attached sessions and no
@@ -1972,7 +1972,7 @@ struct TPM_RH : public TpmEnum<std::uint32_t>
 
     /// <summary> A handle associated with the null hierarchy, an EmptyAuth authValue, and an
     /// Empty Policy authPolicy. </summary>
-    _NULL = 0x40000007,
+    TPM_NULL = 0x40000007,
 
     /// <summary> Value reserved to the TPM to indicate a handle location that has not been
     /// initialized or assigned </summary>
@@ -2070,7 +2070,7 @@ struct TPM_AT : public TpmEnum<std::uint32_t>
     ANY = 0x00000000,
 
     /// <summary> Indicates a TCG defined, device-specific error </summary>
-    _ERROR = 0x00000001,
+    TPM_ERROR = 0x00000001,
 
     /// <summary> Indicates the most significant 32 bits of a pairing value for the AC </summary>
     PV1 = 0x00000002,
@@ -3023,7 +3023,7 @@ const EnumID &enumID<TPMA_NV>::value;
 class TPM_DLLEXP TPMU_CAPABILITIES: public virtual TpmStructure
 {
     public: virtual TPM_CAP GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> Table 132 Definition of TPMU_ATTEST Union [OUT] </summary>
@@ -3033,7 +3033,7 @@ class TPM_DLLEXP TPMU_CAPABILITIES: public virtual TpmStructure
 class TPM_DLLEXP TPMU_ATTEST: public virtual TpmStructure
 {
     public: virtual TPM_ST GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> This union allows additional parameters to be added for a symmetric cipher.
@@ -3044,7 +3044,7 @@ class TPM_DLLEXP TPMU_ATTEST: public virtual TpmStructure
 class TPM_DLLEXP TPMU_SYM_DETAILS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> This structure allows a TPM2B_SENSITIVE_CREATE structure to carry either a
@@ -3055,7 +3055,7 @@ class TPM_DLLEXP TPMU_SYM_DETAILS: public virtual TpmStructure
 class TPM_DLLEXP TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> Table 157 Definition of TPMU_SCHEME_KEYEDHASH Union [IN/OUT] </summary>
@@ -3063,7 +3063,7 @@ class TPM_DLLEXP TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 class TPM_DLLEXP TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> This is the union of all of the signature schemes. </summary>
@@ -3073,7 +3073,7 @@ class TPM_DLLEXP TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
 class TPM_DLLEXP TPMU_SIG_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> Table 166 Definition of TPMU_KDF_SCHEME Union [IN/OUT] </summary>
@@ -3083,7 +3083,7 @@ class TPM_DLLEXP TPMU_SIG_SCHEME: public virtual TpmStructure
 class TPM_DLLEXP TPMU_KDF_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> This union of all asymmetric schemes is used in each of the asymmetric
@@ -3096,7 +3096,7 @@ class TPM_DLLEXP TPMU_KDF_SCHEME: public virtual TpmStructure
 class TPM_DLLEXP TPMU_ASYM_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> A TPMU_SIGNATURE_COMPOSITE is a union of the various signatures that are
@@ -3108,7 +3108,7 @@ class TPM_DLLEXP TPMU_ASYM_SCHEME: public virtual TpmStructure
 class TPM_DLLEXP TPMU_SIGNATURE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> This is the union of all values allowed in in the unique field of a
@@ -3118,7 +3118,7 @@ class TPM_DLLEXP TPMU_SIGNATURE: public virtual TpmStructure
 class TPM_DLLEXP TPMU_PUBLIC_ID: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> Table 199 defines the possible parameter definition structures that may be
@@ -3129,7 +3129,7 @@ class TPM_DLLEXP TPMU_PUBLIC_ID: public virtual TpmStructure
 class TPM_DLLEXP TPMU_PUBLIC_PARMS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> Table 205 Definition of TPMU_SENSITIVE_COMPOSITE Union [IN/OUT] </summary>
@@ -3138,7 +3138,7 @@ class TPM_DLLEXP TPMU_PUBLIC_PARMS: public virtual TpmStructure
 class TPM_DLLEXP TPMU_SENSITIVE_COMPOSITE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };
 };
 
 /// <summary> Handle of a loaded TPM key or other object [TSS] </summary>
@@ -3149,7 +3149,7 @@ public:
     std::uint32_t handle;
 
 public:
-    TPM_HANDLE() { handle = TPM_RH::_NULL; }
+    TPM_HANDLE() { handle = TPM_RH::TPM_NULL; }
     TPM_HANDLE(std::uint32_t _handle)
       : handle(_handle)
     {}
@@ -3175,7 +3175,7 @@ public:
     operator std::uint32_t() const { return handle; }
 
     /// <summary> Create a NULL TPM_HANDLE. </summary>
-    static TPM_HANDLE Null() { return TPM_RH::_NULL; }
+    static TPM_HANDLE Null() { return TPM_RH::TPM_NULL; }
 
     /// <summary> Create a handle for a persistent object </summary>
     /// <param name="handleOffset"> Offset in the integer range reserved for persistent handles </param>
@@ -3253,7 +3253,7 @@ class TPM_DLLEXP TPMS_NULL_UNION : public virtual TpmStructure, public TPMU_SYM_
 public:
 public:
     TPMS_NULL_UNION() {}
-    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
+    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Static marshaling helper </summary>
     static TPMS_NULL_UNION fromTpm(TpmBuffer& buf) { return buf.createObj<TPMS_NULL_UNION>(); }
@@ -3305,7 +3305,7 @@ public:
     TPMA_ALGORITHM attributes;
 
 public:
-    TPMS_ALGORITHM_DESCRIPTION() { alg = TPM_ALG_ID::_NULL; }
+    TPMS_ALGORITHM_DESCRIPTION() { alg = TPM_ALG_ID::TPM_NULL; }
     TPMS_ALGORITHM_DESCRIPTION(TPM_ALG_ID _alg, TPMA_ALGORITHM _attributes)
       : alg(_alg), attributes(_attributes)
     {}
@@ -3345,7 +3345,7 @@ public:
     ByteVec digest;
 
 public:
-    TPMT_HA() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPMT_HA() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPMT_HA(TPM_ALG_ID _hashAlg, const ByteVec& _digest)
       : hashAlg(_hashAlg), digest(_digest)
     {}
@@ -3741,7 +3741,7 @@ public:
     ByteVec pcrSelect;
 
 public:
-    TPMS_PCR_SELECTION() { hash = TPM_ALG_ID::_NULL; }
+    TPMS_PCR_SELECTION() { hash = TPM_ALG_ID::TPM_NULL; }
     TPMS_PCR_SELECTION(TPM_ALG_ID _hash, const ByteVec& _pcrSelect)
       : hash(_hash), pcrSelect(_pcrSelect)
     {}
@@ -3958,7 +3958,7 @@ public:
     TPMA_ALGORITHM algProperties;
 
 public:
-    TPMS_ALG_PROPERTY() { alg = TPM_ALG_ID::_NULL; }
+    TPMS_ALG_PROPERTY() { alg = TPM_ALG_ID::TPM_NULL; }
     TPMS_ALG_PROPERTY(TPM_ALG_ID _alg, TPMA_ALGORITHM _algProperties)
       : alg(_alg), algProperties(_algProperties)
     {}
@@ -4823,7 +4823,7 @@ public:
     ByteVec commandDigest;
 
 public:
-    TPMS_COMMAND_AUDIT_INFO() { digestAlg = TPM_ALG_ID::_NULL; }
+    TPMS_COMMAND_AUDIT_INFO() { digestAlg = TPM_ALG_ID::TPM_NULL; }
     TPMS_COMMAND_AUDIT_INFO(std::uint64_t _auditCounter, TPM_ALG_ID _digestAlg, const ByteVec& _auditDigest, const ByteVec& _commandDigest)
       : auditCounter(_auditCounter), digestAlg(_digestAlg), auditDigest(_auditDigest), commandDigest(_commandDigest)
     {}
@@ -5322,7 +5322,7 @@ class TPM_DLLEXP TPMS_NULL_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SYM_DETAILS() {}
-    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
+    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Static marshaling helper </summary>
     static TPMS_NULL_SYM_DETAILS fromTpm(TpmBuffer& buf) { return buf.createObj<TPMS_NULL_SYM_DETAILS>(); }
@@ -5356,8 +5356,8 @@ public:
 public:
     TPMT_SYM_DEF()
     {
-        algorithm = TPM_ALG_ID::_NULL;
-        mode = TPM_ALG_ID::_NULL;
+        algorithm = TPM_ALG_ID::TPM_NULL;
+        mode = TPM_ALG_ID::TPM_NULL;
     }
 
     TPMT_SYM_DEF(TPM_ALG_ID _algorithm, std::uint16_t _keyBits, TPM_ALG_ID _mode)
@@ -5407,8 +5407,8 @@ public:
 public:
     TPMT_SYM_DEF_OBJECT()
     {
-        algorithm = TPM_ALG_ID::_NULL;
-        mode = TPM_ALG_ID::_NULL;
+        algorithm = TPM_ALG_ID::TPM_NULL;
+        mode = TPM_ALG_ID::TPM_NULL;
     }
 
     TPMT_SYM_DEF_OBJECT(TPM_ALG_ID _algorithm, std::uint16_t _keyBits, TPM_ALG_ID _mode)
@@ -5722,7 +5722,7 @@ public:
     TPM_ALG_ID hashAlg;
 
 public:
-    TPMS_SCHEME_HASH() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPMS_SCHEME_HASH() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPMS_SCHEME_HASH(TPM_ALG_ID _hashAlg)
       : hashAlg(_hashAlg)
     {}
@@ -5758,7 +5758,7 @@ public:
     std::uint16_t count;
 
 public:
-    TPMS_SCHEME_ECDAA() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPMS_SCHEME_ECDAA() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPMS_SCHEME_ECDAA(TPM_ALG_ID _hashAlg, std::uint16_t _count)
       : hashAlg(_hashAlg), count(_count)
     {}
@@ -5821,8 +5821,8 @@ public:
 public:
     TPMS_SCHEME_XOR()
     {
-        hashAlg = TPM_ALG_ID::_NULL;
-        kdf = TPM_ALG_ID::_NULL;
+        hashAlg = TPM_ALG_ID::TPM_NULL;
+        kdf = TPM_ALG_ID::TPM_NULL;
     }
 
     TPMS_SCHEME_XOR(TPM_ALG_ID _hashAlg, TPM_ALG_ID _kdf)
@@ -5857,7 +5857,7 @@ class TPM_DLLEXP TPMS_NULL_SCHEME_KEYEDHASH : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SCHEME_KEYEDHASH() {}
-    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
+    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Static marshaling helper </summary>
     static TPMS_NULL_SCHEME_KEYEDHASH fromTpm(TpmBuffer& buf) { return buf.createObj<TPMS_NULL_SCHEME_KEYEDHASH>(); }
@@ -5878,7 +5878,7 @@ class TPM_DLLEXP TPMT_KEYEDHASH_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Selects the scheme </summary>
-    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The scheme parameters </summary>
     /// <remarks> One of: TPMS_SCHEME_HMAC, TPMS_SCHEME_XOR, TPMS_NULL_SCHEME_KEYEDHASH. </remarks>
@@ -6076,7 +6076,7 @@ class TPM_DLLEXP TPMS_NULL_SIG_SCHEME : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SIG_SCHEME() {}
-    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
+    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Static marshaling helper </summary>
     static TPMS_NULL_SIG_SCHEME fromTpm(TpmBuffer& buf) { return buf.createObj<TPMS_NULL_SIG_SCHEME>(); }
@@ -6097,7 +6097,7 @@ class TPM_DLLEXP TPMT_SIG_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Scheme parameters </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -6346,7 +6346,7 @@ class TPM_DLLEXP TPMS_NULL_KDF_SCHEME : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_KDF_SCHEME() {}
-    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
+    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Static marshaling helper </summary>
     static TPMS_NULL_KDF_SCHEME fromTpm(TpmBuffer& buf) { return buf.createObj<TPMS_NULL_KDF_SCHEME>(); }
@@ -6367,7 +6367,7 @@ class TPM_DLLEXP TPMT_KDF_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Scheme parameters </summary>
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
@@ -6408,7 +6408,7 @@ class TPM_DLLEXP TPMS_NULL_ASYM_SCHEME : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_ASYM_SCHEME() {}
-    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
+    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Static marshaling helper </summary>
     static TPMS_NULL_ASYM_SCHEME fromTpm(TpmBuffer& buf) { return buf.createObj<TPMS_NULL_ASYM_SCHEME>(); }
@@ -6431,7 +6431,7 @@ class TPM_DLLEXP TPMT_ASYM_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Scheme parameters </summary>
     /// <remarks> One of: TPMS_KEY_SCHEME_ECDH, TPMS_KEY_SCHEME_ECMQV, TPMS_SIG_SCHEME_RSASSA,
@@ -6470,7 +6470,7 @@ class TPM_DLLEXP TPMT_RSA_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Scheme parameters </summary>
     /// <remarks> One of: TPMS_KEY_SCHEME_ECDH, TPMS_KEY_SCHEME_ECMQV, TPMS_SIG_SCHEME_RSASSA,
@@ -6509,7 +6509,7 @@ class TPM_DLLEXP TPMT_RSA_DECRYPT : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Scheme parameters </summary>
     /// <remarks> One of: TPMS_KEY_SCHEME_ECDH, TPMS_KEY_SCHEME_ECMQV, TPMS_SIG_SCHEME_RSASSA,
@@ -6717,7 +6717,7 @@ class TPM_DLLEXP TPMT_ECC_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID scheme() const { return details ? details->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Scheme parameters </summary>
     /// <remarks> One of: TPMS_KEY_SCHEME_ECDH, TPMS_KEY_SCHEME_ECMQV, TPMS_SIG_SCHEME_RSASSA,
@@ -6763,7 +6763,7 @@ public:
     std::uint16_t keySize;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID kdfScheme() const { return kdf ? kdf->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID kdfScheme() const { return kdf ? kdf->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> If not TPM_ALG_NULL, the required KDF and hash algorithm used in secret
     /// sharing operations </summary>
@@ -6773,7 +6773,7 @@ public:
     std::shared_ptr<TPMU_KDF_SCHEME> kdf;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID signScheme() const { return sign ? sign->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signScheme() const { return sign ? sign->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> If not TPM_ALG_NULL, this is the mandatory signature scheme that is required
     /// to be used with this curve. </summary>
@@ -6841,7 +6841,7 @@ public:
     ByteVec sig;
 
 public:
-    TPMS_SIGNATURE_RSA() { hash = TPM_ALG_ID::_NULL; }
+    TPMS_SIGNATURE_RSA() { hash = TPM_ALG_ID::TPM_NULL; }
     TPMS_SIGNATURE_RSA(TPM_ALG_ID _hash, const ByteVec& _sig)
       : hash(_hash), sig(_sig)
     {}
@@ -6927,7 +6927,7 @@ public:
     ByteVec signatureS;
 
 public:
-    TPMS_SIGNATURE_ECC() { hash = TPM_ALG_ID::_NULL; }
+    TPMS_SIGNATURE_ECC() { hash = TPM_ALG_ID::TPM_NULL; }
     TPMS_SIGNATURE_ECC(TPM_ALG_ID _hash, const ByteVec& _signatureR, const ByteVec& _signatureS)
       : hash(_hash), signatureR(_signatureR), signatureS(_signatureS)
     {}
@@ -7059,7 +7059,7 @@ class TPM_DLLEXP TPMS_NULL_SIGNATURE : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SIGNATURE() {}
-    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
+    TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Static marshaling helper </summary>
     static TPMS_NULL_SIGNATURE fromTpm(TpmBuffer& buf) { return buf.createObj<TPMS_NULL_SIGNATURE>(); }
@@ -7084,7 +7084,7 @@ class TPM_DLLEXP TPMT_SIGNATURE : public TpmStructure
 {
 public:
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID sigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID sigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> This shall be the actual signature information. </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -7155,7 +7155,7 @@ class TPM_DLLEXP TPMS_KEYEDHASH_PARMS : public virtual TpmStructure, public TPMU
 {
 public:
     /// <summary> Selects the scheme </summary>
-    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Indicates the signing method used for a keyedHash signing object. This field
     /// also determines the size of the data field for a data object created with
@@ -7202,7 +7202,7 @@ public:
     TPMT_SYM_DEF_OBJECT symmetric;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> For a key with the sign attribute SET, a valid signing scheme for the key type
     /// for a key with the decrypt attribute SET, a valid key exchange protocol
@@ -7254,7 +7254,7 @@ public:
     TPMT_SYM_DEF_OBJECT symmetric;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Scheme.scheme shall be:
     /// for an unrestricted signing key, either TPM_ALG_RSAPSS TPM_ALG_RSASSA or TPM_ALG_NULL
@@ -7314,7 +7314,7 @@ public:
     TPMT_SYM_DEF_OBJECT symmetric;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID schemeScheme() const { return scheme ? scheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> If the sign attribute of the key is SET, then this shall be a valid signing scheme.
     /// NOTE If the sign parameter in curveID indicates a mandatory scheme, then this field
@@ -7332,7 +7332,7 @@ public:
     TPM_ECC_CURVE curveID;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID kdfScheme() const { return kdf ? kdf->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID kdfScheme() const { return kdf ? kdf->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> An optional key derivation scheme for generating a symmetric key from a Z value
     /// If the kdf parameter associated with curveID is not TPM_ALG_NULL then this is required
@@ -7442,7 +7442,7 @@ public:
     std::shared_ptr<TPMU_PUBLIC_ID> unique;
 
 public:
-    TPMT_PUBLIC() { nameAlg = TPM_ALG_ID::_NULL; }
+    TPMT_PUBLIC() { nameAlg = TPM_ALG_ID::TPM_NULL; }
     TPMT_PUBLIC(TPM_ALG_ID _nameAlg, TPMA_OBJECT _objectAttributes, const ByteVec& _authPolicy, const TPMU_PUBLIC_PARMS& _parameters, const TPMU_PUBLIC_ID& _unique)
       : nameAlg(_nameAlg), objectAttributes(_objectAttributes), authPolicy(_authPolicy), parameters(dynamic_cast<TPMU_PUBLIC_PARMS*>(_parameters.Clone())), unique(dynamic_cast<TPMU_PUBLIC_ID*>(_unique.Clone()))
     {}
@@ -7919,7 +7919,7 @@ public:
     std::uint16_t dataSize;
 
 public:
-    TPMS_NV_PUBLIC() { nameAlg = TPM_ALG_ID::_NULL; }
+    TPMS_NV_PUBLIC() { nameAlg = TPM_ALG_ID::TPM_NULL; }
     TPMS_NV_PUBLIC(const TPM_HANDLE& _nvIndex, TPM_ALG_ID _nameAlg, TPMA_NV _attributes, const ByteVec& _authPolicy, std::uint16_t _dataSize)
       : nvIndex(_nvIndex), nameAlg(_nameAlg), attributes(_attributes), authPolicy(_authPolicy), dataSize(_dataSize)
     {}
@@ -8159,7 +8159,7 @@ public:
     ByteVec outsideInfo;
 
 public:
-    TPMS_CREATION_DATA() { parentNameAlg = TPM_ALG_ID::_NULL; }
+    TPMS_CREATION_DATA() { parentNameAlg = TPM_ALG_ID::TPM_NULL; }
     TPMS_CREATION_DATA(const vector<TPMS_PCR_SELECTION>& _pcrSelect, const ByteVec& _pcrDigest, TPMA_LOCALITY _locality, TPM_ALG_ID _parentNameAlg, const ByteVec& _parentName, const ByteVec& _parentQualifiedName, const ByteVec& _outsideInfo)
       : pcrSelect(_pcrSelect), pcrDigest(_pcrDigest), locality(_locality), parentNameAlg(_parentNameAlg), parentName(_parentName), parentQualifiedName(_parentQualifiedName), outsideInfo(_outsideInfo)
     {}
@@ -8549,7 +8549,7 @@ public:
     TPM_ALG_ID authHash;
 
 public:
-    TPM2_StartAuthSession_REQUEST() { authHash = TPM_ALG_ID::_NULL; }
+    TPM2_StartAuthSession_REQUEST() { authHash = TPM_ALG_ID::TPM_NULL; }
     TPM2_StartAuthSession_REQUEST(const TPM_HANDLE& _tpmKey, const TPM_HANDLE& _bind, const ByteVec& _nonceCaller, const ByteVec& _encryptedSalt, TPM_SE _sessionType, const TPMT_SYM_DEF& _symmetric, TPM_ALG_ID _authHash)
       : tpmKey(_tpmKey), bind(_bind), nonceCaller(_nonceCaller), encryptedSalt(_encryptedSalt), sessionType(_sessionType), symmetric(_symmetric), authHash(_authHash)
     {}
@@ -9752,7 +9752,7 @@ public:
     ByteVec message;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The padding scheme to use if scheme associated with keyHandle is
     /// TPM_ALG_NULL </summary>
@@ -9850,7 +9850,7 @@ public:
     ByteVec cipherText;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The padding scheme to use if scheme associated with keyHandle is
     /// TPM_ALG_NULL </summary>
@@ -10174,7 +10174,7 @@ public:
     std::uint16_t counter;
 
 public:
-    TPM2_ZGen_2Phase_REQUEST() { inScheme = TPM_ALG_ID::_NULL; }
+    TPM2_ZGen_2Phase_REQUEST() { inScheme = TPM_ALG_ID::TPM_NULL; }
     TPM2_ZGen_2Phase_REQUEST(const TPM_HANDLE& _keyA, const TPMS_ECC_POINT& _inQsB, const TPMS_ECC_POINT& _inQeB, TPM_ALG_ID _inScheme, std::uint16_t _counter)
       : keyA(_keyA), inQsB(_inQsB), inQeB(_inQeB), inScheme(_inScheme), counter(_counter)
     {}
@@ -10255,7 +10255,7 @@ public:
     ByteVec plainText;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The KDF to use if scheme associated with keyHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
@@ -10352,7 +10352,7 @@ public:
     ByteVec C3;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The KDF to use if scheme associated with keyHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
@@ -10449,7 +10449,7 @@ public:
     ByteVec inData;
 
 public:
-    TPM2_EncryptDecrypt_REQUEST() { mode = TPM_ALG_ID::_NULL; }
+    TPM2_EncryptDecrypt_REQUEST() { mode = TPM_ALG_ID::TPM_NULL; }
     TPM2_EncryptDecrypt_REQUEST(const TPM_HANDLE& _keyHandle, bool _decrypt, TPM_ALG_ID _mode, const ByteVec& _ivIn, const ByteVec& _inData)
       : keyHandle(_keyHandle), decrypt(_decrypt), mode(_mode), ivIn(_ivIn), inData(_inData)
     {}
@@ -10539,7 +10539,7 @@ public:
     ByteVec ivIn;
 
 public:
-    TPM2_EncryptDecrypt2_REQUEST() { mode = TPM_ALG_ID::_NULL; }
+    TPM2_EncryptDecrypt2_REQUEST() { mode = TPM_ALG_ID::TPM_NULL; }
     TPM2_EncryptDecrypt2_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _inData, bool _decrypt, TPM_ALG_ID _mode, const ByteVec& _ivIn)
       : keyHandle(_keyHandle), inData(_inData), decrypt(_decrypt), mode(_mode), ivIn(_ivIn)
     {}
@@ -10621,7 +10621,7 @@ public:
     TPM_HANDLE hierarchy;
 
 public:
-    TPM2_Hash_REQUEST() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPM2_Hash_REQUEST() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPM2_Hash_REQUEST(const ByteVec& _data, TPM_ALG_ID _hashAlg, const TPM_HANDLE& _hierarchy)
       : data(_data), hashAlg(_hashAlg), hierarchy(_hierarchy)
     {}
@@ -10703,7 +10703,7 @@ public:
     TPM_ALG_ID hashAlg;
 
 public:
-    TPM2_HMAC_REQUEST() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPM2_HMAC_REQUEST() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPM2_HMAC_REQUEST(const TPM_HANDLE& _handle, const ByteVec& _buffer, TPM_ALG_ID _hashAlg)
       : handle(_handle), buffer(_buffer), hashAlg(_hashAlg)
     {}
@@ -10784,7 +10784,7 @@ public:
     TPM_ALG_ID inScheme;
 
 public:
-    TPM2_MAC_REQUEST() { inScheme = TPM_ALG_ID::_NULL; }
+    TPM2_MAC_REQUEST() { inScheme = TPM_ALG_ID::TPM_NULL; }
     TPM2_MAC_REQUEST(const TPM_HANDLE& _handle, const ByteVec& _buffer, TPM_ALG_ID _inScheme)
       : handle(_handle), buffer(_buffer), inScheme(_inScheme)
     {}
@@ -10967,7 +10967,7 @@ public:
     TPM_ALG_ID hashAlg;
 
 public:
-    TPM2_HMAC_Start_REQUEST() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPM2_HMAC_Start_REQUEST() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPM2_HMAC_Start_REQUEST(const TPM_HANDLE& _handle, const ByteVec& _auth, TPM_ALG_ID _hashAlg)
       : handle(_handle), auth(_auth), hashAlg(_hashAlg)
     {}
@@ -11049,7 +11049,7 @@ public:
     TPM_ALG_ID inScheme;
 
 public:
-    TPM2_MAC_Start_REQUEST() { inScheme = TPM_ALG_ID::_NULL; }
+    TPM2_MAC_Start_REQUEST() { inScheme = TPM_ALG_ID::TPM_NULL; }
     TPM2_MAC_Start_REQUEST(const TPM_HANDLE& _handle, const ByteVec& _auth, TPM_ALG_ID _inScheme)
       : handle(_handle), auth(_auth), inScheme(_inScheme)
     {}
@@ -11128,7 +11128,7 @@ public:
     TPM_ALG_ID hashAlg;
 
 public:
-    TPM2_HashSequenceStart_REQUEST() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPM2_HashSequenceStart_REQUEST() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPM2_HashSequenceStart_REQUEST(const ByteVec& _auth, TPM_ALG_ID _hashAlg)
       : auth(_auth), hashAlg(_hashAlg)
     {}
@@ -11433,7 +11433,7 @@ public:
     ByteVec qualifyingData;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -11485,7 +11485,7 @@ public:
     TPMS_ATTEST certifyInfo;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The asymmetric signature over certifyInfo using the key referenced by
     /// signHandle </summary>
@@ -11542,7 +11542,7 @@ public:
     ByteVec creationHash;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -11596,7 +11596,7 @@ public:
     TPMS_ATTEST certifyInfo;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The signature over certifyInfo </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -11642,7 +11642,7 @@ public:
     ByteVec qualifyingData;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -11693,7 +11693,7 @@ public:
     TPMS_ATTEST quoted;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The signature over quoted </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -11748,7 +11748,7 @@ public:
     ByteVec qualifyingData;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -11796,7 +11796,7 @@ public:
     TPMS_ATTEST auditInfo;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The signature over auditInfo </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -11849,7 +11849,7 @@ public:
     ByteVec qualifyingData;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -11899,7 +11899,7 @@ public:
     TPMS_ATTEST auditInfo;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The signature over auditInfo </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -11950,7 +11950,7 @@ public:
     ByteVec qualifyingData;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -11998,7 +11998,7 @@ public:
     TPMS_ATTEST timeInfo;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The signature over timeInfo </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -12054,7 +12054,7 @@ public:
     ByteVec reserved;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -12114,7 +12114,7 @@ public:
     ByteVec tbsDigest;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The signature over tbsDigest </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -12326,7 +12326,7 @@ public:
     ByteVec digest;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signature to be tested </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -12409,7 +12409,7 @@ public:
     ByteVec digest;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for keyHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -12460,7 +12460,7 @@ class TPM_DLLEXP SignResponse : public RespStructure
 {
 public:
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The signature </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -12512,7 +12512,7 @@ public:
     vector<TPM_CC> clearList;
 
 public:
-    TPM2_SetCommandCodeAuditStatus_REQUEST() { auditAlg = TPM_ALG_ID::_NULL; }
+    TPM2_SetCommandCodeAuditStatus_REQUEST() { auditAlg = TPM_ALG_ID::TPM_NULL; }
     TPM2_SetCommandCodeAuditStatus_REQUEST(const TPM_HANDLE& _auth, TPM_ALG_ID _auditAlg, const vector<TPM_CC>& _setList, const vector<TPM_CC>& _clearList)
       : auth(_auth), auditAlg(_auditAlg), setList(_setList), clearList(_clearList)
     {}
@@ -12838,7 +12838,7 @@ public:
     TPM_HANDLE pcrNum;
 
 public:
-    TPM2_PCR_SetAuthPolicy_REQUEST() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPM2_PCR_SetAuthPolicy_REQUEST() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPM2_PCR_SetAuthPolicy_REQUEST(const TPM_HANDLE& _authHandle, const ByteVec& _authPolicy, TPM_ALG_ID _hashAlg, const TPM_HANDLE& _pcrNum)
       : authHandle(_authHandle), authPolicy(_authPolicy), hashAlg(_hashAlg), pcrNum(_pcrNum)
     {}
@@ -12986,7 +12986,7 @@ public:
     std::int32_t expiration;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID authSigAlg() const { return auth ? auth->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID authSigAlg() const { return auth ? auth->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signed authorization (not optional) </summary>
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
@@ -14221,7 +14221,7 @@ public:
     TPM_ALG_ID hashAlg;
 
 public:
-    TPM2_SetPrimaryPolicy_REQUEST() { hashAlg = TPM_ALG_ID::_NULL; }
+    TPM2_SetPrimaryPolicy_REQUEST() { hashAlg = TPM_ALG_ID::TPM_NULL; }
     TPM2_SetPrimaryPolicy_REQUEST(const TPM_HANDLE& _authHandle, const ByteVec& _authPolicy, TPM_ALG_ID _hashAlg)
       : authHandle(_authHandle), authPolicy(_authPolicy), hashAlg(_hashAlg)
     {}
@@ -14654,7 +14654,7 @@ public:
     ByteVec fuDigest;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID manifestSignatureSigAlg() const { return manifestSignature ? manifestSignature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID manifestSignatureSigAlg() const { return manifestSignature ? manifestSignature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signature over fuDigest using the key associated with keyHandle (not
     /// optional) </summary>
@@ -15974,7 +15974,7 @@ public:
     ByteVec qualifyingData;
 
     /// <summary> Scheme selector </summary>
-    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID inSchemeScheme() const { return inScheme ? inScheme->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> Signing scheme to use if the scheme for signHandle is TPM_ALG_NULL </summary>
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
@@ -16030,7 +16030,7 @@ public:
     TPMS_ATTEST certifyInfo;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
-    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::_NULL; }
+    public: TPM_ALG_ID signatureSigAlg() const { return signature ? signature->GetUnionSelector() : TPM_ALG_ID::TPM_NULL; }
 
     /// <summary> The asymmetric signature over certifyInfo using the key referenced by
     /// signHandle </summary>

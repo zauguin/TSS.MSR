@@ -8,7 +8,7 @@
 operator std::uint32_t() const { return handle; }
 
 /// <summary> Create a NULL TPM_HANDLE. </summary>
-static TPM_HANDLE Null() { return TPM_RH::_NULL; }
+static TPM_HANDLE Null() { return TPM_RH::TPM_NULL; }
 
 /// <summary> Create a handle for a persistent object </summary>
 /// <param name="handleOffset"> Offset in the integer range reserved for persistent handles </param>
