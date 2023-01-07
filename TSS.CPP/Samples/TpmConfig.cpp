@@ -26,7 +26,7 @@ void TpmConfig::Init(Tpm2& tpm)
         return;
     }
 
-    UINT32 startProp = TPM_ALG_ID::FIRST;
+    std::uint32_t startProp = TPM_ALG_ID::FIRST;
     GetCapabilityResponse resp;
     do {
         resp = tpm.GetCapability(TPM_CAP::ALGS, startProp, TPM_ALG_ID::LAST - startProp + 1);
@@ -43,12 +43,12 @@ void TpmConfig::Init(Tpm2& tpm)
                 HashAlgs.push_back(p.alg);
             }
         }
-        startProp = (UINT32)algProps.back().alg + 1;
+        startProp = (std::uint32_t)algProps.back().alg + 1;
     } while (resp.moreData);
 
     startProp = TPM_CC::FIRST;
     do {
-        const UINT32 MaxVendorCmds = 32;
+        const std::uint32_t MaxVendorCmds = 32;
         resp = tpm.GetCapability(TPM_CAP::COMMANDS, startProp,
                                  TPM_CC::LAST - startProp + MaxVendorCmds + 1);
         auto capData = dynamic_cast<TPML_CCA*>(&*resp.capabilityData);

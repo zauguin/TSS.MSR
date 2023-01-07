@@ -53,7 +53,7 @@ void Samples::PWAPAuth()
 void Samples::Errors()
 {
     // Construct an ilegal handle value
-    TPM_HANDLE invalidHandle((UINT32) - 1);
+    TPM_HANDLE invalidHandle((std::uint32_t) - 1);
 
     // Try to read the associated information
     try {
@@ -84,7 +84,7 @@ void Samples::Errors()
 
 void Samples::Structures()
 {
-    UINT32 pcrIndex = 0;
+    std::uint32_t pcrIndex = 0;
 
     // "Event" PCR-0 with the binary data
     tpm.PCR_Event(pcrIndex, ByteVec { 0, 1, 2, 3, 4 });
@@ -182,8 +182,8 @@ void Samples::HMACSessions()
 
     // And make sure that it's good
     _ASSERT(equal(toWrite.begin(), toWrite.end(), dataRead.begin() + Offset));
-    _ASSERT(all_of(dataRead.begin(), dataRead.begin() + Offset, [](BYTE b){ return b == 0; }) ||
-            all_of(dataRead.begin(), dataRead.begin() + Offset, [](BYTE b){ return b == 0xFF; }));
+    _ASSERT(all_of(dataRead.begin(), dataRead.begin() + Offset, [](TpmCpp::byte b){ return b == 0; }) ||
+            all_of(dataRead.begin(), dataRead.begin() + Offset, [](TpmCpp::byte b){ return b == 0xFF; }));
 
     // Clean up
     if (tpm._GetDevice().PlatformAvailable())
@@ -303,7 +303,7 @@ void Samples::ThreeElementPolicy()
     // and that the command be issued at locality 1.
 
     // First set PCR-15 to an "interesting" value and read it.
-    UINT32 pcr = 15;
+    std::uint32_t pcr = 15;
     TPM_ALG_ID bank = TPM_ALG_ID::SHA1;
     tpm.PCR_Event(TPM_HANDLE::Pcr(pcr), ByteVec { 1, 2, 3, 4 });
 

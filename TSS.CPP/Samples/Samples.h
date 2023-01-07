@@ -107,7 +107,7 @@ class Samples {
     protected:
         void Announce(const char *testName);
         void RecoverTpm();
-        void SetColor(UINT16 col);
+        void SetColor(std::uint16_t col);
         int GetSystemTime(bool reset = false);
         void Sleep(int numMillisecs);
         TPM_HANDLE MakeHmacPrimaryWithPolicy(const TPM_HASH& policy, const ByteVec& keyAuth);

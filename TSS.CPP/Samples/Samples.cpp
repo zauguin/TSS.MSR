@@ -170,10 +170,10 @@ void Samples::Announce(const char *testName)
 
 
 /// <summary> This routine throws an exception if there is a key or session left in the TPM </summary>
-void AssertNoHandlesOfType(Tpm2& tpm, TPM_HT handleType, UINT32 rangeBegin = 0, UINT32 rangeEnd = 0x00FFFFFF)
+void AssertNoHandlesOfType(Tpm2& tpm, TPM_HT handleType, std::uint32_t rangeBegin = 0, std::uint32_t rangeEnd = 0x00FFFFFF)
 {
-    UINT32  startHandle = (handleType << 24) + rangeBegin,
-            rangeSize = rangeEnd - rangeBegin;
+    std::uint32_t  startHandle = (handleType << 24) + rangeBegin,
+                   rangeSize = rangeEnd - rangeBegin;
     auto resp = tpm.GetCapability(TPM_CAP::HANDLES, startHandle, rangeSize);
     auto handles = dynamic_cast<TPML_HANDLE*>(&*resp.capabilityData)->handle;
     if (!handles.empty() && handles[0].handle < startHandle + rangeSize)
@@ -193,10 +193,10 @@ void Samples::AssertNoLoadedKeys()
     AssertNoHandlesOfType(tpm, TPM_HT::NV_INDEX, NvRangeBegin, NvRangeEnd);
 }
 
-void CleanHandlesOfType(Tpm2& tpm, TPM_HT handleType, UINT32 rangeBegin = 0, UINT32 rangeEnd = 0x00FFFFFF)
+void CleanHandlesOfType(Tpm2& tpm, TPM_HT handleType, std::uint32_t rangeBegin = 0, std::uint32_t rangeEnd = 0x00FFFFFF)
 {
-    UINT32  startHandle = (handleType << 24) + rangeBegin,
-            rangeSize = rangeEnd - rangeBegin;
+    std::uint32_t  startHandle = (handleType << 24) + rangeBegin,
+                   rangeSize = rangeEnd - rangeBegin;
     GetCapabilityResponse resp;
     size_t count = 0;
     for(;;)
@@ -227,7 +227,7 @@ void CleanHandlesOfType(Tpm2& tpm, TPM_HT handleType, UINT32 rangeBegin = 0, UIN
 
         if (!resp.moreData)
             break;
-        auto newStart = (UINT32)handles.back().handle + 1;
+        auto newStart = (std::uint32_t)handles.back().handle + 1;
         rangeSize -= newStart - startHandle;
         startHandle = newStart;
     }
@@ -394,10 +394,10 @@ void Samples::Rand()
     cout << "more random bytes: " << rand << endl;
 }
 
-void Samples::SetColor(UINT16 col)
+void Samples::SetColor(std::uint16_t col)
 {
 #ifdef _WIN32
-    UINT16 fColor;
+    std::uint16_t fColor;
     switch (col) {
         case 0:
             fColor = FOREGROUND_GREEN;
@@ -457,7 +457,7 @@ void Samples::PCR()
     }
 
     // Extend a resettable PCR
-    UINT32 resettablePcr = 16;
+    std::uint32_t resettablePcr = 16;
     tpm.PCR_Event(TPM_HANDLE::Pcr(resettablePcr), { 1, 2, 3 });
     auto resettablePcrVal = tpm.PCR_Read({{TPM_ALG_ID::SHA1, resettablePcr}});
     cout << "Resettable PCR before reset: " << resettablePcrVal.pcrValues[0] << endl;
@@ -480,7 +480,7 @@ void Samples::Locality()
     Announce("Locality");
 
     // Extend the resettable PCR
-    UINT32 locTwoResettablePcr = 21;
+    std::uint32_t locTwoResettablePcr = 21;
 
     tpm._GetDevice().SetLocality(2);
     tpm.PCR_Event(TPM_HANDLE::Pcr(locTwoResettablePcr), { 1, 2, 3, 4 });
@@ -641,7 +641,7 @@ void Samples::GetCapability()
 {
     Announce("GetCapability");
 
-    UINT32 startVal = 0;
+    std::uint32_t startVal = 0;
 
     cout << "Algorithms:" << endl;
 
@@ -881,7 +881,7 @@ void Samples::NV()
 
     // Should be able set bits
     cout << "Bit setting:" << endl;
-    UINT64 bit = 1;
+    std::uint64_t bit = 1;
     for (int j = 0; j < 64; j++)
     {
         tpm.NV_SetBits(nvHandle, nvHandle, bit);
@@ -1003,8 +1003,8 @@ void Samples::TpmCallback(const ByteVec& command, const ByteVec& response)
 {
     // Extract the command and responses codes from the buffers.
     // Both are 4 bytes long starting at byte 6
-    UINT32 *commandCodePtr = (UINT32*) &command[6];
-    UINT32 *responseCodePtr = (UINT32*) &response[6];
+    std::uint32_t *commandCodePtr = (std::uint32_t*) &command[6];
+    std::uint32_t *responseCodePtr = (std::uint32_t*) &response[6];
 
     TPM_CC cmdCode = (TPM_CC)ntohl(*commandCodePtr);
     TPM_RC rcCode = (TPM_RC)ntohl(*responseCodePtr);
@@ -1294,7 +1294,7 @@ void Samples::PolicyPCRSample()
 
     // First set a PCR to a value
     TPM_ALG_ID bank = TPM_ALG_ID::SHA1;
-    UINT32 pcr = 15;   
+    std::uint32_t pcr = 15;   
 
     tpm.PCR_Event(TPM_HANDLE::Pcr(pcr), { 1, 2, 3, 4 });
 
@@ -1488,7 +1488,7 @@ void Samples::PolicyORSample()
 
     // First set a PCR to a value
     TPM_ALG_ID bank = TPM_ALG_ID::SHA1;
-    UINT32 pcr = 15;
+    std::uint32_t pcr = 15;
     tpm.PCR_Event(TPM_HANDLE::Pcr(pcr), { 1, 2, 3, 4 });
 
     // Read the current value
@@ -1728,7 +1728,7 @@ void Samples::Attestation()
     tpm.NV_Write(nvHandle, nvHandle, toWrite, 0);
 
     auto nvQuote = tpm.NV_Certify(sigKey, nvHandle, nvHandle, nonce,
-                                  TPMS_NULL_SIG_SCHEME(), (UINT16)toWrite.size(), 0);
+                                  TPMS_NULL_SIG_SCHEME(), (std::uint16_t)toWrite.size(), 0);
 
     sigOk = pubKey.outPublic.ValidateCertifyNV(nonce, toWrite, 0, nvQuote);
     if (sigOk)
@@ -1845,7 +1845,7 @@ void Samples::DictionaryAttack()
     tpm.DictionaryAttackLockReset(TPM_RH::LOCKOUT);
 
     // And set the TPM to be fairly forgiving for running the tests
-    UINT32 newMaxTries = 1000, newRecoverTime = 1, lockoutAuthFailRecoveryTime = 1;
+    std::uint32_t newMaxTries = 1000, newRecoverTime = 1, lockoutAuthFailRecoveryTime = 1;
     tpm.DictionaryAttackParameters(TPM_RH::LOCKOUT, newMaxTries, newRecoverTime,
                                    lockoutAuthFailRecoveryTime);
 } // DictionaryAttack()
@@ -1935,8 +1935,8 @@ void Samples::PolicyCounterTimerSample()
     // Here we will demontrate giving a user owner-privileges for ~7 seconds
 
     TPMS_TIME_INFO startClock = tpm.ReadClock();
-    UINT64 nowTime = startClock.time;
-    UINT64 endTime = nowTime + 5 * 1000;
+    std::uint64_t nowTime = startClock.time;
+    std::uint64_t endTime = nowTime + 5 * 1000;
 
     // we can now make a policy that authorizes this CpHash
     PolicyTree p(::PolicyCounterTimer(endTime, 0, TPM_EO::UNSIGNED_LT));
@@ -2051,7 +2051,7 @@ void Samples::Unseal()
     // any other policy. Here we demonstrate the classic Unseal() requiring PCR and a
     // auth-value.
 
-    UINT32 pcr = 15;
+    std::uint32_t pcr = 15;
     TPM_ALG_ID bank = TPM_ALG_ID::SHA1;
 
     // Set the PCR to something
@@ -2437,7 +2437,7 @@ void Samples::MiscAdmin()
 
     // We should be able to set time forward
     int dt = 10000000;
-    UINT64 newClock = startClock.clockInfo.clock + dt;
+    std::uint64_t newClock = startClock.clockInfo.clock + dt;
 
     tpm.ClockSet(TPM_RH::OWNER, newClock);
 
@@ -2543,8 +2543,8 @@ void Samples::MiscAdmin()
     {
         // The TPM simulator starts off with SHA256 PCR. Let's delete them.
         // --- REVISIT: The GetCap shows this as not working
-        auto resp = tpm.PCR_Allocate(TPM_RH::PLATFORM, {{TPM_ALG_ID::SHA1, vector<UINT32>{0, 1, 2, 3, 4}},
-                                                        {TPM_ALG_ID::SHA256, vector<UINT32>{0, 23}} });
+        auto resp = tpm.PCR_Allocate(TPM_RH::PLATFORM, {{TPM_ALG_ID::SHA1, vector<std::uint32_t>{0, 1, 2, 3, 4}},
+                                                        {TPM_ALG_ID::SHA256, vector<std::uint32_t>{0, 23}} });
         _ASSERT(resp.allocationSuccess);
 
         // We have to restart the TPM for this to take effect
@@ -2571,7 +2571,7 @@ void Samples::MiscAdmin()
         cout << endl;
 
         // And put things back the way they were
-        vector<UINT32> standardPcr(24);
+        vector<std::uint32_t> standardPcr(24);
         iota(standardPcr.begin(), standardPcr.end(), 0);
         resp = tpm.PCR_Allocate(TPM_RH::PLATFORM, { {TPM_ALG_ID::SHA1, standardPcr},
                                                     {TPM_ALG_ID::SHA256, standardPcr} });
@@ -2886,7 +2886,7 @@ void Samples::SoftwareKeys()
 } // SoftwareKeys()
 
 TSS_KEY *signingKey = NULL;
-SignResponse MyPolicySignedCallback(const ByteVec& nonceTpm, UINT32 expiration, const ByteVec& cpHashA,
+SignResponse MyPolicySignedCallback(const ByteVec& nonceTpm, std::uint32_t expiration, const ByteVec& cpHashA,
                                     const ByteVec& policyRef, const string& tag)
 {
     // In normal operation, the calling program will check what
@@ -3094,8 +3094,8 @@ void Samples::EncryptDecryptSample()
     ByteVec toEncrypt { 1, 2, 3, 4, 5, 4, 3, 2, 12, 3, 4, 5 };
     ByteVec iv(16);
 
-    auto encrypted = tpm.EncryptDecrypt(aesHandle, (BYTE)0, TPM_ALG_ID::CFB, iv, toEncrypt);
-    auto decrypted = tpm.EncryptDecrypt(aesHandle, (BYTE)1, TPM_ALG_ID::CFB, iv, encrypted.outData);
+    auto encrypted = tpm.EncryptDecrypt(aesHandle, false, TPM_ALG_ID::CFB, iv, toEncrypt);
+    auto decrypted = tpm.EncryptDecrypt(aesHandle, true, TPM_ALG_ID::CFB, iv, encrypted.outData);
 
     cout << "AES encryption" << endl <<
             "in:  " << toEncrypt << endl <<
