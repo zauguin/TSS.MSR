@@ -27,564 +27,280 @@ using namespace std;
 // ------------------------------------------------------------------------------------------------
 
 
-map<size_t, map<uint32_t, string>> Enum2StrMap {
-    { typeid(TPM_ALG_ID).hash_code(), { {0x0,"_ERROR"}, {0x1,"FIRST"}, {0x1,"RSA"},
-            {0x3,"TDES"}, {0x4,"SHA"}, {0x4,"SHA1"}, {0x5,"HMAC"}, {0x6,"AES"}, {0x7,"MGF1"},
-            {0x8,"KEYEDHASH"}, {0xA,"XOR"}, {0xB,"SHA256"}, {0xC,"SHA384"}, {0xD,"SHA512"},
-            {0x10,"_NULL"}, {0x12,"SM3_256"}, {0x13,"SM4"}, {0x14,"RSASSA"}, {0x15,"RSAES"},
-            {0x16,"RSAPSS"}, {0x17,"OAEP"}, {0x18,"ECDSA"}, {0x19,"ECDH"}, {0x1A,"ECDAA"},
-            {0x1B,"SM2"}, {0x1C,"ECSCHNORR"}, {0x1D,"ECMQV"}, {0x20,"KDF1_SP800_56A"},
-            {0x21,"KDF2"}, {0x22,"KDF1_SP800_108"}, {0x23,"ECC"}, {0x25,"SYMCIPHER"},
-            {0x26,"CAMELLIA"}, {0x27,"SHA3_256"}, {0x28,"SHA3_384"}, {0x29,"SHA3_512"},
-            {0x3F,"CMAC"}, {0x40,"CTR"}, {0x41,"OFB"}, {0x42,"CBC"}, {0x43,"CFB"},
-            {0x44,"ECB"}, {0x44,"LAST"}, {0x7FFF,"ANY"}, {0x7FFE,"ANY2"} } },
-    { typeid(TPM_ECC_CURVE).hash_code(), { {0x0,"NONE"}, {0x1,"NIST_P192"}, {0x2,"NIST_P224"},
-            {0x3,"NIST_P256"}, {0x4,"NIST_P384"}, {0x5,"NIST_P521"}, {0x10,"BN_P256"},
-            {0x11,"BN_P638"}, {0x20,"SM2_P256"}, {0x21,"TEST_P192"} } },
-    { typeid(SHA1).hash_code(), { {0x14,"DIGEST_SIZE"}, {0x40,"BLOCK_SIZE"} } },
-    { typeid(SHA256).hash_code(), { {0x20,"DIGEST_SIZE"}, {0x40,"BLOCK_SIZE"} } },
-    { typeid(SHA384).hash_code(), { {0x30,"DIGEST_SIZE"}, {0x80,"BLOCK_SIZE"} } },
-    { typeid(SHA512).hash_code(), { {0x40,"DIGEST_SIZE"}, {0x80,"BLOCK_SIZE"} } },
-    { typeid(SM3_256).hash_code(), { {0x20,"DIGEST_SIZE"}, {0x40,"BLOCK_SIZE"} } },
-    { typeid(SHA3_256).hash_code(), { {0x20,"DIGEST_SIZE"}, {0x88,"BLOCK_SIZE"} } },
-    { typeid(SHA3_384).hash_code(), { {0x30,"DIGEST_SIZE"}, {0x68,"BLOCK_SIZE"} } },
-    { typeid(SHA3_512).hash_code(), { {0x40,"DIGEST_SIZE"}, {0x48,"BLOCK_SIZE"} } },
-    { typeid(Logic).hash_code(), { {0x1,"_TRUE"}, {0x0,"_FALSE"}, {0x1,"YES"}, {0x0,"NO"},
-            {0x1,"SET"}, {0x0,"CLEAR"} } },
-    { typeid(TPM_SPEC).hash_code(), { {0x322E3000,"FAMILY"}, {0x0,"LEVEL"}, {0xA2,"VERSION"},
-            {0x7E3,"YEAR"}, {0x168,"DAY_OF_YEAR"} } },
-    { typeid(TPM_GENERATED).hash_code(), { {0xFF544347,"VALUE"} } },
-    { typeid(TPM_CC).hash_code(), { {0x11F,"FIRST"}, {0x11F,"NV_UndefineSpaceSpecial"},
-            {0x120,"EvictControl"}, {0x121,"HierarchyControl"}, {0x122,"NV_UndefineSpace"},
-            {0x124,"ChangeEPS"}, {0x125,"ChangePPS"}, {0x126,"Clear"}, {0x127,"ClearControl"},
-            {0x128,"ClockSet"}, {0x129,"HierarchyChangeAuth"}, {0x12A,"NV_DefineSpace"},
-            {0x12B,"PCR_Allocate"}, {0x12C,"PCR_SetAuthPolicy"}, {0x12D,"PP_Commands"},
-            {0x12E,"SetPrimaryPolicy"}, {0x12F,"FieldUpgradeStart"},
-            {0x130,"ClockRateAdjust"}, {0x131,"CreatePrimary"}, {0x132,"NV_GlobalWriteLock"},
-            {0x133,"GetCommandAuditDigest"}, {0x134,"NV_Increment"}, {0x135,"NV_SetBits"},
-            {0x136,"NV_Extend"}, {0x137,"NV_Write"}, {0x138,"NV_WriteLock"},
-            {0x139,"DictionaryAttackLockReset"}, {0x13A,"DictionaryAttackParameters"},
-            {0x13B,"NV_ChangeAuth"}, {0x13C,"PCR_Event"}, {0x13D,"PCR_Reset"},
-            {0x13E,"SequenceComplete"}, {0x13F,"SetAlgorithmSet"},
-            {0x140,"SetCommandCodeAuditStatus"}, {0x141,"FieldUpgradeData"},
-            {0x142,"IncrementalSelfTest"}, {0x143,"SelfTest"}, {0x144,"Startup"},
-            {0x145,"Shutdown"}, {0x146,"StirRandom"}, {0x147,"ActivateCredential"},
-            {0x148,"Certify"}, {0x149,"PolicyNV"}, {0x14A,"CertifyCreation"},
-            {0x14B,"Duplicate"}, {0x14C,"GetTime"}, {0x14D,"GetSessionAuditDigest"},
-            {0x14E,"NV_Read"}, {0x14F,"NV_ReadLock"}, {0x150,"ObjectChangeAuth"},
-            {0x151,"PolicySecret"}, {0x152,"Rewrap"}, {0x153,"Create"}, {0x154,"ECDH_ZGen"},
-            {0x155,"HMAC"}, {0x155,"MAC"}, {0x156,"Import"}, {0x157,"Load"}, {0x158,"Quote"},
-            {0x159,"RSA_Decrypt"}, {0x15B,"HMAC_Start"}, {0x15B,"MAC_Start"},
-            {0x15C,"SequenceUpdate"}, {0x15D,"Sign"}, {0x15E,"Unseal"},
-            {0x160,"PolicySigned"}, {0x161,"ContextLoad"}, {0x162,"ContextSave"},
-            {0x163,"ECDH_KeyGen"}, {0x164,"EncryptDecrypt"}, {0x165,"FlushContext"},
-            {0x167,"LoadExternal"}, {0x168,"MakeCredential"}, {0x169,"NV_ReadPublic"},
-            {0x16A,"PolicyAuthorize"}, {0x16B,"PolicyAuthValue"}, {0x16C,"PolicyCommandCode"},
-            {0x16D,"PolicyCounterTimer"}, {0x16E,"PolicyCpHash"}, {0x16F,"PolicyLocality"},
-            {0x170,"PolicyNameHash"}, {0x171,"PolicyOR"}, {0x172,"PolicyTicket"},
-            {0x173,"ReadPublic"}, {0x174,"RSA_Encrypt"}, {0x176,"StartAuthSession"},
-            {0x177,"VerifySignature"}, {0x178,"ECC_Parameters"}, {0x179,"FirmwareRead"},
-            {0x17A,"GetCapability"}, {0x17B,"GetRandom"}, {0x17C,"GetTestResult"},
-            {0x17D,"Hash"}, {0x17E,"PCR_Read"}, {0x17F,"PolicyPCR"}, {0x180,"PolicyRestart"},
-            {0x181,"ReadClock"}, {0x182,"PCR_Extend"}, {0x183,"PCR_SetAuthValue"},
-            {0x184,"NV_Certify"}, {0x185,"EventSequenceComplete"},
-            {0x186,"HashSequenceStart"}, {0x187,"PolicyPhysicalPresence"},
-            {0x188,"PolicyDuplicationSelect"}, {0x189,"PolicyGetDigest"}, {0x18A,"TestParms"},
-            {0x18B,"Commit"}, {0x18C,"PolicyPassword"}, {0x18D,"ZGen_2Phase"},
-            {0x18E,"EC_Ephemeral"}, {0x18F,"PolicyNvWritten"}, {0x190,"PolicyTemplate"},
-            {0x191,"CreateLoaded"}, {0x192,"PolicyAuthorizeNV"}, {0x193,"EncryptDecrypt2"},
-            {0x194,"AC_GetCapability"}, {0x195,"AC_Send"}, {0x196,"Policy_AC_SendSelect"},
-            {0x197,"CertifyX509"}, {0x198,"ACT_SetTimeout"}, {0x199,"ECC_Encrypt"},
-            {0x19A,"ECC_Decrypt"}, {0x19A,"LAST"}, {0x20000000,"CC_VEND"},
-            {0x20000000,"Vendor_TCG_Test"} } },
-    { typeid(ImplementationConstants).hash_code(), { {0x1,"Ossl"}, {0x2,"Ltc"}, {0x3,"Msbn"},
-            {0x4,"Symcrypt"}, {0x3,"HASH_COUNT"}, {0x100,"MAX_SYM_KEY_BITS"},
-            {0x20,"MAX_SYM_KEY_BYTES"}, {0x10,"MAX_SYM_BLOCK_SIZE"}, {0x19A,"MAX_CAP_CC"},
-            {0x100,"MAX_RSA_KEY_BYTES"}, {0x20,"MAX_AES_KEY_BYTES"},
-            {0x30,"MAX_ECC_KEY_BYTES"}, {0x20,"LABEL_MAX_BUFFER"}, {0x4,"_TPM_CAP_SIZE"},
-            {0x3F8,"MAX_CAP_DATA"}, {0xA9,"MAX_CAP_ALGS"}, {0xFE,"MAX_CAP_HANDLES"},
-            {0x7F,"MAX_TPM_PROPERTIES"}, {0xCB,"MAX_PCR_PROPERTIES"},
-            {0x1FC,"MAX_ECC_CURVES"}, {0xE,"MAX_TAGGED_POLICIES"},
-            {0x7F,"MAX_AC_CAPABILITIES"}, {0x54,"MAX_ACT_DATA"} } },
-    { typeid(TPM_RC).hash_code(), { {0x0,"SUCCESS"}, {0x1E,"BAD_TAG"}, {0x100,"RC_VER1"},
-            {0x100,"INITIALIZE"}, {0x101,"FAILURE"}, {0x103,"SEQUENCE"}, {0x10B,"PRIVATE"},
-            {0x119,"HMAC"}, {0x120,"DISABLED"}, {0x121,"EXCLUSIVE"}, {0x124,"AUTH_TYPE"},
-            {0x125,"AUTH_MISSING"}, {0x126,"POLICY"}, {0x127,"PCR"}, {0x128,"PCR_CHANGED"},
-            {0x12D,"UPGRADE"}, {0x12E,"TOO_MANY_CONTEXTS"}, {0x12F,"AUTH_UNAVAILABLE"},
-            {0x130,"REBOOT"}, {0x131,"UNBALANCED"}, {0x142,"COMMAND_SIZE"},
-            {0x143,"COMMAND_CODE"}, {0x144,"AUTHSIZE"}, {0x145,"AUTH_CONTEXT"},
-            {0x146,"NV_RANGE"}, {0x147,"NV_SIZE"}, {0x148,"NV_LOCKED"},
-            {0x149,"NV_AUTHORIZATION"}, {0x14A,"NV_UNINITIALIZED"}, {0x14B,"NV_SPACE"},
-            {0x14C,"NV_DEFINED"}, {0x150,"BAD_CONTEXT"}, {0x151,"CPHASH"}, {0x152,"PARENT"},
-            {0x153,"NEEDS_TEST"}, {0x154,"NO_RESULT"}, {0x155,"SENSITIVE"},
-            {0x17F,"RC_MAX_FM0"}, {0x80,"RC_FMT1"}, {0x81,"ASYMMETRIC"}, {0x82,"ATTRIBUTES"},
-            {0x83,"HASH"}, {0x84,"VALUE"}, {0x85,"HIERARCHY"}, {0x87,"KEY_SIZE"},
-            {0x88,"MGF"}, {0x89,"MODE"}, {0x8A,"TYPE"}, {0x8B,"HANDLE"}, {0x8C,"KDF"},
-            {0x8D,"RANGE"}, {0x8E,"AUTH_FAIL"}, {0x8F,"NONCE"}, {0x90,"PP"}, {0x92,"SCHEME"},
-            {0x95,"SIZE"}, {0x96,"SYMMETRIC"}, {0x97,"TAG"}, {0x98,"SELECTOR"},
-            {0x9A,"INSUFFICIENT"}, {0x9B,"SIGNATURE"}, {0x9C,"KEY"}, {0x9D,"POLICY_FAIL"},
-            {0x9F,"INTEGRITY"}, {0xA0,"TICKET"}, {0xA1,"RESERVED_BITS"}, {0xA2,"BAD_AUTH"},
-            {0xA3,"EXPIRED"}, {0xA4,"POLICY_CC"}, {0xA5,"BINDING"}, {0xA6,"CURVE"},
-            {0xA7,"ECC_POINT"}, {0x900,"RC_WARN"}, {0x901,"CONTEXT_GAP"},
-            {0x902,"OBJECT_MEMORY"}, {0x903,"SESSION_MEMORY"}, {0x904,"MEMORY"},
-            {0x905,"SESSION_HANDLES"}, {0x906,"OBJECT_HANDLES"}, {0x907,"LOCALITY"},
-            {0x908,"YIELDED"}, {0x909,"CANCELED"}, {0x90A,"TESTING"}, {0x910,"REFERENCE_H0"},
-            {0x911,"REFERENCE_H1"}, {0x912,"REFERENCE_H2"}, {0x913,"REFERENCE_H3"},
-            {0x914,"REFERENCE_H4"}, {0x915,"REFERENCE_H5"}, {0x916,"REFERENCE_H6"},
-            {0x918,"REFERENCE_S0"}, {0x919,"REFERENCE_S1"}, {0x91A,"REFERENCE_S2"},
-            {0x91B,"REFERENCE_S3"}, {0x91C,"REFERENCE_S4"}, {0x91D,"REFERENCE_S5"},
-            {0x91E,"REFERENCE_S6"}, {0x920,"NV_RATE"}, {0x921,"LOCKOUT"}, {0x922,"RETRY"},
-            {0x923,"NV_UNAVAILABLE"}, {0x97F,"NOT_USED"}, {0x0,"H"}, {0x40,"P"}, {0x800,"S"},
-            {0x100,"_1"}, {0x200,"_2"}, {0x300,"_3"}, {0x400,"_4"}, {0x500,"_5"},
-            {0x600,"_6"}, {0x700,"_7"}, {0x800,"_8"}, {0x900,"_9"}, {0xA00,"A"}, {0xB00,"B"},
-            {0xC00,"C"}, {0xD00,"D"}, {0xE00,"E"}, {0xF00,"F"}, {0xF00,"N_MASK"},
-            {0x40280001,"TSS_TCP_BAD_HANDSHAKE_RESP"}, {0x40280002,"TSS_TCP_SERVER_TOO_OLD"},
-            {0x40280003,"TSS_TCP_BAD_ACK"}, {0x40280004,"TSS_TCP_BAD_RESP_LEN"},
-            {0x40280005,"TSS_TCP_UNEXPECTED_STARTUP_RESP"},
-            {0x40280006,"TSS_TCP_INVALID_SIZE_TAG"}, {0x40280007,"TSS_TCP_DISCONNECTED"},
-            {0x40280010,"TSS_DISPATCH_FAILED"}, {0x40280011,"TSS_SEND_OP_FAILED"},
-            {0x40280021,"TSS_RESP_BUF_TOO_SHORT"},
-            {0x40280022,"TSS_RESP_BUF_INVALID_SESSION_TAG"},
-            {0x40280023,"TSS_RESP_BUF_INVALID_SIZE"}, {0x80280400,"TBS_COMMAND_BLOCKED"},
-            {0x80280401,"TBS_INVALID_HANDLE"}, {0x80280402,"TBS_DUPLICATE_V_HANDLE"},
-            {0x80280403,"TBS_EMBEDDED_COMMAND_BLOCKED"},
-            {0x80280404,"TBS_EMBEDDED_COMMAND_UNSUPPORTED"}, {0x80284000,"TBS_UNKNOWN_ERROR"},
-            {0x80284001,"TBS_INTERNAL_ERROR"}, {0x80284002,"TBS_BAD_PARAMETER"},
-            {0x80284003,"TBS_INVALID_OUTPUT_POINTER"}, {0x80284004,"TBS_INVALID_CONTEXT"},
-            {0x80284005,"TBS_INSUFFICIENT_BUFFER"}, {0x80284006,"TBS_IO_ERROR"},
-            {0x80284007,"TBS_INVALID_CONTEXT_PARAM"}, {0x80284008,"TBS_SERVICE_NOT_RUNNING"},
-            {0x80284009,"TBS_TOO_MANY_CONTEXTS"}, {0x8028400A,"TBS_TOO_MANY_RESOURCES"},
-            {0x8028400B,"TBS_SERVICE_START_PENDING"}, {0x8028400C,"TBS_PPI_NOT_SUPPORTED"},
-            {0x8028400D,"TBS_COMMAND_CANCELED"}, {0x8028400E,"TBS_BUFFER_TOO_LARGE"},
-            {0x8028400F,"TBS_TPM_NOT_FOUND"}, {0x80284010,"TBS_SERVICE_DISABLED"},
-            {0x80284012,"TBS_ACCESS_DENIED"}, {0x80284014,"TBS_PPI_FUNCTION_NOT_SUPPORTED"},
-            {0x80284015,"TBS_OWNER_AUTH_NOT_FOUND"} } },
-    { typeid(TPM_CLOCK_ADJUST).hash_code(), { {0xFFFFFFFD,"COARSE_SLOWER"},
-            {0xFFFFFFFE,"MEDIUM_SLOWER"}, {0xFFFFFFFF,"FINE_SLOWER"}, {0x0,"NO_CHANGE"},
-            {0x1,"FINE_FASTER"}, {0x2,"MEDIUM_FASTER"}, {0x3,"COARSE_FASTER"} } },
-    { typeid(TPM_EO).hash_code(), { {0x0,"EQ"}, {0x1,"NEQ"}, {0x2,"SIGNED_GT"},
-            {0x3,"UNSIGNED_GT"}, {0x4,"SIGNED_LT"}, {0x5,"UNSIGNED_LT"}, {0x6,"SIGNED_GE"},
-            {0x7,"UNSIGNED_GE"}, {0x8,"SIGNED_LE"}, {0x9,"UNSIGNED_LE"}, {0xA,"BITSET"},
-            {0xB,"BITCLEAR"} } },
-    { typeid(TPM_ST).hash_code(), { {0xC4,"RSP_COMMAND"}, {0x8000,"_NULL"},
-            {0x8001,"NO_SESSIONS"}, {0x8002,"SESSIONS"}, {0x8014,"ATTEST_NV"},
-            {0x8015,"ATTEST_COMMAND_AUDIT"}, {0x8016,"ATTEST_SESSION_AUDIT"},
-            {0x8017,"ATTEST_CERTIFY"}, {0x8018,"ATTEST_QUOTE"}, {0x8019,"ATTEST_TIME"},
-            {0x801A,"ATTEST_CREATION"}, {0x801C,"ATTEST_NV_DIGEST"}, {0x8021,"CREATION"},
-            {0x8022,"VERIFIED"}, {0x8023,"AUTH_SECRET"}, {0x8024,"HASHCHECK"},
-            {0x8025,"AUTH_SIGNED"}, {0x8029,"FU_MANIFEST"} } },
-    { typeid(TPM_SU).hash_code(), { {0x0,"CLEAR"}, {0x1,"STATE"} } },
-    { typeid(TPM_SE).hash_code(), { {0x0,"HMAC"}, {0x1,"POLICY"}, {0x3,"TRIAL"} } },
-    { typeid(TPM_CAP).hash_code(), { {0x0,"FIRST"}, {0x0,"ALGS"}, {0x1,"HANDLES"},
-            {0x2,"COMMANDS"}, {0x3,"PP_COMMANDS"}, {0x4,"AUDIT_COMMANDS"}, {0x5,"PCRS"},
-            {0x6,"TPM_PROPERTIES"}, {0x7,"PCR_PROPERTIES"}, {0x8,"ECC_CURVES"},
-            {0x9,"AUTH_POLICIES"}, {0xA,"ACT"}, {0xA,"LAST"}, {0x100,"VENDOR_PROPERTY"} } },
-    { typeid(TPM_PT).hash_code(), { {0x0,"NONE"}, {0x100,"PT_GROUP"}, {0x100,"PT_FIXED"},
-            {0x100,"FAMILY_INDICATOR"}, {0x101,"LEVEL"}, {0x102,"REVISION"},
-            {0x103,"DAY_OF_YEAR"}, {0x104,"YEAR"}, {0x105,"MANUFACTURER"},
-            {0x106,"VENDOR_STRING_1"}, {0x107,"VENDOR_STRING_2"}, {0x108,"VENDOR_STRING_3"},
-            {0x109,"VENDOR_STRING_4"}, {0x10A,"VENDOR_TPM_TYPE"},
-            {0x10B,"FIRMWARE_VERSION_1"}, {0x10C,"FIRMWARE_VERSION_2"},
-            {0x10D,"INPUT_BUFFER"}, {0x10E,"HR_TRANSIENT_MIN"}, {0x10F,"HR_PERSISTENT_MIN"},
-            {0x110,"HR_LOADED_MIN"}, {0x111,"ACTIVE_SESSIONS_MAX"}, {0x112,"PCR_COUNT"},
-            {0x113,"PCR_SELECT_MIN"}, {0x114,"CONTEXT_GAP_MAX"}, {0x116,"NV_COUNTERS_MAX"},
-            {0x117,"NV_INDEX_MAX"}, {0x118,"MEMORY"}, {0x119,"CLOCK_UPDATE"},
-            {0x11A,"CONTEXT_HASH"}, {0x11B,"CONTEXT_SYM"}, {0x11C,"CONTEXT_SYM_SIZE"},
-            {0x11D,"ORDERLY_COUNT"}, {0x11E,"MAX_COMMAND_SIZE"}, {0x11F,"MAX_RESPONSE_SIZE"},
-            {0x120,"MAX_DIGEST"}, {0x121,"MAX_OBJECT_CONTEXT"}, {0x122,"MAX_SESSION_CONTEXT"},
-            {0x123,"PS_FAMILY_INDICATOR"}, {0x124,"PS_LEVEL"}, {0x125,"PS_REVISION"},
-            {0x126,"PS_DAY_OF_YEAR"}, {0x127,"PS_YEAR"}, {0x128,"SPLIT_MAX"},
-            {0x129,"TOTAL_COMMANDS"}, {0x12A,"LIBRARY_COMMANDS"}, {0x12B,"VENDOR_COMMANDS"},
-            {0x12C,"NV_BUFFER_MAX"}, {0x12D,"MODES"}, {0x12E,"MAX_CAP_BUFFER"},
-            {0x200,"PT_VAR"}, {0x200,"PERMANENT"}, {0x201,"STARTUP_CLEAR"},
-            {0x202,"HR_NV_INDEX"}, {0x203,"HR_LOADED"}, {0x204,"HR_LOADED_AVAIL"},
-            {0x205,"HR_ACTIVE"}, {0x206,"HR_ACTIVE_AVAIL"}, {0x207,"HR_TRANSIENT_AVAIL"},
-            {0x208,"HR_PERSISTENT"}, {0x209,"HR_PERSISTENT_AVAIL"}, {0x20A,"NV_COUNTERS"},
-            {0x20B,"NV_COUNTERS_AVAIL"}, {0x20C,"ALGORITHM_SET"}, {0x20D,"LOADED_CURVES"},
-            {0x20E,"LOCKOUT_COUNTER"}, {0x20F,"MAX_AUTH_FAIL"}, {0x210,"LOCKOUT_INTERVAL"},
-            {0x211,"LOCKOUT_RECOVERY"}, {0x212,"NV_WRITE_RECOVERY"},
-            {0x213,"AUDIT_COUNTER_0"}, {0x214,"AUDIT_COUNTER_1"} } },
-    { typeid(TPM_PT_PCR).hash_code(), { {0x0,"FIRST"}, {0x0,"SAVE"}, {0x1,"EXTEND_L0"},
-            {0x2,"RESET_L0"}, {0x3,"EXTEND_L1"}, {0x4,"RESET_L1"}, {0x5,"EXTEND_L2"},
-            {0x6,"RESET_L2"}, {0x7,"EXTEND_L3"}, {0x8,"RESET_L3"}, {0x9,"EXTEND_L4"},
-            {0xA,"RESET_L4"}, {0x11,"NO_INCREMENT"}, {0x12,"DRTM_RESET"}, {0x13,"POLICY"},
-            {0x14,"AUTH"}, {0x14,"LAST"} } },
-    { typeid(TPM_PS).hash_code(), { {0x0,"MAIN"}, {0x1,"PC"}, {0x2,"PDA"}, {0x3,"CELL_PHONE"},
-            {0x4,"SERVER"}, {0x5,"PERIPHERAL"}, {0x6,"TSS"}, {0x7,"STORAGE"},
-            {0x8,"AUTHENTICATION"}, {0x9,"EMBEDDED"}, {0xA,"HARDCOPY"},
-            {0xB,"INFRASTRUCTURE"}, {0xC,"VIRTUALIZATION"}, {0xD,"TNC"}, {0xE,"MULTI_TENANT"},
-            {0xF,"TC"} } },
-    { typeid(TPM_HT).hash_code(), { {0x0,"PCR"}, {0x1,"NV_INDEX"}, {0x2,"HMAC_SESSION"},
-            {0x2,"LOADED_SESSION"}, {0x3,"POLICY_SESSION"}, {0x3,"SAVED_SESSION"},
-            {0x40,"PERMANENT"}, {0x80,"TRANSIENT"}, {0x81,"PERSISTENT"}, {0x90,"AC"} } },
-    { typeid(TPM_RH).hash_code(), { {0x40000000,"FIRST"}, {0x40000000,"SRK"},
-            {0x40000001,"OWNER"}, {0x40000002,"REVOKE"}, {0x40000003,"TRANSPORT"},
-            {0x40000004,"OPERATOR"}, {0x40000005,"ADMIN"}, {0x40000006,"EK"},
-            {0x40000007,"_NULL"}, {0x40000008,"UNASSIGNED"}, {0x40000009,"PW"},
-            {0x4000000A,"LOCKOUT"}, {0x4000000B,"ENDORSEMENT"}, {0x4000000C,"PLATFORM"},
-            {0x4000000D,"PLATFORM_NV"}, {0x40000010,"AUTH_00"}, {0x4000010F,"AUTH_FF"},
-            {0x40000110,"ACT_0"}, {0x4000011F,"ACT_F"}, {0x4000011F,"LAST"} } },
-    { typeid(TPM_NT).hash_code(), { {0x0,"ORDINARY"}, {0x1,"COUNTER"}, {0x2,"BITS"},
-            {0x4,"EXTEND"}, {0x8,"PIN_FAIL"}, {0x9,"PIN_PASS"} } },
-    { typeid(TPM_AT).hash_code(), { {0x0,"ANY"}, {0x1,"_ERROR"}, {0x2,"PV1"},
-            {0x80000000,"VEND"} } },
-    { typeid(TPM_AE).hash_code(), { {0x0,"NONE"} } },
-    { typeid(PLATFORM).hash_code(), { {0x322E3000,"FAMILY"}, {0x0,"LEVEL"}, {0xA2,"VERSION"},
-            {0x7E3,"YEAR"}, {0x168,"DAY_OF_YEAR"} } },
-    { typeid(Implementation).hash_code(), { {0x0,"FIELD_UPGRADE_IMPLEMENTED"},
-            {0x1,"HASH_LIB"}, {0x1,"SYM_LIB"}, {0x1,"MATH_LIB"}, {0x18,"IMPLEMENTATION_PCR"},
-            {0x3,"PCR_SELECT_MAX"}, {0x18,"PLATFORM_PCR"}, {0x3,"PCR_SELECT_MIN"},
-            {0x11,"DRTM_PCR"}, {0x0,"HCRTM_PCR"}, {0x5,"NUM_LOCALITIES"},
-            {0x3,"MAX_HANDLE_NUM"}, {0x40,"MAX_ACTIVE_SESSIONS"}, {0x3,"MAX_LOADED_SESSIONS"},
-            {0x3,"MAX_SESSION_NUM"}, {0x3,"MAX_LOADED_OBJECTS"}, {0x2,"MIN_EVICT_OBJECTS"},
-            {0x1,"NUM_POLICY_PCR_GROUP"}, {0x1,"NUM_AUTHVALUE_PCR_GROUP"},
-            {0x4F0,"MAX_CONTEXT_SIZE"}, {0x400,"MAX_DIGEST_BUFFER"},
-            {0x800,"MAX_NV_INDEX_SIZE"}, {0x400,"MAX_NV_BUFFER_SIZE"},
-            {0x400,"MAX_CAP_BUFFER"}, {0x4000,"NV_MEMORY_SIZE"}, {0x8,"MIN_COUNTER_INDICES"},
-            {0x10,"NUM_STATIC_PCR"}, {0x40,"MAX_ALG_LIST_SIZE"}, {0x20,"PRIMARY_SEED_SIZE"},
-            {0x6,"CONTEXT_ENCRYPT_ALGORITHM"}, {0xC,"NV_CLOCK_UPDATE_INTERVAL"},
-            {0x1,"NUM_POLICY_PCR"}, {0x1000,"MAX_COMMAND_SIZE"}, {0x1000,"MAX_RESPONSE_SIZE"},
-            {0x8,"ORDERLY_BITS"}, {0x80,"MAX_SYM_DATA"}, {0x40,"MAX_RNG_ENTROPY_SIZE"},
-            {0x200,"RAM_INDEX_SPACE"}, {0x10001,"RSA_DEFAULT_PUBLIC_EXPONENT"},
-            {0x1,"ENABLE_PCR_NO_INCREMENT"}, {0x1,"CRT_FORMAT_RSA"},
-            {0x0,"VENDOR_COMMAND_COUNT"}, {0x400,"MAX_VENDOR_BUFFER_SIZE"},
-            {0x2000,"MAX_DERIVATION_BITS"}, {0x80,"RSA_MAX_PRIME"},
-            {0x280,"RSA_PRIVATE_SIZE"}, {0x14,"SIZE_OF_X509_SERIAL_NUMBER"},
-            {0x280,"PRIVATE_VENDOR_SPECIFIC_BYTES"} } },
-    { typeid(TPM_HC).hash_code(), { {0xFFFFFF,"HR_HANDLE_MASK"}, {0xFF000000,"HR_RANGE_MASK"},
-            {0x18,"HR_SHIFT"}, {0x0,"HR_PCR"}, {0x2000000,"HR_HMAC_SESSION"},
-            {0x3000000,"HR_POLICY_SESSION"}, {0x80000000,"HR_TRANSIENT"},
-            {0x81000000,"HR_PERSISTENT"}, {0x1000000,"HR_NV_INDEX"},
-            {0x40000000,"HR_PERMANENT"}, {0x0,"PCR_FIRST"}, {0x17,"PCR_LAST"},
-            {0x2000000,"HMAC_SESSION_FIRST"}, {0x200003F,"HMAC_SESSION_LAST"},
-            {0x2000000,"LOADED_SESSION_FIRST"}, {0x200003F,"LOADED_SESSION_LAST"},
-            {0x3000000,"POLICY_SESSION_FIRST"}, {0x300003F,"POLICY_SESSION_LAST"},
-            {0x80000000,"TRANSIENT_FIRST"}, {0x3000000,"ACTIVE_SESSION_FIRST"},
-            {0x300003F,"ACTIVE_SESSION_LAST"}, {0x80000002,"TRANSIENT_LAST"},
-            {0x81000000,"PERSISTENT_FIRST"}, {0x81FFFFFF,"PERSISTENT_LAST"},
-            {0x81800000,"PLATFORM_PERSISTENT"}, {0x1000000,"NV_INDEX_FIRST"},
-            {0x1FFFFFF,"NV_INDEX_LAST"}, {0x40000000,"PERMANENT_FIRST"},
-            {0x4000011F,"PERMANENT_LAST"}, {0x1D00000,"HR_NV_AC"}, {0x1D00000,"NV_AC_FIRST"},
-            {0x1D0FFFF,"NV_AC_LAST"}, {0x90000000,"HR_AC"}, {0x90000000,"AC_FIRST"},
-            {0x9000FFFF,"AC_LAST"} } },
-    { typeid(TPMA_ALGORITHM).hash_code(), { {0x1,"asymmetric"}, {0x2,"symmetric"},
-            {0x4,"hash"}, {0x8,"object"}, {0x100,"signing"}, {0x200,"encrypting"},
-            {0x400,"method"} } },
-    { typeid(TPMA_OBJECT).hash_code(), { {0x2,"fixedTPM"}, {0x4,"stClear"},
-            {0x10,"fixedParent"}, {0x20,"sensitiveDataOrigin"}, {0x40,"userWithAuth"},
-            {0x80,"adminWithPolicy"}, {0x400,"noDA"}, {0x800,"encryptedDuplication"},
-            {0x10000,"restricted"}, {0x20000,"decrypt"}, {0x40000,"sign"},
-            {0x40000,"encrypt"}, {0x80000,"x509sign"} } },
-    { typeid(TPMA_SESSION).hash_code(), { {0x1,"continueSession"}, {0x2,"auditExclusive"},
-            {0x4,"auditReset"}, {0x20,"decrypt"}, {0x40,"encrypt"}, {0x80,"audit"} } },
-    { typeid(TPMA_LOCALITY).hash_code(), { {0x1,"LOC_ZERO"}, {0x2,"LOC_ONE"}, {0x4,"LOC_TWO"},
-            {0x8,"LOC_THREE"}, {0x10,"LOC_FOUR"} } },
-    { typeid(TPMA_PERMANENT).hash_code(), { {0x1,"ownerAuthSet"}, {0x2,"endorsementAuthSet"},
-            {0x4,"lockoutAuthSet"}, {0x100,"disableClear"}, {0x200,"inLockout"},
-            {0x400,"tpmGeneratedEPS"} } },
-    { typeid(TPMA_STARTUP_CLEAR).hash_code(), { {0x1,"phEnable"}, {0x2,"shEnable"},
-            {0x4,"ehEnable"}, {0x8,"phEnableNV"}, {0x80000000,"orderly"} } },
-    { typeid(TPMA_MEMORY).hash_code(), { {0x1,"sharedRAM"}, {0x2,"sharedNV"},
-            {0x4,"objectCopiedToRam"} } },
-    { typeid(TPMA_CC).hash_code(), { {0x400000,"nv"}, {0x800000,"extensive"},
-            {0x1000000,"flushed"}, {0x10000000,"rHandle"}, {0x20000000,"V"} } },
-    { typeid(TPMA_MODES).hash_code(), { {0x1,"FIPS_140_2"} } },
-    { typeid(TPMA_X509_KEY_USAGE).hash_code(), { {0x800000,"decipherOnly"},
-            {0x1000000,"encipherOnly"}, {0x2000000,"cRLSign"}, {0x4000000,"keyCertSign"},
-            {0x8000000,"keyAgreement"}, {0x10000000,"dataEncipherment"},
-            {0x20000000,"keyEncipherment"}, {0x40000000,"nonrepudiation"},
-            {0x40000000,"contentCommitment"}, {0x80000000,"digitalSignature"} } },
-    { typeid(TPMA_ACT).hash_code(), { {0x1,"signaled"}, {0x2,"preserveSignaled"} } },
-    { typeid(TPM_NV_INDEX).hash_code(), { } },
-    { typeid(TPMA_NV).hash_code(), { {0x1,"PPWRITE"}, {0x2,"OWNERWRITE"}, {0x4,"AUTHWRITE"},
-            {0x8,"POLICYWRITE"}, {0x0,"ORDINARY"}, {0x10,"COUNTER"}, {0x20,"BITS"},
-            {0x40,"EXTEND"}, {0x80,"PIN_FAIL"}, {0x90,"PIN_PASS"}, {0x400,"POLICY_DELETE"},
-            {0x800,"WRITELOCKED"}, {0x1000,"WRITEALL"}, {0x2000,"WRITEDEFINE"},
-            {0x4000,"WRITE_STCLEAR"}, {0x8000,"GLOBALLOCK"}, {0x10000,"PPREAD"},
-            {0x20000,"OWNERREAD"}, {0x40000,"AUTHREAD"}, {0x80000,"POLICYREAD"},
-            {0x2000000,"NO_DA"}, {0x4000000,"ORDERLY"}, {0x8000000,"CLEAR_STCLEAR"},
-            {0x10000000,"READLOCKED"}, {0x20000000,"WRITTEN"}, {0x40000000,"PLATFORMCREATE"},
-            {0x80000000,"READ_STCLEAR"} } }
+template<>
+const EnumID &enumID<TPM_ALG_ID>::value = EnumID {
+    {  {0x0,"_ERROR"}, {0x1,"FIRST"}, {0x1,"RSA"}, {0x3,"TDES"}, {0x4,"SHA"}, {0x4,"SHA1"}, {0x5,"HMAC"}, {0x6,"AES"}, {0x7,"MGF1"}, {0x8,"KEYEDHASH"}, {0xA,"XOR"}, {0xB,"SHA256"}, {0xC,"SHA384"}, {0xD,"SHA512"}, {0x10,"_NULL"}, {0x12,"SM3_256"}, {0x13,"SM4"}, {0x14,"RSASSA"}, {0x15,"RSAES"}, {0x16,"RSAPSS"}, {0x17,"OAEP"}, {0x18,"ECDSA"}, {0x19,"ECDH"}, {0x1A,"ECDAA"}, {0x1B,"SM2"}, {0x1C,"ECSCHNORR"}, {0x1D,"ECMQV"}, {0x20,"KDF1_SP800_56A"}, {0x21,"KDF2"}, {0x22,"KDF1_SP800_108"}, {0x23,"ECC"}, {0x25,"SYMCIPHER"}, {0x26,"CAMELLIA"}, {0x27,"SHA3_256"}, {0x28,"SHA3_384"}, {0x29,"SHA3_512"}, {0x3F,"CMAC"}, {0x40,"CTR"}, {0x41,"OFB"}, {0x42,"CBC"}, {0x43,"CFB"}, {0x44,"ECB"}, {0x44,"LAST"}, {0x7FFF,"ANY"}, {0x7FFE,"ANY2"} },
+    {  {"_ERROR",0x0}, {"FIRST",0x1}, {"RSA",0x1}, {"TDES",0x3}, {"SHA",0x4}, {"SHA1",0x4}, {"HMAC",0x5}, {"AES",0x6}, {"MGF1",0x7}, {"KEYEDHASH",0x8}, {"XOR",0xA}, {"SHA256",0xB}, {"SHA384",0xC}, {"SHA512",0xD}, {"_NULL",0x10}, {"SM3_256",0x12}, {"SM4",0x13}, {"RSASSA",0x14}, {"RSAES",0x15}, {"RSAPSS",0x16}, {"OAEP",0x17}, {"ECDSA",0x18}, {"ECDH",0x19}, {"ECDAA",0x1A}, {"SM2",0x1B}, {"ECSCHNORR",0x1C}, {"ECMQV",0x1D}, {"KDF1_SP800_56A",0x20}, {"KDF2",0x21}, {"KDF1_SP800_108",0x22}, {"ECC",0x23}, {"SYMCIPHER",0x25}, {"CAMELLIA",0x26}, {"SHA3_256",0x27}, {"SHA3_384",0x28}, {"SHA3_512",0x29}, {"CMAC",0x3F}, {"CTR",0x40}, {"OFB",0x41}, {"CBC",0x42}, {"CFB",0x43}, {"ECB",0x44}, {"LAST",0x44}, {"ANY",0x7FFF}, {"ANY2",0x7FFE} }
 };
 
-map<size_t, map<string, uint32_t>> Str2EnumMap {
-    { typeid(TPM_ALG_ID).hash_code(), { {"_ERROR",0x0}, {"FIRST",0x1}, {"RSA",0x1},
-            {"TDES",0x3}, {"SHA",0x4}, {"SHA1",0x4}, {"HMAC",0x5}, {"AES",0x6}, {"MGF1",0x7},
-            {"KEYEDHASH",0x8}, {"XOR",0xA}, {"SHA256",0xB}, {"SHA384",0xC}, {"SHA512",0xD},
-            {"_NULL",0x10}, {"SM3_256",0x12}, {"SM4",0x13}, {"RSASSA",0x14}, {"RSAES",0x15},
-            {"RSAPSS",0x16}, {"OAEP",0x17}, {"ECDSA",0x18}, {"ECDH",0x19}, {"ECDAA",0x1A},
-            {"SM2",0x1B}, {"ECSCHNORR",0x1C}, {"ECMQV",0x1D}, {"KDF1_SP800_56A",0x20},
-            {"KDF2",0x21}, {"KDF1_SP800_108",0x22}, {"ECC",0x23}, {"SYMCIPHER",0x25},
-            {"CAMELLIA",0x26}, {"SHA3_256",0x27}, {"SHA3_384",0x28}, {"SHA3_512",0x29},
-            {"CMAC",0x3F}, {"CTR",0x40}, {"OFB",0x41}, {"CBC",0x42}, {"CFB",0x43},
-            {"ECB",0x44}, {"LAST",0x44}, {"ANY",0x7FFF}, {"ANY2",0x7FFE} } },
-    { typeid(TPM_ECC_CURVE).hash_code(), { {"NONE",0x0}, {"NIST_P192",0x1}, {"NIST_P224",0x2},
-            {"NIST_P256",0x3}, {"NIST_P384",0x4}, {"NIST_P521",0x5}, {"BN_P256",0x10},
-            {"BN_P638",0x11}, {"SM2_P256",0x20}, {"TEST_P192",0x21} } },
-    { typeid(SHA1).hash_code(), { {"DIGEST_SIZE",0x14}, {"BLOCK_SIZE",0x40} } },
-    { typeid(SHA256).hash_code(), { {"DIGEST_SIZE",0x20}, {"BLOCK_SIZE",0x40} } },
-    { typeid(SHA384).hash_code(), { {"DIGEST_SIZE",0x30}, {"BLOCK_SIZE",0x80} } },
-    { typeid(SHA512).hash_code(), { {"DIGEST_SIZE",0x40}, {"BLOCK_SIZE",0x80} } },
-    { typeid(SM3_256).hash_code(), { {"DIGEST_SIZE",0x20}, {"BLOCK_SIZE",0x40} } },
-    { typeid(SHA3_256).hash_code(), { {"DIGEST_SIZE",0x20}, {"BLOCK_SIZE",0x88} } },
-    { typeid(SHA3_384).hash_code(), { {"DIGEST_SIZE",0x30}, {"BLOCK_SIZE",0x68} } },
-    { typeid(SHA3_512).hash_code(), { {"DIGEST_SIZE",0x40}, {"BLOCK_SIZE",0x48} } },
-    { typeid(Logic).hash_code(), { {"_TRUE",0x1}, {"_FALSE",0x0}, {"YES",0x1}, {"NO",0x0},
-            {"SET",0x1}, {"CLEAR",0x0} } },
-    { typeid(TPM_SPEC).hash_code(), { {"FAMILY",0x322E3000}, {"LEVEL",0x0}, {"VERSION",0xA2},
-            {"YEAR",0x7E3}, {"DAY_OF_YEAR",0x168} } },
-    { typeid(TPM_GENERATED).hash_code(), { {"VALUE",0xFF544347} } },
-    { typeid(TPM_CC).hash_code(), { {"FIRST",0x11F}, {"NV_UndefineSpaceSpecial",0x11F},
-            {"EvictControl",0x120}, {"HierarchyControl",0x121}, {"NV_UndefineSpace",0x122},
-            {"ChangeEPS",0x124}, {"ChangePPS",0x125}, {"Clear",0x126}, {"ClearControl",0x127},
-            {"ClockSet",0x128}, {"HierarchyChangeAuth",0x129}, {"NV_DefineSpace",0x12A},
-            {"PCR_Allocate",0x12B}, {"PCR_SetAuthPolicy",0x12C}, {"PP_Commands",0x12D},
-            {"SetPrimaryPolicy",0x12E}, {"FieldUpgradeStart",0x12F},
-            {"ClockRateAdjust",0x130}, {"CreatePrimary",0x131}, {"NV_GlobalWriteLock",0x132},
-            {"GetCommandAuditDigest",0x133}, {"NV_Increment",0x134}, {"NV_SetBits",0x135},
-            {"NV_Extend",0x136}, {"NV_Write",0x137}, {"NV_WriteLock",0x138},
-            {"DictionaryAttackLockReset",0x139}, {"DictionaryAttackParameters",0x13A},
-            {"NV_ChangeAuth",0x13B}, {"PCR_Event",0x13C}, {"PCR_Reset",0x13D},
-            {"SequenceComplete",0x13E}, {"SetAlgorithmSet",0x13F},
-            {"SetCommandCodeAuditStatus",0x140}, {"FieldUpgradeData",0x141},
-            {"IncrementalSelfTest",0x142}, {"SelfTest",0x143}, {"Startup",0x144},
-            {"Shutdown",0x145}, {"StirRandom",0x146}, {"ActivateCredential",0x147},
-            {"Certify",0x148}, {"PolicyNV",0x149}, {"CertifyCreation",0x14A},
-            {"Duplicate",0x14B}, {"GetTime",0x14C}, {"GetSessionAuditDigest",0x14D},
-            {"NV_Read",0x14E}, {"NV_ReadLock",0x14F}, {"ObjectChangeAuth",0x150},
-            {"PolicySecret",0x151}, {"Rewrap",0x152}, {"Create",0x153}, {"ECDH_ZGen",0x154},
-            {"HMAC",0x155}, {"MAC",0x155}, {"Import",0x156}, {"Load",0x157}, {"Quote",0x158},
-            {"RSA_Decrypt",0x159}, {"HMAC_Start",0x15B}, {"MAC_Start",0x15B},
-            {"SequenceUpdate",0x15C}, {"Sign",0x15D}, {"Unseal",0x15E},
-            {"PolicySigned",0x160}, {"ContextLoad",0x161}, {"ContextSave",0x162},
-            {"ECDH_KeyGen",0x163}, {"EncryptDecrypt",0x164}, {"FlushContext",0x165},
-            {"LoadExternal",0x167}, {"MakeCredential",0x168}, {"NV_ReadPublic",0x169},
-            {"PolicyAuthorize",0x16A}, {"PolicyAuthValue",0x16B}, {"PolicyCommandCode",0x16C},
-            {"PolicyCounterTimer",0x16D}, {"PolicyCpHash",0x16E}, {"PolicyLocality",0x16F},
-            {"PolicyNameHash",0x170}, {"PolicyOR",0x171}, {"PolicyTicket",0x172},
-            {"ReadPublic",0x173}, {"RSA_Encrypt",0x174}, {"StartAuthSession",0x176},
-            {"VerifySignature",0x177}, {"ECC_Parameters",0x178}, {"FirmwareRead",0x179},
-            {"GetCapability",0x17A}, {"GetRandom",0x17B}, {"GetTestResult",0x17C},
-            {"Hash",0x17D}, {"PCR_Read",0x17E}, {"PolicyPCR",0x17F}, {"PolicyRestart",0x180},
-            {"ReadClock",0x181}, {"PCR_Extend",0x182}, {"PCR_SetAuthValue",0x183},
-            {"NV_Certify",0x184}, {"EventSequenceComplete",0x185},
-            {"HashSequenceStart",0x186}, {"PolicyPhysicalPresence",0x187},
-            {"PolicyDuplicationSelect",0x188}, {"PolicyGetDigest",0x189}, {"TestParms",0x18A},
-            {"Commit",0x18B}, {"PolicyPassword",0x18C}, {"ZGen_2Phase",0x18D},
-            {"EC_Ephemeral",0x18E}, {"PolicyNvWritten",0x18F}, {"PolicyTemplate",0x190},
-            {"CreateLoaded",0x191}, {"PolicyAuthorizeNV",0x192}, {"EncryptDecrypt2",0x193},
-            {"AC_GetCapability",0x194}, {"AC_Send",0x195}, {"Policy_AC_SendSelect",0x196},
-            {"CertifyX509",0x197}, {"ACT_SetTimeout",0x198}, {"ECC_Encrypt",0x199},
-            {"ECC_Decrypt",0x19A}, {"LAST",0x19A}, {"CC_VEND",0x20000000},
-            {"Vendor_TCG_Test",0x20000000} } },
-    { typeid(ImplementationConstants).hash_code(), { {"Ossl",0x1}, {"Ltc",0x2}, {"Msbn",0x3},
-            {"Symcrypt",0x4}, {"HASH_COUNT",0x3}, {"MAX_SYM_KEY_BITS",0x100},
-            {"MAX_SYM_KEY_BYTES",0x20}, {"MAX_SYM_BLOCK_SIZE",0x10}, {"MAX_CAP_CC",0x19A},
-            {"MAX_RSA_KEY_BYTES",0x100}, {"MAX_AES_KEY_BYTES",0x20},
-            {"MAX_ECC_KEY_BYTES",0x30}, {"LABEL_MAX_BUFFER",0x20}, {"_TPM_CAP_SIZE",0x4},
-            {"MAX_CAP_DATA",0x3F8}, {"MAX_CAP_ALGS",0xA9}, {"MAX_CAP_HANDLES",0xFE},
-            {"MAX_TPM_PROPERTIES",0x7F}, {"MAX_PCR_PROPERTIES",0xCB},
-            {"MAX_ECC_CURVES",0x1FC}, {"MAX_TAGGED_POLICIES",0xE},
-            {"MAX_AC_CAPABILITIES",0x7F}, {"MAX_ACT_DATA",0x54} } },
-    { typeid(TPM_RC).hash_code(), { {"SUCCESS",0x0}, {"BAD_TAG",0x1E}, {"RC_VER1",0x100},
-            {"INITIALIZE",0x100}, {"FAILURE",0x101}, {"SEQUENCE",0x103}, {"PRIVATE",0x10B},
-            {"HMAC",0x119}, {"DISABLED",0x120}, {"EXCLUSIVE",0x121}, {"AUTH_TYPE",0x124},
-            {"AUTH_MISSING",0x125}, {"POLICY",0x126}, {"PCR",0x127}, {"PCR_CHANGED",0x128},
-            {"UPGRADE",0x12D}, {"TOO_MANY_CONTEXTS",0x12E}, {"AUTH_UNAVAILABLE",0x12F},
-            {"REBOOT",0x130}, {"UNBALANCED",0x131}, {"COMMAND_SIZE",0x142},
-            {"COMMAND_CODE",0x143}, {"AUTHSIZE",0x144}, {"AUTH_CONTEXT",0x145},
-            {"NV_RANGE",0x146}, {"NV_SIZE",0x147}, {"NV_LOCKED",0x148},
-            {"NV_AUTHORIZATION",0x149}, {"NV_UNINITIALIZED",0x14A}, {"NV_SPACE",0x14B},
-            {"NV_DEFINED",0x14C}, {"BAD_CONTEXT",0x150}, {"CPHASH",0x151}, {"PARENT",0x152},
-            {"NEEDS_TEST",0x153}, {"NO_RESULT",0x154}, {"SENSITIVE",0x155},
-            {"RC_MAX_FM0",0x17F}, {"RC_FMT1",0x80}, {"ASYMMETRIC",0x81}, {"ATTRIBUTES",0x82},
-            {"HASH",0x83}, {"VALUE",0x84}, {"HIERARCHY",0x85}, {"KEY_SIZE",0x87},
-            {"MGF",0x88}, {"MODE",0x89}, {"TYPE",0x8A}, {"HANDLE",0x8B}, {"KDF",0x8C},
-            {"RANGE",0x8D}, {"AUTH_FAIL",0x8E}, {"NONCE",0x8F}, {"PP",0x90}, {"SCHEME",0x92},
-            {"SIZE",0x95}, {"SYMMETRIC",0x96}, {"TAG",0x97}, {"SELECTOR",0x98},
-            {"INSUFFICIENT",0x9A}, {"SIGNATURE",0x9B}, {"KEY",0x9C}, {"POLICY_FAIL",0x9D},
-            {"INTEGRITY",0x9F}, {"TICKET",0xA0}, {"RESERVED_BITS",0xA1}, {"BAD_AUTH",0xA2},
-            {"EXPIRED",0xA3}, {"POLICY_CC",0xA4}, {"BINDING",0xA5}, {"CURVE",0xA6},
-            {"ECC_POINT",0xA7}, {"RC_WARN",0x900}, {"CONTEXT_GAP",0x901},
-            {"OBJECT_MEMORY",0x902}, {"SESSION_MEMORY",0x903}, {"MEMORY",0x904},
-            {"SESSION_HANDLES",0x905}, {"OBJECT_HANDLES",0x906}, {"LOCALITY",0x907},
-            {"YIELDED",0x908}, {"CANCELED",0x909}, {"TESTING",0x90A}, {"REFERENCE_H0",0x910},
-            {"REFERENCE_H1",0x911}, {"REFERENCE_H2",0x912}, {"REFERENCE_H3",0x913},
-            {"REFERENCE_H4",0x914}, {"REFERENCE_H5",0x915}, {"REFERENCE_H6",0x916},
-            {"REFERENCE_S0",0x918}, {"REFERENCE_S1",0x919}, {"REFERENCE_S2",0x91A},
-            {"REFERENCE_S3",0x91B}, {"REFERENCE_S4",0x91C}, {"REFERENCE_S5",0x91D},
-            {"REFERENCE_S6",0x91E}, {"NV_RATE",0x920}, {"LOCKOUT",0x921}, {"RETRY",0x922},
-            {"NV_UNAVAILABLE",0x923}, {"NOT_USED",0x97F}, {"H",0x0}, {"P",0x40}, {"S",0x800},
-            {"_1",0x100}, {"_2",0x200}, {"_3",0x300}, {"_4",0x400}, {"_5",0x500},
-            {"_6",0x600}, {"_7",0x700}, {"_8",0x800}, {"_9",0x900}, {"A",0xA00}, {"B",0xB00},
-            {"C",0xC00}, {"D",0xD00}, {"E",0xE00}, {"F",0xF00}, {"N_MASK",0xF00},
-            {"TSS_TCP_BAD_HANDSHAKE_RESP",0x40280001}, {"TSS_TCP_SERVER_TOO_OLD",0x40280002},
-            {"TSS_TCP_BAD_ACK",0x40280003}, {"TSS_TCP_BAD_RESP_LEN",0x40280004},
-            {"TSS_TCP_UNEXPECTED_STARTUP_RESP",0x40280005},
-            {"TSS_TCP_INVALID_SIZE_TAG",0x40280006}, {"TSS_TCP_DISCONNECTED",0x40280007},
-            {"TSS_DISPATCH_FAILED",0x40280010}, {"TSS_SEND_OP_FAILED",0x40280011},
-            {"TSS_RESP_BUF_TOO_SHORT",0x40280021},
-            {"TSS_RESP_BUF_INVALID_SESSION_TAG",0x40280022},
-            {"TSS_RESP_BUF_INVALID_SIZE",0x40280023}, {"TBS_COMMAND_BLOCKED",0x80280400},
-            {"TBS_INVALID_HANDLE",0x80280401}, {"TBS_DUPLICATE_V_HANDLE",0x80280402},
-            {"TBS_EMBEDDED_COMMAND_BLOCKED",0x80280403},
-            {"TBS_EMBEDDED_COMMAND_UNSUPPORTED",0x80280404}, {"TBS_UNKNOWN_ERROR",0x80284000},
-            {"TBS_INTERNAL_ERROR",0x80284001}, {"TBS_BAD_PARAMETER",0x80284002},
-            {"TBS_INVALID_OUTPUT_POINTER",0x80284003}, {"TBS_INVALID_CONTEXT",0x80284004},
-            {"TBS_INSUFFICIENT_BUFFER",0x80284005}, {"TBS_IO_ERROR",0x80284006},
-            {"TBS_INVALID_CONTEXT_PARAM",0x80284007}, {"TBS_SERVICE_NOT_RUNNING",0x80284008},
-            {"TBS_TOO_MANY_CONTEXTS",0x80284009}, {"TBS_TOO_MANY_RESOURCES",0x8028400A},
-            {"TBS_SERVICE_START_PENDING",0x8028400B}, {"TBS_PPI_NOT_SUPPORTED",0x8028400C},
-            {"TBS_COMMAND_CANCELED",0x8028400D}, {"TBS_BUFFER_TOO_LARGE",0x8028400E},
-            {"TBS_TPM_NOT_FOUND",0x8028400F}, {"TBS_SERVICE_DISABLED",0x80284010},
-            {"TBS_ACCESS_DENIED",0x80284012}, {"TBS_PPI_FUNCTION_NOT_SUPPORTED",0x80284014},
-            {"TBS_OWNER_AUTH_NOT_FOUND",0x80284015} } },
-    { typeid(TPM_CLOCK_ADJUST).hash_code(), { {"COARSE_SLOWER",0xFFFFFFFD},
-            {"MEDIUM_SLOWER",0xFFFFFFFE}, {"FINE_SLOWER",0xFFFFFFFF}, {"NO_CHANGE",0x0},
-            {"FINE_FASTER",0x1}, {"MEDIUM_FASTER",0x2}, {"COARSE_FASTER",0x3} } },
-    { typeid(TPM_EO).hash_code(), { {"EQ",0x0}, {"NEQ",0x1}, {"SIGNED_GT",0x2},
-            {"UNSIGNED_GT",0x3}, {"SIGNED_LT",0x4}, {"UNSIGNED_LT",0x5}, {"SIGNED_GE",0x6},
-            {"UNSIGNED_GE",0x7}, {"SIGNED_LE",0x8}, {"UNSIGNED_LE",0x9}, {"BITSET",0xA},
-            {"BITCLEAR",0xB} } },
-    { typeid(TPM_ST).hash_code(), { {"RSP_COMMAND",0xC4}, {"_NULL",0x8000},
-            {"NO_SESSIONS",0x8001}, {"SESSIONS",0x8002}, {"ATTEST_NV",0x8014},
-            {"ATTEST_COMMAND_AUDIT",0x8015}, {"ATTEST_SESSION_AUDIT",0x8016},
-            {"ATTEST_CERTIFY",0x8017}, {"ATTEST_QUOTE",0x8018}, {"ATTEST_TIME",0x8019},
-            {"ATTEST_CREATION",0x801A}, {"ATTEST_NV_DIGEST",0x801C}, {"CREATION",0x8021},
-            {"VERIFIED",0x8022}, {"AUTH_SECRET",0x8023}, {"HASHCHECK",0x8024},
-            {"AUTH_SIGNED",0x8025}, {"FU_MANIFEST",0x8029} } },
-    { typeid(TPM_SU).hash_code(), { {"CLEAR",0x0}, {"STATE",0x1} } },
-    { typeid(TPM_SE).hash_code(), { {"HMAC",0x0}, {"POLICY",0x1}, {"TRIAL",0x3} } },
-    { typeid(TPM_CAP).hash_code(), { {"FIRST",0x0}, {"ALGS",0x0}, {"HANDLES",0x1},
-            {"COMMANDS",0x2}, {"PP_COMMANDS",0x3}, {"AUDIT_COMMANDS",0x4}, {"PCRS",0x5},
-            {"TPM_PROPERTIES",0x6}, {"PCR_PROPERTIES",0x7}, {"ECC_CURVES",0x8},
-            {"AUTH_POLICIES",0x9}, {"ACT",0xA}, {"LAST",0xA}, {"VENDOR_PROPERTY",0x100} } },
-    { typeid(TPM_PT).hash_code(), { {"NONE",0x0}, {"PT_GROUP",0x100}, {"PT_FIXED",0x100},
-            {"FAMILY_INDICATOR",0x100}, {"LEVEL",0x101}, {"REVISION",0x102},
-            {"DAY_OF_YEAR",0x103}, {"YEAR",0x104}, {"MANUFACTURER",0x105},
-            {"VENDOR_STRING_1",0x106}, {"VENDOR_STRING_2",0x107}, {"VENDOR_STRING_3",0x108},
-            {"VENDOR_STRING_4",0x109}, {"VENDOR_TPM_TYPE",0x10A},
-            {"FIRMWARE_VERSION_1",0x10B}, {"FIRMWARE_VERSION_2",0x10C},
-            {"INPUT_BUFFER",0x10D}, {"HR_TRANSIENT_MIN",0x10E}, {"HR_PERSISTENT_MIN",0x10F},
-            {"HR_LOADED_MIN",0x110}, {"ACTIVE_SESSIONS_MAX",0x111}, {"PCR_COUNT",0x112},
-            {"PCR_SELECT_MIN",0x113}, {"CONTEXT_GAP_MAX",0x114}, {"NV_COUNTERS_MAX",0x116},
-            {"NV_INDEX_MAX",0x117}, {"MEMORY",0x118}, {"CLOCK_UPDATE",0x119},
-            {"CONTEXT_HASH",0x11A}, {"CONTEXT_SYM",0x11B}, {"CONTEXT_SYM_SIZE",0x11C},
-            {"ORDERLY_COUNT",0x11D}, {"MAX_COMMAND_SIZE",0x11E}, {"MAX_RESPONSE_SIZE",0x11F},
-            {"MAX_DIGEST",0x120}, {"MAX_OBJECT_CONTEXT",0x121}, {"MAX_SESSION_CONTEXT",0x122},
-            {"PS_FAMILY_INDICATOR",0x123}, {"PS_LEVEL",0x124}, {"PS_REVISION",0x125},
-            {"PS_DAY_OF_YEAR",0x126}, {"PS_YEAR",0x127}, {"SPLIT_MAX",0x128},
-            {"TOTAL_COMMANDS",0x129}, {"LIBRARY_COMMANDS",0x12A}, {"VENDOR_COMMANDS",0x12B},
-            {"NV_BUFFER_MAX",0x12C}, {"MODES",0x12D}, {"MAX_CAP_BUFFER",0x12E},
-            {"PT_VAR",0x200}, {"PERMANENT",0x200}, {"STARTUP_CLEAR",0x201},
-            {"HR_NV_INDEX",0x202}, {"HR_LOADED",0x203}, {"HR_LOADED_AVAIL",0x204},
-            {"HR_ACTIVE",0x205}, {"HR_ACTIVE_AVAIL",0x206}, {"HR_TRANSIENT_AVAIL",0x207},
-            {"HR_PERSISTENT",0x208}, {"HR_PERSISTENT_AVAIL",0x209}, {"NV_COUNTERS",0x20A},
-            {"NV_COUNTERS_AVAIL",0x20B}, {"ALGORITHM_SET",0x20C}, {"LOADED_CURVES",0x20D},
-            {"LOCKOUT_COUNTER",0x20E}, {"MAX_AUTH_FAIL",0x20F}, {"LOCKOUT_INTERVAL",0x210},
-            {"LOCKOUT_RECOVERY",0x211}, {"NV_WRITE_RECOVERY",0x212},
-            {"AUDIT_COUNTER_0",0x213}, {"AUDIT_COUNTER_1",0x214} } },
-    { typeid(TPM_PT_PCR).hash_code(), { {"FIRST",0x0}, {"SAVE",0x0}, {"EXTEND_L0",0x1},
-            {"RESET_L0",0x2}, {"EXTEND_L1",0x3}, {"RESET_L1",0x4}, {"EXTEND_L2",0x5},
-            {"RESET_L2",0x6}, {"EXTEND_L3",0x7}, {"RESET_L3",0x8}, {"EXTEND_L4",0x9},
-            {"RESET_L4",0xA}, {"NO_INCREMENT",0x11}, {"DRTM_RESET",0x12}, {"POLICY",0x13},
-            {"AUTH",0x14}, {"LAST",0x14} } },
-    { typeid(TPM_PS).hash_code(), { {"MAIN",0x0}, {"PC",0x1}, {"PDA",0x2}, {"CELL_PHONE",0x3},
-            {"SERVER",0x4}, {"PERIPHERAL",0x5}, {"TSS",0x6}, {"STORAGE",0x7},
-            {"AUTHENTICATION",0x8}, {"EMBEDDED",0x9}, {"HARDCOPY",0xA},
-            {"INFRASTRUCTURE",0xB}, {"VIRTUALIZATION",0xC}, {"TNC",0xD}, {"MULTI_TENANT",0xE},
-            {"TC",0xF} } },
-    { typeid(TPM_HT).hash_code(), { {"PCR",0x0}, {"NV_INDEX",0x1}, {"HMAC_SESSION",0x2},
-            {"LOADED_SESSION",0x2}, {"POLICY_SESSION",0x3}, {"SAVED_SESSION",0x3},
-            {"PERMANENT",0x40}, {"TRANSIENT",0x80}, {"PERSISTENT",0x81}, {"AC",0x90} } },
-    { typeid(TPM_RH).hash_code(), { {"FIRST",0x40000000}, {"SRK",0x40000000},
-            {"OWNER",0x40000001}, {"REVOKE",0x40000002}, {"TRANSPORT",0x40000003},
-            {"OPERATOR",0x40000004}, {"ADMIN",0x40000005}, {"EK",0x40000006},
-            {"_NULL",0x40000007}, {"UNASSIGNED",0x40000008}, {"PW",0x40000009},
-            {"LOCKOUT",0x4000000A}, {"ENDORSEMENT",0x4000000B}, {"PLATFORM",0x4000000C},
-            {"PLATFORM_NV",0x4000000D}, {"AUTH_00",0x40000010}, {"AUTH_FF",0x4000010F},
-            {"ACT_0",0x40000110}, {"ACT_F",0x4000011F}, {"LAST",0x4000011F} } },
-    { typeid(TPM_NT).hash_code(), { {"ORDINARY",0x0}, {"COUNTER",0x1}, {"BITS",0x2},
-            {"EXTEND",0x4}, {"PIN_FAIL",0x8}, {"PIN_PASS",0x9} } },
-    { typeid(TPM_AT).hash_code(), { {"ANY",0x0}, {"_ERROR",0x1}, {"PV1",0x2},
-            {"VEND",0x80000000} } },
-    { typeid(TPM_AE).hash_code(), { {"NONE",0x0} } },
-    { typeid(PLATFORM).hash_code(), { {"FAMILY",0x322E3000}, {"LEVEL",0x0}, {"VERSION",0xA2},
-            {"YEAR",0x7E3}, {"DAY_OF_YEAR",0x168} } },
-    { typeid(Implementation).hash_code(), { {"FIELD_UPGRADE_IMPLEMENTED",0x0},
-            {"HASH_LIB",0x1}, {"SYM_LIB",0x1}, {"MATH_LIB",0x1}, {"IMPLEMENTATION_PCR",0x18},
-            {"PCR_SELECT_MAX",0x3}, {"PLATFORM_PCR",0x18}, {"PCR_SELECT_MIN",0x3},
-            {"DRTM_PCR",0x11}, {"HCRTM_PCR",0x0}, {"NUM_LOCALITIES",0x5},
-            {"MAX_HANDLE_NUM",0x3}, {"MAX_ACTIVE_SESSIONS",0x40}, {"MAX_LOADED_SESSIONS",0x3},
-            {"MAX_SESSION_NUM",0x3}, {"MAX_LOADED_OBJECTS",0x3}, {"MIN_EVICT_OBJECTS",0x2},
-            {"NUM_POLICY_PCR_GROUP",0x1}, {"NUM_AUTHVALUE_PCR_GROUP",0x1},
-            {"MAX_CONTEXT_SIZE",0x4F0}, {"MAX_DIGEST_BUFFER",0x400},
-            {"MAX_NV_INDEX_SIZE",0x800}, {"MAX_NV_BUFFER_SIZE",0x400},
-            {"MAX_CAP_BUFFER",0x400}, {"NV_MEMORY_SIZE",0x4000}, {"MIN_COUNTER_INDICES",0x8},
-            {"NUM_STATIC_PCR",0x10}, {"MAX_ALG_LIST_SIZE",0x40}, {"PRIMARY_SEED_SIZE",0x20},
-            {"CONTEXT_ENCRYPT_ALGORITHM",0x6}, {"NV_CLOCK_UPDATE_INTERVAL",0xC},
-            {"NUM_POLICY_PCR",0x1}, {"MAX_COMMAND_SIZE",0x1000}, {"MAX_RESPONSE_SIZE",0x1000},
-            {"ORDERLY_BITS",0x8}, {"MAX_SYM_DATA",0x80}, {"MAX_RNG_ENTROPY_SIZE",0x40},
-            {"RAM_INDEX_SPACE",0x200}, {"RSA_DEFAULT_PUBLIC_EXPONENT",0x10001},
-            {"ENABLE_PCR_NO_INCREMENT",0x1}, {"CRT_FORMAT_RSA",0x1},
-            {"VENDOR_COMMAND_COUNT",0x0}, {"MAX_VENDOR_BUFFER_SIZE",0x400},
-            {"MAX_DERIVATION_BITS",0x2000}, {"RSA_MAX_PRIME",0x80},
-            {"RSA_PRIVATE_SIZE",0x280}, {"SIZE_OF_X509_SERIAL_NUMBER",0x14},
-            {"PRIVATE_VENDOR_SPECIFIC_BYTES",0x280} } },
-    { typeid(TPM_HC).hash_code(), { {"HR_HANDLE_MASK",0xFFFFFF}, {"HR_RANGE_MASK",0xFF000000},
-            {"HR_SHIFT",0x18}, {"HR_PCR",0x0}, {"HR_HMAC_SESSION",0x2000000},
-            {"HR_POLICY_SESSION",0x3000000}, {"HR_TRANSIENT",0x80000000},
-            {"HR_PERSISTENT",0x81000000}, {"HR_NV_INDEX",0x1000000},
-            {"HR_PERMANENT",0x40000000}, {"PCR_FIRST",0x0}, {"PCR_LAST",0x17},
-            {"HMAC_SESSION_FIRST",0x2000000}, {"HMAC_SESSION_LAST",0x200003F},
-            {"LOADED_SESSION_FIRST",0x2000000}, {"LOADED_SESSION_LAST",0x200003F},
-            {"POLICY_SESSION_FIRST",0x3000000}, {"POLICY_SESSION_LAST",0x300003F},
-            {"TRANSIENT_FIRST",0x80000000}, {"ACTIVE_SESSION_FIRST",0x3000000},
-            {"ACTIVE_SESSION_LAST",0x300003F}, {"TRANSIENT_LAST",0x80000002},
-            {"PERSISTENT_FIRST",0x81000000}, {"PERSISTENT_LAST",0x81FFFFFF},
-            {"PLATFORM_PERSISTENT",0x81800000}, {"NV_INDEX_FIRST",0x1000000},
-            {"NV_INDEX_LAST",0x1FFFFFF}, {"PERMANENT_FIRST",0x40000000},
-            {"PERMANENT_LAST",0x4000011F}, {"HR_NV_AC",0x1D00000}, {"NV_AC_FIRST",0x1D00000},
-            {"NV_AC_LAST",0x1D0FFFF}, {"HR_AC",0x90000000}, {"AC_FIRST",0x90000000},
-            {"AC_LAST",0x9000FFFF} } },
-    { typeid(TPMA_ALGORITHM).hash_code(), { {"asymmetric",0x1}, {"symmetric",0x2},
-            {"hash",0x4}, {"object",0x8}, {"signing",0x100}, {"encrypting",0x200},
-            {"method",0x400} } },
-    { typeid(TPMA_OBJECT).hash_code(), { {"fixedTPM",0x2}, {"stClear",0x4},
-            {"fixedParent",0x10}, {"sensitiveDataOrigin",0x20}, {"userWithAuth",0x40},
-            {"adminWithPolicy",0x80}, {"noDA",0x400}, {"encryptedDuplication",0x800},
-            {"restricted",0x10000}, {"decrypt",0x20000}, {"sign",0x40000},
-            {"encrypt",0x40000}, {"x509sign",0x80000} } },
-    { typeid(TPMA_SESSION).hash_code(), { {"continueSession",0x1}, {"auditExclusive",0x2},
-            {"auditReset",0x4}, {"decrypt",0x20}, {"encrypt",0x40}, {"audit",0x80} } },
-    { typeid(TPMA_LOCALITY).hash_code(), { {"LOC_ZERO",0x1}, {"LOC_ONE",0x2}, {"LOC_TWO",0x4},
-            {"LOC_THREE",0x8}, {"LOC_FOUR",0x10} } },
-    { typeid(TPMA_PERMANENT).hash_code(), { {"ownerAuthSet",0x1}, {"endorsementAuthSet",0x2},
-            {"lockoutAuthSet",0x4}, {"disableClear",0x100}, {"inLockout",0x200},
-            {"tpmGeneratedEPS",0x400} } },
-    { typeid(TPMA_STARTUP_CLEAR).hash_code(), { {"phEnable",0x1}, {"shEnable",0x2},
-            {"ehEnable",0x4}, {"phEnableNV",0x8}, {"orderly",0x80000000} } },
-    { typeid(TPMA_MEMORY).hash_code(), { {"sharedRAM",0x1}, {"sharedNV",0x2},
-            {"objectCopiedToRam",0x4} } },
-    { typeid(TPMA_CC).hash_code(), { {"nv",0x400000}, {"extensive",0x800000},
-            {"flushed",0x1000000}, {"rHandle",0x10000000}, {"V",0x20000000} } },
-    { typeid(TPMA_MODES).hash_code(), { {"FIPS_140_2",0x1} } },
-    { typeid(TPMA_X509_KEY_USAGE).hash_code(), { {"decipherOnly",0x800000},
-            {"encipherOnly",0x1000000}, {"cRLSign",0x2000000}, {"keyCertSign",0x4000000},
-            {"keyAgreement",0x8000000}, {"dataEncipherment",0x10000000},
-            {"keyEncipherment",0x20000000}, {"nonrepudiation",0x40000000},
-            {"contentCommitment",0x40000000}, {"digitalSignature",0x80000000} } },
-    { typeid(TPMA_ACT).hash_code(), { {"signaled",0x1}, {"preserveSignaled",0x2} } },
-    { typeid(TPM_NV_INDEX).hash_code(), { } },
-    { typeid(TPMA_NV).hash_code(), { {"PPWRITE",0x1}, {"OWNERWRITE",0x2}, {"AUTHWRITE",0x4},
-            {"POLICYWRITE",0x8}, {"ORDINARY",0x0}, {"COUNTER",0x10}, {"BITS",0x20},
-            {"EXTEND",0x40}, {"PIN_FAIL",0x80}, {"PIN_PASS",0x90}, {"POLICY_DELETE",0x400},
-            {"WRITELOCKED",0x800}, {"WRITEALL",0x1000}, {"WRITEDEFINE",0x2000},
-            {"WRITE_STCLEAR",0x4000}, {"GLOBALLOCK",0x8000}, {"PPREAD",0x10000},
-            {"OWNERREAD",0x20000}, {"AUTHREAD",0x40000}, {"POLICYREAD",0x80000},
-            {"NO_DA",0x2000000}, {"ORDERLY",0x4000000}, {"CLEAR_STCLEAR",0x8000000},
-            {"READLOCKED",0x10000000}, {"WRITTEN",0x20000000}, {"PLATFORMCREATE",0x40000000},
-            {"READ_STCLEAR",0x80000000} } }
+template<>
+const EnumID &enumID<TPM_ECC_CURVE>::value = EnumID {
+    {  {0x0,"NONE"}, {0x1,"NIST_P192"}, {0x2,"NIST_P224"}, {0x3,"NIST_P256"}, {0x4,"NIST_P384"}, {0x5,"NIST_P521"}, {0x10,"BN_P256"}, {0x11,"BN_P638"}, {0x20,"SM2_P256"}, {0x21,"TEST_P192"} },
+    {  {"NONE",0x0}, {"NIST_P192",0x1}, {"NIST_P224",0x2}, {"NIST_P256",0x3}, {"NIST_P384",0x4}, {"NIST_P521",0x5}, {"BN_P256",0x10}, {"BN_P638",0x11}, {"SM2_P256",0x20}, {"TEST_P192",0x21} }
+};
+
+template<>
+const EnumID &enumID<SHA1>::value = EnumID {
+    {  {0x14,"DIGEST_SIZE"}, {0x40,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x14}, {"BLOCK_SIZE",0x40} }
+};
+
+template<>
+const EnumID &enumID<SHA256>::value = EnumID {
+    {  {0x20,"DIGEST_SIZE"}, {0x40,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x20}, {"BLOCK_SIZE",0x40} }
+};
+
+template<>
+const EnumID &enumID<SHA384>::value = EnumID {
+    {  {0x30,"DIGEST_SIZE"}, {0x80,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x30}, {"BLOCK_SIZE",0x80} }
+};
+
+template<>
+const EnumID &enumID<SHA512>::value = EnumID {
+    {  {0x40,"DIGEST_SIZE"}, {0x80,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x40}, {"BLOCK_SIZE",0x80} }
+};
+
+template<>
+const EnumID &enumID<SM3_256>::value = EnumID {
+    {  {0x20,"DIGEST_SIZE"}, {0x40,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x20}, {"BLOCK_SIZE",0x40} }
+};
+
+template<>
+const EnumID &enumID<SHA3_256>::value = EnumID {
+    {  {0x20,"DIGEST_SIZE"}, {0x88,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x20}, {"BLOCK_SIZE",0x88} }
+};
+
+template<>
+const EnumID &enumID<SHA3_384>::value = EnumID {
+    {  {0x30,"DIGEST_SIZE"}, {0x68,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x30}, {"BLOCK_SIZE",0x68} }
+};
+
+template<>
+const EnumID &enumID<SHA3_512>::value = EnumID {
+    {  {0x40,"DIGEST_SIZE"}, {0x48,"BLOCK_SIZE"} },
+    {  {"DIGEST_SIZE",0x40}, {"BLOCK_SIZE",0x48} }
+};
+
+template<>
+const EnumID &enumID<Logic>::value = EnumID {
+    {  {0x1,"_TRUE"}, {0x0,"_FALSE"}, {0x1,"YES"}, {0x0,"NO"}, {0x1,"SET"}, {0x0,"CLEAR"} },
+    {  {"_TRUE",0x1}, {"_FALSE",0x0}, {"YES",0x1}, {"NO",0x0}, {"SET",0x1}, {"CLEAR",0x0} }
+};
+
+template<>
+const EnumID &enumID<TPM_SPEC>::value = EnumID {
+    {  {0x322E3000,"FAMILY"}, {0x0,"LEVEL"}, {0xA2,"VERSION"}, {0x7E3,"YEAR"}, {0x168,"DAY_OF_YEAR"} },
+    {  {"FAMILY",0x322E3000}, {"LEVEL",0x0}, {"VERSION",0xA2}, {"YEAR",0x7E3}, {"DAY_OF_YEAR",0x168} }
+};
+
+template<>
+const EnumID &enumID<TPM_GENERATED>::value = EnumID {
+    {  {0xFF544347,"VALUE"} },
+    {  {"VALUE",0xFF544347} }
+};
+
+template<>
+const EnumID &enumID<TPM_CC>::value = EnumID {
+    {  {0x11F,"FIRST"}, {0x11F,"NV_UndefineSpaceSpecial"}, {0x120,"EvictControl"}, {0x121,"HierarchyControl"}, {0x122,"NV_UndefineSpace"}, {0x124,"ChangeEPS"}, {0x125,"ChangePPS"}, {0x126,"Clear"}, {0x127,"ClearControl"}, {0x128,"ClockSet"}, {0x129,"HierarchyChangeAuth"}, {0x12A,"NV_DefineSpace"}, {0x12B,"PCR_Allocate"}, {0x12C,"PCR_SetAuthPolicy"}, {0x12D,"PP_Commands"}, {0x12E,"SetPrimaryPolicy"}, {0x12F,"FieldUpgradeStart"}, {0x130,"ClockRateAdjust"}, {0x131,"CreatePrimary"}, {0x132,"NV_GlobalWriteLock"}, {0x133,"GetCommandAuditDigest"}, {0x134,"NV_Increment"}, {0x135,"NV_SetBits"}, {0x136,"NV_Extend"}, {0x137,"NV_Write"}, {0x138,"NV_WriteLock"}, {0x139,"DictionaryAttackLockReset"}, {0x13A,"DictionaryAttackParameters"}, {0x13B,"NV_ChangeAuth"}, {0x13C,"PCR_Event"}, {0x13D,"PCR_Reset"}, {0x13E,"SequenceComplete"}, {0x13F,"SetAlgorithmSet"}, {0x140,"SetCommandCodeAuditStatus"}, {0x141,"FieldUpgradeData"}, {0x142,"IncrementalSelfTest"}, {0x143,"SelfTest"}, {0x144,"Startup"}, {0x145,"Shutdown"}, {0x146,"StirRandom"}, {0x147,"ActivateCredential"}, {0x148,"Certify"}, {0x149,"PolicyNV"}, {0x14A,"CertifyCreation"}, {0x14B,"Duplicate"}, {0x14C,"GetTime"}, {0x14D,"GetSessionAuditDigest"}, {0x14E,"NV_Read"}, {0x14F,"NV_ReadLock"}, {0x150,"ObjectChangeAuth"}, {0x151,"PolicySecret"}, {0x152,"Rewrap"}, {0x153,"Create"}, {0x154,"ECDH_ZGen"}, {0x155,"HMAC"}, {0x155,"MAC"}, {0x156,"Import"}, {0x157,"Load"}, {0x158,"Quote"}, {0x159,"RSA_Decrypt"}, {0x15B,"HMAC_Start"}, {0x15B,"MAC_Start"}, {0x15C,"SequenceUpdate"}, {0x15D,"Sign"}, {0x15E,"Unseal"}, {0x160,"PolicySigned"}, {0x161,"ContextLoad"}, {0x162,"ContextSave"}, {0x163,"ECDH_KeyGen"}, {0x164,"EncryptDecrypt"}, {0x165,"FlushContext"}, {0x167,"LoadExternal"}, {0x168,"MakeCredential"}, {0x169,"NV_ReadPublic"}, {0x16A,"PolicyAuthorize"}, {0x16B,"PolicyAuthValue"}, {0x16C,"PolicyCommandCode"}, {0x16D,"PolicyCounterTimer"}, {0x16E,"PolicyCpHash"}, {0x16F,"PolicyLocality"}, {0x170,"PolicyNameHash"}, {0x171,"PolicyOR"}, {0x172,"PolicyTicket"}, {0x173,"ReadPublic"}, {0x174,"RSA_Encrypt"}, {0x176,"StartAuthSession"}, {0x177,"VerifySignature"}, {0x178,"ECC_Parameters"}, {0x179,"FirmwareRead"}, {0x17A,"GetCapability"}, {0x17B,"GetRandom"}, {0x17C,"GetTestResult"}, {0x17D,"Hash"}, {0x17E,"PCR_Read"}, {0x17F,"PolicyPCR"}, {0x180,"PolicyRestart"}, {0x181,"ReadClock"}, {0x182,"PCR_Extend"}, {0x183,"PCR_SetAuthValue"}, {0x184,"NV_Certify"}, {0x185,"EventSequenceComplete"}, {0x186,"HashSequenceStart"}, {0x187,"PolicyPhysicalPresence"}, {0x188,"PolicyDuplicationSelect"}, {0x189,"PolicyGetDigest"}, {0x18A,"TestParms"}, {0x18B,"Commit"}, {0x18C,"PolicyPassword"}, {0x18D,"ZGen_2Phase"}, {0x18E,"EC_Ephemeral"}, {0x18F,"PolicyNvWritten"}, {0x190,"PolicyTemplate"}, {0x191,"CreateLoaded"}, {0x192,"PolicyAuthorizeNV"}, {0x193,"EncryptDecrypt2"}, {0x194,"AC_GetCapability"}, {0x195,"AC_Send"}, {0x196,"Policy_AC_SendSelect"}, {0x197,"CertifyX509"}, {0x198,"ACT_SetTimeout"}, {0x199,"ECC_Encrypt"}, {0x19A,"ECC_Decrypt"}, {0x19A,"LAST"}, {0x20000000,"CC_VEND"}, {0x20000000,"Vendor_TCG_Test"} },
+    {  {"FIRST",0x11F}, {"NV_UndefineSpaceSpecial",0x11F}, {"EvictControl",0x120}, {"HierarchyControl",0x121}, {"NV_UndefineSpace",0x122}, {"ChangeEPS",0x124}, {"ChangePPS",0x125}, {"Clear",0x126}, {"ClearControl",0x127}, {"ClockSet",0x128}, {"HierarchyChangeAuth",0x129}, {"NV_DefineSpace",0x12A}, {"PCR_Allocate",0x12B}, {"PCR_SetAuthPolicy",0x12C}, {"PP_Commands",0x12D}, {"SetPrimaryPolicy",0x12E}, {"FieldUpgradeStart",0x12F}, {"ClockRateAdjust",0x130}, {"CreatePrimary",0x131}, {"NV_GlobalWriteLock",0x132}, {"GetCommandAuditDigest",0x133}, {"NV_Increment",0x134}, {"NV_SetBits",0x135}, {"NV_Extend",0x136}, {"NV_Write",0x137}, {"NV_WriteLock",0x138}, {"DictionaryAttackLockReset",0x139}, {"DictionaryAttackParameters",0x13A}, {"NV_ChangeAuth",0x13B}, {"PCR_Event",0x13C}, {"PCR_Reset",0x13D}, {"SequenceComplete",0x13E}, {"SetAlgorithmSet",0x13F}, {"SetCommandCodeAuditStatus",0x140}, {"FieldUpgradeData",0x141}, {"IncrementalSelfTest",0x142}, {"SelfTest",0x143}, {"Startup",0x144}, {"Shutdown",0x145}, {"StirRandom",0x146}, {"ActivateCredential",0x147}, {"Certify",0x148}, {"PolicyNV",0x149}, {"CertifyCreation",0x14A}, {"Duplicate",0x14B}, {"GetTime",0x14C}, {"GetSessionAuditDigest",0x14D}, {"NV_Read",0x14E}, {"NV_ReadLock",0x14F}, {"ObjectChangeAuth",0x150}, {"PolicySecret",0x151}, {"Rewrap",0x152}, {"Create",0x153}, {"ECDH_ZGen",0x154}, {"HMAC",0x155}, {"MAC",0x155}, {"Import",0x156}, {"Load",0x157}, {"Quote",0x158}, {"RSA_Decrypt",0x159}, {"HMAC_Start",0x15B}, {"MAC_Start",0x15B}, {"SequenceUpdate",0x15C}, {"Sign",0x15D}, {"Unseal",0x15E}, {"PolicySigned",0x160}, {"ContextLoad",0x161}, {"ContextSave",0x162}, {"ECDH_KeyGen",0x163}, {"EncryptDecrypt",0x164}, {"FlushContext",0x165}, {"LoadExternal",0x167}, {"MakeCredential",0x168}, {"NV_ReadPublic",0x169}, {"PolicyAuthorize",0x16A}, {"PolicyAuthValue",0x16B}, {"PolicyCommandCode",0x16C}, {"PolicyCounterTimer",0x16D}, {"PolicyCpHash",0x16E}, {"PolicyLocality",0x16F}, {"PolicyNameHash",0x170}, {"PolicyOR",0x171}, {"PolicyTicket",0x172}, {"ReadPublic",0x173}, {"RSA_Encrypt",0x174}, {"StartAuthSession",0x176}, {"VerifySignature",0x177}, {"ECC_Parameters",0x178}, {"FirmwareRead",0x179}, {"GetCapability",0x17A}, {"GetRandom",0x17B}, {"GetTestResult",0x17C}, {"Hash",0x17D}, {"PCR_Read",0x17E}, {"PolicyPCR",0x17F}, {"PolicyRestart",0x180}, {"ReadClock",0x181}, {"PCR_Extend",0x182}, {"PCR_SetAuthValue",0x183}, {"NV_Certify",0x184}, {"EventSequenceComplete",0x185}, {"HashSequenceStart",0x186}, {"PolicyPhysicalPresence",0x187}, {"PolicyDuplicationSelect",0x188}, {"PolicyGetDigest",0x189}, {"TestParms",0x18A}, {"Commit",0x18B}, {"PolicyPassword",0x18C}, {"ZGen_2Phase",0x18D}, {"EC_Ephemeral",0x18E}, {"PolicyNvWritten",0x18F}, {"PolicyTemplate",0x190}, {"CreateLoaded",0x191}, {"PolicyAuthorizeNV",0x192}, {"EncryptDecrypt2",0x193}, {"AC_GetCapability",0x194}, {"AC_Send",0x195}, {"Policy_AC_SendSelect",0x196}, {"CertifyX509",0x197}, {"ACT_SetTimeout",0x198}, {"ECC_Encrypt",0x199}, {"ECC_Decrypt",0x19A}, {"LAST",0x19A}, {"CC_VEND",0x20000000}, {"Vendor_TCG_Test",0x20000000} }
+};
+
+template<>
+const EnumID &enumID<ImplementationConstants>::value = EnumID {
+    {  {0x1,"Ossl"}, {0x2,"Ltc"}, {0x3,"Msbn"}, {0x4,"Symcrypt"}, {0x3,"HASH_COUNT"}, {0x100,"MAX_SYM_KEY_BITS"}, {0x20,"MAX_SYM_KEY_BYTES"}, {0x10,"MAX_SYM_BLOCK_SIZE"}, {0x19A,"MAX_CAP_CC"}, {0x100,"MAX_RSA_KEY_BYTES"}, {0x20,"MAX_AES_KEY_BYTES"}, {0x30,"MAX_ECC_KEY_BYTES"}, {0x20,"LABEL_MAX_BUFFER"}, {0x4,"_TPM_CAP_SIZE"}, {0x3F8,"MAX_CAP_DATA"}, {0xA9,"MAX_CAP_ALGS"}, {0xFE,"MAX_CAP_HANDLES"}, {0x7F,"MAX_TPM_PROPERTIES"}, {0xCB,"MAX_PCR_PROPERTIES"}, {0x1FC,"MAX_ECC_CURVES"}, {0xE,"MAX_TAGGED_POLICIES"}, {0x7F,"MAX_AC_CAPABILITIES"}, {0x54,"MAX_ACT_DATA"} },
+    {  {"Ossl",0x1}, {"Ltc",0x2}, {"Msbn",0x3}, {"Symcrypt",0x4}, {"HASH_COUNT",0x3}, {"MAX_SYM_KEY_BITS",0x100}, {"MAX_SYM_KEY_BYTES",0x20}, {"MAX_SYM_BLOCK_SIZE",0x10}, {"MAX_CAP_CC",0x19A}, {"MAX_RSA_KEY_BYTES",0x100}, {"MAX_AES_KEY_BYTES",0x20}, {"MAX_ECC_KEY_BYTES",0x30}, {"LABEL_MAX_BUFFER",0x20}, {"_TPM_CAP_SIZE",0x4}, {"MAX_CAP_DATA",0x3F8}, {"MAX_CAP_ALGS",0xA9}, {"MAX_CAP_HANDLES",0xFE}, {"MAX_TPM_PROPERTIES",0x7F}, {"MAX_PCR_PROPERTIES",0xCB}, {"MAX_ECC_CURVES",0x1FC}, {"MAX_TAGGED_POLICIES",0xE}, {"MAX_AC_CAPABILITIES",0x7F}, {"MAX_ACT_DATA",0x54} }
+};
+
+template<>
+const EnumID &enumID<TPM_RC>::value = EnumID {
+    {  {0x0,"SUCCESS"}, {0x1E,"BAD_TAG"}, {0x100,"RC_VER1"}, {0x100,"INITIALIZE"}, {0x101,"FAILURE"}, {0x103,"SEQUENCE"}, {0x10B,"PRIVATE"}, {0x119,"HMAC"}, {0x120,"DISABLED"}, {0x121,"EXCLUSIVE"}, {0x124,"AUTH_TYPE"}, {0x125,"AUTH_MISSING"}, {0x126,"POLICY"}, {0x127,"PCR"}, {0x128,"PCR_CHANGED"}, {0x12D,"UPGRADE"}, {0x12E,"TOO_MANY_CONTEXTS"}, {0x12F,"AUTH_UNAVAILABLE"}, {0x130,"REBOOT"}, {0x131,"UNBALANCED"}, {0x142,"COMMAND_SIZE"}, {0x143,"COMMAND_CODE"}, {0x144,"AUTHSIZE"}, {0x145,"AUTH_CONTEXT"}, {0x146,"NV_RANGE"}, {0x147,"NV_SIZE"}, {0x148,"NV_LOCKED"}, {0x149,"NV_AUTHORIZATION"}, {0x14A,"NV_UNINITIALIZED"}, {0x14B,"NV_SPACE"}, {0x14C,"NV_DEFINED"}, {0x150,"BAD_CONTEXT"}, {0x151,"CPHASH"}, {0x152,"PARENT"}, {0x153,"NEEDS_TEST"}, {0x154,"NO_RESULT"}, {0x155,"SENSITIVE"}, {0x17F,"RC_MAX_FM0"}, {0x80,"RC_FMT1"}, {0x81,"ASYMMETRIC"}, {0x82,"ATTRIBUTES"}, {0x83,"HASH"}, {0x84,"VALUE"}, {0x85,"HIERARCHY"}, {0x87,"KEY_SIZE"}, {0x88,"MGF"}, {0x89,"MODE"}, {0x8A,"TYPE"}, {0x8B,"HANDLE"}, {0x8C,"KDF"}, {0x8D,"RANGE"}, {0x8E,"AUTH_FAIL"}, {0x8F,"NONCE"}, {0x90,"PP"}, {0x92,"SCHEME"}, {0x95,"SIZE"}, {0x96,"SYMMETRIC"}, {0x97,"TAG"}, {0x98,"SELECTOR"}, {0x9A,"INSUFFICIENT"}, {0x9B,"SIGNATURE"}, {0x9C,"KEY"}, {0x9D,"POLICY_FAIL"}, {0x9F,"INTEGRITY"}, {0xA0,"TICKET"}, {0xA1,"RESERVED_BITS"}, {0xA2,"BAD_AUTH"}, {0xA3,"EXPIRED"}, {0xA4,"POLICY_CC"}, {0xA5,"BINDING"}, {0xA6,"CURVE"}, {0xA7,"ECC_POINT"}, {0x900,"RC_WARN"}, {0x901,"CONTEXT_GAP"}, {0x902,"OBJECT_MEMORY"}, {0x903,"SESSION_MEMORY"}, {0x904,"MEMORY"}, {0x905,"SESSION_HANDLES"}, {0x906,"OBJECT_HANDLES"}, {0x907,"LOCALITY"}, {0x908,"YIELDED"}, {0x909,"CANCELED"}, {0x90A,"TESTING"}, {0x910,"REFERENCE_H0"}, {0x911,"REFERENCE_H1"}, {0x912,"REFERENCE_H2"}, {0x913,"REFERENCE_H3"}, {0x914,"REFERENCE_H4"}, {0x915,"REFERENCE_H5"}, {0x916,"REFERENCE_H6"}, {0x918,"REFERENCE_S0"}, {0x919,"REFERENCE_S1"}, {0x91A,"REFERENCE_S2"}, {0x91B,"REFERENCE_S3"}, {0x91C,"REFERENCE_S4"}, {0x91D,"REFERENCE_S5"}, {0x91E,"REFERENCE_S6"}, {0x920,"NV_RATE"}, {0x921,"LOCKOUT"}, {0x922,"RETRY"}, {0x923,"NV_UNAVAILABLE"}, {0x97F,"NOT_USED"}, {0x0,"H"}, {0x40,"P"}, {0x800,"S"}, {0x100,"_1"}, {0x200,"_2"}, {0x300,"_3"}, {0x400,"_4"}, {0x500,"_5"}, {0x600,"_6"}, {0x700,"_7"}, {0x800,"_8"}, {0x900,"_9"}, {0xA00,"A"}, {0xB00,"B"}, {0xC00,"C"}, {0xD00,"D"}, {0xE00,"E"}, {0xF00,"F"}, {0xF00,"N_MASK"}, {0x40280001,"TSS_TCP_BAD_HANDSHAKE_RESP"}, {0x40280002,"TSS_TCP_SERVER_TOO_OLD"}, {0x40280003,"TSS_TCP_BAD_ACK"}, {0x40280004,"TSS_TCP_BAD_RESP_LEN"}, {0x40280005,"TSS_TCP_UNEXPECTED_STARTUP_RESP"}, {0x40280006,"TSS_TCP_INVALID_SIZE_TAG"}, {0x40280007,"TSS_TCP_DISCONNECTED"}, {0x40280010,"TSS_DISPATCH_FAILED"}, {0x40280011,"TSS_SEND_OP_FAILED"}, {0x40280021,"TSS_RESP_BUF_TOO_SHORT"}, {0x40280022,"TSS_RESP_BUF_INVALID_SESSION_TAG"}, {0x40280023,"TSS_RESP_BUF_INVALID_SIZE"}, {0x80280400,"TBS_COMMAND_BLOCKED"}, {0x80280401,"TBS_INVALID_HANDLE"}, {0x80280402,"TBS_DUPLICATE_V_HANDLE"}, {0x80280403,"TBS_EMBEDDED_COMMAND_BLOCKED"}, {0x80280404,"TBS_EMBEDDED_COMMAND_UNSUPPORTED"}, {0x80284000,"TBS_UNKNOWN_ERROR"}, {0x80284001,"TBS_INTERNAL_ERROR"}, {0x80284002,"TBS_BAD_PARAMETER"}, {0x80284003,"TBS_INVALID_OUTPUT_POINTER"}, {0x80284004,"TBS_INVALID_CONTEXT"}, {0x80284005,"TBS_INSUFFICIENT_BUFFER"}, {0x80284006,"TBS_IO_ERROR"}, {0x80284007,"TBS_INVALID_CONTEXT_PARAM"}, {0x80284008,"TBS_SERVICE_NOT_RUNNING"}, {0x80284009,"TBS_TOO_MANY_CONTEXTS"}, {0x8028400A,"TBS_TOO_MANY_RESOURCES"}, {0x8028400B,"TBS_SERVICE_START_PENDING"}, {0x8028400C,"TBS_PPI_NOT_SUPPORTED"}, {0x8028400D,"TBS_COMMAND_CANCELED"}, {0x8028400E,"TBS_BUFFER_TOO_LARGE"}, {0x8028400F,"TBS_TPM_NOT_FOUND"}, {0x80284010,"TBS_SERVICE_DISABLED"}, {0x80284012,"TBS_ACCESS_DENIED"}, {0x80284014,"TBS_PPI_FUNCTION_NOT_SUPPORTED"}, {0x80284015,"TBS_OWNER_AUTH_NOT_FOUND"} },
+    {  {"SUCCESS",0x0}, {"BAD_TAG",0x1E}, {"RC_VER1",0x100}, {"INITIALIZE",0x100}, {"FAILURE",0x101}, {"SEQUENCE",0x103}, {"PRIVATE",0x10B}, {"HMAC",0x119}, {"DISABLED",0x120}, {"EXCLUSIVE",0x121}, {"AUTH_TYPE",0x124}, {"AUTH_MISSING",0x125}, {"POLICY",0x126}, {"PCR",0x127}, {"PCR_CHANGED",0x128}, {"UPGRADE",0x12D}, {"TOO_MANY_CONTEXTS",0x12E}, {"AUTH_UNAVAILABLE",0x12F}, {"REBOOT",0x130}, {"UNBALANCED",0x131}, {"COMMAND_SIZE",0x142}, {"COMMAND_CODE",0x143}, {"AUTHSIZE",0x144}, {"AUTH_CONTEXT",0x145}, {"NV_RANGE",0x146}, {"NV_SIZE",0x147}, {"NV_LOCKED",0x148}, {"NV_AUTHORIZATION",0x149}, {"NV_UNINITIALIZED",0x14A}, {"NV_SPACE",0x14B}, {"NV_DEFINED",0x14C}, {"BAD_CONTEXT",0x150}, {"CPHASH",0x151}, {"PARENT",0x152}, {"NEEDS_TEST",0x153}, {"NO_RESULT",0x154}, {"SENSITIVE",0x155}, {"RC_MAX_FM0",0x17F}, {"RC_FMT1",0x80}, {"ASYMMETRIC",0x81}, {"ATTRIBUTES",0x82}, {"HASH",0x83}, {"VALUE",0x84}, {"HIERARCHY",0x85}, {"KEY_SIZE",0x87}, {"MGF",0x88}, {"MODE",0x89}, {"TYPE",0x8A}, {"HANDLE",0x8B}, {"KDF",0x8C}, {"RANGE",0x8D}, {"AUTH_FAIL",0x8E}, {"NONCE",0x8F}, {"PP",0x90}, {"SCHEME",0x92}, {"SIZE",0x95}, {"SYMMETRIC",0x96}, {"TAG",0x97}, {"SELECTOR",0x98}, {"INSUFFICIENT",0x9A}, {"SIGNATURE",0x9B}, {"KEY",0x9C}, {"POLICY_FAIL",0x9D}, {"INTEGRITY",0x9F}, {"TICKET",0xA0}, {"RESERVED_BITS",0xA1}, {"BAD_AUTH",0xA2}, {"EXPIRED",0xA3}, {"POLICY_CC",0xA4}, {"BINDING",0xA5}, {"CURVE",0xA6}, {"ECC_POINT",0xA7}, {"RC_WARN",0x900}, {"CONTEXT_GAP",0x901}, {"OBJECT_MEMORY",0x902}, {"SESSION_MEMORY",0x903}, {"MEMORY",0x904}, {"SESSION_HANDLES",0x905}, {"OBJECT_HANDLES",0x906}, {"LOCALITY",0x907}, {"YIELDED",0x908}, {"CANCELED",0x909}, {"TESTING",0x90A}, {"REFERENCE_H0",0x910}, {"REFERENCE_H1",0x911}, {"REFERENCE_H2",0x912}, {"REFERENCE_H3",0x913}, {"REFERENCE_H4",0x914}, {"REFERENCE_H5",0x915}, {"REFERENCE_H6",0x916}, {"REFERENCE_S0",0x918}, {"REFERENCE_S1",0x919}, {"REFERENCE_S2",0x91A}, {"REFERENCE_S3",0x91B}, {"REFERENCE_S4",0x91C}, {"REFERENCE_S5",0x91D}, {"REFERENCE_S6",0x91E}, {"NV_RATE",0x920}, {"LOCKOUT",0x921}, {"RETRY",0x922}, {"NV_UNAVAILABLE",0x923}, {"NOT_USED",0x97F}, {"H",0x0}, {"P",0x40}, {"S",0x800}, {"_1",0x100}, {"_2",0x200}, {"_3",0x300}, {"_4",0x400}, {"_5",0x500}, {"_6",0x600}, {"_7",0x700}, {"_8",0x800}, {"_9",0x900}, {"A",0xA00}, {"B",0xB00}, {"C",0xC00}, {"D",0xD00}, {"E",0xE00}, {"F",0xF00}, {"N_MASK",0xF00}, {"TSS_TCP_BAD_HANDSHAKE_RESP",0x40280001}, {"TSS_TCP_SERVER_TOO_OLD",0x40280002}, {"TSS_TCP_BAD_ACK",0x40280003}, {"TSS_TCP_BAD_RESP_LEN",0x40280004}, {"TSS_TCP_UNEXPECTED_STARTUP_RESP",0x40280005}, {"TSS_TCP_INVALID_SIZE_TAG",0x40280006}, {"TSS_TCP_DISCONNECTED",0x40280007}, {"TSS_DISPATCH_FAILED",0x40280010}, {"TSS_SEND_OP_FAILED",0x40280011}, {"TSS_RESP_BUF_TOO_SHORT",0x40280021}, {"TSS_RESP_BUF_INVALID_SESSION_TAG",0x40280022}, {"TSS_RESP_BUF_INVALID_SIZE",0x40280023}, {"TBS_COMMAND_BLOCKED",0x80280400}, {"TBS_INVALID_HANDLE",0x80280401}, {"TBS_DUPLICATE_V_HANDLE",0x80280402}, {"TBS_EMBEDDED_COMMAND_BLOCKED",0x80280403}, {"TBS_EMBEDDED_COMMAND_UNSUPPORTED",0x80280404}, {"TBS_UNKNOWN_ERROR",0x80284000}, {"TBS_INTERNAL_ERROR",0x80284001}, {"TBS_BAD_PARAMETER",0x80284002}, {"TBS_INVALID_OUTPUT_POINTER",0x80284003}, {"TBS_INVALID_CONTEXT",0x80284004}, {"TBS_INSUFFICIENT_BUFFER",0x80284005}, {"TBS_IO_ERROR",0x80284006}, {"TBS_INVALID_CONTEXT_PARAM",0x80284007}, {"TBS_SERVICE_NOT_RUNNING",0x80284008}, {"TBS_TOO_MANY_CONTEXTS",0x80284009}, {"TBS_TOO_MANY_RESOURCES",0x8028400A}, {"TBS_SERVICE_START_PENDING",0x8028400B}, {"TBS_PPI_NOT_SUPPORTED",0x8028400C}, {"TBS_COMMAND_CANCELED",0x8028400D}, {"TBS_BUFFER_TOO_LARGE",0x8028400E}, {"TBS_TPM_NOT_FOUND",0x8028400F}, {"TBS_SERVICE_DISABLED",0x80284010}, {"TBS_ACCESS_DENIED",0x80284012}, {"TBS_PPI_FUNCTION_NOT_SUPPORTED",0x80284014}, {"TBS_OWNER_AUTH_NOT_FOUND",0x80284015} }
+};
+
+template<>
+const EnumID &enumID<TPM_CLOCK_ADJUST>::value = EnumID {
+    {  {0xFFFFFFFD,"COARSE_SLOWER"}, {0xFFFFFFFE,"MEDIUM_SLOWER"}, {0xFFFFFFFF,"FINE_SLOWER"}, {0x0,"NO_CHANGE"}, {0x1,"FINE_FASTER"}, {0x2,"MEDIUM_FASTER"}, {0x3,"COARSE_FASTER"} },
+    {  {"COARSE_SLOWER",0xFFFFFFFD}, {"MEDIUM_SLOWER",0xFFFFFFFE}, {"FINE_SLOWER",0xFFFFFFFF}, {"NO_CHANGE",0x0}, {"FINE_FASTER",0x1}, {"MEDIUM_FASTER",0x2}, {"COARSE_FASTER",0x3} }
+};
+
+template<>
+const EnumID &enumID<TPM_EO>::value = EnumID {
+    {  {0x0,"EQ"}, {0x1,"NEQ"}, {0x2,"SIGNED_GT"}, {0x3,"UNSIGNED_GT"}, {0x4,"SIGNED_LT"}, {0x5,"UNSIGNED_LT"}, {0x6,"SIGNED_GE"}, {0x7,"UNSIGNED_GE"}, {0x8,"SIGNED_LE"}, {0x9,"UNSIGNED_LE"}, {0xA,"BITSET"}, {0xB,"BITCLEAR"} },
+    {  {"EQ",0x0}, {"NEQ",0x1}, {"SIGNED_GT",0x2}, {"UNSIGNED_GT",0x3}, {"SIGNED_LT",0x4}, {"UNSIGNED_LT",0x5}, {"SIGNED_GE",0x6}, {"UNSIGNED_GE",0x7}, {"SIGNED_LE",0x8}, {"UNSIGNED_LE",0x9}, {"BITSET",0xA}, {"BITCLEAR",0xB} }
+};
+
+template<>
+const EnumID &enumID<TPM_ST>::value = EnumID {
+    {  {0xC4,"RSP_COMMAND"}, {0x8000,"_NULL"}, {0x8001,"NO_SESSIONS"}, {0x8002,"SESSIONS"}, {0x8014,"ATTEST_NV"}, {0x8015,"ATTEST_COMMAND_AUDIT"}, {0x8016,"ATTEST_SESSION_AUDIT"}, {0x8017,"ATTEST_CERTIFY"}, {0x8018,"ATTEST_QUOTE"}, {0x8019,"ATTEST_TIME"}, {0x801A,"ATTEST_CREATION"}, {0x801C,"ATTEST_NV_DIGEST"}, {0x8021,"CREATION"}, {0x8022,"VERIFIED"}, {0x8023,"AUTH_SECRET"}, {0x8024,"HASHCHECK"}, {0x8025,"AUTH_SIGNED"}, {0x8029,"FU_MANIFEST"} },
+    {  {"RSP_COMMAND",0xC4}, {"_NULL",0x8000}, {"NO_SESSIONS",0x8001}, {"SESSIONS",0x8002}, {"ATTEST_NV",0x8014}, {"ATTEST_COMMAND_AUDIT",0x8015}, {"ATTEST_SESSION_AUDIT",0x8016}, {"ATTEST_CERTIFY",0x8017}, {"ATTEST_QUOTE",0x8018}, {"ATTEST_TIME",0x8019}, {"ATTEST_CREATION",0x801A}, {"ATTEST_NV_DIGEST",0x801C}, {"CREATION",0x8021}, {"VERIFIED",0x8022}, {"AUTH_SECRET",0x8023}, {"HASHCHECK",0x8024}, {"AUTH_SIGNED",0x8025}, {"FU_MANIFEST",0x8029} }
+};
+
+template<>
+const EnumID &enumID<TPM_SU>::value = EnumID {
+    {  {0x0,"CLEAR"}, {0x1,"STATE"} },
+    {  {"CLEAR",0x0}, {"STATE",0x1} }
+};
+
+template<>
+const EnumID &enumID<TPM_SE>::value = EnumID {
+    {  {0x0,"HMAC"}, {0x1,"POLICY"}, {0x3,"TRIAL"} },
+    {  {"HMAC",0x0}, {"POLICY",0x1}, {"TRIAL",0x3} }
+};
+
+template<>
+const EnumID &enumID<TPM_CAP>::value = EnumID {
+    {  {0x0,"FIRST"}, {0x0,"ALGS"}, {0x1,"HANDLES"}, {0x2,"COMMANDS"}, {0x3,"PP_COMMANDS"}, {0x4,"AUDIT_COMMANDS"}, {0x5,"PCRS"}, {0x6,"TPM_PROPERTIES"}, {0x7,"PCR_PROPERTIES"}, {0x8,"ECC_CURVES"}, {0x9,"AUTH_POLICIES"}, {0xA,"ACT"}, {0xA,"LAST"}, {0x100,"VENDOR_PROPERTY"} },
+    {  {"FIRST",0x0}, {"ALGS",0x0}, {"HANDLES",0x1}, {"COMMANDS",0x2}, {"PP_COMMANDS",0x3}, {"AUDIT_COMMANDS",0x4}, {"PCRS",0x5}, {"TPM_PROPERTIES",0x6}, {"PCR_PROPERTIES",0x7}, {"ECC_CURVES",0x8}, {"AUTH_POLICIES",0x9}, {"ACT",0xA}, {"LAST",0xA}, {"VENDOR_PROPERTY",0x100} }
+};
+
+template<>
+const EnumID &enumID<TPM_PT>::value = EnumID {
+    {  {0x0,"NONE"}, {0x100,"PT_GROUP"}, {0x100,"PT_FIXED"}, {0x100,"FAMILY_INDICATOR"}, {0x101,"LEVEL"}, {0x102,"REVISION"}, {0x103,"DAY_OF_YEAR"}, {0x104,"YEAR"}, {0x105,"MANUFACTURER"}, {0x106,"VENDOR_STRING_1"}, {0x107,"VENDOR_STRING_2"}, {0x108,"VENDOR_STRING_3"}, {0x109,"VENDOR_STRING_4"}, {0x10A,"VENDOR_TPM_TYPE"}, {0x10B,"FIRMWARE_VERSION_1"}, {0x10C,"FIRMWARE_VERSION_2"}, {0x10D,"INPUT_BUFFER"}, {0x10E,"HR_TRANSIENT_MIN"}, {0x10F,"HR_PERSISTENT_MIN"}, {0x110,"HR_LOADED_MIN"}, {0x111,"ACTIVE_SESSIONS_MAX"}, {0x112,"PCR_COUNT"}, {0x113,"PCR_SELECT_MIN"}, {0x114,"CONTEXT_GAP_MAX"}, {0x116,"NV_COUNTERS_MAX"}, {0x117,"NV_INDEX_MAX"}, {0x118,"MEMORY"}, {0x119,"CLOCK_UPDATE"}, {0x11A,"CONTEXT_HASH"}, {0x11B,"CONTEXT_SYM"}, {0x11C,"CONTEXT_SYM_SIZE"}, {0x11D,"ORDERLY_COUNT"}, {0x11E,"MAX_COMMAND_SIZE"}, {0x11F,"MAX_RESPONSE_SIZE"}, {0x120,"MAX_DIGEST"}, {0x121,"MAX_OBJECT_CONTEXT"}, {0x122,"MAX_SESSION_CONTEXT"}, {0x123,"PS_FAMILY_INDICATOR"}, {0x124,"PS_LEVEL"}, {0x125,"PS_REVISION"}, {0x126,"PS_DAY_OF_YEAR"}, {0x127,"PS_YEAR"}, {0x128,"SPLIT_MAX"}, {0x129,"TOTAL_COMMANDS"}, {0x12A,"LIBRARY_COMMANDS"}, {0x12B,"VENDOR_COMMANDS"}, {0x12C,"NV_BUFFER_MAX"}, {0x12D,"MODES"}, {0x12E,"MAX_CAP_BUFFER"}, {0x200,"PT_VAR"}, {0x200,"PERMANENT"}, {0x201,"STARTUP_CLEAR"}, {0x202,"HR_NV_INDEX"}, {0x203,"HR_LOADED"}, {0x204,"HR_LOADED_AVAIL"}, {0x205,"HR_ACTIVE"}, {0x206,"HR_ACTIVE_AVAIL"}, {0x207,"HR_TRANSIENT_AVAIL"}, {0x208,"HR_PERSISTENT"}, {0x209,"HR_PERSISTENT_AVAIL"}, {0x20A,"NV_COUNTERS"}, {0x20B,"NV_COUNTERS_AVAIL"}, {0x20C,"ALGORITHM_SET"}, {0x20D,"LOADED_CURVES"}, {0x20E,"LOCKOUT_COUNTER"}, {0x20F,"MAX_AUTH_FAIL"}, {0x210,"LOCKOUT_INTERVAL"}, {0x211,"LOCKOUT_RECOVERY"}, {0x212,"NV_WRITE_RECOVERY"}, {0x213,"AUDIT_COUNTER_0"}, {0x214,"AUDIT_COUNTER_1"} },
+    {  {"NONE",0x0}, {"PT_GROUP",0x100}, {"PT_FIXED",0x100}, {"FAMILY_INDICATOR",0x100}, {"LEVEL",0x101}, {"REVISION",0x102}, {"DAY_OF_YEAR",0x103}, {"YEAR",0x104}, {"MANUFACTURER",0x105}, {"VENDOR_STRING_1",0x106}, {"VENDOR_STRING_2",0x107}, {"VENDOR_STRING_3",0x108}, {"VENDOR_STRING_4",0x109}, {"VENDOR_TPM_TYPE",0x10A}, {"FIRMWARE_VERSION_1",0x10B}, {"FIRMWARE_VERSION_2",0x10C}, {"INPUT_BUFFER",0x10D}, {"HR_TRANSIENT_MIN",0x10E}, {"HR_PERSISTENT_MIN",0x10F}, {"HR_LOADED_MIN",0x110}, {"ACTIVE_SESSIONS_MAX",0x111}, {"PCR_COUNT",0x112}, {"PCR_SELECT_MIN",0x113}, {"CONTEXT_GAP_MAX",0x114}, {"NV_COUNTERS_MAX",0x116}, {"NV_INDEX_MAX",0x117}, {"MEMORY",0x118}, {"CLOCK_UPDATE",0x119}, {"CONTEXT_HASH",0x11A}, {"CONTEXT_SYM",0x11B}, {"CONTEXT_SYM_SIZE",0x11C}, {"ORDERLY_COUNT",0x11D}, {"MAX_COMMAND_SIZE",0x11E}, {"MAX_RESPONSE_SIZE",0x11F}, {"MAX_DIGEST",0x120}, {"MAX_OBJECT_CONTEXT",0x121}, {"MAX_SESSION_CONTEXT",0x122}, {"PS_FAMILY_INDICATOR",0x123}, {"PS_LEVEL",0x124}, {"PS_REVISION",0x125}, {"PS_DAY_OF_YEAR",0x126}, {"PS_YEAR",0x127}, {"SPLIT_MAX",0x128}, {"TOTAL_COMMANDS",0x129}, {"LIBRARY_COMMANDS",0x12A}, {"VENDOR_COMMANDS",0x12B}, {"NV_BUFFER_MAX",0x12C}, {"MODES",0x12D}, {"MAX_CAP_BUFFER",0x12E}, {"PT_VAR",0x200}, {"PERMANENT",0x200}, {"STARTUP_CLEAR",0x201}, {"HR_NV_INDEX",0x202}, {"HR_LOADED",0x203}, {"HR_LOADED_AVAIL",0x204}, {"HR_ACTIVE",0x205}, {"HR_ACTIVE_AVAIL",0x206}, {"HR_TRANSIENT_AVAIL",0x207}, {"HR_PERSISTENT",0x208}, {"HR_PERSISTENT_AVAIL",0x209}, {"NV_COUNTERS",0x20A}, {"NV_COUNTERS_AVAIL",0x20B}, {"ALGORITHM_SET",0x20C}, {"LOADED_CURVES",0x20D}, {"LOCKOUT_COUNTER",0x20E}, {"MAX_AUTH_FAIL",0x20F}, {"LOCKOUT_INTERVAL",0x210}, {"LOCKOUT_RECOVERY",0x211}, {"NV_WRITE_RECOVERY",0x212}, {"AUDIT_COUNTER_0",0x213}, {"AUDIT_COUNTER_1",0x214} }
+};
+
+template<>
+const EnumID &enumID<TPM_PT_PCR>::value = EnumID {
+    {  {0x0,"FIRST"}, {0x0,"SAVE"}, {0x1,"EXTEND_L0"}, {0x2,"RESET_L0"}, {0x3,"EXTEND_L1"}, {0x4,"RESET_L1"}, {0x5,"EXTEND_L2"}, {0x6,"RESET_L2"}, {0x7,"EXTEND_L3"}, {0x8,"RESET_L3"}, {0x9,"EXTEND_L4"}, {0xA,"RESET_L4"}, {0x11,"NO_INCREMENT"}, {0x12,"DRTM_RESET"}, {0x13,"POLICY"}, {0x14,"AUTH"}, {0x14,"LAST"} },
+    {  {"FIRST",0x0}, {"SAVE",0x0}, {"EXTEND_L0",0x1}, {"RESET_L0",0x2}, {"EXTEND_L1",0x3}, {"RESET_L1",0x4}, {"EXTEND_L2",0x5}, {"RESET_L2",0x6}, {"EXTEND_L3",0x7}, {"RESET_L3",0x8}, {"EXTEND_L4",0x9}, {"RESET_L4",0xA}, {"NO_INCREMENT",0x11}, {"DRTM_RESET",0x12}, {"POLICY",0x13}, {"AUTH",0x14}, {"LAST",0x14} }
+};
+
+template<>
+const EnumID &enumID<TPM_PS>::value = EnumID {
+    {  {0x0,"MAIN"}, {0x1,"PC"}, {0x2,"PDA"}, {0x3,"CELL_PHONE"}, {0x4,"SERVER"}, {0x5,"PERIPHERAL"}, {0x6,"TSS"}, {0x7,"STORAGE"}, {0x8,"AUTHENTICATION"}, {0x9,"EMBEDDED"}, {0xA,"HARDCOPY"}, {0xB,"INFRASTRUCTURE"}, {0xC,"VIRTUALIZATION"}, {0xD,"TNC"}, {0xE,"MULTI_TENANT"}, {0xF,"TC"} },
+    {  {"MAIN",0x0}, {"PC",0x1}, {"PDA",0x2}, {"CELL_PHONE",0x3}, {"SERVER",0x4}, {"PERIPHERAL",0x5}, {"TSS",0x6}, {"STORAGE",0x7}, {"AUTHENTICATION",0x8}, {"EMBEDDED",0x9}, {"HARDCOPY",0xA}, {"INFRASTRUCTURE",0xB}, {"VIRTUALIZATION",0xC}, {"TNC",0xD}, {"MULTI_TENANT",0xE}, {"TC",0xF} }
+};
+
+template<>
+const EnumID &enumID<TPM_HT>::value = EnumID {
+    {  {0x0,"PCR"}, {0x1,"NV_INDEX"}, {0x2,"HMAC_SESSION"}, {0x2,"LOADED_SESSION"}, {0x3,"POLICY_SESSION"}, {0x3,"SAVED_SESSION"}, {0x40,"PERMANENT"}, {0x80,"TRANSIENT"}, {0x81,"PERSISTENT"}, {0x90,"AC"} },
+    {  {"PCR",0x0}, {"NV_INDEX",0x1}, {"HMAC_SESSION",0x2}, {"LOADED_SESSION",0x2}, {"POLICY_SESSION",0x3}, {"SAVED_SESSION",0x3}, {"PERMANENT",0x40}, {"TRANSIENT",0x80}, {"PERSISTENT",0x81}, {"AC",0x90} }
+};
+
+template<>
+const EnumID &enumID<TPM_RH>::value = EnumID {
+    {  {0x40000000,"FIRST"}, {0x40000000,"SRK"}, {0x40000001,"OWNER"}, {0x40000002,"REVOKE"}, {0x40000003,"TRANSPORT"}, {0x40000004,"OPERATOR"}, {0x40000005,"ADMIN"}, {0x40000006,"EK"}, {0x40000007,"_NULL"}, {0x40000008,"UNASSIGNED"}, {0x40000009,"PW"}, {0x4000000A,"LOCKOUT"}, {0x4000000B,"ENDORSEMENT"}, {0x4000000C,"PLATFORM"}, {0x4000000D,"PLATFORM_NV"}, {0x40000010,"AUTH_00"}, {0x4000010F,"AUTH_FF"}, {0x40000110,"ACT_0"}, {0x4000011F,"ACT_F"}, {0x4000011F,"LAST"} },
+    {  {"FIRST",0x40000000}, {"SRK",0x40000000}, {"OWNER",0x40000001}, {"REVOKE",0x40000002}, {"TRANSPORT",0x40000003}, {"OPERATOR",0x40000004}, {"ADMIN",0x40000005}, {"EK",0x40000006}, {"_NULL",0x40000007}, {"UNASSIGNED",0x40000008}, {"PW",0x40000009}, {"LOCKOUT",0x4000000A}, {"ENDORSEMENT",0x4000000B}, {"PLATFORM",0x4000000C}, {"PLATFORM_NV",0x4000000D}, {"AUTH_00",0x40000010}, {"AUTH_FF",0x4000010F}, {"ACT_0",0x40000110}, {"ACT_F",0x4000011F}, {"LAST",0x4000011F} }
+};
+
+template<>
+const EnumID &enumID<TPM_NT>::value = EnumID {
+    {  {0x0,"ORDINARY"}, {0x1,"COUNTER"}, {0x2,"BITS"}, {0x4,"EXTEND"}, {0x8,"PIN_FAIL"}, {0x9,"PIN_PASS"} },
+    {  {"ORDINARY",0x0}, {"COUNTER",0x1}, {"BITS",0x2}, {"EXTEND",0x4}, {"PIN_FAIL",0x8}, {"PIN_PASS",0x9} }
+};
+
+template<>
+const EnumID &enumID<TPM_AT>::value = EnumID {
+    {  {0x0,"ANY"}, {0x1,"_ERROR"}, {0x2,"PV1"}, {0x80000000,"VEND"} },
+    {  {"ANY",0x0}, {"_ERROR",0x1}, {"PV1",0x2}, {"VEND",0x80000000} }
+};
+
+template<>
+const EnumID &enumID<TPM_AE>::value = EnumID {
+    {  {0x0,"NONE"} },
+    {  {"NONE",0x0} }
+};
+
+template<>
+const EnumID &enumID<PLATFORM>::value = EnumID {
+    {  {0x322E3000,"FAMILY"}, {0x0,"LEVEL"}, {0xA2,"VERSION"}, {0x7E3,"YEAR"}, {0x168,"DAY_OF_YEAR"} },
+    {  {"FAMILY",0x322E3000}, {"LEVEL",0x0}, {"VERSION",0xA2}, {"YEAR",0x7E3}, {"DAY_OF_YEAR",0x168} }
+};
+
+template<>
+const EnumID &enumID<Implementation>::value = EnumID {
+    {  {0x0,"FIELD_UPGRADE_IMPLEMENTED"}, {0x1,"HASH_LIB"}, {0x1,"SYM_LIB"}, {0x1,"MATH_LIB"}, {0x18,"IMPLEMENTATION_PCR"}, {0x3,"PCR_SELECT_MAX"}, {0x18,"PLATFORM_PCR"}, {0x3,"PCR_SELECT_MIN"}, {0x11,"DRTM_PCR"}, {0x0,"HCRTM_PCR"}, {0x5,"NUM_LOCALITIES"}, {0x3,"MAX_HANDLE_NUM"}, {0x40,"MAX_ACTIVE_SESSIONS"}, {0x3,"MAX_LOADED_SESSIONS"}, {0x3,"MAX_SESSION_NUM"}, {0x3,"MAX_LOADED_OBJECTS"}, {0x2,"MIN_EVICT_OBJECTS"}, {0x1,"NUM_POLICY_PCR_GROUP"}, {0x1,"NUM_AUTHVALUE_PCR_GROUP"}, {0x4F0,"MAX_CONTEXT_SIZE"}, {0x400,"MAX_DIGEST_BUFFER"}, {0x800,"MAX_NV_INDEX_SIZE"}, {0x400,"MAX_NV_BUFFER_SIZE"}, {0x400,"MAX_CAP_BUFFER"}, {0x4000,"NV_MEMORY_SIZE"}, {0x8,"MIN_COUNTER_INDICES"}, {0x10,"NUM_STATIC_PCR"}, {0x40,"MAX_ALG_LIST_SIZE"}, {0x20,"PRIMARY_SEED_SIZE"}, {0x6,"CONTEXT_ENCRYPT_ALGORITHM"}, {0xC,"NV_CLOCK_UPDATE_INTERVAL"}, {0x1,"NUM_POLICY_PCR"}, {0x1000,"MAX_COMMAND_SIZE"}, {0x1000,"MAX_RESPONSE_SIZE"}, {0x8,"ORDERLY_BITS"}, {0x80,"MAX_SYM_DATA"}, {0x40,"MAX_RNG_ENTROPY_SIZE"}, {0x200,"RAM_INDEX_SPACE"}, {0x10001,"RSA_DEFAULT_PUBLIC_EXPONENT"}, {0x1,"ENABLE_PCR_NO_INCREMENT"}, {0x1,"CRT_FORMAT_RSA"}, {0x0,"VENDOR_COMMAND_COUNT"}, {0x400,"MAX_VENDOR_BUFFER_SIZE"}, {0x2000,"MAX_DERIVATION_BITS"}, {0x80,"RSA_MAX_PRIME"}, {0x280,"RSA_PRIVATE_SIZE"}, {0x14,"SIZE_OF_X509_SERIAL_NUMBER"}, {0x280,"PRIVATE_VENDOR_SPECIFIC_BYTES"} },
+    {  {"FIELD_UPGRADE_IMPLEMENTED",0x0}, {"HASH_LIB",0x1}, {"SYM_LIB",0x1}, {"MATH_LIB",0x1}, {"IMPLEMENTATION_PCR",0x18}, {"PCR_SELECT_MAX",0x3}, {"PLATFORM_PCR",0x18}, {"PCR_SELECT_MIN",0x3}, {"DRTM_PCR",0x11}, {"HCRTM_PCR",0x0}, {"NUM_LOCALITIES",0x5}, {"MAX_HANDLE_NUM",0x3}, {"MAX_ACTIVE_SESSIONS",0x40}, {"MAX_LOADED_SESSIONS",0x3}, {"MAX_SESSION_NUM",0x3}, {"MAX_LOADED_OBJECTS",0x3}, {"MIN_EVICT_OBJECTS",0x2}, {"NUM_POLICY_PCR_GROUP",0x1}, {"NUM_AUTHVALUE_PCR_GROUP",0x1}, {"MAX_CONTEXT_SIZE",0x4F0}, {"MAX_DIGEST_BUFFER",0x400}, {"MAX_NV_INDEX_SIZE",0x800}, {"MAX_NV_BUFFER_SIZE",0x400}, {"MAX_CAP_BUFFER",0x400}, {"NV_MEMORY_SIZE",0x4000}, {"MIN_COUNTER_INDICES",0x8}, {"NUM_STATIC_PCR",0x10}, {"MAX_ALG_LIST_SIZE",0x40}, {"PRIMARY_SEED_SIZE",0x20}, {"CONTEXT_ENCRYPT_ALGORITHM",0x6}, {"NV_CLOCK_UPDATE_INTERVAL",0xC}, {"NUM_POLICY_PCR",0x1}, {"MAX_COMMAND_SIZE",0x1000}, {"MAX_RESPONSE_SIZE",0x1000}, {"ORDERLY_BITS",0x8}, {"MAX_SYM_DATA",0x80}, {"MAX_RNG_ENTROPY_SIZE",0x40}, {"RAM_INDEX_SPACE",0x200}, {"RSA_DEFAULT_PUBLIC_EXPONENT",0x10001}, {"ENABLE_PCR_NO_INCREMENT",0x1}, {"CRT_FORMAT_RSA",0x1}, {"VENDOR_COMMAND_COUNT",0x0}, {"MAX_VENDOR_BUFFER_SIZE",0x400}, {"MAX_DERIVATION_BITS",0x2000}, {"RSA_MAX_PRIME",0x80}, {"RSA_PRIVATE_SIZE",0x280}, {"SIZE_OF_X509_SERIAL_NUMBER",0x14}, {"PRIVATE_VENDOR_SPECIFIC_BYTES",0x280} }
+};
+
+template<>
+const EnumID &enumID<TPM_HC>::value = EnumID {
+    {  {0xFFFFFF,"HR_HANDLE_MASK"}, {0xFF000000,"HR_RANGE_MASK"}, {0x18,"HR_SHIFT"}, {0x0,"HR_PCR"}, {0x2000000,"HR_HMAC_SESSION"}, {0x3000000,"HR_POLICY_SESSION"}, {0x80000000,"HR_TRANSIENT"}, {0x81000000,"HR_PERSISTENT"}, {0x1000000,"HR_NV_INDEX"}, {0x40000000,"HR_PERMANENT"}, {0x0,"PCR_FIRST"}, {0x17,"PCR_LAST"}, {0x2000000,"HMAC_SESSION_FIRST"}, {0x200003F,"HMAC_SESSION_LAST"}, {0x2000000,"LOADED_SESSION_FIRST"}, {0x200003F,"LOADED_SESSION_LAST"}, {0x3000000,"POLICY_SESSION_FIRST"}, {0x300003F,"POLICY_SESSION_LAST"}, {0x80000000,"TRANSIENT_FIRST"}, {0x3000000,"ACTIVE_SESSION_FIRST"}, {0x300003F,"ACTIVE_SESSION_LAST"}, {0x80000002,"TRANSIENT_LAST"}, {0x81000000,"PERSISTENT_FIRST"}, {0x81FFFFFF,"PERSISTENT_LAST"}, {0x81800000,"PLATFORM_PERSISTENT"}, {0x1000000,"NV_INDEX_FIRST"}, {0x1FFFFFF,"NV_INDEX_LAST"}, {0x40000000,"PERMANENT_FIRST"}, {0x4000011F,"PERMANENT_LAST"}, {0x1D00000,"HR_NV_AC"}, {0x1D00000,"NV_AC_FIRST"}, {0x1D0FFFF,"NV_AC_LAST"}, {0x90000000,"HR_AC"}, {0x90000000,"AC_FIRST"}, {0x9000FFFF,"AC_LAST"} },
+    {  {"HR_HANDLE_MASK",0xFFFFFF}, {"HR_RANGE_MASK",0xFF000000}, {"HR_SHIFT",0x18}, {"HR_PCR",0x0}, {"HR_HMAC_SESSION",0x2000000}, {"HR_POLICY_SESSION",0x3000000}, {"HR_TRANSIENT",0x80000000}, {"HR_PERSISTENT",0x81000000}, {"HR_NV_INDEX",0x1000000}, {"HR_PERMANENT",0x40000000}, {"PCR_FIRST",0x0}, {"PCR_LAST",0x17}, {"HMAC_SESSION_FIRST",0x2000000}, {"HMAC_SESSION_LAST",0x200003F}, {"LOADED_SESSION_FIRST",0x2000000}, {"LOADED_SESSION_LAST",0x200003F}, {"POLICY_SESSION_FIRST",0x3000000}, {"POLICY_SESSION_LAST",0x300003F}, {"TRANSIENT_FIRST",0x80000000}, {"ACTIVE_SESSION_FIRST",0x3000000}, {"ACTIVE_SESSION_LAST",0x300003F}, {"TRANSIENT_LAST",0x80000002}, {"PERSISTENT_FIRST",0x81000000}, {"PERSISTENT_LAST",0x81FFFFFF}, {"PLATFORM_PERSISTENT",0x81800000}, {"NV_INDEX_FIRST",0x1000000}, {"NV_INDEX_LAST",0x1FFFFFF}, {"PERMANENT_FIRST",0x40000000}, {"PERMANENT_LAST",0x4000011F}, {"HR_NV_AC",0x1D00000}, {"NV_AC_FIRST",0x1D00000}, {"NV_AC_LAST",0x1D0FFFF}, {"HR_AC",0x90000000}, {"AC_FIRST",0x90000000}, {"AC_LAST",0x9000FFFF} }
+};
+
+template<>
+const EnumID &enumID<TPMA_ALGORITHM>::value = EnumID {
+    {  {0x1,"asymmetric"}, {0x2,"symmetric"}, {0x4,"hash"}, {0x8,"object"}, {0x100,"signing"}, {0x200,"encrypting"}, {0x400,"method"} },
+    {  {"asymmetric",0x1}, {"symmetric",0x2}, {"hash",0x4}, {"object",0x8}, {"signing",0x100}, {"encrypting",0x200}, {"method",0x400} }
+};
+
+template<>
+const EnumID &enumID<TPMA_OBJECT>::value = EnumID {
+    {  {0x2,"fixedTPM"}, {0x4,"stClear"}, {0x10,"fixedParent"}, {0x20,"sensitiveDataOrigin"}, {0x40,"userWithAuth"}, {0x80,"adminWithPolicy"}, {0x400,"noDA"}, {0x800,"encryptedDuplication"}, {0x10000,"restricted"}, {0x20000,"decrypt"}, {0x40000,"sign"}, {0x40000,"encrypt"}, {0x80000,"x509sign"} },
+    {  {"fixedTPM",0x2}, {"stClear",0x4}, {"fixedParent",0x10}, {"sensitiveDataOrigin",0x20}, {"userWithAuth",0x40}, {"adminWithPolicy",0x80}, {"noDA",0x400}, {"encryptedDuplication",0x800}, {"restricted",0x10000}, {"decrypt",0x20000}, {"sign",0x40000}, {"encrypt",0x40000}, {"x509sign",0x80000} }
+};
+
+template<>
+const EnumID &enumID<TPMA_SESSION>::value = EnumID {
+    {  {0x1,"continueSession"}, {0x2,"auditExclusive"}, {0x4,"auditReset"}, {0x20,"decrypt"}, {0x40,"encrypt"}, {0x80,"audit"} },
+    {  {"continueSession",0x1}, {"auditExclusive",0x2}, {"auditReset",0x4}, {"decrypt",0x20}, {"encrypt",0x40}, {"audit",0x80} }
+};
+
+template<>
+const EnumID &enumID<TPMA_LOCALITY>::value = EnumID {
+    {  {0x1,"LOC_ZERO"}, {0x2,"LOC_ONE"}, {0x4,"LOC_TWO"}, {0x8,"LOC_THREE"}, {0x10,"LOC_FOUR"} },
+    {  {"LOC_ZERO",0x1}, {"LOC_ONE",0x2}, {"LOC_TWO",0x4}, {"LOC_THREE",0x8}, {"LOC_FOUR",0x10} }
+};
+
+template<>
+const EnumID &enumID<TPMA_PERMANENT>::value = EnumID {
+    {  {0x1,"ownerAuthSet"}, {0x2,"endorsementAuthSet"}, {0x4,"lockoutAuthSet"}, {0x100,"disableClear"}, {0x200,"inLockout"}, {0x400,"tpmGeneratedEPS"} },
+    {  {"ownerAuthSet",0x1}, {"endorsementAuthSet",0x2}, {"lockoutAuthSet",0x4}, {"disableClear",0x100}, {"inLockout",0x200}, {"tpmGeneratedEPS",0x400} }
+};
+
+template<>
+const EnumID &enumID<TPMA_STARTUP_CLEAR>::value = EnumID {
+    {  {0x1,"phEnable"}, {0x2,"shEnable"}, {0x4,"ehEnable"}, {0x8,"phEnableNV"}, {0x80000000,"orderly"} },
+    {  {"phEnable",0x1}, {"shEnable",0x2}, {"ehEnable",0x4}, {"phEnableNV",0x8}, {"orderly",0x80000000} }
+};
+
+template<>
+const EnumID &enumID<TPMA_MEMORY>::value = EnumID {
+    {  {0x1,"sharedRAM"}, {0x2,"sharedNV"}, {0x4,"objectCopiedToRam"} },
+    {  {"sharedRAM",0x1}, {"sharedNV",0x2}, {"objectCopiedToRam",0x4} }
+};
+
+template<>
+const EnumID &enumID<TPMA_CC>::value = EnumID {
+    {  {0x400000,"nv"}, {0x800000,"extensive"}, {0x1000000,"flushed"}, {0x10000000,"rHandle"}, {0x20000000,"V"} },
+    {  {"nv",0x400000}, {"extensive",0x800000}, {"flushed",0x1000000}, {"rHandle",0x10000000}, {"V",0x20000000} }
+};
+
+template<>
+const EnumID &enumID<TPMA_MODES>::value = EnumID {
+    {  {0x1,"FIPS_140_2"} },
+    {  {"FIPS_140_2",0x1} }
+};
+
+template<>
+const EnumID &enumID<TPMA_X509_KEY_USAGE>::value = EnumID {
+    {  {0x800000,"decipherOnly"}, {0x1000000,"encipherOnly"}, {0x2000000,"cRLSign"}, {0x4000000,"keyCertSign"}, {0x8000000,"keyAgreement"}, {0x10000000,"dataEncipherment"}, {0x20000000,"keyEncipherment"}, {0x40000000,"nonrepudiation"}, {0x40000000,"contentCommitment"}, {0x80000000,"digitalSignature"} },
+    {  {"decipherOnly",0x800000}, {"encipherOnly",0x1000000}, {"cRLSign",0x2000000}, {"keyCertSign",0x4000000}, {"keyAgreement",0x8000000}, {"dataEncipherment",0x10000000}, {"keyEncipherment",0x20000000}, {"nonrepudiation",0x40000000}, {"contentCommitment",0x40000000}, {"digitalSignature",0x80000000} }
+};
+
+template<>
+const EnumID &enumID<TPMA_ACT>::value = EnumID {
+    {  {0x1,"signaled"}, {0x2,"preserveSignaled"} },
+    {  {"signaled",0x1}, {"preserveSignaled",0x2} }
+};
+
+template<>
+const EnumID &enumID<TPM_NV_INDEX>::value = EnumID {
+    {  },
+    {  }
+};
+
+template<>
+const EnumID &enumID<TPMA_NV>::value = EnumID {
+    {  {0x1,"PPWRITE"}, {0x2,"OWNERWRITE"}, {0x4,"AUTHWRITE"}, {0x8,"POLICYWRITE"}, {0x0,"ORDINARY"}, {0x10,"COUNTER"}, {0x20,"BITS"}, {0x40,"EXTEND"}, {0x80,"PIN_FAIL"}, {0x90,"PIN_PASS"}, {0x400,"POLICY_DELETE"}, {0x800,"WRITELOCKED"}, {0x1000,"WRITEALL"}, {0x2000,"WRITEDEFINE"}, {0x4000,"WRITE_STCLEAR"}, {0x8000,"GLOBALLOCK"}, {0x10000,"PPREAD"}, {0x20000,"OWNERREAD"}, {0x40000,"AUTHREAD"}, {0x80000,"POLICYREAD"}, {0x2000000,"NO_DA"}, {0x4000000,"ORDERLY"}, {0x8000000,"CLEAR_STCLEAR"}, {0x10000000,"READLOCKED"}, {0x20000000,"WRITTEN"}, {0x40000000,"PLATFORMCREATE"}, {0x80000000,"READ_STCLEAR"} },
+    {  {"PPWRITE",0x1}, {"OWNERWRITE",0x2}, {"AUTHWRITE",0x4}, {"POLICYWRITE",0x8}, {"ORDINARY",0x0}, {"COUNTER",0x10}, {"BITS",0x20}, {"EXTEND",0x40}, {"PIN_FAIL",0x80}, {"PIN_PASS",0x90}, {"POLICY_DELETE",0x400}, {"WRITELOCKED",0x800}, {"WRITEALL",0x1000}, {"WRITEDEFINE",0x2000}, {"WRITE_STCLEAR",0x4000}, {"GLOBALLOCK",0x8000}, {"PPREAD",0x10000}, {"OWNERREAD",0x20000}, {"AUTHREAD",0x40000}, {"POLICYREAD",0x80000}, {"NO_DA",0x2000000}, {"ORDERLY",0x4000000}, {"CLEAR_STCLEAR",0x8000000}, {"READLOCKED",0x10000000}, {"WRITTEN",0x20000000}, {"PLATFORMCREATE",0x40000000}, {"READ_STCLEAR",0x80000000} }
 };
 
 /// Factory method for instantiating TPM unions.

@@ -5,21 +5,19 @@
 
 #include "stdafx.h"
 
-extern std::map<std::size_t, std::map<std::uint32_t, std::string>> Enum2StrMap;
-extern std::map<std::size_t, std::map<std::string, std::uint32_t>> Str2EnumMap;
-
 namespace TpmCpp {
 
 using namespace std;
 
-string EnumToStr(uint32_t enumVal, size_t enumID)
+string EnumToStr(uint32_t enumVal, const EnumID *enumID)
 {
-    auto& enumMap = Enum2StrMap[enumID];
+    const auto& enumMap = enumID->enum2str;
     auto it = enumMap.find(enumVal);
     if (it != enumMap.end())
         return it->second;
 
     uint32_t curBit = 1,
+             count = 0,
              foundBits = 0;
     string res = "";
     while (foundBits != enumVal)
@@ -27,16 +25,24 @@ string EnumToStr(uint32_t enumVal, size_t enumID)
         if (curBit & enumVal)
         {
             foundBits |= curBit;
-            res += (res == "" ? "" : " | ") + enumMap[curBit];
+            if (!res.empty())
+              res += " | ";
+            auto &&currentNameIt = enumMap.find(curBit);
+            if (currentNameIt == enumMap.end()) {
+              res += "bit(" + std::to_string(count) + ")";
+            } else {
+              res += currentNameIt->second;
+            }
         }
         curBit <<= 1;
+        ++count;
     }
     return res;
 }
 
-uint32_t StrToEnum(const string& enumName, size_t enumID)
+uint32_t StrToEnum(const string& enumName, const EnumID *enumID)
 {
-    auto& enumMap = Str2EnumMap[enumID];
+    const auto& enumMap = enumID->str2enum;
     auto it = enumMap.find(enumName);
     if (it != enumMap.end())
         return it->second;

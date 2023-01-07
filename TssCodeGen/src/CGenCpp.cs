@@ -121,6 +121,9 @@ namespace CodeGen
             Write($"TPM_ENUM_EPILOGUE({e.Name})");
             TabOut("};");
             EnumMap[e.Name] = enumVals;
+
+            Write("template<>");
+            Write($"const EnumID &enumID<{e.Name}>::value;");
         } // GenEnum()
 
         void GenEnum(TpmEnum e)
@@ -424,35 +427,24 @@ namespace CodeGen
         {
             var Enum2Str = new List<string>();
             var Str2Enum = new List<string>();
-            string comma = ",";
 
             foreach (var e in EnumMap)
             {
-                string enum2Str = $"{{ typeid({e.Key}).hash_code(), {{",
-                       str2Enum = enum2Str;
+                Write("");
+                Write("template<>");
+                TabIn($"const EnumID &enumID<{e.Key}>::value = EnumID {{");
+                string enum2Str = "",
+                       str2Enum = "";
                 foreach (var v in e.Value)
                 {
                     string name = '"' + v.Key + '"';
                     enum2Str += " {" + v.Value + "," + name + "},";
                     str2Enum += " {" + name + "," + v.Value + "},";
                 }
-                if (e.Key == EnumMap.Last().Key)
-                    comma = "";
-                Enum2Str.Add(enum2Str.TrimEnd(',') + " } }" + comma);
-                Str2Enum.Add(str2Enum.TrimEnd(',') + " } }" + comma);
+                Write("{ " + enum2Str.TrimEnd(',') + " },");
+                Write("{ " + str2Enum.TrimEnd(',') + " }");
+                TabOut("};");
             }
-
-            Write("");
-            TabIn("map<size_t, map<uint32_t, string>> Enum2StrMap {");
-            foreach (string enumMap in Enum2Str)
-                Write(Helpers.WrapText(enumMap, "        "));
-            TabOut("};");
-
-            Write("");
-            TabIn("map<size_t, map<string, uint32_t>> Str2EnumMap {");
-            foreach (string enumMap in Str2Enum)
-                Write(Helpers.WrapText(enumMap, "        "));
-            TabOut("};");
         } // GenEnumMap()
 
         void GenUnionFactory()

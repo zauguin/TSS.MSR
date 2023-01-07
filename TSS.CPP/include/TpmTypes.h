@@ -190,6 +190,9 @@ struct TPM_ALG_ID : public TpmEnum<UINT16>
     TPM_ENUM_EPILOGUE(TPM_ALG_ID)
 };
 
+template<>
+const EnumID &enumID<TPM_ALG_ID>::value;
+
 /// <summary> Table 4 is the list of identifiers for TCG-registered curve ID values for
 /// elliptic curve cryptography. </summary>
 struct TPM_ECC_CURVE : public TpmEnum<UINT16>
@@ -212,6 +215,9 @@ struct TPM_ECC_CURVE : public TpmEnum<UINT16>
     TPM_ENUM_EPILOGUE(TPM_ECC_CURVE)
 };
 
+template<>
+const EnumID &enumID<TPM_ECC_CURVE>::value;
+
 /// <summary> Table 13 Defines for SHA1 Hash Values </summary>
 struct SHA1 : public TpmEnum<UINT32>
 {
@@ -224,6 +230,9 @@ struct SHA1 : public TpmEnum<UINT32>
     BLOCK_SIZE = 64
     TPM_ENUM_EPILOGUE(SHA1)
 };
+
+template<>
+const EnumID &enumID<SHA1>::value;
 
 /// <summary> Table 14 Defines for SHA256 Hash Values </summary>
 struct SHA256 : public TpmEnum<UINT32>
@@ -238,6 +247,9 @@ struct SHA256 : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(SHA256)
 };
 
+template<>
+const EnumID &enumID<SHA256>::value;
+
 /// <summary> Table 15 Defines for SHA384 Hash Values </summary>
 struct SHA384 : public TpmEnum<UINT32>
 {
@@ -250,6 +262,9 @@ struct SHA384 : public TpmEnum<UINT32>
     BLOCK_SIZE = 128
     TPM_ENUM_EPILOGUE(SHA384)
 };
+
+template<>
+const EnumID &enumID<SHA384>::value;
 
 /// <summary> Table 16 Defines for SHA512 Hash Values </summary>
 struct SHA512 : public TpmEnum<UINT32>
@@ -264,6 +279,9 @@ struct SHA512 : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(SHA512)
 };
 
+template<>
+const EnumID &enumID<SHA512>::value;
+
 /// <summary> Table 17 Defines for SM3_256 Hash Values </summary>
 struct SM3_256 : public TpmEnum<UINT32>
 {
@@ -276,6 +294,9 @@ struct SM3_256 : public TpmEnum<UINT32>
     BLOCK_SIZE = 64
     TPM_ENUM_EPILOGUE(SM3_256)
 };
+
+template<>
+const EnumID &enumID<SM3_256>::value;
 
 /// <summary> Table 18 Defines for SHA3_256 Hash Values </summary>
 struct SHA3_256 : public TpmEnum<UINT32>
@@ -290,6 +311,9 @@ struct SHA3_256 : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(SHA3_256)
 };
 
+template<>
+const EnumID &enumID<SHA3_256>::value;
+
 /// <summary> Table 19 Defines for SHA3_384 Hash Values </summary>
 struct SHA3_384 : public TpmEnum<UINT32>
 {
@@ -302,6 +326,9 @@ struct SHA3_384 : public TpmEnum<UINT32>
     BLOCK_SIZE = 104
     TPM_ENUM_EPILOGUE(SHA3_384)
 };
+
+template<>
+const EnumID &enumID<SHA3_384>::value;
 
 /// <summary> Table 20 Defines for SHA3_512 Hash Values </summary>
 struct SHA3_512 : public TpmEnum<UINT32>
@@ -316,6 +343,9 @@ struct SHA3_512 : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(SHA3_512)
 };
 
+template<>
+const EnumID &enumID<SHA3_512>::value;
+
 /// <summary> Table 4 Defines for Logic Values </summary>
 struct Logic : public TpmEnum<BYTE>
 {
@@ -328,6 +358,9 @@ struct Logic : public TpmEnum<BYTE>
     CLEAR = 0
     TPM_ENUM_EPILOGUE(Logic)
 };
+
+template<>
+const EnumID &enumID<Logic>::value;
 
 /// <summary> These values are readable with TPM2_GetCapability() (see 6.13 for the
 /// format). </summary>
@@ -352,6 +385,9 @@ struct TPM_SPEC : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_SPEC)
 };
 
+template<>
+const EnumID &enumID<TPM_SPEC>::value;
+
 /// <summary> This constant value differentiates TPM-generated structures from non-TPM
 /// structures. </summary>
 struct TPM_GENERATED : public TpmEnum<UINT32>
@@ -363,6 +399,8 @@ struct TPM_GENERATED : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_GENERATED)
 };
 
+template<>
+const EnumID &enumID<TPM_GENERATED>::value;
 struct TPM_CC : public TpmEnum<UINT32>
 {
     TPM_ENUM_PROLOGUE(TPM_CC)
@@ -564,6 +602,9 @@ struct TPM_CC : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_CC)
 };
 
+template<>
+const EnumID &enumID<TPM_CC>::value;
+
 /// <summary> Architecturally defined constants </summary>
 struct ImplementationConstants : public TpmEnum<UINT32>
 {
@@ -593,6 +634,9 @@ struct ImplementationConstants : public TpmEnum<UINT32>
     MAX_ACT_DATA = MAX_CAP_DATA / 0xC/*sizeof(TPMS_ACT_DATA)*/
     TPM_ENUM_EPILOGUE(ImplementationConstants)
 };
+
+template<>
+const EnumID &enumID<ImplementationConstants>::value;
 
 /// <summary> In general, response codes defined in TPM 2.0 Part 2 will be unmarshaling
 /// errors and will have the F (format) bit SET. Codes that are unique to TPM 2.0 Part 3
@@ -1118,6 +1162,9 @@ struct TPM_RC : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_RC)
 };
 
+template<>
+const EnumID &enumID<TPM_RC>::value;
+
 /// <summary> A TPM_CLOCK_ADJUST value is used to change the rate at which the TPM
 /// internal oscillator is divided. A change to the divider will change the rate at which
 /// Clock and Time change. </summary>
@@ -1147,6 +1194,9 @@ struct TPM_CLOCK_ADJUST : public TpmEnum<INT8>
     COARSE_FASTER = 3
     TPM_ENUM_EPILOGUE(TPM_CLOCK_ADJUST)
 };
+
+template<>
+const EnumID &enumID<TPM_CLOCK_ADJUST>::value;
 
 /// <summary> Table 18 Definition of (UINT16) TPM_EO Constants [IN/OUT] </summary>
 struct TPM_EO : public TpmEnum<UINT16>
@@ -1190,6 +1240,9 @@ struct TPM_EO : public TpmEnum<UINT16>
     BITCLEAR = 0x000B
     TPM_ENUM_EPILOGUE(TPM_EO)
 };
+
+template<>
+const EnumID &enumID<TPM_EO>::value;
 
 /// <summary> Structure tags are used to disambiguate structures. They are 16-bit values
 /// with the most significant bit SET so that they do not overlap TPM_ALG_ID values. A
@@ -1272,6 +1325,9 @@ struct TPM_ST : public TpmEnum<UINT16>
     TPM_ENUM_EPILOGUE(TPM_ST)
 };
 
+template<>
+const EnumID &enumID<TPM_ST>::value;
+
 /// <summary> These values are used in TPM2_Startup() to indicate the shutdown and startup
 /// mode. The defined startup sequences are: </summary>
 struct TPM_SU : public TpmEnum<UINT16>
@@ -1291,6 +1347,9 @@ struct TPM_SU : public TpmEnum<UINT16>
     TPM_ENUM_EPILOGUE(TPM_SU)
 };
 
+template<>
+const EnumID &enumID<TPM_SU>::value;
+
 /// <summary> This type is used in TPM2_StartAuthSession() to indicate the type of the
 /// session to be created. </summary>
 struct TPM_SE : public TpmEnum<UINT8>
@@ -1306,6 +1365,9 @@ struct TPM_SE : public TpmEnum<UINT8>
     TRIAL = 0x03
     TPM_ENUM_EPILOGUE(TPM_SE)
 };
+
+template<>
+const EnumID &enumID<TPM_SE>::value;
 
 /// <summary> The TPM_CAP values are used in TPM2_GetCapability() to select the type of
 /// the value to be returned. The format of the response varies according to the type of
@@ -1353,6 +1415,9 @@ struct TPM_CAP : public TpmEnum<UINT32>
     VENDOR_PROPERTY = 0x00000100
     TPM_ENUM_EPILOGUE(TPM_CAP)
 };
+
+template<>
+const EnumID &enumID<TPM_CAP>::value;
 
 /// <summary> The TPM_PT constants are used in TPM2_GetCapability(capability =
 /// TPM_CAP_TPM_PROPERTIES) to indicate the property being selected or returned. </summary>
@@ -1670,6 +1735,9 @@ struct TPM_PT : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_PT)
 };
 
+template<>
+const EnumID &enumID<TPM_PT>::value;
+
 /// <summary> The TPM_PT_PCR constants are used in TPM2_GetCapability() to indicate the
 /// property being selected or returned. The PCR properties can be read when capability ==
 /// TPM_CAP_PCR_PROPERTIES. If there is no property that corresponds to the value of
@@ -1761,6 +1829,9 @@ struct TPM_PT_PCR : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_PT_PCR)
 };
 
+template<>
+const EnumID &enumID<TPM_PT_PCR>::value;
+
 /// <summary> The platform values in Table 25 are used for the TPM_PT_PS_FAMILY_INDICATOR.
 /// </summary>
 struct TPM_PS : public TpmEnum<UINT32>
@@ -1817,6 +1888,9 @@ struct TPM_PS : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_PS)
 };
 
+template<>
+const EnumID &enumID<TPM_PS>::value;
+
 /// <summary> The 32-bit handle space is divided into 256 regions of equal size with 224
 /// values in each. Each of these ranges represents a handle type. </summary>
 struct TPM_HT : public TpmEnum<UINT8>
@@ -1863,6 +1937,9 @@ struct TPM_HT : public TpmEnum<UINT8>
     AC = 0x90
     TPM_ENUM_EPILOGUE(TPM_HT)
 };
+
+template<>
+const EnumID &enumID<TPM_HT>::value;
 
 /// <summary> Table 28 lists the architecturally defined handles that cannot be changed.
 /// The handles include authorization handles, and special handles. </summary>
@@ -1944,6 +2021,9 @@ struct TPM_RH : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_RH)
 };
 
+template<>
+const EnumID &enumID<TPM_RH>::value;
+
 /// <summary> This table lists the values of the TPM_NT field of a TPMA_NV. See Table 215
 /// for usage. </summary>
 struct TPM_NT : public TpmEnum<UINT32>
@@ -1976,6 +2056,9 @@ struct TPM_NT : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_NT)
 };
 
+template<>
+const EnumID &enumID<TPM_NT>::value;
+
 /// <summary> These constants are used in TPM2_AC_GetCapability() to indicate the first
 /// tagged value returned from an attached component. </summary>
 struct TPM_AT : public TpmEnum<UINT32>
@@ -1997,6 +2080,9 @@ struct TPM_AT : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_AT)
 };
 
+template<>
+const EnumID &enumID<TPM_AT>::value;
+
 /// <summary> These constants are the TCG-defined error values returned by an AC. </summary>
 struct TPM_AE : public TpmEnum<UINT32>
 {
@@ -2007,6 +2093,9 @@ struct TPM_AE : public TpmEnum<UINT32>
     NONE = 0x00000000
     TPM_ENUM_EPILOGUE(TPM_AE)
 };
+
+template<>
+const EnumID &enumID<TPM_AE>::value;
 
 /// <summary> These values are readable with TPM2_GetCapability(). They are the
 /// TPM_PT_PS_xxx values. </summary>
@@ -2020,6 +2109,9 @@ struct PLATFORM : public TpmEnum<UINT32>
     DAY_OF_YEAR = TPM_SPEC::DAY_OF_YEAR
     TPM_ENUM_EPILOGUE(PLATFORM)
 };
+
+template<>
+const EnumID &enumID<PLATFORM>::value;
 
 /// <summary> This table contains a collection of values used in various parts of the
 /// reference code. The values shown are illustrative. </summary>
@@ -2168,6 +2260,9 @@ struct Implementation : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(Implementation)
 };
 
+template<>
+const EnumID &enumID<Implementation>::value;
+
 /// <summary> The definitions in Table 29 are used to define many of the interface data
 /// types. </summary>
 struct TPM_HC : public TpmEnum<UINT32>
@@ -2261,6 +2356,9 @@ struct TPM_HC : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPM_HC)
 };
 
+template<>
+const EnumID &enumID<TPM_HC>::value;
+
 /// <summary> This structure defines the attributes of an algorithm. </summary>
 struct TPMA_ALGORITHM : public TpmEnum<UINT32>
 {
@@ -2297,6 +2395,9 @@ struct TPMA_ALGORITHM : public TpmEnum<UINT32>
     method = 0x400
     TPM_ENUM_EPILOGUE(TPMA_ALGORITHM)
 };
+
+template<>
+const EnumID &enumID<TPMA_ALGORITHM>::value;
 
 /// <summary> This attribute structure indicates an objects use, its authorization types,
 /// and its relationship to other objects. </summary>
@@ -2375,6 +2476,9 @@ struct TPMA_OBJECT : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPMA_OBJECT)
 };
 
+template<>
+const EnumID &enumID<TPMA_OBJECT>::value;
+
 /// <summary> This octet in each session is used to identify the session type, indicate
 /// its relationship to any handles in the command, and indicate its use in parameter
 /// encryption. </summary>
@@ -2447,6 +2551,9 @@ struct TPMA_SESSION : public TpmEnum<UINT8>
     TPM_ENUM_EPILOGUE(TPMA_SESSION)
 };
 
+template<>
+const EnumID &enumID<TPMA_SESSION>::value;
+
 /// <summary> In a TPMS_CREATION_DATA structure, this structure is used to indicate the
 /// locality of the command that created the object. No more than one of the locality
 /// attributes shall be set in the creation data. </summary>
@@ -2465,6 +2572,9 @@ struct TPMA_LOCALITY : public TpmEnum<UINT8>
     Extended_BIT_LENGTH = 3
     TPM_ENUM_EPILOGUE(TPMA_LOCALITY)
 };
+
+template<>
+const EnumID &enumID<TPMA_LOCALITY>::value;
 
 /// <summary> The attributes in this structure are persistent and are not changed as a
 /// result of _TPM_Init or any TPM2_Startup(). Some of the attributes in this structure
@@ -2504,6 +2614,9 @@ struct TPMA_PERMANENT : public TpmEnum<UINT32>
     tpmGeneratedEPS = 0x400
     TPM_ENUM_EPILOGUE(TPMA_PERMANENT)
 };
+
+template<>
+const EnumID &enumID<TPMA_PERMANENT>::value;
 
 /// <summary> This structure may be read using TPM2_GetCapability(capability =
 /// TPM_CAP_TPM_PROPERTIES, property = TPM_PT_STARTUP_CLEAR). </summary>
@@ -2560,6 +2673,9 @@ struct TPMA_STARTUP_CLEAR : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPMA_STARTUP_CLEAR)
 };
 
+template<>
+const EnumID &enumID<TPMA_STARTUP_CLEAR>::value;
+
 /// <summary> This structure of this attribute is used to report the memory management
 /// method used by the TPM for transient objects and authorization sessions. This
 /// structure may be read using TPM2_GetCapability(capability = TPM_CAP_TPM_PROPERTIES,
@@ -2588,6 +2704,9 @@ struct TPMA_MEMORY : public TpmEnum<UINT32>
     objectCopiedToRam = 0x4
     TPM_ENUM_EPILOGUE(TPMA_MEMORY)
 };
+
+template<>
+const EnumID &enumID<TPMA_MEMORY>::value;
 
 /// <summary> This structure defines the attributes of a command from a context management
 /// perspective. The fields of the structure indicate to the TPM Resource Manager (TRM)
@@ -2634,6 +2753,9 @@ struct TPMA_CC : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPMA_CC)
 };
 
+template<>
+const EnumID &enumID<TPMA_CC>::value;
+
 /// <summary> This structure of this attribute is used to report that the TPM is designed
 /// for these modes. This structure may be read using TPM2_GetCapability(capability =
 /// TPM_CAP_TPM_PROPERTIES, property = TPM_PT_MODES). </summary>
@@ -2646,6 +2768,9 @@ struct TPMA_MODES : public TpmEnum<UINT32>
     FIPS_140_2 = 0x1
     TPM_ENUM_EPILOGUE(TPMA_MODES)
 };
+
+template<>
+const EnumID &enumID<TPMA_MODES>::value;
 
 /// <summary> These attributes are as specified in clause 4.2.1.3. of RFC 5280 Internet
 /// X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL)
@@ -2689,6 +2814,9 @@ struct TPMA_X509_KEY_USAGE : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPMA_X509_KEY_USAGE)
 };
 
+template<>
+const EnumID &enumID<TPMA_X509_KEY_USAGE>::value;
+
 /// <summary> This attribute is used to report the ACT state. This attribute may be read
 /// using TPM2_GetCapability(capability = TPM_CAP_ACT, property = TPM_RH_ACT_x where x is
 /// the ACT number (0-F)). The signaled value must be preserved across TPM Resume or if
@@ -2706,6 +2834,9 @@ struct TPMA_ACT : public TpmEnum<UINT32>
     preserveSignaled = 0x2
     TPM_ENUM_EPILOGUE(TPMA_ACT)
 };
+
+template<>
+const EnumID &enumID<TPMA_ACT>::value;
 
 /// <summary> A TPM_NV_INDEX is used to reference a defined location in NV memory. The
 /// format of the Index is changed from TPM 1.2 in order to include the Index in the
@@ -2726,6 +2857,9 @@ struct TPM_NV_INDEX : public TpmEnum<UINT32>
     RhNv_BIT_LENGTH = 8
     TPM_ENUM_EPILOGUE(TPM_NV_INDEX)
 };
+
+template<>
+const EnumID &enumID<TPM_NV_INDEX>::value;
 
 /// <summary> This structure allows the TPM to keep track of the data and permissions to
 /// manipulate an NV Index. </summary>
@@ -2878,6 +3012,9 @@ struct TPMA_NV : public TpmEnum<UINT32>
     READ_STCLEAR = 0x80000000
     TPM_ENUM_EPILOGUE(TPMA_NV)
 };
+
+template<>
+const EnumID &enumID<TPMA_NV>::value;
 
 /// <summary> Table 119 Definition of TPMU_CAPABILITIES Union [OUT] </summary>
 /// <remarks> One of: TPML_ALG_PROPERTY, TPML_HANDLE, TPML_CCA, TPML_CC,

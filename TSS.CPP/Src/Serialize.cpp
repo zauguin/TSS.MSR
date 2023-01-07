@@ -235,13 +235,13 @@ uint64_t TextSerializer::readNum()
     return ReadNum();
 }
 
-void TextSerializer::writeEnum(uint32_t val, size_t enumID)
+void TextSerializer::writeEnum(uint32_t val, const EnumID *enumID)
 {
     BeginWriteNamedEntry();
     WriteEnum(val, enumID);
 }
 
-uint32_t TextSerializer::readEnum(size_t enumID)
+uint32_t TextSerializer::readEnum(const EnumID *enumID)
 {
     BeginReadNamedEntry();
     return ReadEnum(enumID);
@@ -283,7 +283,7 @@ void TextSerializer::readObjArr(vector_of_bases<Serializable>&& arr)
     EndReadArr();
 }
 
-size_t TextSerializer::readEnumArr(void* arr, size_t arrSize, size_t valSize, size_t enumID)
+size_t TextSerializer::readEnumArr(void* arr, size_t arrSize, size_t valSize, const EnumID *enumID)
 {
     size_t pos = my_pos;
     size_t size = ReadArrSize();
@@ -367,12 +367,12 @@ uint64_t JsonSerializer::ReadNum()
     return std::stoull(my_buf.substr(b, my_pos - b));
 }
 
-void JsonSerializer::WriteEnum(uint32_t val, size_t /*enumID*/)
+void JsonSerializer::WriteEnum(uint32_t val, const EnumID * /*enumID*/)
 {
     WriteNum(val);
 }
 
-uint32_t JsonSerializer::ReadEnum(size_t /*enumID*/)
+uint32_t JsonSerializer::ReadEnum(const EnumID * /*enumID*/)
 {
     return (uint32_t)ReadNum();
 }
@@ -414,7 +414,7 @@ ByteVec JsonSerializer::readSizedByteBuf()
     return buf;
 }
 
-void JsonSerializer::writeEnumArr(const void* arr, size_t size, size_t valSize, size_t /*enumID*/)
+void JsonSerializer::writeEnumArr(const void* arr, size_t size, size_t valSize, const EnumID * /*enumID*/)
 {
     WriteArrSize(size);
     BeginWriteNamedEntry();
@@ -540,7 +540,7 @@ uint64_t PlainTextSerializer::ReadNum()
     return res;
 }
 
-void PlainTextSerializer::WriteEnum(uint32_t val, size_t enumID)
+void PlainTextSerializer::WriteEnum(uint32_t val, const EnumID *enumID)
 {
     WriteComma(false);
     Write(EnumToStr(val, enumID));
@@ -548,7 +548,7 @@ void PlainTextSerializer::WriteEnum(uint32_t val, size_t enumID)
     my_commaExpected = true;
 }
 
-uint32_t PlainTextSerializer::ReadEnum(size_t enumID)
+uint32_t PlainTextSerializer::ReadEnum(const EnumID *enumID)
 {
     ReadComma();
     my_commaExpected = true;
@@ -696,7 +696,7 @@ ByteVec PlainTextSerializer::readSizedByteBuf()
     return buf;
 }
 
-void PlainTextSerializer::writeEnumArr(const void* arr, size_t size, size_t valSize, size_t enumID)
+void PlainTextSerializer::writeEnumArr(const void* arr, size_t size, size_t valSize, const EnumID *enumID)
 {
     WriteArrSize(size);
     BeginWriteNamedEntry();

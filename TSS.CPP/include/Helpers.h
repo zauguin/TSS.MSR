@@ -16,6 +16,16 @@
 
 namespace TpmCpp {
 
+struct EnumID {
+  std::map<std::uint32_t, const char *> enum2str;
+  std::map<std::string, std::uint32_t> str2enum;
+};
+template<typename Enum>
+struct enumID {
+  static const EnumID &value;
+};
+
+
 namespace Helpers
 {
     /// <summary> Generates the given number of random bytes. </summary>
@@ -47,21 +57,21 @@ namespace Helpers
 } // namespace Helpers
 
 
-_DLLEXP_ string EnumToStr(uint32_t enumVal, size_t enumID);
-_DLLEXP_ uint32_t StrToEnum(const string& enumName, size_t enumID);
+_DLLEXP_ string EnumToStr(uint32_t enumVal, const EnumID *enumID);
+_DLLEXP_ uint32_t StrToEnum(const string& enumName, const EnumID *enumID);
 
 /// <summary>  Get the string representation of the given enum or bitfield value </summary>
 template<class E>
 string EnumToStr(E enumMemberVal)
 {
-    return EnumToStr(enumMemberVal, typeid(E).hash_code());
+    return EnumToStr(enumMemberVal, &enumID<E>::value);
 }
 
 /// <summary>  Get the enum or bitfield value corresponding to the given enumerator name </summary>
 template<class E>
 uint32_t StrToEnum(const string& enumMemberName)
 {
-    return StrToEnum(enumMemberName, typeid(E).hash_code());
+    return StrToEnum(enumMemberName, &enumID<E>::value);
 }
 
 /// <summary> Marshals an integer of the given size to the TPM wire representation </summary>

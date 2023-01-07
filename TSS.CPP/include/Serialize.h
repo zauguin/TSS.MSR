@@ -4,6 +4,8 @@
  */
 
 #pragma once
+#include <cstdint>
+#include <map>
 #include <stdexcept>
 
 namespace TpmCpp {
@@ -38,7 +40,7 @@ protected:
      *  @param size  Number of elements in the array.
      *  @param valSize  Size of an array element in bytes (1, 2, 4, or 8)
      */
-    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t enumID) = 0;
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, const EnumID *enumID) = 0;
 
     /** Deserializes an array of integers
      *  @param arr  Pointer to the array. If nullptr, then param `size` is ignored and the method
@@ -48,7 +50,7 @@ protected:
      *  @param valSize  Size of an array element in bytes (1, 2, 4, or 8)
      *  @return  The size of the array
      */
-    virtual std::size_t readEnumArr(void* arr, std::size_t size, std::size_t valSize, std::size_t enumID) = 0;
+    virtual std::size_t readEnumArr(void* arr, std::size_t size, std::size_t valSize, const EnumID *enumID) = 0;
 
 public:
     virtual ~Serializer() {}
@@ -90,10 +92,10 @@ public:
      *  @param  val  Enum value to serialize
      *  @param  enumID  Opaque handle used to covert between numeric and textual representation of the enum value
      */
-    virtual void writeEnum(uint32_t val, std::size_t enumID) = 0;
+    virtual void writeEnum(uint32_t val, const EnumID *enumID) = 0;
 
     /** Deserializes an enum value */
-    virtual uint32_t readEnum(std::size_t enumID) = 0;
+    virtual uint32_t readEnum(const EnumID *enumID) = 0;
 
     virtual void writeSizedByteBuf(const ByteVec& buf) = 0;
 
@@ -136,11 +138,11 @@ public:
 
     /** Serializes the given enum value */
     template<class E>
-    void writeEnum(E val) { writeEnum(val, typeid(E).hash_code()); }
+    void writeEnum(E val) { writeEnum(val, &enumID<E>::value); }
 
     /** Deserializes an enum value */
     template<class E>
-    void readEnum(E& e) { e = (E)readEnum(typeid(E).hash_code()); }
+    void readEnum(E& e) { e = (E)readEnum(&enumID<E>::value); }
 
     /** Serializes an array of serializable objects */
     template<class T>
@@ -160,7 +162,7 @@ public:
     template<typename E>
     void writeEnumArr(const vector<E>& arr)
     {
-        writeEnumArr(arr.data(), arr.size(), sizeof(E), typeid(E).hash_code());
+        writeEnumArr(arr.data(), arr.size(), sizeof(E), &enumID<E>::value);
     }
 
     /** Deserializes an array of enums */
@@ -169,7 +171,7 @@ public:
     {
         std::size_t size = readEnumArr(nullptr, 0, sizeof(E), 0);
         arr.resize(size);
-        readEnumArr(nullptr, arr.size(), sizeof(E), typeid(E).hash_code());
+        readEnumArr(nullptr, arr.size(), sizeof(E), &enumID<E>::value);
     }
 }; // interface Serializer
 
@@ -259,8 +261,8 @@ protected:
     virtual void WriteNum(uint64_t val) = 0;
     virtual uint64_t ReadNum() = 0;
 
-    virtual void WriteEnum(uint32_t val, std::size_t enumID) = 0;
-    virtual uint32_t ReadEnum(std::size_t enumID) = 0;
+    virtual void WriteEnum(uint32_t val, const EnumID *enumID) = 0;
+    virtual uint32_t ReadEnum(const EnumID *enumID) = 0;
 
     virtual void WriteObj(const Serializable& obj) = 0;
     virtual void ReadObj(Serializable& obj) = 0;
@@ -300,8 +302,8 @@ public:
     virtual void writeNum(uint64_t val);
     virtual uint64_t readNum();
 
-    virtual void writeEnum(uint32_t val, std::size_t /*enumID*/ = 0);
-    virtual uint32_t readEnum(std::size_t /*enumID*/ = 0);
+    virtual void writeEnum(uint32_t val, const EnumID * /*enumID*/ = nullptr);
+    virtual uint32_t readEnum(const EnumID * /*enumID*/ = nullptr);
 
     virtual void writeObj(const Serializable& obj);
     virtual void readObj(Serializable& obj);
@@ -312,8 +314,8 @@ public:
     virtual void writeObjArr(const vector_of_bases<Serializable>& arr);
     virtual void readObjArr(vector_of_bases<Serializable>&& arr);
 
-    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t enumID) = 0;
-    virtual std::size_t readEnumArr(void* arr, std::size_t arrSize, std::size_t valSize, std::size_t enumID);
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, const EnumID *enumID) = 0;
+    virtual std::size_t readEnumArr(void* arr, std::size_t arrSize, std::size_t valSize, const EnumID *enumID);
 
     //
     // Helpers & aliases for compatibility with the original TSS.CPP API
@@ -335,8 +337,8 @@ protected:
     virtual void WriteNum(uint64_t val);
     virtual uint64_t ReadNum();
 
-    virtual void WriteEnum(uint32_t val, std::size_t enumID);
-    virtual uint32_t ReadEnum(std::size_t enumID);
+    virtual void WriteEnum(uint32_t val, const EnumID *enumID);
+    virtual uint32_t ReadEnum(const EnumID *enumID);
 
     virtual void WriteObj(const Serializable& obj);
     virtual void ReadObj(Serializable& obj);
@@ -348,7 +350,7 @@ public:
     virtual void writeSizedByteBuf(const ByteVec& buf);
     virtual ByteVec readSizedByteBuf();
 
-    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t /*enumID*/);
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, const EnumID * /*enumID*/);
 }; // class JsonSerializer
 
 
@@ -392,8 +394,8 @@ protected:
     virtual void WriteNum(uint64_t val);
     virtual uint64_t ReadNum();
 
-    virtual void WriteEnum(uint32_t val, std::size_t enumID);
-    virtual uint32_t ReadEnum(std::size_t enumID);
+    virtual void WriteEnum(uint32_t val, const EnumID *enumID);
+    virtual uint32_t ReadEnum(const EnumID *enumID);
 
     virtual void WriteObj(const Serializable& obj);
     virtual void ReadObj(Serializable& obj);
@@ -407,7 +409,7 @@ public:
     virtual void writeSizedByteBuf(const ByteVec& buf);
     virtual ByteVec readSizedByteBuf();
 
-    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, std::size_t enumID);
+    virtual void writeEnumArr(const void* arr, std::size_t size, std::size_t valSize, const EnumID *enumID);
 }; // class TextSerializer
 
 
