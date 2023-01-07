@@ -313,7 +313,7 @@ void PolicyPcr::UpdatePolicyDigest(TPM_HASH& accumulator) const
 {
     TpmBuffer buf;
     buf.writeInt(TPM_CC::PolicyPCR);
-    buf.writeInt((uint32_t)Pcrs.size());
+    buf.writeInt((std::uint32_t)Pcrs.size());
 
     for (auto& pcrSel : Pcrs)
         pcrSel.toTpm(buf);
@@ -363,7 +363,7 @@ void PolicyCpHash::Execute(Tpm2& tpm, PolicyTree& p)
 // PolicyCounterTimer
 //
 
-static ByteVec GetOpDigest(TPM_ALG_ID hashAlg, ByteVec OperandB, UINT16 Offset, TPM_EO Operation)
+static ByteVec GetOpDigest(TPM_ALG_ID hashAlg, ByteVec OperandB, std::uint16_t Offset, TPM_EO Operation)
 {
     TpmBuffer args;
     args.writeByteBuf(OperandB);
@@ -372,7 +372,7 @@ static ByteVec GetOpDigest(TPM_ALG_ID hashAlg, ByteVec OperandB, UINT16 Offset, 
     return Crypto::Hash(hashAlg, args.trim());
 }
 
-PolicyCounterTimer::PolicyCounterTimer(UINT64 operandB, UINT16 offset, TPM_EO operation, const string& tag)
+PolicyCounterTimer::PolicyCounterTimer(std::uint64_t operandB, std::uint16_t offset, TPM_EO operation, const string& tag)
     : PABase(tag), OperandB(Int64ToTpm(operandB)), Offset(offset), Operation(operation)
 {}
 
@@ -575,7 +575,7 @@ void PolicyDuplicationSelect::UpdatePolicyDigest(TPM_HASH& accumulator) const
 
 void PolicyDuplicationSelect::Execute(Tpm2& tpm, PolicyTree& p)
 {
-    BYTE inc = (BYTE)IncludeObjectName;
+    byte inc = (byte)IncludeObjectName;
     tpm.PolicyDuplicationSelect(*p.Session, ObjectName, NewParentName, inc);
 }
 

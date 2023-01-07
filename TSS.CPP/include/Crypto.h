@@ -22,7 +22,7 @@ class _DLLEXP_ Crypto {
         static bool IsImplemented(TPM_ALG_ID hashAlg);
 
         /// <summary>Return the length in bytes of the hash algorithm </summary>
-        static UINT16 HashLength(TPM_ALG_ID hashAlg);
+        static std::uint16_t HashLength(TPM_ALG_ID hashAlg);
 
         /// <summary> Computes digest of the given data using the given hash algorithm </summary>
         /// <param name = "hashAlg"> Hash algorithm to use </param>
@@ -85,7 +85,7 @@ class _DLLEXP_ Crypto {
                             const string& label, 
                             const ByteVec& contextU,
                             const ByteVec& contextV,
-                            uint32_t numBitsRequired);
+                            std::uint32_t numBitsRequired);
 };
 
 [[deprecated("Use Crypto instead")]]

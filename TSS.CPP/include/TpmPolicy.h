@@ -42,7 +42,7 @@ typedef PolicyNVCallbackData (PolicyNvCallback)(const string& _tag);
 
 /// <summary> A PolicySigned callback should be of this type. </summary>
 typedef SignResponse (PolicySignedCallback)(const ByteVec& _nonceTpm, 
-                                            UINT32 _expiration,
+                                            std::uint32_t _expiration,
                                             const ByteVec& _cpHashA,
                                             const ByteVec& _policyRef,
                                             const string& _tag);
@@ -306,13 +306,13 @@ class _DLLEXP_ PolicyCounterTimer : public PABase
 {
 public:
     ByteVec OperandB;
-    UINT16 Offset;
+    std::uint32_t Offset;
     TPM_EO Operation;
 
-    PolicyCounterTimer(ByteVec operandB, UINT16 offset, TPM_EO operation, const string& tag = "")
+    PolicyCounterTimer(ByteVec operandB, std::uint32_t offset, TPM_EO operation, const string& tag = "")
         : PABase(tag), OperandB(operandB), Offset(offset), Operation(operation)
     {}
-    PolicyCounterTimer(UINT64 operandB, UINT16 offset, TPM_EO operation, const string& tag = "");
+    PolicyCounterTimer(std::uint64_t operandB, std::uint16_t offset, TPM_EO operation, const string& tag = "");
     PolicyCounterTimer(const PolicyCounterTimer& r)
         : PABase(r), OperandB(r.OperandB), Offset(r.Offset), Operation(r.Operation)
     {}
@@ -379,11 +379,11 @@ class _DLLEXP_ PolicyNV : public PABase
 {
 public:
     ByteVec OperandB;
-    UINT16 Offset;
+    std::uint32_t Offset;
     TPM_EO Operation;
 
     PolicyNV(TPM_HANDLE& authHandle, TPM_HANDLE& nvIndex, const ByteVec& nvIndexName,
-             const ByteVec& operandB, UINT16 offset, TPM_EO operation, const string& tag = "")
+             const ByteVec& operandB, std::uint32_t offset, TPM_EO operation, const string& tag = "")
       : PABase(tag), OperandB(operandB), Offset(offset), Operation(operation),
         AuthHandle(authHandle), NvIndex(nvIndex), NvIndexName(nvIndexName)
     {}
@@ -399,7 +399,7 @@ public:
     /// <summary>This command is used to cause conditional gating of a policy
     /// based on the contents of an NV Index. </summary>
     PolicyNV(const ByteVec& operandB, const ByteVec& nvIndexName,
-                UINT16 offset, TPM_EO operation, const string& tag = "")
+                std::uint32_t offset, TPM_EO operation, const string& tag = "")
         : PABase(tag), OperandB(operandB), Offset(offset), Operation(operation),
         NvIndexName(nvIndexName), CallbackNeeded(true)
     {}
@@ -425,11 +425,11 @@ public:
     bool IncludeTpmNonce;
     ByteVec CpHashA;
     ByteVec PolicyRef;
-    UINT32 Expiration;
+    std::uint32_t Expiration;
     TPMT_PUBLIC PublicKey;
 
     PolicySigned(bool useNonce, const ByteVec& cpHashA, const ByteVec& policyRef,
-                 UINT32 expiration, const TPMT_PUBLIC& pubKey, const string& tag = "")
+                 std::uint32_t expiration, const TPMT_PUBLIC& pubKey, const string& tag = "")
       : PABase(tag), IncludeTpmNonce(useNonce), CpHashA(cpHashA),
         PolicyRef(policyRef), Expiration(expiration), PublicKey(pubKey)
     {}
@@ -500,14 +500,14 @@ public:
     bool IncludeTpmNonce;
     ByteVec CpHashA;
     ByteVec PolicyRef;
-    UINT32 Expiration;
+    std::uint32_t Expiration;
     ByteVec AuthObjectName;
 
     /// <summary> This command includes a secret-based authorization to a policy.
     /// The caller proves knowledge of the secret value using either a password or
     /// an HMAC-based authorization session. </summary>
     PolicySecret(bool useNonce, const ByteVec& cpHashA, const ByteVec& policyRef,
-                 UINT32 expiration, const ByteVec& authObjectName, const string& tag = "")
+                 std::uint32_t expiration, const ByteVec& authObjectName, const string& tag = "")
       : PABase(tag), IncludeTpmNonce(useNonce), CpHashA(cpHashA),
         PolicyRef(policyRef), Expiration(expiration), AuthObjectName(authObjectName)
     {}
@@ -554,11 +554,11 @@ public:
     bool IncludeTpmNonce;
     ByteVec CpHashA;
     ByteVec PolicyRef;
-    UINT32 Expiration;
+    std::uint32_t Expiration;
     TPMT_PUBLIC PublicKey;
 
     PolicyTicket(bool useNonce, const ByteVec& cpHashA, const ByteVec& policyRef,
-                 UINT32 expiration, const TPMT_PUBLIC& pubKey, const string& tag = "")
+                 std::uint32_t expiration, const TPMT_PUBLIC& pubKey, const string& tag = "")
       : PABase(tag), IncludeTpmNonce(useNonce), CpHashA(cpHashA),
         PolicyRef(policyRef), Expiration(expiration), PublicKey(pubKey)
     {}

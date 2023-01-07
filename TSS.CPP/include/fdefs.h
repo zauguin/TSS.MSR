@@ -69,6 +69,7 @@ using WCHAR = wchar_t;
 
 namespace TpmCpp {
 
+using byte = std::uint8_t;
 using std::vector;
 using std::map;
 using std::string;

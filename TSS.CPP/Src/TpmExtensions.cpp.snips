@@ -5,23 +5,23 @@
 
 
 >> TPM_HANDLE
-operator UINT32() const { return handle; }
+operator std::uint32_t() const { return handle; }
 
 /// <summary> Create a NULL TPM_HANDLE. </summary>
 static TPM_HANDLE Null() { return TPM_RH::_NULL; }
 
 /// <summary> Create a handle for a persistent object </summary>
 /// <param name="handleOffset"> Offset in the integer range reserved for persistent handles </param>
-static TPM_HANDLE Persistent(UINT32 handleOffset)
+static TPM_HANDLE Persistent(std::uint32_t handleOffset)
 {
     return (TPM_HT::PERSISTENT << 24) + handleOffset;
 }
 
 /// <summary> Create a TPM_HANDLE for a PCR with given-index. </summary>
-static TPM_HANDLE Pcr(UINT32 PcrIndex) { return PcrIndex; }
+static TPM_HANDLE Pcr(std::uint32_t PcrIndex) { return PcrIndex; }
 
 /// <summary> Create a TPM_HANDLE for an NV-slot. </summary>
-static TPM_HANDLE NV(UINT32 NvSlot)
+static TPM_HANDLE NV(std::uint32_t NvSlot)
 {
     return (TPM_HT::NV_INDEX << 24) + NvSlot;
 }
@@ -29,22 +29,22 @@ static TPM_HANDLE NV(UINT32 NvSlot)
 [[deprecated("Use default ctor, or TPM_RH_NULL, or TPM_HANDLE::Null() instead")]]
 static TPM_HANDLE NullHandle() { return Null(); }
 
-[[deprecated("Use ctor from UINT32 instead")]]
+[[deprecated("Use ctor from std::uint32_t instead")]]
 static TPM_HANDLE FromReservedHandle(TPM_RH reservedHandle)
 {
     return TPM_HANDLE(reservedHandle);
 }
 
-[[deprecated("Use TPM_HANDLE::Persistent(UINT32) instead")]]
-static TPM_HANDLE PersistentHandle(UINT32 handleOffset)
+[[deprecated("Use TPM_HANDLE::Persistent(std::uint32_t) instead")]]
+static TPM_HANDLE PersistentHandle(std::uint32_t handleOffset)
 {
     return (TPM_HT::PERSISTENT << 24) + handleOffset;
 }
 
-[[deprecated("Use TPM_HANDLE::Pcr(UINT32) instead")]]
+[[deprecated("Use TPM_HANDLE::Pcr(std::uint32_t) instead")]]
 static TPM_HANDLE PcrHandle(int PcrIndex) { return PcrIndex; }
 
-[[deprecated("Use TPM_HANDLE::NV(UINT32) instead")]]
+[[deprecated("Use TPM_HANDLE::NV(std::uint32_t) instead")]]
 static TPM_HANDLE NVHandle(int NvSlot)
 {
     return (TPM_HT::NV_INDEX << 24) + NvSlot;
@@ -101,10 +101,10 @@ static TPMT_HA FromHashOfData(TPM_ALG_ID hashAlg, const ByteVec& data);
 static TPMT_HA FromHashOfString(TPM_ALG_ID hashAlg, const string& str);
 
 /// <summary> Returns the digest size in bytes for the current hash algorithm. </summary>
-UINT16 DigestSize();
+std::uint16_t DigestSize();
 
 /// <summary> Returns the digest size in bytes for the given hash algoruthm. </summary>
-static UINT16 DigestSize(TPM_ALG_ID hashAlg);
+static std::uint16_t DigestSize(TPM_ALG_ID hashAlg);
 
 /// <summary> Perform a TPM-extend operation on the current hash-value.  Note
 /// the TPM only accepts hash-sized vector inputs: this function has no such limitations. </summary>
@@ -153,7 +153,7 @@ bool ValidateCertifyCreation(const ByteVec& Nonce, const ByteVec& creationHash,
 
 /// <summary> Validate a key creation signature. </summary>
 bool ValidateCertifyNV(const ByteVec& Nonce, const ByteVec& expectedContents,
-                       UINT16 startOffset, class NV_CertifyResponse& quote) const;
+                       std::uint16_t startOffset, class NV_CertifyResponse& quote) const;
 
 /// <summary> Encrypt: currently only RSA/OAEP. </summary>
 ByteVec Encrypt(const ByteVec& secret, const ByteVec& encodingParms) const;
@@ -179,25 +179,25 @@ TPM_ALG_ID GetAlg() const { return type(); }
 
 >> TPMS_PCR_SELECTION
 /// <summary> Create a TPMS_PCR_SELECTION naming a single-PCR. </summary>
-TPMS_PCR_SELECTION(TPM_ALG_ID alg, UINT32 pcr);
+TPMS_PCR_SELECTION(TPM_ALG_ID alg, std::uint32_t pcr);
 
 /// <summary> Create a TPMS_PCR_SELECTION for a set of PCR in a single bank. </summary>
-TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, const vector<UINT32>& pcrs);
+TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, const vector<std::uint32_t>& pcrs);
 
 /// <summary> Get a PCR-selection array naming exactly one PCR in one bank. </summary>
-static vector<TPMS_PCR_SELECTION> GetSelectionArray(TPM_ALG_ID hashAlg, UINT32 pcr)
+static vector<TPMS_PCR_SELECTION> GetSelectionArray(TPM_ALG_ID hashAlg, std::uint32_t pcr)
 {
     return vector<TPMS_PCR_SELECTION>{{hashAlg, pcr}};
 }
 
 /// <summary> Is the PCR with index _pcr selected in this TPMS_PCR_SELECTION. </summary>
-bool PcrIsSelected(UINT32 pcr)
+bool PcrIsSelected(std::uint32_t pcr)
 {
     return pcrSelect[pcr / 8] = (1 << (pcr % 8)) != 0;
 }
 
-/// <summary> Return the current PCR-selection as a UINT32 array. </summary>
-vector<UINT32> ToArray();
+/// <summary> Return the current PCR-selection as a std::uint32_t array. </summary>
+vector<std::uint32_t> ToArray();
 
 [[deprecated("Use {} instead (creates a default-constructed empty vector)")]]
 static vector<TPMS_PCR_SELECTION> NullSelectionArray()

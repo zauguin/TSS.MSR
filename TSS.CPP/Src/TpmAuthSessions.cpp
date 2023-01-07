@@ -104,7 +104,7 @@ ByteVec AUTH_SESSION::GetAuthHmac(const ByteVec& parmHash, bool directionIn,
     }
 
     ByteVec sessionAttrs(1);
-    sessionAttrs[0] = (BYTE)SessionAttributes;
+    sessionAttrs[0] = (byte)SessionAttributes;
 
     // Sessions's own auth (may be used for overriding standard auth value source)
     ByteVec auth = handle.GetAuth();

@@ -117,8 +117,8 @@ uint64_t from_hex(const string& hex)
 
 ostream& operator<<(ostream& s, const ByteVec& b)
 {
-    for (UINT32 j = 0; j < b.size(); j++) {
-        s << setw(2) << setfill('0') << hex << (UINT32)b[j];
+    for (std::uint32_t j = 0; j < b.size(); j++) {
+        s << setw(2) << setfill('0') << hex << (std::uint32_t)b[j];
         if ((j + 1) % 4 == 0)
             s << " ";
     }
@@ -204,9 +204,9 @@ namespace Helpers
 
         for (size_t j = newSize - 1; j >= 0; --j)
         {
-            y[j] = (BYTE)(x[j] >> numBits);
+            y[j] = (byte)(x[j] >> numBits);
             if (j != 0)
-                y[j] |= (BYTE)(x[j - 1] << numCarryBits);
+                y[j] |= (byte)(x[j - 1] << numCarryBits);
         }
         return y;
     }

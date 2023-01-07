@@ -18,7 +18,7 @@ using namespace std;
 
 void TPM_HANDLE::SetName(const ByteVec& name)
 {
-    UINT32 handleType = GetHandleType();
+    std::uint32_t handleType = GetHandleType();
 
     if (handleType == TPM_HT::NV_INDEX ||
         handleType == TPM_HT::TRANSIENT || 
@@ -213,7 +213,7 @@ bool TPMT_PUBLIC::ValidateSessionAudit(const TPMT_HA& expectedHash, const ByteVe
 }
 
 bool TPMT_PUBLIC::ValidateCertifyNV(const ByteVec& Nonce, const ByteVec& expectedContents,
-                                    UINT16 offset,  NV_CertifyResponse& quote) const
+                                    std::uint16_t offset,  NV_CertifyResponse& quote) const
 {
     TPM_ALG_ID hashAlg = GetSigningHashAlg(*this);
     TPMS_ATTEST attest = quote.certifyInfo;
@@ -249,7 +249,7 @@ ByteVec TPMT_PUBLIC::EncryptSessionSalt(const ByteVec& secret) const
     ByteVec label(idString.length() + 1);
 
     for (size_t j = 0; j < idString.length(); j++)
-        label[j] = (BYTE)idString[j];
+        label[j] = (byte)idString[j];
 
     return Crypto::Encrypt(*this, secret, label);
 }
@@ -277,7 +277,7 @@ ActivationData TPMT_PUBLIC::CreateActivation(const ByteVec& secret, const ByteVe
     ByteVec label(idString.length() + 1);
 
     for (size_t j = 0; j < idString.length(); j++)
-        label[j] = (BYTE)idString[j];
+        label[j] = (byte)idString[j];
 
     act.Secret = this->Encrypt(seed, label);
     ByteVec nullVec;
@@ -391,10 +391,10 @@ ByteVec TPMT_PUBLIC::GetName() const
 // TPMS_PCR_SELECTION
 //
 
-TPMS_PCR_SELECTION::TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, UINT32 pcr)
+TPMS_PCR_SELECTION::TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, std::uint32_t pcr)
 {
     hash = hashAlg;
-    UINT32 sz = 3;
+    std::uint32_t sz = 3;
 
     if ((pcr / 8 + 1) > sz)
         sz = pcr / 8 + 1;
@@ -403,10 +403,10 @@ TPMS_PCR_SELECTION::TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, UINT32 pcr)
     pcrSelect[pcr / 8] = 1 << (pcr % 8);
 }
 
-TPMS_PCR_SELECTION::TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, const vector<UINT32>& pcrs)
+TPMS_PCR_SELECTION::TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, const vector<std::uint32_t>& pcrs)
 {
     hash = hashAlg;
-    UINT32 pcrMax = 0;
+    std::uint32_t pcrMax = 0;
 
     for (size_t i = 0; i < pcrs.size(); i++)
     {
@@ -421,14 +421,14 @@ TPMS_PCR_SELECTION::TPMS_PCR_SELECTION(TPM_ALG_ID hashAlg, const vector<UINT32>&
         pcrSelect[pcrs[i] / 8] |= 1 << (pcrs[i] % 8);
 }
 
-vector<UINT32> TPMS_PCR_SELECTION::ToArray()
+vector<std::uint32_t> TPMS_PCR_SELECTION::ToArray()
 {
-    vector<UINT32> arr;
+    vector<std::uint32_t> arr;
     int maxIs = (int)pcrSelect.size() * 8;
 
     for (int j = 0; j < maxIs; j++) {
         if (PcrIsSelected(j))
-            arr.push_back((UINT32)j);
+            arr.push_back((std::uint32_t)j);
     }
     return arr;
 }
@@ -445,7 +445,7 @@ void TSS_KEY::CreateKey()
         throw domain_error("Only RSA activation supported");
 
     int keySize = parms->keyBits;
-    UINT32 exponent = parms->exponent;
+    std::uint32_t exponent = parms->exponent;
     ByteVec pub, priv;
     Crypto::CreateRsaKey(keySize, exponent, pub, priv);
 
@@ -483,12 +483,12 @@ TPMT_HA TPMT_HA::FromHashOfString(TPM_ALG_ID alg, const string& str)
     return TPMT_HA(alg, Crypto::Hash(alg, t));
 }
 
-UINT16 TPMT_HA::DigestSize()
+std::uint16_t TPMT_HA::DigestSize()
 {
     return Crypto::HashLength(hashAlg);
 }
 
-UINT16 TPMT_HA::DigestSize(TPM_ALG_ID alg)
+std::uint16_t TPMT_HA::DigestSize(TPM_ALG_ID alg)
 {
     return Crypto::HashLength(alg);
 }
@@ -511,7 +511,7 @@ TPMT_HA TPMT_HA::Event(const ByteVec& x)
 
 void TPMT_HA::Reset()
 {
-    fill(digest.begin(), digest.end(), (BYTE)0);
+    fill(digest.begin(), digest.end(), (byte)0);
 }
 
 }

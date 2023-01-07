@@ -42,7 +42,7 @@ void TpmDevice::PowerCtl(bool on) { ThrowUnsupported("PowerCtl"); }
 
 void TpmDevice::AssertPhysicalPresence(bool on) { ThrowUnsupported("AssertPhysicalPresence"); }
 
-void TpmDevice::SetLocality(UINT32) { ThrowUnsupported("SetLocality"); }
+void TpmDevice::SetLocality(std::uint32_t) { ThrowUnsupported("SetLocality"); }
 
 
 
@@ -181,10 +181,10 @@ void Send(SOCKET s, const void* buf, size_t toSend)
     }
 }
 
-/// <summary> Send a UINT32 in network byte order </summary>
-void SendInt(SOCKET s, UINT32 val)
+/// <summary> Send a std::uint32_t in network byte order </summary>
+void SendInt(SOCKET s, std::uint32_t val)
 {
-    UINT32 valx = htonl(val);
+    std::uint32_t valx = htonl(val);
     Send(s, &valx, 4);
     return;
 }
@@ -202,12 +202,12 @@ void Recv(SOCKET s, void* buf, size_t toReceive)
     }
 }
 
-/// <summary> Get a UINT32 and translate into host order </summary>
-UINT32 ReceiveInt(SOCKET s)
+/// <summary> Get a std::uint32_t and translate into host order </summary>
+std::uint32_t ReceiveInt(SOCKET s)
 {
-    UINT32 _val;
+    std::uint32_t _val;
     Recv(s, &_val, 4);
-    UINT32 val = ntohl(_val);
+    std::uint32_t val = ntohl(_val);
     return val;
 }
 
@@ -220,7 +220,7 @@ ByteVec RecvVarArray(SOCKET s)
 }
 
 
-/// <summary> Get an ACK (zero UINT32) from the server </summary>
+/// <summary> Get an ACK (zero std::uint32_t) from the server </summary>
 void GetAck(SOCKET s)
 {
     int endTag = ReceiveInt(s);
@@ -302,9 +302,9 @@ void TpmTcpDevice::AssertPhysicalPresence(bool on)
     SendCmdAndGetAck(signalSocket, on ? TcpTpmCommands::SignalPPOn : TcpTpmCommands::SignalPPOff);
 }
 
-void TpmTcpDevice::SetLocality(UINT32 locality)
+void TpmTcpDevice::SetLocality(std::uint32_t locality)
 {
-    Locality = (BYTE)locality;
+    Locality = (byte)locality;
 }
 
 void TpmTcpDevice::DispatchCommand(const ByteVec& cmdBuf)
@@ -410,7 +410,7 @@ void TpmTbsDevice::DispatchCommand(const ByteVec& outBytes)
                                           TBS_COMMAND_LOCALITY_ZERO,
                                           TBS_COMMAND_PRIORITY_NORMAL,
                                           &outBytes[0],
-                                          (UINT32)outBytes.size(),
+                                          (std::uint32_t)outBytes.size(),
                                           resultBuffer,
                                           &resSize);
     if (res != TBS_SUCCESS)
@@ -686,7 +686,7 @@ ByteVec TpmTbsDevice::GetResponse()
         return resp;
     }
 
-    BYTE respBuf[4096];
+    byte respBuf[4096];
     ssize_t bytesRead;
 
     if (TpmInfo & TpmTbsConn)
@@ -714,13 +714,13 @@ ByteVec TpmTbsDevice::GetResponse()
 
         uint32_t respSize = ntohl(*((uint32_t*)(respBuf + 2)));
         //printf("    > Receved response of %d vs. %lu bytes\n", respSize, bytesRead);
-        bytesRead = (UINT32)(respSize < bytesRead ? respSize : bytesRead);
+        bytesRead = (std::uint32_t)(respSize < bytesRead ? respSize : bytesRead);
     }
 #endif
     else
         throw runtime_error("Invalid TPM connection type");
 
-    return ByteVec((BYTE*)respBuf, (BYTE*)respBuf + bytesRead);
+    return ByteVec((byte*)respBuf, (byte*)respBuf + bytesRead);
 }
 
 bool TpmTbsDevice::ResponseIsReady() const

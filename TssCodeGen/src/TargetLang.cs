@@ -61,7 +61,7 @@ namespace CodeGen
 
         static Dictionary<string, ElementaryType> ElementaryTypes = new Dictionary<string, ElementaryType> {
                 //                                      .Net      C++              Java     TypeScript  Python
-                { "BYTE",        new ElementaryType(1, "byte",   "std::uint8_t",  "byte",    "number",  "int")},
+                { "BYTE",        new ElementaryType(1, "byte",   "byte",          "byte",    "number",  "int")},
                 { "UINT8",       new ElementaryType(1, "byte",   "std::uint8_t",  "byte",    "number",  "int")},
                 { "INT8",        new ElementaryType(1, "sbyte",  "std::int8_t",   "byte",    "number",  "int")},
                 { "UINT16",      new ElementaryType(2, "ushort", "std::uint16_t", "int",     "number",  "int")},

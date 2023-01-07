@@ -14,12 +14,12 @@ AUTH_SESSION PwapSession = AUTH_SESSION::PWAP();
 
 bool IsFmt1(TPM_RC responseCode)
 {
-    return ((UINT32)responseCode & 0x80) != 0;
+    return ((std::uint32_t)responseCode & 0x80) != 0;
 }
 
 TPM_RC Tpm2::ResponseCodeFromTpmError(TPM_RC responseCode)
 {
-    return (TPM_RC)((UINT32)responseCode & (IsFmt1(responseCode) ? 0xBFU : 0x97FU));
+    return (TPM_RC)((std::uint32_t)responseCode & (IsFmt1(responseCode) ? 0xBFU : 0x97FU));
 }
 
 Tpm2::Tpm2(class TpmDevice& _device) : device(&_device), Async(*this)
@@ -359,7 +359,7 @@ bool Tpm2::DispatchIn(TPM_CC cmdCode, RespStructure& resp)
 
     // Read the response header
     TPM_ST respTag = respBuf.readShort();
-    UINT32 respSize = respBuf.readInt();
+    std::uint32_t respSize = respBuf.readInt();
     TPM_RC respCode = respBuf.readInt();
 
     size_t actRespSize = respBuf.size();
@@ -411,7 +411,7 @@ bool Tpm2::DispatchIn(TPM_CC cmdCode, RespStructure& resp)
     if (!errMsg.empty())
     {
         Sessions.clear();
-        throw system_error((UINT32)LastResponseCode, system_category(), errMsg);
+        throw system_error((std::uint32_t)LastResponseCode, system_category(), errMsg);
     }
     else if (LastResponseCode != TPM_RC::SUCCESS)
     {

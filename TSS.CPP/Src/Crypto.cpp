@@ -22,8 +22,8 @@ typedef struct {
 } TPM2B;
 
 typedef struct {
-    UINT32  exponent;      // The public exponent pointer
-    TPM2B  *publicKey;     // Pointer to the public modulus
+    std::uint32_t exponent;      // The public exponent pointer
+    TPM2B *publicKey;     // Pointer to the public modulus
 } RSA_KEY;
 
 enum class CryptResult {
@@ -74,7 +74,7 @@ bool Crypto::IsImplemented(TPM_ALG_ID hashAlg)
 }
 
 
-UINT16 Crypto::HashLength(TPM_ALG_ID hashAlg)
+std::uint16_t Crypto::HashLength(TPM_ALG_ID hashAlg)
 {
     switch (hashAlg) {
         case TPM_ALG_NULL:  return 0;
@@ -332,7 +332,7 @@ SignResponse Crypto::Sign(const TSS_KEY& key, const ByteVec& toSign,
     pkey.Initialize(n, e, d);
 
     const int maxBuf = 4096;
-    BYTE signature[maxBuf];
+    byte signature[maxBuf];
 
     auto signer = buildForHash<GetSigner>(scheme->hashAlg, pkey);
 
@@ -360,8 +360,8 @@ ByteVec Crypto::CFBXcrypt(bool encrypt, TPM_ALG_ID algId,
 
     ByteVec res(data.size());
 
-    BYTE nullVec[512] = {0};
-    BYTE *pIv = iv.empty() ? nullVec : &iv[0];
+    byte nullVec[512] = {0};
+    byte *pIv = iv.empty() ? nullVec : &iv[0];
 
     int num = 0;
 
