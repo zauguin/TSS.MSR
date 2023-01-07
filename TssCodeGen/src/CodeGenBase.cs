@@ -228,7 +228,7 @@ namespace CodeGen
 
                     case MarshalType.UnionObject:
                         var selector = (f as UnionField).UnionSelector.Name;
-                        marshalOps.Add(TargetLang.Cpp ? $"UnionFactory::Create({fieldName}, {selector})"
+                        marshalOps.Add(TargetLang.Cpp ? $"{fieldName} = CreateUnion<{f.TypeName}>({selector})"
                                                       : $"{fieldName} = UnionFactory.create({TargetLang.Quote(f.TypeName)}, {selector})");
                         marshalOps.Add($"{fieldName}{TargetLang.Member}initFromTpm(buf)");
                         break;

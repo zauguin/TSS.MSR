@@ -2879,14 +2879,11 @@ struct TPMA_NV : public TpmEnum<UINT32>
     TPM_ENUM_EPILOGUE(TPMA_NV)
 };
 
-/// <summary> Base class for TPM union interfaces </summary>
-class _DLLEXP_ TpmUnion: public virtual TpmStructure {};
-
 /// <summary> Table 119 Definition of TPMU_CAPABILITIES Union [OUT] </summary>
 /// <remarks> One of: TPML_ALG_PROPERTY, TPML_HANDLE, TPML_CCA, TPML_CC,
 /// TPML_PCR_SELECTION, TPML_TAGGED_TPM_PROPERTY, TPML_TAGGED_PCR_PROPERTY,
 /// TPML_ECC_CURVE, TPML_TAGGED_POLICY, TPML_ACT_DATA. </remarks>
-class _DLLEXP_ TPMU_CAPABILITIES: public virtual TpmUnion
+class _DLLEXP_ TPMU_CAPABILITIES: public virtual TpmStructure
 {
     public: virtual TPM_CAP GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2896,7 +2893,7 @@ class _DLLEXP_ TPMU_CAPABILITIES: public virtual TpmUnion
 /// <remarks> One of: TPMS_CERTIFY_INFO, TPMS_CREATION_INFO, TPMS_QUOTE_INFO,
 /// TPMS_COMMAND_AUDIT_INFO, TPMS_SESSION_AUDIT_INFO, TPMS_TIME_ATTEST_INFO,
 /// TPMS_NV_CERTIFY_INFO, TPMS_NV_DIGEST_CERTIFY_INFO. </remarks>
-class _DLLEXP_ TPMU_ATTEST: public virtual TpmUnion
+class _DLLEXP_ TPMU_ATTEST: public virtual TpmStructure
 {
     public: virtual TPM_ST GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2907,7 +2904,7 @@ class _DLLEXP_ TPMU_ATTEST: public virtual TpmUnion
 /// <remarks> One of: TPMS_TDES_SYM_DETAILS, TPMS_AES_SYM_DETAILS, TPMS_SM4_SYM_DETAILS,
 /// TPMS_CAMELLIA_SYM_DETAILS, TPMS_ANY_SYM_DETAILS, TPMS_XOR_SYM_DETAILS,
 /// TPMS_NULL_SYM_DETAILS. </remarks>
-class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmUnion
+class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2918,7 +2915,7 @@ class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmUnion
 /// determined by context. When an object is being derived, the derivation values are
 /// present. </summary>
 /// <remarks> One of: BYTE, TPMS_DERIVE. </remarks>
-class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmUnion
+class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2926,7 +2923,7 @@ class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmUnion
 
 /// <summary> Table 157 Definition of TPMU_SCHEME_KEYEDHASH Union [IN/OUT] </summary>
 /// <remarks> One of: TPMS_SCHEME_HMAC, TPMS_SCHEME_XOR, TPMS_NULL_SCHEME_KEYEDHASH. </remarks>
-class _DLLEXP_ TPMU_SCHEME_KEYEDHASH: public virtual TpmUnion
+class _DLLEXP_ TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2936,7 +2933,7 @@ class _DLLEXP_ TPMU_SCHEME_KEYEDHASH: public virtual TpmUnion
 /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
 /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
 /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-class _DLLEXP_ TPMU_SIG_SCHEME: public virtual TpmUnion
+class _DLLEXP_ TPMU_SIG_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2946,7 +2943,7 @@ class _DLLEXP_ TPMU_SIG_SCHEME: public virtual TpmUnion
 /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
 /// TPMS_KDF_SCHEME_KDF2, TPMS_KDF_SCHEME_KDF1_SP800_108, TPMS_SCHEME_HASH,
 /// TPMS_NULL_KDF_SCHEME. </remarks>
-class _DLLEXP_ TPMU_KDF_SCHEME: public virtual TpmUnion
+class _DLLEXP_ TPMU_KDF_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2959,7 +2956,7 @@ class _DLLEXP_ TPMU_KDF_SCHEME: public virtual TpmUnion
 /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
 /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
 /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-class _DLLEXP_ TPMU_ASYM_SCHEME: public virtual TpmUnion
+class _DLLEXP_ TPMU_ASYM_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2971,7 +2968,7 @@ class _DLLEXP_ TPMU_ASYM_SCHEME: public virtual TpmUnion
 /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
 /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
 /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-class _DLLEXP_ TPMU_SIGNATURE: public virtual TpmUnion
+class _DLLEXP_ TPMU_SIGNATURE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2981,7 +2978,7 @@ class _DLLEXP_ TPMU_SIGNATURE: public virtual TpmUnion
 /// TPMT_PUBLIC. </summary>
 /// <remarks> One of: TPM2B_DIGEST_KEYEDHASH, TPM2B_DIGEST_SYMCIPHER,
 /// TPM2B_PUBLIC_KEY_RSA, TPMS_ECC_POINT, TPMS_DERIVE. </remarks>
-class _DLLEXP_ TPMU_PUBLIC_ID: public virtual TpmUnion
+class _DLLEXP_ TPMU_PUBLIC_ID: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -2992,7 +2989,7 @@ class _DLLEXP_ TPMU_PUBLIC_ID: public virtual TpmUnion
 /// field must be a TPMT_SYM_DEF_OBJECT. See 11.1.7. </summary>
 /// <remarks> One of: TPMS_KEYEDHASH_PARMS, TPMS_SYMCIPHER_PARMS, TPMS_RSA_PARMS,
 /// TPMS_ECC_PARMS, TPMS_ASYM_PARMS. </remarks>
-class _DLLEXP_ TPMU_PUBLIC_PARMS: public virtual TpmUnion
+class _DLLEXP_ TPMU_PUBLIC_PARMS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -3001,7 +2998,7 @@ class _DLLEXP_ TPMU_PUBLIC_PARMS: public virtual TpmUnion
 /// <summary> Table 205 Definition of TPMU_SENSITIVE_COMPOSITE Union [IN/OUT] </summary>
 /// <remarks> One of: TPM2B_PRIVATE_KEY_RSA, TPM2B_ECC_PARAMETER, TPM2B_SENSITIVE_DATA,
 /// TPM2B_SYM_KEY, TPM2B_PRIVATE_VENDOR_SPECIFIC. </remarks>
-class _DLLEXP_ TPMU_SENSITIVE_COMPOSITE: public virtual TpmUnion
+class _DLLEXP_ TPMU_SENSITIVE_COMPOSITE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
@@ -3119,8 +3116,6 @@ class _DLLEXP_ TPMS_NULL_UNION : public virtual TpmStructure, public TPMU_SYM_DE
 public:
 public:
     TPMS_NULL_UNION() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
 
     /// <summary> Static marshaling helper </summary>
@@ -3145,8 +3140,6 @@ class _DLLEXP_ TPMS_EMPTY : public virtual TpmStructure, public TPMU_ASYM_SCHEME
 public:
 public:
     TPMS_EMPTY() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSAES; }
 
     /// <summary> Static marshaling helper </summary>
@@ -3219,8 +3212,6 @@ public:
     TPMT_HA(TPM_ALG_ID _hashAlg, const ByteVec& _digest)
       : hashAlg(_hashAlg), digest(_digest)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::HMAC; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -3299,8 +3290,6 @@ public:
     TPM2B_DIGEST(const ByteVec& _buffer)
       : buffer(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KEYEDHASH; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -3653,7 +3642,7 @@ public:
     /// <summary> Is the PCR with index _pcr selected in this TPMS_PCR_SELECTION. </summary>
     bool PcrIsSelected(UINT32 pcr)
     {
-        return (pcrSelect[pcr / 8] = (1 << (pcr % 8)) != 0);
+        return pcrSelect[pcr / 8] = (1 << (pcr % 8)) != 0;
     }
 
     /// <summary> Return the current PCR-selection as a UINT32 array. </summary>
@@ -4017,8 +4006,6 @@ public:
     TPML_CC(const vector<TPM_CC>& _commandCodes)
       : commandCodes(_commandCodes)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::PP_COMMANDS; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4053,8 +4040,6 @@ public:
     TPML_CCA(const vector<TPMA_CC>& _commandAttributes)
       : commandAttributes(_commandAttributes)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::COMMANDS; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4123,8 +4108,6 @@ public:
     TPML_HANDLE(const vector<TPM_HANDLE>& _handle)
       : handle(_handle)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::HANDLES; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4229,8 +4212,6 @@ public:
     TPML_PCR_SELECTION(const vector<TPMS_PCR_SELECTION>& _pcrSelections)
       : pcrSelections(_pcrSelections)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::PCRS; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4265,8 +4246,6 @@ public:
     TPML_ALG_PROPERTY(const vector<TPMS_ALG_PROPERTY>& _algProperties)
       : algProperties(_algProperties)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::ALGS; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4301,8 +4280,6 @@ public:
     TPML_TAGGED_TPM_PROPERTY(const vector<TPMS_TAGGED_PROPERTY>& _tpmProperty)
       : tpmProperty(_tpmProperty)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::TPM_PROPERTIES; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4337,8 +4314,6 @@ public:
     TPML_TAGGED_PCR_PROPERTY(const vector<TPMS_TAGGED_PCR_SELECT>& _pcrProperty)
       : pcrProperty(_pcrProperty)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::PCR_PROPERTIES; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4373,8 +4348,6 @@ public:
     TPML_ECC_CURVE(const vector<TPM_ECC_CURVE>& _eccCurves)
       : eccCurves(_eccCurves)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::ECC_CURVES; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4410,8 +4383,6 @@ public:
     TPML_TAGGED_POLICY(const vector<TPMS_TAGGED_POLICY>& _policies)
       : policies(_policies)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::AUTH_POLICIES; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4446,8 +4417,6 @@ public:
     TPML_ACT_DATA(const vector<TPMS_ACT_DATA>& _actData)
       : actData(_actData)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_CAP GetUnionSelector() const { return TPM_CAP::ACT; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4480,7 +4449,7 @@ public:
     /// <remarks> One of: TPML_ALG_PROPERTY, TPML_HANDLE, TPML_CCA, TPML_CC,
     /// TPML_PCR_SELECTION, TPML_TAGGED_TPM_PROPERTY, TPML_TAGGED_PCR_PROPERTY,
     /// TPML_ECC_CURVE, TPML_TAGGED_POLICY, TPML_ACT_DATA. </remarks>
-    shared_ptr<TPMU_CAPABILITIES> data;
+    std::shared_ptr<TPMU_CAPABILITIES> data;
 
 public:
     TPMS_CAPABILITY_DATA() {}
@@ -4607,8 +4576,6 @@ public:
     TPMS_TIME_ATTEST_INFO(const TPMS_TIME_INFO& _time, UINT64 _firmwareVersion)
       : time(_time), firmwareVersion(_firmwareVersion)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_TIME; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4645,8 +4612,6 @@ public:
     TPMS_CERTIFY_INFO(const ByteVec& _name, const ByteVec& _qualifiedName)
       : name(_name), qualifiedName(_qualifiedName)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_CERTIFY; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4683,8 +4648,6 @@ public:
     TPMS_QUOTE_INFO(const vector<TPMS_PCR_SELECTION>& _pcrSelect, const ByteVec& _pcrDigest)
       : pcrSelect(_pcrSelect), pcrDigest(_pcrDigest)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_QUOTE; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4727,8 +4690,6 @@ public:
     TPMS_COMMAND_AUDIT_INFO(UINT64 _auditCounter, TPM_ALG_ID _digestAlg, const ByteVec& _auditDigest, const ByteVec& _commandDigest)
       : auditCounter(_auditCounter), digestAlg(_digestAlg), auditDigest(_auditDigest), commandDigest(_commandDigest)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_COMMAND_AUDIT; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4767,8 +4728,6 @@ public:
     TPMS_SESSION_AUDIT_INFO(BYTE _exclusiveSession, const ByteVec& _sessionDigest)
       : exclusiveSession(_exclusiveSession), sessionDigest(_sessionDigest)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_SESSION_AUDIT; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4805,8 +4764,6 @@ public:
     TPMS_CREATION_INFO(const ByteVec& _objectName, const ByteVec& _creationHash)
       : objectName(_objectName), creationHash(_creationHash)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_CREATION; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4847,8 +4804,6 @@ public:
     TPMS_NV_CERTIFY_INFO(const ByteVec& _indexName, UINT16 _offset, const ByteVec& _nvContents)
       : indexName(_indexName), offset(_offset), nvContents(_nvContents)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_NV; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4887,8 +4842,6 @@ public:
     TPMS_NV_DIGEST_CERTIFY_INFO(const ByteVec& _indexName, const ByteVec& _nvDigest)
       : indexName(_indexName), nvDigest(_nvDigest)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_NV_DIGEST; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -4941,7 +4894,7 @@ public:
     /// <remarks> One of: TPMS_CERTIFY_INFO, TPMS_CREATION_INFO, TPMS_QUOTE_INFO,
     /// TPMS_COMMAND_AUDIT_INFO, TPMS_SESSION_AUDIT_INFO, TPMS_TIME_ATTEST_INFO,
     /// TPMS_NV_CERTIFY_INFO, TPMS_NV_DIGEST_CERTIFY_INFO. </remarks>
-    shared_ptr<TPMU_ATTEST> attested;
+    std::shared_ptr<TPMU_ATTEST> attested;
 
 public:
     TPMS_ATTEST() {}
@@ -5092,8 +5045,6 @@ class _DLLEXP_ TPMS_TDES_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_TDES_SYM_DETAILS() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::TDES; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5117,8 +5068,6 @@ class _DLLEXP_ TPMS_AES_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_AES_SYM_DETAILS() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::AES; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5142,8 +5091,6 @@ class _DLLEXP_ TPMS_SM4_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_SM4_SYM_DETAILS() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::SM4; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5168,8 +5115,6 @@ class _DLLEXP_ TPMS_CAMELLIA_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_CAMELLIA_SYM_DETAILS() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::CAMELLIA; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5193,8 +5138,6 @@ class _DLLEXP_ TPMS_ANY_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_ANY_SYM_DETAILS() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ANY; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5218,8 +5161,6 @@ class _DLLEXP_ TPMS_XOR_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_XOR_SYM_DETAILS() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::XOR; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5244,8 +5185,6 @@ class _DLLEXP_ TPMS_NULL_SYM_DETAILS : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SYM_DETAILS() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5374,8 +5313,6 @@ public:
     TPM2B_SYM_KEY(const ByteVec& _buffer)
       : buffer(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::SYMCIPHER; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -5409,8 +5346,6 @@ public:
     TPMS_SYMCIPHER_PARMS(const TPMT_SYM_DEF_OBJECT& _sym)
       : sym(_sym)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::SYMCIPHER; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -5481,8 +5416,6 @@ public:
     TPMS_DERIVE(const ByteVec& _label, const ByteVec& _context)
       : label(_label), context(_context)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ANY2; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -5550,8 +5483,6 @@ public:
     TPM2B_SENSITIVE_DATA(const ByteVec& _buffer)
       : buffer(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KEYEDHASH; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -5658,8 +5589,6 @@ public:
     TPMS_SCHEME_HASH(TPM_ALG_ID _hashAlg)
       : hashAlg(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::HMAC; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -5696,8 +5625,6 @@ public:
     TPMS_SCHEME_ECDAA(TPM_ALG_ID _hashAlg, UINT16 _count)
       : hashAlg(_hashAlg), count(_count)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDAA; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -5728,8 +5655,6 @@ public:
     TPMS_SCHEME_HMAC(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::HMAC; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5766,8 +5691,6 @@ public:
     TPMS_SCHEME_XOR(TPM_ALG_ID _hashAlg, TPM_ALG_ID _kdf)
       : hashAlg(_hashAlg), kdf(_kdf)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::XOR; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -5797,8 +5720,6 @@ class _DLLEXP_ TPMS_NULL_SCHEME_KEYEDHASH : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SCHEME_KEYEDHASH() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5824,7 +5745,7 @@ public:
 
     /// <summary> The scheme parameters </summary>
     /// <remarks> One of: TPMS_SCHEME_HMAC, TPMS_SCHEME_XOR, TPMS_NULL_SCHEME_KEYEDHASH. </remarks>
-    shared_ptr<TPMU_SCHEME_KEYEDHASH> details;
+    std::shared_ptr<TPMU_SCHEME_KEYEDHASH> details;
 
 public:
     TPMT_KEYEDHASH_SCHEME() {}
@@ -5861,8 +5782,6 @@ public:
     TPMS_SIG_SCHEME_RSASSA(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSASSA; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5889,8 +5808,6 @@ public:
     TPMS_SIG_SCHEME_RSAPSS(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSAPSS; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5918,8 +5835,6 @@ public:
     TPMS_SIG_SCHEME_ECDSA(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDSA; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5947,8 +5862,6 @@ public:
     TPMS_SIG_SCHEME_SM2(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::SM2; }
 
     /// <summary> Static marshaling helper </summary>
@@ -5976,8 +5889,6 @@ public:
     TPMS_SIG_SCHEME_ECSCHNORR(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECSCHNORR; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6005,8 +5916,6 @@ public:
     TPMS_SIG_SCHEME_ECDAA(TPM_ALG_ID _hashAlg, UINT16 _count)
       : TPMS_SCHEME_ECDAA(_hashAlg, _count)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDAA; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6030,8 +5939,6 @@ class _DLLEXP_ TPMS_NULL_SIG_SCHEME : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SIG_SCHEME() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6059,7 +5966,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> details;
+    std::shared_ptr<TPMU_SIG_SCHEME> details;
 
 public:
     TPMT_SIG_SCHEME() {}
@@ -6096,8 +6003,6 @@ public:
     TPMS_ENC_SCHEME_OAEP(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::OAEP; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6121,8 +6026,6 @@ class _DLLEXP_ TPMS_ENC_SCHEME_RSAES : public TPMS_EMPTY
 public:
 public:
     TPMS_ENC_SCHEME_RSAES() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSAES; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6149,8 +6052,6 @@ public:
     TPMS_KEY_SCHEME_ECDH(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDH; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6177,8 +6078,6 @@ public:
     TPMS_KEY_SCHEME_ECMQV(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECMQV; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6206,8 +6105,6 @@ public:
     TPMS_KDF_SCHEME_MGF1(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::MGF1; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6235,8 +6132,6 @@ public:
     TPMS_KDF_SCHEME_KDF1_SP800_56A(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KDF1_SP800_56A; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6264,8 +6159,6 @@ public:
     TPMS_KDF_SCHEME_KDF2(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KDF2; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6293,8 +6186,6 @@ public:
     TPMS_KDF_SCHEME_KDF1_SP800_108(TPM_ALG_ID _hashAlg)
       : TPMS_SCHEME_HASH(_hashAlg)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KDF1_SP800_108; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6318,8 +6209,6 @@ class _DLLEXP_ TPMS_NULL_KDF_SCHEME : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_KDF_SCHEME() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6347,7 +6236,7 @@ public:
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
     /// TPMS_KDF_SCHEME_KDF2, TPMS_KDF_SCHEME_KDF1_SP800_108, TPMS_SCHEME_HASH,
     /// TPMS_NULL_KDF_SCHEME. </remarks>
-    shared_ptr<TPMU_KDF_SCHEME> details;
+    std::shared_ptr<TPMU_KDF_SCHEME> details;
 
 public:
     TPMT_KDF_SCHEME() {}
@@ -6382,8 +6271,6 @@ class _DLLEXP_ TPMS_NULL_ASYM_SCHEME : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_ASYM_SCHEME() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6414,7 +6301,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> details;
+    std::shared_ptr<TPMU_ASYM_SCHEME> details;
 
 public:
     TPMT_ASYM_SCHEME() {}
@@ -6453,7 +6340,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> details;
+    std::shared_ptr<TPMU_ASYM_SCHEME> details;
 
 public:
     TPMT_RSA_SCHEME() {}
@@ -6492,7 +6379,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> details;
+    std::shared_ptr<TPMU_ASYM_SCHEME> details;
 
 public:
     TPMT_RSA_DECRYPT() {}
@@ -6531,8 +6418,6 @@ public:
     TPM2B_PUBLIC_KEY_RSA(const ByteVec& _buffer)
       : buffer(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSA; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -6565,8 +6450,6 @@ public:
     TPM2B_PRIVATE_KEY_RSA(const ByteVec& _buffer)
       : buffer(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSA; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -6601,8 +6484,6 @@ public:
     TPM2B_ECC_PARAMETER(const ByteVec& _buffer)
       : buffer(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECC; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -6640,8 +6521,6 @@ public:
     TPMS_ECC_POINT(const ByteVec& _x, const ByteVec& _y)
       : x(_x), y(_y)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECC; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -6708,7 +6587,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> details;
+    std::shared_ptr<TPMU_ASYM_SCHEME> details;
 
 public:
     TPMT_ECC_SCHEME() {}
@@ -6754,7 +6633,7 @@ public:
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
     /// TPMS_KDF_SCHEME_KDF2, TPMS_KDF_SCHEME_KDF1_SP800_108, TPMS_SCHEME_HASH,
     /// TPMS_NULL_KDF_SCHEME. </remarks>
-    shared_ptr<TPMU_KDF_SCHEME> kdf;
+    std::shared_ptr<TPMU_KDF_SCHEME> kdf;
 
     /// <summary> Scheme selector </summary>
     public: TPM_ALG_ID signScheme() const { return sign ? sign->GetUnionSelector() : TPM_ALG_ID::_NULL; }
@@ -6765,7 +6644,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> sign;
+    std::shared_ptr<TPMU_ASYM_SCHEME> sign;
 
     /// <summary> Fp (the modulus) </summary>
     ByteVec p;
@@ -6829,8 +6708,6 @@ public:
     TPMS_SIGNATURE_RSA(TPM_ALG_ID _hash, const ByteVec& _sig)
       : hash(_hash), sig(_sig)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSASSA; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -6861,8 +6738,6 @@ public:
     TPMS_SIGNATURE_RSASSA(TPM_ALG_ID _hash, const ByteVec& _sig)
       : TPMS_SIGNATURE_RSA(_hash, _sig)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSASSA; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6888,8 +6763,6 @@ public:
     TPMS_SIGNATURE_RSAPSS(TPM_ALG_ID _hash, const ByteVec& _sig)
       : TPMS_SIGNATURE_RSA(_hash, _sig)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSAPSS; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6921,8 +6794,6 @@ public:
     TPMS_SIGNATURE_ECC(TPM_ALG_ID _hash, const ByteVec& _signatureR, const ByteVec& _signatureS)
       : hash(_hash), signatureR(_signatureR), signatureS(_signatureS)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDSA; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -6953,8 +6824,6 @@ public:
     TPMS_SIGNATURE_ECDSA(TPM_ALG_ID _hash, const ByteVec& _signatureR, const ByteVec& _signatureS)
       : TPMS_SIGNATURE_ECC(_hash, _signatureR, _signatureS)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDSA; }
 
     /// <summary> Static marshaling helper </summary>
@@ -6980,8 +6849,6 @@ public:
     TPMS_SIGNATURE_ECDAA(TPM_ALG_ID _hash, const ByteVec& _signatureR, const ByteVec& _signatureS)
       : TPMS_SIGNATURE_ECC(_hash, _signatureR, _signatureS)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDAA; }
 
     /// <summary> Static marshaling helper </summary>
@@ -7007,8 +6874,6 @@ public:
     TPMS_SIGNATURE_SM2(TPM_ALG_ID _hash, const ByteVec& _signatureR, const ByteVec& _signatureS)
       : TPMS_SIGNATURE_ECC(_hash, _signatureR, _signatureS)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::SM2; }
 
     /// <summary> Static marshaling helper </summary>
@@ -7034,8 +6899,6 @@ public:
     TPMS_SIGNATURE_ECSCHNORR(TPM_ALG_ID _hash, const ByteVec& _signatureR, const ByteVec& _signatureS)
       : TPMS_SIGNATURE_ECC(_hash, _signatureR, _signatureS)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECSCHNORR; }
 
     /// <summary> Static marshaling helper </summary>
@@ -7059,8 +6922,6 @@ class _DLLEXP_ TPMS_NULL_SIGNATURE : public TPMS_NULL_UNION
 public:
 public:
     TPMS_NULL_SIGNATURE() {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::_NULL; }
 
     /// <summary> Static marshaling helper </summary>
@@ -7092,7 +6953,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     TPMT_SIGNATURE() {}
@@ -7163,15 +7024,13 @@ public:
     /// also determines the size of the data field for a data object created with
     /// TPM2_Create() or TPM2_CreatePrimary(). </summary>
     /// <remarks> One of: TPMS_SCHEME_HMAC, TPMS_SCHEME_XOR, TPMS_NULL_SCHEME_KEYEDHASH. </remarks>
-    shared_ptr<TPMU_SCHEME_KEYEDHASH> scheme;
+    std::shared_ptr<TPMU_SCHEME_KEYEDHASH> scheme;
 
 public:
     TPMS_KEYEDHASH_PARMS() {}
     TPMS_KEYEDHASH_PARMS(const TPMU_SCHEME_KEYEDHASH& _scheme)
       : scheme(dynamic_cast<TPMU_SCHEME_KEYEDHASH*>(_scheme.Clone()))
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KEYEDHASH; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -7215,15 +7074,13 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> scheme;
+    std::shared_ptr<TPMU_ASYM_SCHEME> scheme;
 
 public:
     TPMS_ASYM_PARMS() {}
     TPMS_ASYM_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme)
       : symmetric(_symmetric), scheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_scheme.Clone()))
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ANY; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -7274,7 +7131,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> scheme;
+    std::shared_ptr<TPMU_ASYM_SCHEME> scheme;
 
     /// <summary> Number of bits in the public modulus </summary>
     UINT16 keyBits;
@@ -7288,8 +7145,6 @@ public:
     TPMS_RSA_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme, UINT16 _keyBits, UINT32 _exponent)
       : symmetric(_symmetric), scheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_scheme.Clone())), keyBits(_keyBits), exponent(_exponent)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSA; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -7334,7 +7189,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> scheme;
+    std::shared_ptr<TPMU_ASYM_SCHEME> scheme;
 
     /// <summary> ECC curve ID </summary>
     TPM_ECC_CURVE curveID;
@@ -7350,15 +7205,13 @@ public:
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
     /// TPMS_KDF_SCHEME_KDF2, TPMS_KDF_SCHEME_KDF1_SP800_108, TPMS_SCHEME_HASH,
     /// TPMS_NULL_KDF_SCHEME. </remarks>
-    shared_ptr<TPMU_KDF_SCHEME> kdf;
+    std::shared_ptr<TPMU_KDF_SCHEME> kdf;
 
 public:
     TPMS_ECC_PARMS() {}
     TPMS_ECC_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme, TPM_ECC_CURVE _curveID, const TPMU_KDF_SCHEME& _kdf)
       : symmetric(_symmetric), scheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_scheme.Clone())), curveID(_curveID), kdf(dynamic_cast<TPMU_KDF_SCHEME*>(_kdf.Clone()))
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECC; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -7391,7 +7244,7 @@ public:
     /// <summary> The algorithm details </summary>
     /// <remarks> One of: TPMS_KEYEDHASH_PARMS, TPMS_SYMCIPHER_PARMS, TPMS_RSA_PARMS,
     /// TPMS_ECC_PARMS, TPMS_ASYM_PARMS. </remarks>
-    shared_ptr<TPMU_PUBLIC_PARMS> parameters;
+    std::shared_ptr<TPMU_PUBLIC_PARMS> parameters;
 
 public:
     TPMT_PUBLIC_PARMS() {}
@@ -7443,13 +7296,13 @@ public:
     /// <summary> The algorithm or structure details </summary>
     /// <remarks> One of: TPMS_KEYEDHASH_PARMS, TPMS_SYMCIPHER_PARMS, TPMS_RSA_PARMS,
     /// TPMS_ECC_PARMS, TPMS_ASYM_PARMS. </remarks>
-    shared_ptr<TPMU_PUBLIC_PARMS> parameters;
+    std::shared_ptr<TPMU_PUBLIC_PARMS> parameters;
 
     /// <summary> The unique identifier of the structure
     /// For an asymmetric key, this would be the public key. </summary>
     /// <remarks> One of: TPM2B_DIGEST_KEYEDHASH, TPM2B_DIGEST_SYMCIPHER,
     /// TPM2B_PUBLIC_KEY_RSA, TPMS_ECC_POINT, TPMS_DERIVE. </remarks>
-    shared_ptr<TPMU_PUBLIC_ID> unique;
+    std::shared_ptr<TPMU_PUBLIC_ID> unique;
 
 public:
     TPMT_PUBLIC() { nameAlg = TPM_ALG_ID::_NULL; }
@@ -7614,8 +7467,6 @@ public:
     TPM2B_PRIVATE_VENDOR_SPECIFIC(const ByteVec& _buffer)
       : buffer(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ANY; }
 
     void toTpm(TpmBuffer& buf) const;
@@ -7658,7 +7509,7 @@ public:
     /// <summary> The type-specific private data </summary>
     /// <remarks> One of: TPM2B_PRIVATE_KEY_RSA, TPM2B_ECC_PARAMETER, TPM2B_SENSITIVE_DATA,
     /// TPM2B_SYM_KEY, TPM2B_PRIVATE_VENDOR_SPECIFIC. </remarks>
-    shared_ptr<TPMU_SENSITIVE_COMPOSITE> sensitive;
+    std::shared_ptr<TPMU_SENSITIVE_COMPOSITE> sensitive;
 
 public:
     TPMT_SENSITIVE() {}
@@ -9772,7 +9623,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> inScheme;
+    std::shared_ptr<TPMU_ASYM_SCHEME> inScheme;
 
     /// <summary> Optional label L to be associated with the message
     /// Size of the buffer is zero if no label is present
@@ -9870,7 +9721,7 @@ public:
     /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
     /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
     /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-    shared_ptr<TPMU_ASYM_SCHEME> inScheme;
+    std::shared_ptr<TPMU_ASYM_SCHEME> inScheme;
 
     /// <summary> Label whose association with the message is to be verified </summary>
     ByteVec label;
@@ -10273,7 +10124,7 @@ public:
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
     /// TPMS_KDF_SCHEME_KDF2, TPMS_KDF_SCHEME_KDF1_SP800_108, TPMS_SCHEME_HASH,
     /// TPMS_NULL_KDF_SCHEME. </remarks>
-    shared_ptr<TPMU_KDF_SCHEME> inScheme;
+    std::shared_ptr<TPMU_KDF_SCHEME> inScheme;
 
 public:
     TPM2_ECC_Encrypt_REQUEST() {}
@@ -10370,7 +10221,7 @@ public:
     /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
     /// TPMS_KDF_SCHEME_KDF2, TPMS_KDF_SCHEME_KDF1_SP800_108, TPMS_SCHEME_HASH,
     /// TPMS_NULL_KDF_SCHEME. </remarks>
-    shared_ptr<TPMU_KDF_SCHEME> inScheme;
+    std::shared_ptr<TPMU_KDF_SCHEME> inScheme;
 
 public:
     TPM2_ECC_Decrypt_REQUEST() {}
@@ -11451,7 +11302,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
 public:
     TPM2_Certify_REQUEST() {}
@@ -11504,7 +11355,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     CertifyResponse() {}
@@ -11560,7 +11411,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
     /// <summary> Ticket produced by TPM2_Create() or TPM2_CreatePrimary() </summary>
     TPMT_TK_CREATION creationTicket;
@@ -11614,7 +11465,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     CertifyCreationResponse() {}
@@ -11660,7 +11511,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
     /// <summary> PCR set to quote </summary>
     vector<TPMS_PCR_SELECTION> PCRselect;
@@ -11711,7 +11562,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     QuoteResponse() {}
@@ -11766,7 +11617,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
 public:
     TPM2_GetSessionAuditDigest_REQUEST() {}
@@ -11814,7 +11665,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     GetSessionAuditDigestResponse() {}
@@ -11867,7 +11718,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
 public:
     TPM2_GetCommandAuditDigest_REQUEST() {}
@@ -11917,7 +11768,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     GetCommandAuditDigestResponse() {}
@@ -11968,7 +11819,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
 public:
     TPM2_GetTime_REQUEST() {}
@@ -12016,7 +11867,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     GetTimeResponse() {}
@@ -12072,7 +11923,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
     /// <summary> A DER encoded partial certificate </summary>
     ByteVec partialCertificate;
@@ -12132,7 +11983,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     CertifyX509Response() {}
@@ -12344,7 +12195,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     TPM2_VerifySignature_REQUEST() {}
@@ -12427,7 +12278,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
     /// <summary> Proof that digest was created by the TPM
     /// If keyHandle is not a restricted signing key, then this may be a NULL Ticket with tag
@@ -12478,7 +12329,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     SignResponse() {}
@@ -13004,7 +12855,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> auth;
+    std::shared_ptr<TPMU_SIGNATURE> auth;
 
 public:
     TPM2_PolicySigned_REQUEST() {}
@@ -14673,7 +14524,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> manifestSignature;
+    std::shared_ptr<TPMU_SIGNATURE> manifestSignature;
 
 public:
     TPM2_FieldUpgradeStart_REQUEST() {}
@@ -15258,7 +15109,7 @@ public:
     /// <remarks> One of: TPML_ALG_PROPERTY, TPML_HANDLE, TPML_CCA, TPML_CC,
     /// TPML_PCR_SELECTION, TPML_TAGGED_TPM_PROPERTY, TPML_TAGGED_PCR_PROPERTY,
     /// TPML_ECC_CURVE, TPML_TAGGED_POLICY, TPML_ACT_DATA. </remarks>
-    shared_ptr<TPMU_CAPABILITIES> capabilityData;
+    std::shared_ptr<TPMU_CAPABILITIES> capabilityData;
 
 public:
     GetCapabilityResponse() {}
@@ -15293,7 +15144,7 @@ public:
     /// <summary> Algorithm parameters to be validated </summary>
     /// <remarks> One of: TPMS_KEYEDHASH_PARMS, TPMS_SYMCIPHER_PARMS, TPMS_RSA_PARMS,
     /// TPMS_ECC_PARMS, TPMS_ASYM_PARMS. </remarks>
-    shared_ptr<TPMU_PUBLIC_PARMS> parameters;
+    std::shared_ptr<TPMU_PUBLIC_PARMS> parameters;
 
 public:
     TPM2_TestParms_REQUEST() {}
@@ -15992,7 +15843,7 @@ public:
     /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
     /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
     /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-    shared_ptr<TPMU_SIG_SCHEME> inScheme;
+    std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
     /// <summary> Number of octets to certify </summary>
     UINT16 size;
@@ -16049,7 +15900,7 @@ public:
     /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
     /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
     /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-    shared_ptr<TPMU_SIGNATURE> signature;
+    std::shared_ptr<TPMU_SIGNATURE> signature;
 
 public:
     NV_CertifyResponse() {}
@@ -16716,8 +16567,6 @@ public:
     TPM2B_DIGEST_SYMCIPHER(const ByteVec& _buffer)
       : TPM2B_DIGEST(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::SYMCIPHER; }
 
     /// <summary> Static marshaling helper </summary>
@@ -16743,8 +16592,6 @@ public:
     TPM2B_DIGEST_KEYEDHASH(const ByteVec& _buffer)
       : TPM2B_DIGEST(_buffer)
     {}
-
-    /// <summary> TpmUnion method </summary>
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KEYEDHASH; }
 
     /// <summary> Static marshaling helper </summary>

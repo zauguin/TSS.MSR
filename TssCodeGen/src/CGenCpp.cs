@@ -47,7 +47,7 @@ namespace CodeGen
         static string TransType(StructField f)
         {
             if (f.MarshalType == MarshalType.UnionObject)
-                return $"shared_ptr<{f.TypeName}>";
+                return $"std::shared_ptr<{f.TypeName}>";
             return f.TypeName;
         }
 
@@ -84,16 +84,13 @@ namespace CodeGen
             foreach (var bf in TpmTypes.Get<TpmBitfield>())
                 GenBitfield(bf);
 
-            WriteComment(AsSummary("Base class for TPM union interfaces"));
-            Write("class _DLLEXP_ TpmUnion: public virtual TpmStructure {};");
-
             foreach (var u in TpmTypes.Get<TpmUnion>())
                 GenUnion(u);
 
             foreach (var s in TpmTypes.Get<TpmStruct>())
                 GenStructDecl(s);
 
-            Write("_TPMCPP_END");
+            Write("}"); // Close namespace
         } // GenerateHeader()
 
         void GenEnum(TpmType e, List<TpmNamedConstant> elements)
@@ -142,7 +139,7 @@ namespace CodeGen
                 return;
 
             WriteComment(u);
-            Write("class _DLLEXP_ " + u.Name + ": public virtual TpmUnion");
+            Write("class _DLLEXP_ " + u.Name + ": public virtual TpmStructure");
             TabIn("{");
 
             // Note: cannot sink GetUnionSelector() to the base TpmUnion interafce in C++,
@@ -158,7 +155,6 @@ namespace CodeGen
             string selType = GetUnionMemberSelectorInfo(s, out string selVal);
             if (selType != null)
             {
-                WriteComment(AsSummary("TpmUnion method"));
                 Write($"{selType} GetUnionSelector() const {{ return {selVal}; }}");
             }
         }
@@ -278,7 +274,7 @@ namespace CodeGen
             }
 
             //
-            // Union interface: TpmUnion.GetUnionSelector()
+            // Union interface: <Union>.GetUnionSelector()
             //
             GenGetUnionSelector(s);
 
@@ -371,7 +367,7 @@ namespace CodeGen
             TabIn();
             Write("AsyncMethods Async;");
             TabOut("};");
-            Write("_TPMCPP_END");
+            Write("}");
         } // GenCommands()
 
         enum CommandFlavor
@@ -463,37 +459,29 @@ namespace CodeGen
         {
             var unions = TpmTypes.Get<TpmUnion>();
 
-            WriteComment("Holds static factory method for instantiating TPM unions.\n" +
-                "Note: A wrapper class is used instead of simply static function solely " +
-                "for the sake of uniformity with languages like C# and Java.");
-            Write("struct UnionFactory");
-            TabIn("{");
+            WriteComment("Factory method for instantiating TPM unions.");
             WriteComment("Creates specific TPM union member based on the union type and selector (tag) value");
             Write("template<class U, typename S>");
-            Write("static void Create(shared_ptr<U>& u, S selector) // S = TPM_ALG_ID | TPM_CAP | TPM_ST");
-            TabIn("{");
-            Write("size_t unionType = typeid(U).hash_code();");
+            Write("static std::shared_ptr<U> CreateUnion(S selector); // S = TPM_ALG_ID | TPM_CAP | TPM_ST");
+            Write("");
 
-            string elsePref = "";
             foreach (TpmUnion u in unions)
             {
-                TabIn($"{elsePref}if (unionType == typeid({u.Name}).hash_code())");
-                elsePref = "else ";
+                Write("template<>");
+                string selectorType = GetUnionSelectorType(u);
+                Write($"std::shared_ptr<{u.Name}> CreateUnion<{u.Name}, {selectorType}>({selectorType} selector)");
+                TabIn("{");
                 TabIn("switch (selector) {");
                 foreach (UnionMember m in u.Members)
                 {
                     //if (m.SelectorValue.Name.StartsWith("TPM_ALG_ANY")) continue;
-                    string newObj = m.Type.IsElementary() ? "nullptr" : $"new {m.Type.Name}()";
-                    Write($"case {m.SelectorValue.QualifiedName}: new (&u) shared_ptr<{u.Name}>({newObj}); return;");
+                    string newPtr = m.Type.IsElementary() ? $"std::shared_ptr<{u.Name}>()" : $"std::make_shared<{m.Type.Name}>()";
+                    Write($"case {m.SelectorValue.QualifiedName}: return {newPtr};");
                 }
                 TabOut("}", false);  // switch (selector)
-                TabOut();   // if / else if
+                Write($"throw runtime_error(\"Unknown selector value\" + to_string(selector) + \" for union {u.Name}\");");
+                TabOut("} // CreateUnion()");
             }
-            TabIn("else");
-            Write("throw runtime_error(\"UnionFactory::Create(): Unknown union type \" + string(typeid(U).name()));");
-            TabOut("throw runtime_error(\"Unknown selector value\" + to_string(selector) + \" for union \" + string(typeid(U).name()));");
-            TabOut("} // Create()");
-            TabOut("}; // class UnionFactory");
         }
 
         static string GetSerOpCallExprPrefix(StructField f, string op)
@@ -621,7 +609,7 @@ namespace CodeGen
                     case MarshalType.UnionObject:
                         string selector = (f as UnionField).UnionSelector.Name;
                         marshalOps.Add($"if (!{selector}) {f.Name}.reset()");
-                        marshalOps.Add($"else UnionFactory::Create({f.Name}, {selector})");
+                        marshalOps.Add($"else {f.Name} = CreateUnion<{f.Type.Name}>({selector})");
                         marshalOps.Add($"if ({f.Name}) {read}Obj(*{f.Name})");
                         break;
                     default:
