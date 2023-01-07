@@ -367,7 +367,7 @@ public:
     /// those functions that have not previously been tested. </summary>
     /// <param name = "fullTest"> YES if full test to be performed
     ///        NO if only test of untested functions required </param>
-    void SelfTest(BYTE fullTest);
+    void SelfTest(bool fullTest);
 
     /// <summary> This command causes the TPM to perform a test of the selected algorithms. </summary>
     /// <param name = "toTest"> List of algorithms that should be tested </param>
@@ -769,7 +769,7 @@ public:
         const TPMS_ECC_POINT& inQsB, 
         const TPMS_ECC_POINT& inQeB, 
         TPM_ALG_ID inScheme, 
-        UINT16 counter
+        std::uint16_t counter
     );
 
     /// <summary> This command performs ECC encryption as described in Part 1, Annex D. </summary>
@@ -825,7 +825,7 @@ public:
     EncryptDecryptResponse EncryptDecrypt
     (
         const TPM_HANDLE& keyHandle, 
-        BYTE decrypt, 
+        bool decrypt, 
         TPM_ALG_ID mode, 
         const ByteVec& ivIn, 
         const ByteVec& inData
@@ -848,7 +848,7 @@ public:
     (
         const TPM_HANDLE& keyHandle, 
         const ByteVec& inData, 
-        BYTE decrypt, 
+        bool decrypt, 
         TPM_ALG_ID mode, 
         const ByteVec& ivIn
     );
@@ -904,7 +904,7 @@ public:
     /// generator (RNG). </summary>
     /// <param name = "bytesRequested"> Number of octets to return </param>
     /// <returns> randomBytes - The random octets </returns>
-    ByteVec GetRandom(UINT16 bytesRequested);
+    ByteVec GetRandom(std::uint16_t bytesRequested);
 
     /// <summary> This command is used to add "additional information" to the RNG state. </summary>
     /// <param name = "inData"> Additional information </param>
@@ -1399,7 +1399,7 @@ public:
         const ByteVec& nonceTPM, 
         const ByteVec& cpHashA, 
         const ByteVec& policyRef, 
-        INT32 expiration, 
+        std::int32_t expiration, 
         const TPMU_SIGNATURE& auth
     );
 
@@ -1436,7 +1436,7 @@ public:
         const ByteVec& nonceTPM, 
         const ByteVec& cpHashA, 
         const ByteVec& policyRef, 
-        INT32 expiration
+        std::int32_t expiration
     );
 
     /// <summary> This command is similar to TPM2_PolicySigned() except that it takes a ticket
@@ -1523,7 +1523,7 @@ public:
         const TPM_HANDLE& nvIndex, 
         const TPM_HANDLE& policySession, 
         const ByteVec& operandB, 
-        UINT16 offset, 
+        std::uint16_t offset, 
         TPM_EO operation
     );
 
@@ -1539,7 +1539,7 @@ public:
     (
         const TPM_HANDLE& policySession, 
         const ByteVec& operandB, 
-        UINT16 offset, 
+        std::uint16_t offset, 
         TPM_EO operation
     );
 
@@ -1597,7 +1597,7 @@ public:
         const TPM_HANDLE& policySession, 
         const ByteVec& objectName, 
         const ByteVec& newParentName, 
-        BYTE includeObject
+        bool includeObject
     );
 
     /// <summary> This command allows policies to change. If a policy were static, then it would
@@ -1649,7 +1649,7 @@ public:
     void PolicyNvWritten
     (
         const TPM_HANDLE& policySession, 
-        BYTE writtenSet
+        bool writtenSet
     );
 
     /// <summary> This command allows a policy to be bound to a specific creation template. This
@@ -1725,7 +1725,7 @@ public:
     (
         const TPM_HANDLE& authHandle, 
         const TPM_HANDLE& enable, 
-        BYTE state
+        bool state
     );
 
     /// <summary> This command allows setting of the authorization policy for the lockout
@@ -1780,7 +1780,7 @@ public:
     void ClearControl
     (
         const TPM_HANDLE& auth, 
-        BYTE disable
+        bool disable
     );
 
     /// <summary> This command allows the authorization secret for a hierarchy or lockout to be
@@ -1818,9 +1818,9 @@ public:
     void DictionaryAttackParameters
     (
         const TPM_HANDLE& lockHandle, 
-        UINT32 newMaxTries, 
-        UINT32 newRecoveryTime, 
-        UINT32 lockoutRecovery
+        std::uint32_t newMaxTries, 
+        std::uint32_t newRecoveryTime, 
+        std::uint32_t lockoutRecovery
     );
 
     /// <summary> This command is used to determine which commands require assertion of Physical
@@ -1849,7 +1849,7 @@ public:
     void SetAlgorithmSet
     (
         const TPM_HANDLE& authHandle, 
-        UINT32 algorithmSet
+        std::uint32_t algorithmSet
     );
 
     /// <summary> This command uses platformPolicy and a TPM Vendor Authorization Key to authorize
@@ -1889,7 +1889,7 @@ public:
     /// <param name = "sequenceNumber"> The number of previous calls to this command in this sequence
     ///        set to 0 on the first call </param>
     /// <returns> fuData - Field upgrade image data </returns>
-    ByteVec FirmwareRead(UINT32 sequenceNumber);
+    ByteVec FirmwareRead(std::uint32_t sequenceNumber);
 
     /// <summary> This command saves a session context, object context, or sequence object context
     /// outside the TPM. </summary>
@@ -1948,7 +1948,7 @@ public:
     void ClockSet
     (
         const TPM_HANDLE& auth, 
-        UINT64 newTime
+        std::uint64_t newTime
     );
 
     /// <summary> This command adjusts the rate of advance of Clock and Time to provide a better
@@ -1973,8 +1973,8 @@ public:
     GetCapabilityResponse GetCapability
     (
         TPM_CAP capability, 
-        UINT32 property, 
-        UINT32 propertyCount
+        std::uint32_t property, 
+        std::uint32_t propertyCount
     );
 
     /// <summary> This command is used to check to see if specific combinations of algorithm
@@ -2048,7 +2048,7 @@ public:
         const TPM_HANDLE& authHandle, 
         const TPM_HANDLE& nvIndex, 
         const ByteVec& data, 
-        UINT16 offset
+        std::uint16_t offset
     );
 
     /// <summary> This command is used to increment the value in an NV Index that has the
@@ -2092,7 +2092,7 @@ public:
     (
         const TPM_HANDLE& authHandle, 
         const TPM_HANDLE& nvIndex, 
-        UINT64 bits
+        std::uint64_t bits
     );
 
     /// <summary> If the TPMA_NV_WRITEDEFINE or TPMA_NV_WRITE_STCLEAR attributes of an NV location
@@ -2130,8 +2130,8 @@ public:
     (
         const TPM_HANDLE& authHandle, 
         const TPM_HANDLE& nvIndex, 
-        UINT16 size, 
-        UINT16 offset
+        std::uint16_t size, 
+        std::uint16_t offset
     );
 
     /// <summary> If TPMA_NV_READ_STCLEAR is SET in an Index, then this command may be used to
@@ -2187,8 +2187,8 @@ public:
         const TPM_HANDLE& nvIndex, 
         const ByteVec& qualifyingData, 
         const TPMU_SIG_SCHEME& inScheme, 
-        UINT16 size, 
-        UINT16 offset
+        std::uint16_t size, 
+        std::uint16_t offset
     );
 
     /// <summary> The purpose of this command is to obtain information about an Attached Component
@@ -2203,7 +2203,7 @@ public:
     (
         const TPM_HANDLE& ac, 
         TPM_AT capability, 
-        UINT32 count
+        std::uint32_t count
     );
 
     /// <summary> The purpose of this command is to send (copy) a loaded object from the TPM to an
@@ -2245,7 +2245,7 @@ public:
         const ByteVec& objectName, 
         const ByteVec& authHandleName, 
         const ByteVec& acName, 
-        BYTE includeObject
+        bool includeObject
     );
 
     /// <summary> This command is used to set the time remaining before an Authenticated Countdown
@@ -2257,7 +2257,7 @@ public:
     void ACT_SetTimeout
     (
         const TPM_HANDLE& actHandle, 
-        UINT32 startTimeout
+        std::uint32_t startTimeout
     );
 
     /// <summary> This is a placeholder to allow testing of the dispatch code. </summary>
@@ -2288,7 +2288,7 @@ public:
         /// those functions that have not previously been tested. </summary>
         /// <param name = "fullTest"> YES if full test to be performed
         ///        NO if only test of untested functions required </param>
-        void SelfTest(BYTE fullTest);
+        void SelfTest(bool fullTest);
 
         /// <summary> This command causes the TPM to perform a test of the selected algorithms. </summary>
         /// <param name = "toTest"> List of algorithms that should be tested </param>
@@ -2690,7 +2690,7 @@ public:
             const TPMS_ECC_POINT& inQsB, 
             const TPMS_ECC_POINT& inQeB, 
             TPM_ALG_ID inScheme, 
-            UINT16 counter
+            std::uint16_t counter
         );
 
         /// <summary> This command performs ECC encryption as described in Part 1, Annex D. </summary>
@@ -2746,7 +2746,7 @@ public:
         void EncryptDecrypt
         (
             const TPM_HANDLE& keyHandle, 
-            BYTE decrypt, 
+            bool decrypt, 
             TPM_ALG_ID mode, 
             const ByteVec& ivIn, 
             const ByteVec& inData
@@ -2769,7 +2769,7 @@ public:
         (
             const TPM_HANDLE& keyHandle, 
             const ByteVec& inData, 
-            BYTE decrypt, 
+            bool decrypt, 
             TPM_ALG_ID mode, 
             const ByteVec& ivIn
         );
@@ -2825,7 +2825,7 @@ public:
         /// generator (RNG). </summary>
         /// <param name = "bytesRequested"> Number of octets to return </param>
         /// <returns> randomBytes - The random octets </returns>
-        void GetRandom(UINT16 bytesRequested);
+        void GetRandom(std::uint16_t bytesRequested);
 
         /// <summary> This command is used to add "additional information" to the RNG state. </summary>
         /// <param name = "inData"> Additional information </param>
@@ -3320,7 +3320,7 @@ public:
             const ByteVec& nonceTPM, 
             const ByteVec& cpHashA, 
             const ByteVec& policyRef, 
-            INT32 expiration, 
+            std::int32_t expiration, 
             const TPMU_SIGNATURE& auth
         );
 
@@ -3357,7 +3357,7 @@ public:
             const ByteVec& nonceTPM, 
             const ByteVec& cpHashA, 
             const ByteVec& policyRef, 
-            INT32 expiration
+            std::int32_t expiration
         );
 
         /// <summary> This command is similar to TPM2_PolicySigned() except that it takes a ticket
@@ -3444,7 +3444,7 @@ public:
             const TPM_HANDLE& nvIndex, 
             const TPM_HANDLE& policySession, 
             const ByteVec& operandB, 
-            UINT16 offset, 
+            std::uint16_t offset, 
             TPM_EO operation
         );
 
@@ -3460,7 +3460,7 @@ public:
         (
             const TPM_HANDLE& policySession, 
             const ByteVec& operandB, 
-            UINT16 offset, 
+            std::uint16_t offset, 
             TPM_EO operation
         );
 
@@ -3518,7 +3518,7 @@ public:
             const TPM_HANDLE& policySession, 
             const ByteVec& objectName, 
             const ByteVec& newParentName, 
-            BYTE includeObject
+            bool includeObject
         );
 
         /// <summary> This command allows policies to change. If a policy were static, then it would
@@ -3570,7 +3570,7 @@ public:
         void PolicyNvWritten
         (
             const TPM_HANDLE& policySession, 
-            BYTE writtenSet
+            bool writtenSet
         );
 
         /// <summary> This command allows a policy to be bound to a specific creation template. This
@@ -3646,7 +3646,7 @@ public:
         (
             const TPM_HANDLE& authHandle, 
             const TPM_HANDLE& enable, 
-            BYTE state
+            bool state
         );
 
         /// <summary> This command allows setting of the authorization policy for the lockout
@@ -3701,7 +3701,7 @@ public:
         void ClearControl
         (
             const TPM_HANDLE& auth, 
-            BYTE disable
+            bool disable
         );
 
         /// <summary> This command allows the authorization secret for a hierarchy or lockout to be
@@ -3739,9 +3739,9 @@ public:
         void DictionaryAttackParameters
         (
             const TPM_HANDLE& lockHandle, 
-            UINT32 newMaxTries, 
-            UINT32 newRecoveryTime, 
-            UINT32 lockoutRecovery
+            std::uint32_t newMaxTries, 
+            std::uint32_t newRecoveryTime, 
+            std::uint32_t lockoutRecovery
         );
 
         /// <summary> This command is used to determine which commands require assertion of Physical
@@ -3770,7 +3770,7 @@ public:
         void SetAlgorithmSet
         (
             const TPM_HANDLE& authHandle, 
-            UINT32 algorithmSet
+            std::uint32_t algorithmSet
         );
 
         /// <summary> This command uses platformPolicy and a TPM Vendor Authorization Key to authorize
@@ -3810,7 +3810,7 @@ public:
         /// <param name = "sequenceNumber"> The number of previous calls to this command in this sequence
         ///        set to 0 on the first call </param>
         /// <returns> fuData - Field upgrade image data </returns>
-        void FirmwareRead(UINT32 sequenceNumber);
+        void FirmwareRead(std::uint32_t sequenceNumber);
 
         /// <summary> This command saves a session context, object context, or sequence object context
         /// outside the TPM. </summary>
@@ -3869,7 +3869,7 @@ public:
         void ClockSet
         (
             const TPM_HANDLE& auth, 
-            UINT64 newTime
+            std::uint64_t newTime
         );
 
         /// <summary> This command adjusts the rate of advance of Clock and Time to provide a better
@@ -3894,8 +3894,8 @@ public:
         void GetCapability
         (
             TPM_CAP capability, 
-            UINT32 property, 
-            UINT32 propertyCount
+            std::uint32_t property, 
+            std::uint32_t propertyCount
         );
 
         /// <summary> This command is used to check to see if specific combinations of algorithm
@@ -3969,7 +3969,7 @@ public:
             const TPM_HANDLE& authHandle, 
             const TPM_HANDLE& nvIndex, 
             const ByteVec& data, 
-            UINT16 offset
+            std::uint16_t offset
         );
 
         /// <summary> This command is used to increment the value in an NV Index that has the
@@ -4013,7 +4013,7 @@ public:
         (
             const TPM_HANDLE& authHandle, 
             const TPM_HANDLE& nvIndex, 
-            UINT64 bits
+            std::uint64_t bits
         );
 
         /// <summary> If the TPMA_NV_WRITEDEFINE or TPMA_NV_WRITE_STCLEAR attributes of an NV location
@@ -4051,8 +4051,8 @@ public:
         (
             const TPM_HANDLE& authHandle, 
             const TPM_HANDLE& nvIndex, 
-            UINT16 size, 
-            UINT16 offset
+            std::uint16_t size, 
+            std::uint16_t offset
         );
 
         /// <summary> If TPMA_NV_READ_STCLEAR is SET in an Index, then this command may be used to
@@ -4108,8 +4108,8 @@ public:
             const TPM_HANDLE& nvIndex, 
             const ByteVec& qualifyingData, 
             const TPMU_SIG_SCHEME& inScheme, 
-            UINT16 size, 
-            UINT16 offset
+            std::uint16_t size, 
+            std::uint16_t offset
         );
 
         /// <summary> The purpose of this command is to obtain information about an Attached Component
@@ -4124,7 +4124,7 @@ public:
         (
             const TPM_HANDLE& ac, 
             TPM_AT capability, 
-            UINT32 count
+            std::uint32_t count
         );
 
         /// <summary> The purpose of this command is to send (copy) a loaded object from the TPM to an
@@ -4166,7 +4166,7 @@ public:
             const ByteVec& objectName, 
             const ByteVec& authHandleName, 
             const ByteVec& acName, 
-            BYTE includeObject
+            bool includeObject
         );
 
         /// <summary> This command is used to set the time remaining before an Authenticated Countdown
@@ -4178,7 +4178,7 @@ public:
         void ACT_SetTimeout
         (
             const TPM_HANDLE& actHandle, 
-            UINT32 startTimeout
+            std::uint32_t startTimeout
         );
 
         /// <summary> This is a placeholder to allow testing of the dispatch code. </summary>

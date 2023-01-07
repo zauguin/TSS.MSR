@@ -60,17 +60,18 @@ namespace CodeGen
         }
 
         static Dictionary<string, ElementaryType> ElementaryTypes = new Dictionary<string, ElementaryType> {
-                //                                 .Net      C++       Java     TypeScript  Python
-                { "BYTE",   new ElementaryType(1, "byte",   "BYTE",   "byte",    "number",  "int")},
-                { "UINT8",  new ElementaryType(1, "byte",   "UINT8",  "byte",    "number",  "int")},
-                { "INT8",   new ElementaryType(1, "sbyte",  "INT8",   "byte",    "number",  "int")},
-                { "UINT16", new ElementaryType(2, "ushort", "UINT16", "int",     "number",  "int")},
-                { "INT16",  new ElementaryType(2, "short",  "INT16",  "int",     "number",  "int")},
-                { "UINT32", new ElementaryType(4, "uint",   "UINT32", "int",     "number",  "int")},
-                { "INT32",  new ElementaryType(4, "int",    "INT32",  "int",     "number",  "int")},
-                { "UINT64", new ElementaryType(8, "ulong",  "UINT64", "long",    "number",  "int")},
-                { "INT64",  new ElementaryType(8, "long",   "INT64",  "long",    "number",  "int")},
-                { "BOOL",   new ElementaryType(1, "bool",   "BOOL",   "boolean", "boolean", "bool")}
+                //                                      .Net      C++              Java     TypeScript  Python
+                { "BYTE",        new ElementaryType(1, "byte",   "std::uint8_t",  "byte",    "number",  "int")},
+                { "UINT8",       new ElementaryType(1, "byte",   "std::uint8_t",  "byte",    "number",  "int")},
+                { "INT8",        new ElementaryType(1, "sbyte",  "std::int8_t",   "byte",    "number",  "int")},
+                { "UINT16",      new ElementaryType(2, "ushort", "std::uint16_t", "int",     "number",  "int")},
+                { "INT16",       new ElementaryType(2, "short",  "std::int16_t",  "int",     "number",  "int")},
+                { "UINT32",      new ElementaryType(4, "uint",   "std::uint32_t", "int",     "number",  "int")},
+                { "INT32",       new ElementaryType(4, "int",    "std::int32_t",  "int",     "number",  "int")},
+                { "UINT64",      new ElementaryType(8, "ulong",  "std::uint64_t", "long",    "number",  "int")},
+                { "INT64",       new ElementaryType(8, "long",   "std::int64_t",  "long",    "number",  "int")},
+                { "BOOL",        new ElementaryType(1, "bool",   "bool",          "boolean", "boolean", "bool")},
+                { "TPMI_YES_NO", new ElementaryType(1, "bool",   "bool",          "boolean", "boolean", "bool")}
         };
 
         public static IEnumerable<TpmValueType> GetElementaryTypes()

@@ -40,7 +40,7 @@ class _DLLEXP_ Tpm2;
 
 /// <summary> Table 2 is the list of algorithms to which the TCG has assigned an algorithm
 /// identifier along with its numeric identifier. </summary>
-struct TPM_ALG_ID : public TpmEnum<UINT16>
+struct TPM_ALG_ID : public TpmEnum<std::uint16_t>
 {
     TPM_ENUM_PROLOGUE(TPM_ALG_ID)
 
@@ -195,7 +195,7 @@ const EnumID &enumID<TPM_ALG_ID>::value;
 
 /// <summary> Table 4 is the list of identifiers for TCG-registered curve ID values for
 /// elliptic curve cryptography. </summary>
-struct TPM_ECC_CURVE : public TpmEnum<UINT16>
+struct TPM_ECC_CURVE : public TpmEnum<std::uint16_t>
 {
     TPM_ENUM_PROLOGUE(TPM_ECC_CURVE)
     NONE = 0x0000,
@@ -219,7 +219,7 @@ template<>
 const EnumID &enumID<TPM_ECC_CURVE>::value;
 
 /// <summary> Table 13 Defines for SHA1 Hash Values </summary>
-struct SHA1 : public TpmEnum<UINT32>
+struct SHA1 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SHA1)
 
@@ -235,7 +235,7 @@ template<>
 const EnumID &enumID<SHA1>::value;
 
 /// <summary> Table 14 Defines for SHA256 Hash Values </summary>
-struct SHA256 : public TpmEnum<UINT32>
+struct SHA256 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SHA256)
 
@@ -251,7 +251,7 @@ template<>
 const EnumID &enumID<SHA256>::value;
 
 /// <summary> Table 15 Defines for SHA384 Hash Values </summary>
-struct SHA384 : public TpmEnum<UINT32>
+struct SHA384 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SHA384)
 
@@ -267,7 +267,7 @@ template<>
 const EnumID &enumID<SHA384>::value;
 
 /// <summary> Table 16 Defines for SHA512 Hash Values </summary>
-struct SHA512 : public TpmEnum<UINT32>
+struct SHA512 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SHA512)
 
@@ -283,7 +283,7 @@ template<>
 const EnumID &enumID<SHA512>::value;
 
 /// <summary> Table 17 Defines for SM3_256 Hash Values </summary>
-struct SM3_256 : public TpmEnum<UINT32>
+struct SM3_256 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SM3_256)
 
@@ -299,7 +299,7 @@ template<>
 const EnumID &enumID<SM3_256>::value;
 
 /// <summary> Table 18 Defines for SHA3_256 Hash Values </summary>
-struct SHA3_256 : public TpmEnum<UINT32>
+struct SHA3_256 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SHA3_256)
 
@@ -315,7 +315,7 @@ template<>
 const EnumID &enumID<SHA3_256>::value;
 
 /// <summary> Table 19 Defines for SHA3_384 Hash Values </summary>
-struct SHA3_384 : public TpmEnum<UINT32>
+struct SHA3_384 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SHA3_384)
 
@@ -331,7 +331,7 @@ template<>
 const EnumID &enumID<SHA3_384>::value;
 
 /// <summary> Table 20 Defines for SHA3_512 Hash Values </summary>
-struct SHA3_512 : public TpmEnum<UINT32>
+struct SHA3_512 : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(SHA3_512)
 
@@ -347,7 +347,7 @@ template<>
 const EnumID &enumID<SHA3_512>::value;
 
 /// <summary> Table 4 Defines for Logic Values </summary>
-struct Logic : public TpmEnum<BYTE>
+struct Logic : public TpmEnum<std::uint8_t>
 {
     TPM_ENUM_PROLOGUE(Logic)
     _TRUE = 1,
@@ -364,7 +364,7 @@ const EnumID &enumID<Logic>::value;
 
 /// <summary> These values are readable with TPM2_GetCapability() (see 6.13 for the
 /// format). </summary>
-struct TPM_SPEC : public TpmEnum<UINT32>
+struct TPM_SPEC : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_SPEC)
 
@@ -390,7 +390,7 @@ const EnumID &enumID<TPM_SPEC>::value;
 
 /// <summary> This constant value differentiates TPM-generated structures from non-TPM
 /// structures. </summary>
-struct TPM_GENERATED : public TpmEnum<UINT32>
+struct TPM_GENERATED : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_GENERATED)
 
@@ -401,7 +401,7 @@ struct TPM_GENERATED : public TpmEnum<UINT32>
 
 template<>
 const EnumID &enumID<TPM_GENERATED>::value;
-struct TPM_CC : public TpmEnum<UINT32>
+struct TPM_CC : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_CC)
 
@@ -606,7 +606,7 @@ template<>
 const EnumID &enumID<TPM_CC>::value;
 
 /// <summary> Architecturally defined constants </summary>
-struct ImplementationConstants : public TpmEnum<UINT32>
+struct ImplementationConstants : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(ImplementationConstants)
     Ossl = 1,
@@ -642,7 +642,7 @@ const EnumID &enumID<ImplementationConstants>::value;
 /// errors and will have the F (format) bit SET. Codes that are unique to TPM 2.0 Part 3
 /// will have the F bit CLEAR but the V (version) attribute will be SET to indicate that
 /// it is a TPM 2.0 response code. See Response Code Details in TPM 2.0 Part 1. </summary>
-struct TPM_RC : public TpmEnum<UINT32>
+struct TPM_RC : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_RC)
     SUCCESS = 0x000,
@@ -1168,7 +1168,7 @@ const EnumID &enumID<TPM_RC>::value;
 /// <summary> A TPM_CLOCK_ADJUST value is used to change the rate at which the TPM
 /// internal oscillator is divided. A change to the divider will change the rate at which
 /// Clock and Time change. </summary>
-struct TPM_CLOCK_ADJUST : public TpmEnum<INT8>
+struct TPM_CLOCK_ADJUST : public TpmEnum<std::int8_t>
 {
     TPM_ENUM_PROLOGUE(TPM_CLOCK_ADJUST)
 
@@ -1199,7 +1199,7 @@ template<>
 const EnumID &enumID<TPM_CLOCK_ADJUST>::value;
 
 /// <summary> Table 18 Definition of (UINT16) TPM_EO Constants [IN/OUT] </summary>
-struct TPM_EO : public TpmEnum<UINT16>
+struct TPM_EO : public TpmEnum<std::uint16_t>
 {
     TPM_ENUM_PROLOGUE(TPM_EO)
 
@@ -1251,7 +1251,7 @@ const EnumID &enumID<TPM_EO>::value;
 /// specification. This value is used when the TPM is compatible with a previous TPM
 /// specification and the TPM cannot determine which family of response code to return
 /// because the command tag is not valid. </summary>
-struct TPM_ST : public TpmEnum<UINT16>
+struct TPM_ST : public TpmEnum<std::uint16_t>
 {
     TPM_ENUM_PROLOGUE(TPM_ST)
 
@@ -1330,7 +1330,7 @@ const EnumID &enumID<TPM_ST>::value;
 
 /// <summary> These values are used in TPM2_Startup() to indicate the shutdown and startup
 /// mode. The defined startup sequences are: </summary>
-struct TPM_SU : public TpmEnum<UINT16>
+struct TPM_SU : public TpmEnum<std::uint16_t>
 {
     TPM_ENUM_PROLOGUE(TPM_SU)
 
@@ -1352,7 +1352,7 @@ const EnumID &enumID<TPM_SU>::value;
 
 /// <summary> This type is used in TPM2_StartAuthSession() to indicate the type of the
 /// session to be created. </summary>
-struct TPM_SE : public TpmEnum<UINT8>
+struct TPM_SE : public TpmEnum<std::uint8_t>
 {
     TPM_ENUM_PROLOGUE(TPM_SE)
     HMAC = 0x00,
@@ -1372,7 +1372,7 @@ const EnumID &enumID<TPM_SE>::value;
 /// <summary> The TPM_CAP values are used in TPM2_GetCapability() to select the type of
 /// the value to be returned. The format of the response varies according to the type of
 /// the value. </summary>
-struct TPM_CAP : public TpmEnum<UINT32>
+struct TPM_CAP : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_CAP)
     FIRST = 0x00000000,
@@ -1421,7 +1421,7 @@ const EnumID &enumID<TPM_CAP>::value;
 
 /// <summary> The TPM_PT constants are used in TPM2_GetCapability(capability =
 /// TPM_CAP_TPM_PROPERTIES) to indicate the property being selected or returned. </summary>
-struct TPM_PT : public TpmEnum<UINT32>
+struct TPM_PT : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_PT)
 
@@ -1742,7 +1742,7 @@ const EnumID &enumID<TPM_PT>::value;
 /// property being selected or returned. The PCR properties can be read when capability ==
 /// TPM_CAP_PCR_PROPERTIES. If there is no property that corresponds to the value of
 /// property, the next higher value is returned, if it exists. </summary>
-struct TPM_PT_PCR : public TpmEnum<UINT32>
+struct TPM_PT_PCR : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_PT_PCR)
 
@@ -1834,7 +1834,7 @@ const EnumID &enumID<TPM_PT_PCR>::value;
 
 /// <summary> The platform values in Table 25 are used for the TPM_PT_PS_FAMILY_INDICATOR.
 /// </summary>
-struct TPM_PS : public TpmEnum<UINT32>
+struct TPM_PS : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_PS)
 
@@ -1893,7 +1893,7 @@ const EnumID &enumID<TPM_PS>::value;
 
 /// <summary> The 32-bit handle space is divided into 256 regions of equal size with 224
 /// values in each. Each of these ranges represents a handle type. </summary>
-struct TPM_HT : public TpmEnum<UINT8>
+struct TPM_HT : public TpmEnum<std::uint8_t>
 {
     TPM_ENUM_PROLOGUE(TPM_HT)
 
@@ -1943,7 +1943,7 @@ const EnumID &enumID<TPM_HT>::value;
 
 /// <summary> Table 28 lists the architecturally defined handles that cannot be changed.
 /// The handles include authorization handles, and special handles. </summary>
-struct TPM_RH : public TpmEnum<UINT32>
+struct TPM_RH : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_RH)
     FIRST = 0x40000000,
@@ -2026,7 +2026,7 @@ const EnumID &enumID<TPM_RH>::value;
 
 /// <summary> This table lists the values of the TPM_NT field of a TPMA_NV. See Table 215
 /// for usage. </summary>
-struct TPM_NT : public TpmEnum<UINT32>
+struct TPM_NT : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_NT)
 
@@ -2061,7 +2061,7 @@ const EnumID &enumID<TPM_NT>::value;
 
 /// <summary> These constants are used in TPM2_AC_GetCapability() to indicate the first
 /// tagged value returned from an attached component. </summary>
-struct TPM_AT : public TpmEnum<UINT32>
+struct TPM_AT : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_AT)
 
@@ -2084,7 +2084,7 @@ template<>
 const EnumID &enumID<TPM_AT>::value;
 
 /// <summary> These constants are the TCG-defined error values returned by an AC. </summary>
-struct TPM_AE : public TpmEnum<UINT32>
+struct TPM_AE : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_AE)
 
@@ -2099,7 +2099,7 @@ const EnumID &enumID<TPM_AE>::value;
 
 /// <summary> These values are readable with TPM2_GetCapability(). They are the
 /// TPM_PT_PS_xxx values. </summary>
-struct PLATFORM : public TpmEnum<UINT32>
+struct PLATFORM : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(PLATFORM)
     FAMILY = TPM_SPEC::FAMILY,
@@ -2115,7 +2115,7 @@ const EnumID &enumID<PLATFORM>::value;
 
 /// <summary> This table contains a collection of values used in various parts of the
 /// reference code. The values shown are illustrative. </summary>
-struct Implementation : public TpmEnum<UINT32>
+struct Implementation : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(Implementation)
 
@@ -2265,7 +2265,7 @@ const EnumID &enumID<Implementation>::value;
 
 /// <summary> The definitions in Table 29 are used to define many of the interface data
 /// types. </summary>
-struct TPM_HC : public TpmEnum<UINT32>
+struct TPM_HC : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_HC)
 
@@ -2360,7 +2360,7 @@ template<>
 const EnumID &enumID<TPM_HC>::value;
 
 /// <summary> This structure defines the attributes of an algorithm. </summary>
-struct TPMA_ALGORITHM : public TpmEnum<UINT32>
+struct TPMA_ALGORITHM : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_ALGORITHM)
 
@@ -2401,7 +2401,7 @@ const EnumID &enumID<TPMA_ALGORITHM>::value;
 
 /// <summary> This attribute structure indicates an objects use, its authorization types,
 /// and its relationship to other objects. </summary>
-struct TPMA_OBJECT : public TpmEnum<UINT32>
+struct TPMA_OBJECT : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_OBJECT)
 
@@ -2482,7 +2482,7 @@ const EnumID &enumID<TPMA_OBJECT>::value;
 /// <summary> This octet in each session is used to identify the session type, indicate
 /// its relationship to any handles in the command, and indicate its use in parameter
 /// encryption. </summary>
-struct TPMA_SESSION : public TpmEnum<UINT8>
+struct TPMA_SESSION : public TpmEnum<std::uint8_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_SESSION)
 
@@ -2557,7 +2557,7 @@ const EnumID &enumID<TPMA_SESSION>::value;
 /// <summary> In a TPMS_CREATION_DATA structure, this structure is used to indicate the
 /// locality of the command that created the object. No more than one of the locality
 /// attributes shall be set in the creation data. </summary>
-struct TPMA_LOCALITY : public TpmEnum<UINT8>
+struct TPMA_LOCALITY : public TpmEnum<std::uint8_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_LOCALITY)
     LOC_ZERO = 0x1,
@@ -2581,7 +2581,7 @@ const EnumID &enumID<TPMA_LOCALITY>::value;
 /// may change as the result of specific Protected Capabilities. This structure may be
 /// read using TPM2_GetCapability(capability = TPM_CAP_TPM_PROPERTIES, property =
 /// TPM_PT_PERMANENT). </summary>
-struct TPMA_PERMANENT : public TpmEnum<UINT32>
+struct TPMA_PERMANENT : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_PERMANENT)
 
@@ -2620,7 +2620,7 @@ const EnumID &enumID<TPMA_PERMANENT>::value;
 
 /// <summary> This structure may be read using TPM2_GetCapability(capability =
 /// TPM_CAP_TPM_PROPERTIES, property = TPM_PT_STARTUP_CLEAR). </summary>
-struct TPMA_STARTUP_CLEAR : public TpmEnum<UINT32>
+struct TPMA_STARTUP_CLEAR : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_STARTUP_CLEAR)
 
@@ -2680,7 +2680,7 @@ const EnumID &enumID<TPMA_STARTUP_CLEAR>::value;
 /// method used by the TPM for transient objects and authorization sessions. This
 /// structure may be read using TPM2_GetCapability(capability = TPM_CAP_TPM_PROPERTIES,
 /// property = TPM_PT_MEMORY). </summary>
-struct TPMA_MEMORY : public TpmEnum<UINT32>
+struct TPMA_MEMORY : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_MEMORY)
 
@@ -2712,7 +2712,7 @@ const EnumID &enumID<TPMA_MEMORY>::value;
 /// perspective. The fields of the structure indicate to the TPM Resource Manager (TRM)
 /// the number of resources required by a command and how the command affects the TPMs
 /// resources. </summary>
-struct TPMA_CC : public TpmEnum<UINT32>
+struct TPMA_CC : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_CC)
 
@@ -2759,7 +2759,7 @@ const EnumID &enumID<TPMA_CC>::value;
 /// <summary> This structure of this attribute is used to report that the TPM is designed
 /// for these modes. This structure may be read using TPM2_GetCapability(capability =
 /// TPM_CAP_TPM_PROPERTIES, property = TPM_PT_MODES). </summary>
-struct TPMA_MODES : public TpmEnum<UINT32>
+struct TPMA_MODES : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_MODES)
 
@@ -2777,7 +2777,7 @@ const EnumID &enumID<TPMA_MODES>::value;
 /// Profile. For TPM2_CertifyX509, when a caller provides a DER encoded Key Usage in
 /// partialCertificate, the TPM will validate that the key to be certified meets the
 /// requirements of Key Usage. </summary>
-struct TPMA_X509_KEY_USAGE : public TpmEnum<UINT32>
+struct TPMA_X509_KEY_USAGE : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_X509_KEY_USAGE)
 
@@ -2822,7 +2822,7 @@ const EnumID &enumID<TPMA_X509_KEY_USAGE>::value;
 /// the ACT number (0-F)). The signaled value must be preserved across TPM Resume or if
 /// the TPM has not lost power. The signaled value may be preserved over a power cycle of
 /// a TPM. </summary>
-struct TPMA_ACT : public TpmEnum<UINT32>
+struct TPMA_ACT : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_ACT)
 
@@ -2842,7 +2842,7 @@ const EnumID &enumID<TPMA_ACT>::value;
 /// format of the Index is changed from TPM 1.2 in order to include the Index in the
 /// reserved handle space. Handles in this range use the digest of the public area of the
 /// Index as the Name of the entity in authorization computations </summary>
-struct TPM_NV_INDEX : public TpmEnum<UINT32>
+struct TPM_NV_INDEX : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPM_NV_INDEX)
 
@@ -2863,7 +2863,7 @@ const EnumID &enumID<TPM_NV_INDEX>::value;
 
 /// <summary> This structure allows the TPM to keep track of the data and permissions to
 /// manipulate an NV Index. </summary>
-struct TPMA_NV : public TpmEnum<UINT32>
+struct TPMA_NV : public TpmEnum<std::uint32_t>
 {
     TPM_ENUM_PROLOGUE(TPMA_NV)
 
@@ -3051,7 +3051,7 @@ class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmStructure
 /// TPM2B_SENSITVE_DATA or a TPM2B_DERIVE structure. The contents of the union are
 /// determined by context. When an object is being derived, the derivation values are
 /// present. </summary>
-/// <remarks> One of: BYTE, TPMS_DERIVE. </remarks>
+/// <remarks> One of: std::uint8_t, TPMS_DERIVE. </remarks>
 class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
@@ -3146,11 +3146,11 @@ class _DLLEXP_ TPM_HANDLE : public TpmStructure
 {
 public:
     /// <summary> Handle value </summary>
-    UINT32 handle;
+    std::uint32_t handle;
 
 public:
     TPM_HANDLE() { handle = TPM_RH::_NULL; }
-    TPM_HANDLE(UINT32 _handle)
+    TPM_HANDLE(std::uint32_t _handle)
       : handle(_handle)
     {}
 
@@ -3991,11 +3991,11 @@ public:
     TPM_PT property;
 
     /// <summary> The value of the property </summary>
-    UINT32 value;
+    std::uint32_t value;
 
 public:
     TPMS_TAGGED_PROPERTY() {}
-    TPMS_TAGGED_PROPERTY(TPM_PT _property, UINT32 _value)
+    TPMS_TAGGED_PROPERTY(TPM_PT _property, std::uint32_t _value)
       : property(_property), value(_value)
     {}
 
@@ -4098,14 +4098,14 @@ public:
     TPM_HANDLE handle;
 
     /// <summary> The current timeout of the ACT </summary>
-    UINT32 timeout;
+    std::uint32_t timeout;
 
     /// <summary> The state of the ACT </summary>
     TPMA_ACT attributes;
 
 public:
     TPMS_ACT_DATA() {}
-    TPMS_ACT_DATA(const TPM_HANDLE& _handle, UINT32 _timeout, TPMA_ACT _attributes)
+    TPMS_ACT_DATA(const TPM_HANDLE& _handle, std::uint32_t _timeout, TPMA_ACT _attributes)
       : handle(_handle), timeout(_timeout), attributes(_attributes)
     {}
 
@@ -4623,22 +4623,22 @@ public:
     /// convention. This structure element is used to report on the TPM's Clock value.
     /// This value is reset to zero when the Storage Primary Seed is changed (TPM2_Clear()).
     /// This value may be advanced by TPM2_ClockSet(). </summary>
-    UINT64 clock;
+    std::uint64_t clock;
 
     /// <summary> Number of occurrences of TPM Reset since the last TPM2_Clear() </summary>
-    UINT32 resetCount;
+    std::uint32_t resetCount;
 
     /// <summary> Number of times that TPM2_Shutdown() or _TPM_Hash_Start have occurred since
     /// the last TPM Reset or TPM2_Clear(). </summary>
-    UINT32 restartCount;
+    std::uint32_t restartCount;
 
     /// <summary> No value of Clock greater than the current value of Clock has been
     /// previously reported by the TPM. Set to YES on TPM2_Clear(). </summary>
-    BYTE safe;
+    bool safe;
 
 public:
     TPMS_CLOCK_INFO() {}
-    TPMS_CLOCK_INFO(UINT64 _clock, UINT32 _resetCount, UINT32 _restartCount, BYTE _safe)
+    TPMS_CLOCK_INFO(std::uint64_t _clock, std::uint32_t _resetCount, std::uint32_t _restartCount, bool _safe)
       : clock(_clock), resetCount(_resetCount), restartCount(_restartCount), safe(_safe)
     {}
 
@@ -4668,14 +4668,14 @@ class _DLLEXP_ TPMS_TIME_INFO : public TpmStructure
 public:
     /// <summary> Time in milliseconds since the TIme circuit was last reset
     /// This structure element is used to report on the TPM's Time value. </summary>
-    UINT64 time;
+    std::uint64_t time;
 
     /// <summary> A structure containing the clock information </summary>
     TPMS_CLOCK_INFO clockInfo;
 
 public:
     TPMS_TIME_INFO() {}
-    TPMS_TIME_INFO(UINT64 _time, const TPMS_CLOCK_INFO& _clockInfo)
+    TPMS_TIME_INFO(std::uint64_t _time, const TPMS_CLOCK_INFO& _clockInfo)
       : time(_time), clockInfo(_clockInfo)
     {}
 
@@ -4706,11 +4706,11 @@ public:
     TPMS_TIME_INFO time;
 
     /// <summary> A TPM vendor-specific value indicating the version number of the firmware </summary>
-    UINT64 firmwareVersion;
+    std::uint64_t firmwareVersion;
 
 public:
     TPMS_TIME_ATTEST_INFO() {}
-    TPMS_TIME_ATTEST_INFO(const TPMS_TIME_INFO& _time, UINT64 _firmwareVersion)
+    TPMS_TIME_ATTEST_INFO(const TPMS_TIME_INFO& _time, std::uint64_t _firmwareVersion)
       : time(_time), firmwareVersion(_firmwareVersion)
     {}
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_TIME; }
@@ -4811,7 +4811,7 @@ class _DLLEXP_ TPMS_COMMAND_AUDIT_INFO : public virtual TpmStructure, public TPM
 {
 public:
     /// <summary> The monotonic audit counter </summary>
-    UINT64 auditCounter;
+    std::uint64_t auditCounter;
 
     /// <summary> Hash algorithm used for the command audit </summary>
     TPM_ALG_ID digestAlg;
@@ -4824,7 +4824,7 @@ public:
 
 public:
     TPMS_COMMAND_AUDIT_INFO() { digestAlg = TPM_ALG_ID::_NULL; }
-    TPMS_COMMAND_AUDIT_INFO(UINT64 _auditCounter, TPM_ALG_ID _digestAlg, const ByteVec& _auditDigest, const ByteVec& _commandDigest)
+    TPMS_COMMAND_AUDIT_INFO(std::uint64_t _auditCounter, TPM_ALG_ID _digestAlg, const ByteVec& _auditDigest, const ByteVec& _commandDigest)
       : auditCounter(_auditCounter), digestAlg(_digestAlg), auditDigest(_auditDigest), commandDigest(_commandDigest)
     {}
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_COMMAND_AUDIT; }
@@ -4855,14 +4855,14 @@ public:
     /// <summary> Current exclusive status of the session
     /// TRUE if all of the commands recorded in the sessionDigest were executed without any
     /// intervening TPM command that did not use this audit session </summary>
-    BYTE exclusiveSession;
+    bool exclusiveSession;
 
     /// <summary> The current value of the session audit digest </summary>
     ByteVec sessionDigest;
 
 public:
     TPMS_SESSION_AUDIT_INFO() {}
-    TPMS_SESSION_AUDIT_INFO(BYTE _exclusiveSession, const ByteVec& _sessionDigest)
+    TPMS_SESSION_AUDIT_INFO(bool _exclusiveSession, const ByteVec& _sessionDigest)
       : exclusiveSession(_exclusiveSession), sessionDigest(_sessionDigest)
     {}
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_SESSION_AUDIT; }
@@ -4931,14 +4931,14 @@ public:
     ByteVec indexName;
 
     /// <summary> The offset parameter of TPM2_NV_Certify() </summary>
-    UINT16 offset;
+    std::uint16_t offset;
 
     /// <summary> Contents of the NV Index </summary>
     ByteVec nvContents;
 
 public:
     TPMS_NV_CERTIFY_INFO() {}
-    TPMS_NV_CERTIFY_INFO(const ByteVec& _indexName, UINT16 _offset, const ByteVec& _nvContents)
+    TPMS_NV_CERTIFY_INFO(const ByteVec& _indexName, std::uint16_t _offset, const ByteVec& _nvContents)
       : indexName(_indexName), offset(_offset), nvContents(_nvContents)
     {}
     TPM_ST GetUnionSelector() const { return TPM_ST::ATTEST_NV; }
@@ -5025,7 +5025,7 @@ public:
     TPMS_CLOCK_INFO clockInfo;
 
     /// <summary> TPM-vendor-specific value identifying the version number of the firmware </summary>
-    UINT64 firmwareVersion;
+    std::uint64_t firmwareVersion;
 
     /// <summary> The type-specific attestation information </summary>
     /// <remarks> One of: TPMS_CERTIFY_INFO, TPMS_CREATION_INFO, TPMS_QUOTE_INFO,
@@ -5035,7 +5035,7 @@ public:
 
 public:
     TPMS_ATTEST() {}
-    TPMS_ATTEST(TPM_GENERATED _magic, const ByteVec& _qualifiedSigner, const ByteVec& _extraData, const TPMS_CLOCK_INFO& _clockInfo, UINT64 _firmwareVersion, const TPMU_ATTEST& _attested)
+    TPMS_ATTEST(TPM_GENERATED _magic, const ByteVec& _qualifiedSigner, const ByteVec& _extraData, const TPMS_CLOCK_INFO& _clockInfo, std::uint64_t _firmwareVersion, const TPMU_ATTEST& _attested)
       : magic(_magic), qualifiedSigner(_qualifiedSigner), extraData(_extraData), clockInfo(_clockInfo), firmwareVersion(_firmwareVersion), attested(dynamic_cast<TPMU_ATTEST*>(_attested.Clone()))
     {}
 
@@ -5348,7 +5348,7 @@ public:
     TPM_ALG_ID algorithm;
 
     /// <summary> A supported key size </summary>
-    UINT16 keyBits;
+    std::uint16_t keyBits;
 
     /// <summary> The mode for the key </summary>
     TPM_ALG_ID mode;
@@ -5360,7 +5360,7 @@ public:
         mode = TPM_ALG_ID::_NULL;
     }
 
-    TPMT_SYM_DEF(TPM_ALG_ID _algorithm, UINT16 _keyBits, TPM_ALG_ID _mode)
+    TPMT_SYM_DEF(TPM_ALG_ID _algorithm, std::uint16_t _keyBits, TPM_ALG_ID _mode)
       : algorithm(_algorithm), keyBits(_keyBits), mode(_mode)
     {}
 
@@ -5398,7 +5398,7 @@ public:
     TPM_ALG_ID algorithm;
 
     /// <summary> The key size </summary>
-    UINT16 keyBits;
+    std::uint16_t keyBits;
 
     /// <summary> Default mode
     /// When used in the parameter area of a parent object, this shall be TPM_ALG_CFB. </summary>
@@ -5411,7 +5411,7 @@ public:
         mode = TPM_ALG_ID::_NULL;
     }
 
-    TPMT_SYM_DEF_OBJECT(TPM_ALG_ID _algorithm, UINT16 _keyBits, TPM_ALG_ID _mode)
+    TPMT_SYM_DEF_OBJECT(TPM_ALG_ID _algorithm, std::uint16_t _keyBits, TPM_ALG_ID _mode)
       : algorithm(_algorithm), keyBits(_keyBits), mode(_mode)
     {}
 
@@ -5755,11 +5755,11 @@ public:
     TPM_ALG_ID hashAlg;
 
     /// <summary> The counter value that is used between TPM2_Commit() and the sign operation </summary>
-    UINT16 count;
+    std::uint16_t count;
 
 public:
     TPMS_SCHEME_ECDAA() { hashAlg = TPM_ALG_ID::_NULL; }
-    TPMS_SCHEME_ECDAA(TPM_ALG_ID _hashAlg, UINT16 _count)
+    TPMS_SCHEME_ECDAA(TPM_ALG_ID _hashAlg, std::uint16_t _count)
       : hashAlg(_hashAlg), count(_count)
     {}
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDAA; }
@@ -6050,7 +6050,7 @@ class _DLLEXP_ TPMS_SIG_SCHEME_ECDAA : public TPMS_SCHEME_ECDAA
 public:
 public:
     TPMS_SIG_SCHEME_ECDAA() {}
-    TPMS_SIG_SCHEME_ECDAA(TPM_ALG_ID _hashAlg, UINT16 _count)
+    TPMS_SIG_SCHEME_ECDAA(TPM_ALG_ID _hashAlg, std::uint16_t _count)
       : TPMS_SCHEME_ECDAA(_hashAlg, _count)
     {}
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECDAA; }
@@ -6760,7 +6760,7 @@ public:
     TPM_ECC_CURVE curveID;
 
     /// <summary> Size in bits of the key </summary>
-    UINT16 keySize;
+    std::uint16_t keySize;
 
     /// <summary> Scheme selector </summary>
     public: TPM_ALG_ID kdfScheme() const { return kdf ? kdf->GetUnionSelector() : TPM_ALG_ID::_NULL; }
@@ -6806,7 +6806,7 @@ public:
 
 public:
     TPMS_ALGORITHM_DETAIL_ECC() {}
-    TPMS_ALGORITHM_DETAIL_ECC(TPM_ECC_CURVE _curveID, UINT16 _keySize, const TPMU_KDF_SCHEME& _kdf, const TPMU_ASYM_SCHEME& _sign, const ByteVec& _p, const ByteVec& _a, const ByteVec& _b, const ByteVec& _gX, const ByteVec& _gY, const ByteVec& _n, const ByteVec& _h)
+    TPMS_ALGORITHM_DETAIL_ECC(TPM_ECC_CURVE _curveID, std::uint16_t _keySize, const TPMU_KDF_SCHEME& _kdf, const TPMU_ASYM_SCHEME& _sign, const ByteVec& _p, const ByteVec& _a, const ByteVec& _b, const ByteVec& _gX, const ByteVec& _gY, const ByteVec& _n, const ByteVec& _h)
       : curveID(_curveID), keySize(_keySize), kdf(dynamic_cast<TPMU_KDF_SCHEME*>(_kdf.Clone())), sign(dynamic_cast<TPMU_ASYM_SCHEME*>(_sign.Clone())), p(_p), a(_a), b(_b), gX(_gX), gY(_gY), n(_n), h(_h)
     {}
 
@@ -7271,15 +7271,15 @@ public:
     std::shared_ptr<TPMU_ASYM_SCHEME> scheme;
 
     /// <summary> Number of bits in the public modulus </summary>
-    UINT16 keyBits;
+    std::uint16_t keyBits;
 
     /// <summary> The public exponent
     /// A prime number greater than 2. </summary>
-    UINT32 exponent;
+    std::uint32_t exponent;
 
 public:
     TPMS_RSA_PARMS() {}
-    TPMS_RSA_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme, UINT16 _keyBits, UINT32 _exponent)
+    TPMS_RSA_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme, std::uint16_t _keyBits, std::uint32_t _exponent)
       : symmetric(_symmetric), scheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_scheme.Clone())), keyBits(_keyBits), exponent(_exponent)
     {}
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSA; }
@@ -7863,15 +7863,15 @@ public:
     /// <summary> This counter shows the current number of successful authValue authorization
     /// attempts to access a TPM_NT_PIN_PASS index or the current number of unsuccessful
     /// authValue authorization attempts to access a TPM_NT_PIN_FAIL index. </summary>
-    UINT32 pinCount;
+    std::uint32_t pinCount;
 
     /// <summary> This threshold is the value of pinCount at which the authValue authorization
     /// of the host TPM_NT_PIN_PASS or TPM_NT_PIN_FAIL index is locked out. </summary>
-    UINT32 pinLimit;
+    std::uint32_t pinLimit;
 
 public:
     TPMS_NV_PIN_COUNTER_PARAMETERS() {}
-    TPMS_NV_PIN_COUNTER_PARAMETERS(UINT32 _pinCount, UINT32 _pinLimit)
+    TPMS_NV_PIN_COUNTER_PARAMETERS(std::uint32_t _pinCount, std::uint32_t _pinLimit)
       : pinCount(_pinCount), pinLimit(_pinLimit)
     {}
 
@@ -7916,11 +7916,11 @@ public:
     /// <summary> The size of the data area
     /// The maximum size is implementation-dependent. The minimum maximum size is
     /// platform-specific. </summary>
-    UINT16 dataSize;
+    std::uint16_t dataSize;
 
 public:
     TPMS_NV_PUBLIC() { nameAlg = TPM_ALG_ID::_NULL; }
-    TPMS_NV_PUBLIC(const TPM_HANDLE& _nvIndex, TPM_ALG_ID _nameAlg, TPMA_NV _attributes, const ByteVec& _authPolicy, UINT16 _dataSize)
+    TPMS_NV_PUBLIC(const TPM_HANDLE& _nvIndex, TPM_ALG_ID _nameAlg, TPMA_NV _attributes, const ByteVec& _authPolicy, std::uint16_t _dataSize)
       : nvIndex(_nvIndex), nameAlg(_nameAlg), attributes(_attributes), authPolicy(_authPolicy), dataSize(_dataSize)
     {}
 
@@ -8084,7 +8084,7 @@ class _DLLEXP_ TPMS_CONTEXT : public TpmStructure
 public:
     /// <summary> The sequence number of the context
     /// NOTE Transient object contexts and session contexts used different counters. </summary>
-    UINT64 sequence;
+    std::uint64_t sequence;
 
     /// <summary> A handle indicating if the context is a session, object, or sequence object
     /// (see Table 222 Context Handle Values </summary>
@@ -8098,7 +8098,7 @@ public:
 
 public:
     TPMS_CONTEXT() {}
-    TPMS_CONTEXT(UINT64 _sequence, const TPM_HANDLE& _savedHandle, const TPM_HANDLE& _hierarchy, const TPMS_CONTEXT_DATA& _contextBlob)
+    TPMS_CONTEXT(std::uint64_t _sequence, const TPM_HANDLE& _savedHandle, const TPM_HANDLE& _hierarchy, const TPMS_CONTEXT_DATA& _contextBlob)
       : sequence(_sequence), savedHandle(_savedHandle), hierarchy(_hierarchy), contextBlob(_contextBlob)
     {}
 
@@ -8224,11 +8224,11 @@ public:
     TPM_AT tag;
 
     /// <summary> The data returned from the AC </summary>
-    UINT32 data;
+    std::uint32_t data;
 
 public:
     TPMS_AC_OUTPUT() {}
-    TPMS_AC_OUTPUT(TPM_AT _tag, UINT32 _data)
+    TPMS_AC_OUTPUT(TPM_AT _tag, std::uint32_t _data)
       : tag(_tag), data(_data)
     {}
 
@@ -8361,11 +8361,11 @@ class _DLLEXP_ TPM2_SelfTest_REQUEST : public ReqStructure
 public:
     /// <summary> YES if full test to be performed
     /// NO if only test of untested functions required </summary>
-    BYTE fullTest;
+    bool fullTest;
 
 public:
     TPM2_SelfTest_REQUEST() {}
-    TPM2_SelfTest_REQUEST(BYTE _fullTest)
+    TPM2_SelfTest_REQUEST(bool _fullTest)
       : fullTest(_fullTest)
     {}
 
@@ -10171,11 +10171,11 @@ public:
     TPM_ALG_ID inScheme;
 
     /// <summary> Value returned by TPM2_EC_Ephemeral() </summary>
-    UINT16 counter;
+    std::uint16_t counter;
 
 public:
     TPM2_ZGen_2Phase_REQUEST() { inScheme = TPM_ALG_ID::_NULL; }
-    TPM2_ZGen_2Phase_REQUEST(const TPM_HANDLE& _keyA, const TPMS_ECC_POINT& _inQsB, const TPMS_ECC_POINT& _inQeB, TPM_ALG_ID _inScheme, UINT16 _counter)
+    TPM2_ZGen_2Phase_REQUEST(const TPM_HANDLE& _keyA, const TPMS_ECC_POINT& _inQsB, const TPMS_ECC_POINT& _inQeB, TPM_ALG_ID _inScheme, std::uint16_t _counter)
       : keyA(_keyA), inQsB(_inQsB), inQeB(_inQeB), inScheme(_inScheme), counter(_counter)
     {}
 
@@ -10436,7 +10436,7 @@ public:
 
     /// <summary> If YES, then the operation is decryption; if NO, the operation is encryption
     /// </summary>
-    BYTE decrypt;
+    bool decrypt;
 
     /// <summary> Symmetric encryption/decryption mode
     /// this field shall match the default mode of the key or be TPM_ALG_NULL. </summary>
@@ -10450,7 +10450,7 @@ public:
 
 public:
     TPM2_EncryptDecrypt_REQUEST() { mode = TPM_ALG_ID::_NULL; }
-    TPM2_EncryptDecrypt_REQUEST(const TPM_HANDLE& _keyHandle, BYTE _decrypt, TPM_ALG_ID _mode, const ByteVec& _ivIn, const ByteVec& _inData)
+    TPM2_EncryptDecrypt_REQUEST(const TPM_HANDLE& _keyHandle, bool _decrypt, TPM_ALG_ID _mode, const ByteVec& _ivIn, const ByteVec& _inData)
       : keyHandle(_keyHandle), decrypt(_decrypt), mode(_mode), ivIn(_ivIn), inData(_inData)
     {}
 
@@ -10529,7 +10529,7 @@ public:
 
     /// <summary> If YES, then the operation is decryption; if NO, the operation is encryption
     /// </summary>
-    BYTE decrypt;
+    bool decrypt;
 
     /// <summary> Symmetric mode
     /// this field shall match the default mode of the key or be TPM_ALG_NULL. </summary>
@@ -10540,7 +10540,7 @@ public:
 
 public:
     TPM2_EncryptDecrypt2_REQUEST() { mode = TPM_ALG_ID::_NULL; }
-    TPM2_EncryptDecrypt2_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _inData, BYTE _decrypt, TPM_ALG_ID _mode, const ByteVec& _ivIn)
+    TPM2_EncryptDecrypt2_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _inData, bool _decrypt, TPM_ALG_ID _mode, const ByteVec& _ivIn)
       : keyHandle(_keyHandle), inData(_inData), decrypt(_decrypt), mode(_mode), ivIn(_ivIn)
     {}
 
@@ -10854,11 +10854,11 @@ class _DLLEXP_ TPM2_GetRandom_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Number of octets to return </summary>
-    UINT16 bytesRequested;
+    std::uint16_t bytesRequested;
 
 public:
     TPM2_GetRandom_REQUEST() {}
-    TPM2_GetRandom_REQUEST(UINT16 _bytesRequested)
+    TPM2_GetRandom_REQUEST(std::uint16_t _bytesRequested)
       : bytesRequested(_bytesRequested)
     {}
 
@@ -12217,7 +12217,7 @@ public:
     TPMS_ECC_POINT E;
 
     /// <summary> Least-significant 16 bits of commitCount </summary>
-    UINT16 counter;
+    std::uint16_t counter;
 
 public:
     CommitResponse() {}
@@ -12286,7 +12286,7 @@ public:
     TPMS_ECC_POINT Q;
 
     /// <summary> Least-significant 16 bits of commitCount </summary>
-    UINT16 counter;
+    std::uint16_t counter;
 
 public:
     EC_EphemeralResponse() {}
@@ -12703,7 +12703,7 @@ class _DLLEXP_ PCR_ReadResponse : public RespStructure
 {
 public:
     /// <summary> The current value of the PCR update counter </summary>
-    UINT32 pcrUpdateCounter;
+    std::uint32_t pcrUpdateCounter;
 
     /// <summary> The PCR in the returned list </summary>
     vector<TPMS_PCR_SELECTION> pcrSelectionOut;
@@ -12785,16 +12785,16 @@ class _DLLEXP_ PCR_AllocateResponse : public RespStructure
 {
 public:
     /// <summary> YES if the allocation succeeded </summary>
-    BYTE allocationSuccess;
+    bool allocationSuccess;
 
     /// <summary> Maximum number of PCR that may be in a bank </summary>
-    UINT32 maxPCR;
+    std::uint32_t maxPCR;
 
     /// <summary> Number of octets required to satisfy the request </summary>
-    UINT32 sizeNeeded;
+    std::uint32_t sizeNeeded;
 
     /// <summary> Number of octets available. Computed before the allocation. </summary>
-    UINT32 sizeAvailable;
+    std::uint32_t sizeAvailable;
 
 public:
     PCR_AllocateResponse() {}
@@ -12983,7 +12983,7 @@ public:
     /// <summary> Time when authorization will expire, measured in seconds from the time that
     /// nonceTPM was generated
     /// If expiration is non-negative, a NULL Ticket is returned. See 23.2.5. </summary>
-    INT32 expiration;
+    std::int32_t expiration;
 
     /// <summary> Selector of the algorithm used to construct the signature </summary>
     public: TPM_ALG_ID authSigAlg() const { return auth ? auth->GetUnionSelector() : TPM_ALG_ID::_NULL; }
@@ -12996,7 +12996,7 @@ public:
 
 public:
     TPM2_PolicySigned_REQUEST() {}
-    TPM2_PolicySigned_REQUEST(const TPM_HANDLE& _authObject, const TPM_HANDLE& _policySession, const ByteVec& _nonceTPM, const ByteVec& _cpHashA, const ByteVec& _policyRef, INT32 _expiration, const TPMU_SIGNATURE& _auth)
+    TPM2_PolicySigned_REQUEST(const TPM_HANDLE& _authObject, const TPM_HANDLE& _policySession, const ByteVec& _nonceTPM, const ByteVec& _cpHashA, const ByteVec& _policyRef, std::int32_t _expiration, const TPMU_SIGNATURE& _auth)
       : authObject(_authObject), policySession(_policySession), nonceTPM(_nonceTPM), cpHashA(_cpHashA), policyRef(_policyRef), expiration(_expiration), auth(dynamic_cast<TPMU_SIGNATURE*>(_auth.Clone()))
     {}
 
@@ -13100,11 +13100,11 @@ public:
     /// <summary> Time when authorization will expire, measured in seconds from the time that
     /// nonceTPM was generated
     /// If expiration is non-negative, a NULL Ticket is returned. See 23.2.5. </summary>
-    INT32 expiration;
+    std::int32_t expiration;
 
 public:
     TPM2_PolicySecret_REQUEST() {}
-    TPM2_PolicySecret_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _policySession, const ByteVec& _nonceTPM, const ByteVec& _cpHashA, const ByteVec& _policyRef, INT32 _expiration)
+    TPM2_PolicySecret_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _policySession, const ByteVec& _nonceTPM, const ByteVec& _cpHashA, const ByteVec& _policyRef, std::int32_t _expiration)
       : authHandle(_authHandle), policySession(_policySession), nonceTPM(_nonceTPM), cpHashA(_cpHashA), policyRef(_policyRef), expiration(_expiration)
     {}
 
@@ -13397,14 +13397,14 @@ public:
     ByteVec operandB;
 
     /// <summary> The octet offset in the NV Index for the start of operand A </summary>
-    UINT16 offset;
+    std::uint16_t offset;
 
     /// <summary> The comparison to make </summary>
     TPM_EO operation;
 
 public:
     TPM2_PolicyNV_REQUEST() {}
-    TPM2_PolicyNV_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, const TPM_HANDLE& _policySession, const ByteVec& _operandB, UINT16 _offset, TPM_EO _operation)
+    TPM2_PolicyNV_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, const TPM_HANDLE& _policySession, const ByteVec& _operandB, std::uint16_t _offset, TPM_EO _operation)
       : authHandle(_authHandle), nvIndex(_nvIndex), policySession(_policySession), operandB(_operandB), offset(_offset), operation(_operation)
     {}
 
@@ -13447,14 +13447,14 @@ public:
     ByteVec operandB;
 
     /// <summary> The octet offset in the TPMS_TIME_INFO structure for the start of operand A </summary>
-    UINT16 offset;
+    std::uint16_t offset;
 
     /// <summary> The comparison to make </summary>
     TPM_EO operation;
 
 public:
     TPM2_PolicyCounterTimer_REQUEST() {}
-    TPM2_PolicyCounterTimer_REQUEST(const TPM_HANDLE& _policySession, const ByteVec& _operandB, UINT16 _offset, TPM_EO _operation)
+    TPM2_PolicyCounterTimer_REQUEST(const TPM_HANDLE& _policySession, const ByteVec& _operandB, std::uint16_t _offset, TPM_EO _operation)
       : policySession(_policySession), operandB(_operandB), offset(_offset), operation(_operation)
     {}
 
@@ -13669,11 +13669,11 @@ public:
 
     /// <summary> If YES, the objectName will be included in the value in
     /// policySessionpolicyDigest </summary>
-    BYTE includeObject;
+    bool includeObject;
 
 public:
     TPM2_PolicyDuplicationSelect_REQUEST() {}
-    TPM2_PolicyDuplicationSelect_REQUEST(const TPM_HANDLE& _policySession, const ByteVec& _objectName, const ByteVec& _newParentName, BYTE _includeObject)
+    TPM2_PolicyDuplicationSelect_REQUEST(const TPM_HANDLE& _policySession, const ByteVec& _objectName, const ByteVec& _newParentName, bool _includeObject)
       : policySession(_policySession), objectName(_objectName), newParentName(_newParentName), includeObject(_includeObject)
     {}
 
@@ -13912,11 +13912,11 @@ public:
 
     /// <summary> YES if NV Index is required to have been written
     /// NO if NV Index is required not to have been written </summary>
-    BYTE writtenSet;
+    bool writtenSet;
 
 public:
     TPM2_PolicyNvWritten_REQUEST() {}
-    TPM2_PolicyNvWritten_REQUEST(const TPM_HANDLE& _policySession, BYTE _writtenSet)
+    TPM2_PolicyNvWritten_REQUEST(const TPM_HANDLE& _policySession, bool _writtenSet)
       : policySession(_policySession), writtenSet(_writtenSet)
     {}
 
@@ -14167,11 +14167,11 @@ public:
     TPM_HANDLE enable;
 
     /// <summary> YES if the enable should be SET, NO if the enable should be CLEAR </summary>
-    BYTE state;
+    bool state;
 
 public:
     TPM2_HierarchyControl_REQUEST() {}
-    TPM2_HierarchyControl_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _enable, BYTE _state)
+    TPM2_HierarchyControl_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _enable, bool _state)
       : authHandle(_authHandle), enable(_enable), state(_state)
     {}
 
@@ -14377,11 +14377,11 @@ public:
 
     /// <summary> YES if the disableOwnerClear flag is to be SET, NO if the flag is to be
     /// CLEAR. </summary>
-    BYTE disable;
+    bool disable;
 
 public:
     TPM2_ClearControl_REQUEST() {}
-    TPM2_ClearControl_REQUEST(const TPM_HANDLE& _auth, BYTE _disable)
+    TPM2_ClearControl_REQUEST(const TPM_HANDLE& _auth, bool _disable)
       : auth(_auth), disable(_disable)
     {}
 
@@ -14502,19 +14502,19 @@ public:
     TPM_HANDLE lockHandle;
 
     /// <summary> Count of authorization failures before the lockout is imposed </summary>
-    UINT32 newMaxTries;
+    std::uint32_t newMaxTries;
 
     /// <summary> Time in seconds before the authorization failure count is automatically decremented
     /// A value of zero indicates that DA protection is disabled. </summary>
-    UINT32 newRecoveryTime;
+    std::uint32_t newRecoveryTime;
 
     /// <summary> Time in seconds after a lockoutAuth failure before use of lockoutAuth is allowed
     /// A value of zero indicates that a reboot is required. </summary>
-    UINT32 lockoutRecovery;
+    std::uint32_t lockoutRecovery;
 
 public:
     TPM2_DictionaryAttackParameters_REQUEST() {}
-    TPM2_DictionaryAttackParameters_REQUEST(const TPM_HANDLE& _lockHandle, UINT32 _newMaxTries, UINT32 _newRecoveryTime, UINT32 _lockoutRecovery)
+    TPM2_DictionaryAttackParameters_REQUEST(const TPM_HANDLE& _lockHandle, std::uint32_t _newMaxTries, std::uint32_t _newRecoveryTime, std::uint32_t _lockoutRecovery)
       : lockHandle(_lockHandle), newMaxTries(_newMaxTries), newRecoveryTime(_newRecoveryTime), lockoutRecovery(_lockoutRecovery)
     {}
 
@@ -14603,11 +14603,11 @@ public:
     TPM_HANDLE authHandle;
 
     /// <summary> A TPM vendor-dependent value indicating the algorithm set selection </summary>
-    UINT32 algorithmSet;
+    std::uint32_t algorithmSet;
 
 public:
     TPM2_SetAlgorithmSet_REQUEST() {}
-    TPM2_SetAlgorithmSet_REQUEST(const TPM_HANDLE& _authHandle, UINT32 _algorithmSet)
+    TPM2_SetAlgorithmSet_REQUEST(const TPM_HANDLE& _authHandle, std::uint32_t _algorithmSet)
       : authHandle(_authHandle), algorithmSet(_algorithmSet)
     {}
 
@@ -14778,11 +14778,11 @@ class _DLLEXP_ TPM2_FirmwareRead_REQUEST : public ReqStructure
 public:
     /// <summary> The number of previous calls to this command in this sequence
     /// set to 0 on the first call </summary>
-    UINT32 sequenceNumber;
+    std::uint32_t sequenceNumber;
 
 public:
     TPM2_FirmwareRead_REQUEST() {}
-    TPM2_FirmwareRead_REQUEST(UINT32 _sequenceNumber)
+    TPM2_FirmwareRead_REQUEST(std::uint32_t _sequenceNumber)
       : sequenceNumber(_sequenceNumber)
     {}
 
@@ -15117,11 +15117,11 @@ public:
     TPM_HANDLE auth;
 
     /// <summary> New Clock setting in milliseconds </summary>
-    UINT64 newTime;
+    std::uint64_t newTime;
 
 public:
     TPM2_ClockSet_REQUEST() {}
-    TPM2_ClockSet_REQUEST(const TPM_HANDLE& _auth, UINT64 _newTime)
+    TPM2_ClockSet_REQUEST(const TPM_HANDLE& _auth, std::uint64_t _newTime)
       : auth(_auth), newTime(_newTime)
     {}
 
@@ -15201,14 +15201,14 @@ public:
     TPM_CAP capability;
 
     /// <summary> Further definition of information </summary>
-    UINT32 property;
+    std::uint32_t property;
 
     /// <summary> Number of properties of the indicated type to return </summary>
-    UINT32 propertyCount;
+    std::uint32_t propertyCount;
 
 public:
     TPM2_GetCapability_REQUEST() {}
-    TPM2_GetCapability_REQUEST(TPM_CAP _capability, UINT32 _property, UINT32 _propertyCount)
+    TPM2_GetCapability_REQUEST(TPM_CAP _capability, std::uint32_t _property, std::uint32_t _propertyCount)
       : capability(_capability), property(_property), propertyCount(_propertyCount)
     {}
 
@@ -15237,7 +15237,7 @@ class _DLLEXP_ GetCapabilityResponse : public RespStructure
 {
 public:
     /// <summary> Flag to indicate if there are more values of this type </summary>
-    BYTE moreData;
+    bool moreData;
 
     /// <summary> The capability </summary>
     public: TPM_CAP capabilityDataCapability() const { return capabilityData->GetUnionSelector(); }
@@ -15531,11 +15531,11 @@ public:
     ByteVec data;
 
     /// <summary> The octet offset into the NV Area </summary>
-    UINT16 offset;
+    std::uint16_t offset;
 
 public:
     TPM2_NV_Write_REQUEST() {}
-    TPM2_NV_Write_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, const ByteVec& _data, UINT16 _offset)
+    TPM2_NV_Write_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, const ByteVec& _data, std::uint16_t _offset)
       : authHandle(_authHandle), nvIndex(_nvIndex), data(_data), offset(_offset)
     {}
 
@@ -15671,11 +15671,11 @@ public:
     TPM_HANDLE nvIndex;
 
     /// <summary> The data to OR with the current contents </summary>
-    UINT64 bits;
+    std::uint64_t bits;
 
 public:
     TPM2_NV_SetBits_REQUEST() {}
-    TPM2_NV_SetBits_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, UINT64 _bits)
+    TPM2_NV_SetBits_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, std::uint64_t _bits)
       : authHandle(_authHandle), nvIndex(_nvIndex), bits(_bits)
     {}
 
@@ -15797,15 +15797,15 @@ public:
     TPM_HANDLE nvIndex;
 
     /// <summary> Number of octets to read </summary>
-    UINT16 size;
+    std::uint16_t size;
 
     /// <summary> Octet offset into the NV area
     /// This value shall be less than or equal to the size of the nvIndex data. </summary>
-    UINT16 offset;
+    std::uint16_t offset;
 
 public:
     TPM2_NV_Read_REQUEST() {}
-    TPM2_NV_Read_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, UINT16 _size, UINT16 _offset)
+    TPM2_NV_Read_REQUEST(const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, std::uint16_t _size, std::uint16_t _offset)
       : authHandle(_authHandle), nvIndex(_nvIndex), size(_size), offset(_offset)
     {}
 
@@ -15983,15 +15983,15 @@ public:
     std::shared_ptr<TPMU_SIG_SCHEME> inScheme;
 
     /// <summary> Number of octets to certify </summary>
-    UINT16 size;
+    std::uint16_t size;
 
     /// <summary> Octet offset into the NV area
     /// This value shall be less than or equal to the size of the nvIndex data. </summary>
-    UINT16 offset;
+    std::uint16_t offset;
 
 public:
     TPM2_NV_Certify_REQUEST() {}
-    TPM2_NV_Certify_REQUEST(const TPM_HANDLE& _signHandle, const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme, UINT16 _size, UINT16 _offset)
+    TPM2_NV_Certify_REQUEST(const TPM_HANDLE& _signHandle, const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme, std::uint16_t _size, std::uint16_t _offset)
       : signHandle(_signHandle), authHandle(_authHandle), nvIndex(_nvIndex), qualifyingData(_qualifyingData), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone())), size(_size), offset(_offset)
     {}
 
@@ -16077,11 +16077,11 @@ public:
     TPM_AT capability;
 
     /// <summary> Maximum number of values to return </summary>
-    UINT32 count;
+    std::uint32_t count;
 
 public:
     TPM2_AC_GetCapability_REQUEST() {}
-    TPM2_AC_GetCapability_REQUEST(const TPM_HANDLE& _ac, TPM_AT _capability, UINT32 _count)
+    TPM2_AC_GetCapability_REQUEST(const TPM_HANDLE& _ac, TPM_AT _capability, std::uint32_t _count)
       : ac(_ac), capability(_capability), count(_count)
     {}
 
@@ -16115,7 +16115,7 @@ class _DLLEXP_ AC_GetCapabilityResponse : public RespStructure
 {
 public:
     /// <summary> Flag to indicate whether there are more values </summary>
-    BYTE moreData;
+    bool moreData;
 
     /// <summary> List of capabilities </summary>
     vector<TPMS_AC_OUTPUT> capabilitiesData;
@@ -16248,11 +16248,11 @@ public:
 
     /// <summary> If SET, objectName will be included in the value in
     /// policySessionpolicyDigest </summary>
-    BYTE includeObject;
+    bool includeObject;
 
 public:
     TPM2_Policy_AC_SendSelect_REQUEST() {}
-    TPM2_Policy_AC_SendSelect_REQUEST(const TPM_HANDLE& _policySession, const ByteVec& _objectName, const ByteVec& _authHandleName, const ByteVec& _acName, BYTE _includeObject)
+    TPM2_Policy_AC_SendSelect_REQUEST(const TPM_HANDLE& _policySession, const ByteVec& _objectName, const ByteVec& _authHandleName, const ByteVec& _acName, bool _includeObject)
       : policySession(_policySession), objectName(_objectName), authHandleName(_authHandleName), acName(_acName), includeObject(_includeObject)
     {}
 
@@ -16293,11 +16293,11 @@ public:
     TPM_HANDLE actHandle;
 
     /// <summary> The start timeout value for the ACT in seconds </summary>
-    UINT32 startTimeout;
+    std::uint32_t startTimeout;
 
 public:
     TPM2_ACT_SetTimeout_REQUEST() {}
-    TPM2_ACT_SetTimeout_REQUEST(const TPM_HANDLE& _actHandle, UINT32 _startTimeout)
+    TPM2_ACT_SetTimeout_REQUEST(const TPM_HANDLE& _actHandle, std::uint32_t _startTimeout)
       : actHandle(_actHandle), startTimeout(_startTimeout)
     {}
 
@@ -16495,14 +16495,14 @@ class _DLLEXP_ PcrValue : public TpmStructure
 {
 public:
     /// <summary> PCR Index </summary>
-    UINT32 index;
+    std::uint32_t index;
 
     /// <summary> PCR Value </summary>
     TPMT_HA value;
 
 public:
     PcrValue() {}
-    PcrValue(UINT32 _index, const TPMT_HA& _value)
+    PcrValue(std::uint32_t _index, const TPMT_HA& _value)
       : index(_index), value(_value)
     {}
 
@@ -16612,14 +16612,14 @@ public:
     TPM_ST Tag;
 
     /// <summary> Total command buffer length </summary>
-    UINT32 CommandSize;
+    std::uint32_t CommandSize;
 
     /// <summary> Command code </summary>
     TPM_CC CommandCode;
 
 public:
     CommandHeader() {}
-    CommandHeader(TPM_ST _Tag, UINT32 _CommandSize, TPM_CC _CommandCode)
+    CommandHeader(TPM_ST _Tag, std::uint32_t _CommandSize, TPM_CC _CommandCode)
       : Tag(_Tag), CommandSize(_CommandSize), CommandCode(_CommandCode)
     {}
 

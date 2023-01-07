@@ -491,9 +491,9 @@ void TPM_HANDLE::toTpm(TpmBuffer& buf) const { buf.writeInt(handle); }
 
 void TPM_HANDLE::initFromTpm(TpmBuffer& buf) { handle = buf.readInt(); }
 
-void TPM_HANDLE::Serialize(Serializer& buf) const { buf.with("handle", "UINT32").writeInt(handle); }
+void TPM_HANDLE::Serialize(Serializer& buf) const { buf.with("handle", "std::uint32_t").writeInt(handle); }
 
-void TPM_HANDLE::Deserialize(Serializer& buf) { handle = buf.with("handle", "UINT32").readInt(); }
+void TPM_HANDLE::Deserialize(Serializer& buf) { handle = buf.with("handle", "std::uint32_t").readInt(); }
 
 void TPMS_ALGORITHM_DESCRIPTION::toTpm(TpmBuffer& buf) const
 {
@@ -534,86 +534,86 @@ void TPMT_HA::initFromTpm(TpmBuffer& buf)
 void TPMT_HA::Serialize(Serializer& buf) const
 {
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
-    buf.with("digest", "BYTE[]", "hashAlg", "TPM_ALG_ID").writeSizedByteBuf(digest);
+    buf.with("digest", "std::uint8_t[]", "hashAlg", "TPM_ALG_ID").writeSizedByteBuf(digest);
 }
 
 void TPMT_HA::Deserialize(Serializer& buf)
 {
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
-    digest = buf.with("digest", "BYTE[]", "hashAlg", "TPM_ALG_ID").readSizedByteBuf();
+    digest = buf.with("digest", "std::uint8_t[]", "hashAlg", "TPM_ALG_ID").readSizedByteBuf();
 }
 
 void TPM2B_DIGEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_DIGEST::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_DIGEST::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_DIGEST::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_DIGEST::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_DIGEST::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_DATA::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_DATA::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_DATA::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_DATA::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_DATA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_DATA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_EVENT::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_EVENT::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_EVENT::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_EVENT::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_EVENT::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_EVENT::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_MAX_BUFFER::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_MAX_BUFFER::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_MAX_BUFFER::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_MAX_BUFFER::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_MAX_BUFFER::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_MAX_BUFFER::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_MAX_NV_BUFFER::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_MAX_NV_BUFFER::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_MAX_NV_BUFFER::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_MAX_NV_BUFFER::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_MAX_NV_BUFFER::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_MAX_NV_BUFFER::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_TIMEOUT::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_TIMEOUT::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_TIMEOUT::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_TIMEOUT::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_TIMEOUT::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_TIMEOUT::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_IV::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_IV::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_IV::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_IV::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_IV::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_IV::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_NAME::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(name); }
 
 void TPM2B_NAME::initFromTpm(TpmBuffer& buf) { name = buf.readSizedByteBuf(); }
 
-void TPM2B_NAME::Serialize(Serializer& buf) const { buf.with("name", "BYTE[]", "size", "UINT16").writeSizedByteBuf(name); }
+void TPM2B_NAME::Serialize(Serializer& buf) const { buf.with("name", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(name); }
 
-void TPM2B_NAME::Deserialize(Serializer& buf) { name = buf.with("name", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_NAME::Deserialize(Serializer& buf) { name = buf.with("name", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_PCR_SELECT::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(pcrSelect, 1); }
 
 void TPMS_PCR_SELECT::initFromTpm(TpmBuffer& buf) { pcrSelect = buf.readSizedByteBuf(1); }
 
-void TPMS_PCR_SELECT::Serialize(Serializer& buf) const { buf.with("pcrSelect", "BYTE[]", "sizeofSelect", "UINT8").writeSizedByteBuf(pcrSelect); }
+void TPMS_PCR_SELECT::Serialize(Serializer& buf) const { buf.with("pcrSelect", "std::uint8_t[]", "sizeofSelect", "std::uint8_t").writeSizedByteBuf(pcrSelect); }
 
-void TPMS_PCR_SELECT::Deserialize(Serializer& buf) { pcrSelect = buf.with("pcrSelect", "BYTE[]", "sizeofSelect", "UINT8").readSizedByteBuf(); }
+void TPMS_PCR_SELECT::Deserialize(Serializer& buf) { pcrSelect = buf.with("pcrSelect", "std::uint8_t[]", "sizeofSelect", "std::uint8_t").readSizedByteBuf(); }
 
 void TPMS_PCR_SELECTION::toTpm(TpmBuffer& buf) const
 {
@@ -630,13 +630,13 @@ void TPMS_PCR_SELECTION::initFromTpm(TpmBuffer& buf)
 void TPMS_PCR_SELECTION::Serialize(Serializer& buf) const
 {
     buf.with("hash", "TPM_ALG_ID").writeEnum(hash);
-    buf.with("pcrSelect", "BYTE[]", "sizeofSelect", "UINT8").writeSizedByteBuf(pcrSelect);
+    buf.with("pcrSelect", "std::uint8_t[]", "sizeofSelect", "std::uint8_t").writeSizedByteBuf(pcrSelect);
 }
 
 void TPMS_PCR_SELECTION::Deserialize(Serializer& buf)
 {
     buf.with("hash", "TPM_ALG_ID").readEnum(hash);
-    pcrSelect = buf.with("pcrSelect", "BYTE[]", "sizeofSelect", "UINT8").readSizedByteBuf();
+    pcrSelect = buf.with("pcrSelect", "std::uint8_t[]", "sizeofSelect", "std::uint8_t").readSizedByteBuf();
 }
 
 void TPMT_TK_CREATION::toTpm(TpmBuffer& buf) const
@@ -657,14 +657,14 @@ void TPMT_TK_CREATION::Serialize(Serializer& buf) const
 {
     buf.with("tag", "TPM_ST").writeShort(TPM_ST::CREATION);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
-    buf.with("digest", "BYTE[]", "digestSize", "UINT16").writeSizedByteBuf(digest);
+    buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").writeSizedByteBuf(digest);
 }
 
 void TPMT_TK_CREATION::Deserialize(Serializer& buf)
 {
     buf.with("tag", "TPM_ST").readShort();
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
-    digest = buf.with("digest", "BYTE[]", "digestSize", "UINT16").readSizedByteBuf();
+    digest = buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMT_TK_VERIFIED::toTpm(TpmBuffer& buf) const
@@ -685,14 +685,14 @@ void TPMT_TK_VERIFIED::Serialize(Serializer& buf) const
 {
     buf.with("tag", "TPM_ST").writeShort(TPM_ST::VERIFIED);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
-    buf.with("digest", "BYTE[]", "digestSize", "UINT16").writeSizedByteBuf(digest);
+    buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").writeSizedByteBuf(digest);
 }
 
 void TPMT_TK_VERIFIED::Deserialize(Serializer& buf)
 {
     buf.with("tag", "TPM_ST").readShort();
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
-    digest = buf.with("digest", "BYTE[]", "digestSize", "UINT16").readSizedByteBuf();
+    digest = buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMT_TK_AUTH::toTpm(TpmBuffer& buf) const
@@ -713,14 +713,14 @@ void TPMT_TK_AUTH::Serialize(Serializer& buf) const
 {
     buf.with("tag", "TPM_ST").writeEnum(tag);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
-    buf.with("digest", "BYTE[]", "digestSize", "UINT16").writeSizedByteBuf(digest);
+    buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").writeSizedByteBuf(digest);
 }
 
 void TPMT_TK_AUTH::Deserialize(Serializer& buf)
 {
     buf.with("tag", "TPM_ST").readEnum(tag);
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
-    digest = buf.with("digest", "BYTE[]", "digestSize", "UINT16").readSizedByteBuf();
+    digest = buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMT_TK_HASHCHECK::toTpm(TpmBuffer& buf) const
@@ -741,14 +741,14 @@ void TPMT_TK_HASHCHECK::Serialize(Serializer& buf) const
 {
     buf.with("tag", "TPM_ST").writeShort(TPM_ST::HASHCHECK);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
-    buf.with("digest", "BYTE[]", "digestSize", "UINT16").writeSizedByteBuf(digest);
+    buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").writeSizedByteBuf(digest);
 }
 
 void TPMT_TK_HASHCHECK::Deserialize(Serializer& buf)
 {
     buf.with("tag", "TPM_ST").readShort();
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
-    digest = buf.with("digest", "BYTE[]", "digestSize", "UINT16").readSizedByteBuf();
+    digest = buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_ALG_PROPERTY::toTpm(TpmBuffer& buf) const
@@ -790,13 +790,13 @@ void TPMS_TAGGED_PROPERTY::initFromTpm(TpmBuffer& buf)
 void TPMS_TAGGED_PROPERTY::Serialize(Serializer& buf) const
 {
     buf.with("property", "TPM_PT").writeEnum(property);
-    buf.with("value", "UINT32").writeInt(value);
+    buf.with("value", "std::uint32_t").writeInt(value);
 }
 
 void TPMS_TAGGED_PROPERTY::Deserialize(Serializer& buf)
 {
     buf.with("property", "TPM_PT").readEnum(property);
-    value = buf.with("value", "UINT32").readInt();
+    value = buf.with("value", "std::uint32_t").readInt();
 }
 
 void TPMS_TAGGED_PCR_SELECT::toTpm(TpmBuffer& buf) const
@@ -814,13 +814,13 @@ void TPMS_TAGGED_PCR_SELECT::initFromTpm(TpmBuffer& buf)
 void TPMS_TAGGED_PCR_SELECT::Serialize(Serializer& buf) const
 {
     buf.with("tag", "TPM_PT_PCR").writeEnum(tag);
-    buf.with("pcrSelect", "BYTE[]", "sizeofSelect", "UINT8").writeSizedByteBuf(pcrSelect);
+    buf.with("pcrSelect", "std::uint8_t[]", "sizeofSelect", "std::uint8_t").writeSizedByteBuf(pcrSelect);
 }
 
 void TPMS_TAGGED_PCR_SELECT::Deserialize(Serializer& buf)
 {
     buf.with("tag", "TPM_PT_PCR").readEnum(tag);
-    pcrSelect = buf.with("pcrSelect", "BYTE[]", "sizeofSelect", "UINT8").readSizedByteBuf();
+    pcrSelect = buf.with("pcrSelect", "std::uint8_t[]", "sizeofSelect", "std::uint8_t").readSizedByteBuf();
 }
 
 void TPMS_TAGGED_POLICY::toTpm(TpmBuffer& buf) const
@@ -864,14 +864,14 @@ void TPMS_ACT_DATA::initFromTpm(TpmBuffer& buf)
 void TPMS_ACT_DATA::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("timeout", "UINT32").writeInt(timeout);
+    buf.with("timeout", "std::uint32_t").writeInt(timeout);
     buf.with("attributes", "TPMA_ACT").writeEnum(attributes);
 }
 
 void TPMS_ACT_DATA::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    timeout = buf.with("timeout", "UINT32").readInt();
+    timeout = buf.with("timeout", "std::uint32_t").readInt();
     buf.with("attributes", "TPMA_ACT").readEnum(attributes);
 }
 
@@ -879,105 +879,105 @@ void TPML_CC::toTpm(TpmBuffer& buf) const { buf.writeValArr(commandCodes, 4); }
 
 void TPML_CC::initFromTpm(TpmBuffer& buf) { buf.readValArr(commandCodes, 4); }
 
-void TPML_CC::Serialize(Serializer& buf) const { buf.with("commandCodes", "TPM_CC[]", "count", "UINT32").writeEnumArr(commandCodes); }
+void TPML_CC::Serialize(Serializer& buf) const { buf.with("commandCodes", "TPM_CC[]", "count", "std::uint32_t").writeEnumArr(commandCodes); }
 
-void TPML_CC::Deserialize(Serializer& buf) { buf.with("commandCodes", "TPM_CC[]", "count", "UINT32").readEnumArr(commandCodes); }
+void TPML_CC::Deserialize(Serializer& buf) { buf.with("commandCodes", "TPM_CC[]", "count", "std::uint32_t").readEnumArr(commandCodes); }
 
 void TPML_CCA::toTpm(TpmBuffer& buf) const { buf.writeValArr(commandAttributes, 4); }
 
 void TPML_CCA::initFromTpm(TpmBuffer& buf) { buf.readValArr(commandAttributes, 4); }
 
-void TPML_CCA::Serialize(Serializer& buf) const { buf.with("commandAttributes", "TPMA_CC[]", "count", "UINT32").writeEnumArr(commandAttributes); }
+void TPML_CCA::Serialize(Serializer& buf) const { buf.with("commandAttributes", "TPMA_CC[]", "count", "std::uint32_t").writeEnumArr(commandAttributes); }
 
-void TPML_CCA::Deserialize(Serializer& buf) { buf.with("commandAttributes", "TPMA_CC[]", "count", "UINT32").readEnumArr(commandAttributes); }
+void TPML_CCA::Deserialize(Serializer& buf) { buf.with("commandAttributes", "TPMA_CC[]", "count", "std::uint32_t").readEnumArr(commandAttributes); }
 
 void TPML_ALG::toTpm(TpmBuffer& buf) const { buf.writeValArr(algorithms, 2); }
 
 void TPML_ALG::initFromTpm(TpmBuffer& buf) { buf.readValArr(algorithms, 2); }
 
-void TPML_ALG::Serialize(Serializer& buf) const { buf.with("algorithms", "TPM_ALG_ID[]", "count", "UINT32").writeEnumArr(algorithms); }
+void TPML_ALG::Serialize(Serializer& buf) const { buf.with("algorithms", "TPM_ALG_ID[]", "count", "std::uint32_t").writeEnumArr(algorithms); }
 
-void TPML_ALG::Deserialize(Serializer& buf) { buf.with("algorithms", "TPM_ALG_ID[]", "count", "UINT32").readEnumArr(algorithms); }
+void TPML_ALG::Deserialize(Serializer& buf) { buf.with("algorithms", "TPM_ALG_ID[]", "count", "std::uint32_t").readEnumArr(algorithms); }
 
 void TPML_HANDLE::toTpm(TpmBuffer& buf) const { buf.writeObjArr(handle); }
 
 void TPML_HANDLE::initFromTpm(TpmBuffer& buf) { buf.readObjArr(handle); }
 
-void TPML_HANDLE::Serialize(Serializer& buf) const { buf.with("handle", "TPM_HANDLE[]", "count", "UINT32").writeObjArr(handle); }
+void TPML_HANDLE::Serialize(Serializer& buf) const { buf.with("handle", "TPM_HANDLE[]", "count", "std::uint32_t").writeObjArr(handle); }
 
-void TPML_HANDLE::Deserialize(Serializer& buf) { buf.with("handle", "TPM_HANDLE[]", "count", "UINT32").readObjArr(handle); }
+void TPML_HANDLE::Deserialize(Serializer& buf) { buf.with("handle", "TPM_HANDLE[]", "count", "std::uint32_t").readObjArr(handle); }
 
 void TPML_DIGEST::toTpm(TpmBuffer& buf) const { buf.writeObjArr(digests); }
 
 void TPML_DIGEST::initFromTpm(TpmBuffer& buf) { buf.readObjArr(digests); }
 
-void TPML_DIGEST::Serialize(Serializer& buf) const { buf.with("digests", "TPM2B_DIGEST[]", "count", "UINT32").writeObjArr(digests); }
+void TPML_DIGEST::Serialize(Serializer& buf) const { buf.with("digests", "TPM2B_DIGEST[]", "count", "std::uint32_t").writeObjArr(digests); }
 
-void TPML_DIGEST::Deserialize(Serializer& buf) { buf.with("digests", "TPM2B_DIGEST[]", "count", "UINT32").readObjArr(digests); }
+void TPML_DIGEST::Deserialize(Serializer& buf) { buf.with("digests", "TPM2B_DIGEST[]", "count", "std::uint32_t").readObjArr(digests); }
 
 void TPML_DIGEST_VALUES::toTpm(TpmBuffer& buf) const { buf.writeObjArr(digests); }
 
 void TPML_DIGEST_VALUES::initFromTpm(TpmBuffer& buf) { buf.readObjArr(digests); }
 
-void TPML_DIGEST_VALUES::Serialize(Serializer& buf) const { buf.with("digests", "TPMT_HA[]", "count", "UINT32").writeObjArr(digests); }
+void TPML_DIGEST_VALUES::Serialize(Serializer& buf) const { buf.with("digests", "TPMT_HA[]", "count", "std::uint32_t").writeObjArr(digests); }
 
-void TPML_DIGEST_VALUES::Deserialize(Serializer& buf) { buf.with("digests", "TPMT_HA[]", "count", "UINT32").readObjArr(digests); }
+void TPML_DIGEST_VALUES::Deserialize(Serializer& buf) { buf.with("digests", "TPMT_HA[]", "count", "std::uint32_t").readObjArr(digests); }
 
 void TPML_PCR_SELECTION::toTpm(TpmBuffer& buf) const { buf.writeObjArr(pcrSelections); }
 
 void TPML_PCR_SELECTION::initFromTpm(TpmBuffer& buf) { buf.readObjArr(pcrSelections); }
 
-void TPML_PCR_SELECTION::Serialize(Serializer& buf) const { buf.with("pcrSelections", "TPMS_PCR_SELECTION[]", "count", "UINT32").writeObjArr(pcrSelections); }
+void TPML_PCR_SELECTION::Serialize(Serializer& buf) const { buf.with("pcrSelections", "TPMS_PCR_SELECTION[]", "count", "std::uint32_t").writeObjArr(pcrSelections); }
 
-void TPML_PCR_SELECTION::Deserialize(Serializer& buf) { buf.with("pcrSelections", "TPMS_PCR_SELECTION[]", "count", "UINT32").readObjArr(pcrSelections); }
+void TPML_PCR_SELECTION::Deserialize(Serializer& buf) { buf.with("pcrSelections", "TPMS_PCR_SELECTION[]", "count", "std::uint32_t").readObjArr(pcrSelections); }
 
 void TPML_ALG_PROPERTY::toTpm(TpmBuffer& buf) const { buf.writeObjArr(algProperties); }
 
 void TPML_ALG_PROPERTY::initFromTpm(TpmBuffer& buf) { buf.readObjArr(algProperties); }
 
-void TPML_ALG_PROPERTY::Serialize(Serializer& buf) const { buf.with("algProperties", "TPMS_ALG_PROPERTY[]", "count", "UINT32").writeObjArr(algProperties); }
+void TPML_ALG_PROPERTY::Serialize(Serializer& buf) const { buf.with("algProperties", "TPMS_ALG_PROPERTY[]", "count", "std::uint32_t").writeObjArr(algProperties); }
 
-void TPML_ALG_PROPERTY::Deserialize(Serializer& buf) { buf.with("algProperties", "TPMS_ALG_PROPERTY[]", "count", "UINT32").readObjArr(algProperties); }
+void TPML_ALG_PROPERTY::Deserialize(Serializer& buf) { buf.with("algProperties", "TPMS_ALG_PROPERTY[]", "count", "std::uint32_t").readObjArr(algProperties); }
 
 void TPML_TAGGED_TPM_PROPERTY::toTpm(TpmBuffer& buf) const { buf.writeObjArr(tpmProperty); }
 
 void TPML_TAGGED_TPM_PROPERTY::initFromTpm(TpmBuffer& buf) { buf.readObjArr(tpmProperty); }
 
-void TPML_TAGGED_TPM_PROPERTY::Serialize(Serializer& buf) const { buf.with("tpmProperty", "TPMS_TAGGED_PROPERTY[]", "count", "UINT32").writeObjArr(tpmProperty); }
+void TPML_TAGGED_TPM_PROPERTY::Serialize(Serializer& buf) const { buf.with("tpmProperty", "TPMS_TAGGED_PROPERTY[]", "count", "std::uint32_t").writeObjArr(tpmProperty); }
 
-void TPML_TAGGED_TPM_PROPERTY::Deserialize(Serializer& buf) { buf.with("tpmProperty", "TPMS_TAGGED_PROPERTY[]", "count", "UINT32").readObjArr(tpmProperty); }
+void TPML_TAGGED_TPM_PROPERTY::Deserialize(Serializer& buf) { buf.with("tpmProperty", "TPMS_TAGGED_PROPERTY[]", "count", "std::uint32_t").readObjArr(tpmProperty); }
 
 void TPML_TAGGED_PCR_PROPERTY::toTpm(TpmBuffer& buf) const { buf.writeObjArr(pcrProperty); }
 
 void TPML_TAGGED_PCR_PROPERTY::initFromTpm(TpmBuffer& buf) { buf.readObjArr(pcrProperty); }
 
-void TPML_TAGGED_PCR_PROPERTY::Serialize(Serializer& buf) const { buf.with("pcrProperty", "TPMS_TAGGED_PCR_SELECT[]", "count", "UINT32").writeObjArr(pcrProperty); }
+void TPML_TAGGED_PCR_PROPERTY::Serialize(Serializer& buf) const { buf.with("pcrProperty", "TPMS_TAGGED_PCR_SELECT[]", "count", "std::uint32_t").writeObjArr(pcrProperty); }
 
-void TPML_TAGGED_PCR_PROPERTY::Deserialize(Serializer& buf) { buf.with("pcrProperty", "TPMS_TAGGED_PCR_SELECT[]", "count", "UINT32").readObjArr(pcrProperty); }
+void TPML_TAGGED_PCR_PROPERTY::Deserialize(Serializer& buf) { buf.with("pcrProperty", "TPMS_TAGGED_PCR_SELECT[]", "count", "std::uint32_t").readObjArr(pcrProperty); }
 
 void TPML_ECC_CURVE::toTpm(TpmBuffer& buf) const { buf.writeValArr(eccCurves, 2); }
 
 void TPML_ECC_CURVE::initFromTpm(TpmBuffer& buf) { buf.readValArr(eccCurves, 2); }
 
-void TPML_ECC_CURVE::Serialize(Serializer& buf) const { buf.with("eccCurves", "TPM_ECC_CURVE[]", "count", "UINT32").writeEnumArr(eccCurves); }
+void TPML_ECC_CURVE::Serialize(Serializer& buf) const { buf.with("eccCurves", "TPM_ECC_CURVE[]", "count", "std::uint32_t").writeEnumArr(eccCurves); }
 
-void TPML_ECC_CURVE::Deserialize(Serializer& buf) { buf.with("eccCurves", "TPM_ECC_CURVE[]", "count", "UINT32").readEnumArr(eccCurves); }
+void TPML_ECC_CURVE::Deserialize(Serializer& buf) { buf.with("eccCurves", "TPM_ECC_CURVE[]", "count", "std::uint32_t").readEnumArr(eccCurves); }
 
 void TPML_TAGGED_POLICY::toTpm(TpmBuffer& buf) const { buf.writeObjArr(policies); }
 
 void TPML_TAGGED_POLICY::initFromTpm(TpmBuffer& buf) { buf.readObjArr(policies); }
 
-void TPML_TAGGED_POLICY::Serialize(Serializer& buf) const { buf.with("policies", "TPMS_TAGGED_POLICY[]", "count", "UINT32").writeObjArr(policies); }
+void TPML_TAGGED_POLICY::Serialize(Serializer& buf) const { buf.with("policies", "TPMS_TAGGED_POLICY[]", "count", "std::uint32_t").writeObjArr(policies); }
 
-void TPML_TAGGED_POLICY::Deserialize(Serializer& buf) { buf.with("policies", "TPMS_TAGGED_POLICY[]", "count", "UINT32").readObjArr(policies); }
+void TPML_TAGGED_POLICY::Deserialize(Serializer& buf) { buf.with("policies", "TPMS_TAGGED_POLICY[]", "count", "std::uint32_t").readObjArr(policies); }
 
 void TPML_ACT_DATA::toTpm(TpmBuffer& buf) const { buf.writeObjArr(actData); }
 
 void TPML_ACT_DATA::initFromTpm(TpmBuffer& buf) { buf.readObjArr(actData); }
 
-void TPML_ACT_DATA::Serialize(Serializer& buf) const { buf.with("actData", "TPMS_ACT_DATA[]", "count", "UINT32").writeObjArr(actData); }
+void TPML_ACT_DATA::Serialize(Serializer& buf) const { buf.with("actData", "TPMS_ACT_DATA[]", "count", "std::uint32_t").writeObjArr(actData); }
 
-void TPML_ACT_DATA::Deserialize(Serializer& buf) { buf.with("actData", "TPMS_ACT_DATA[]", "count", "UINT32").readObjArr(actData); }
+void TPML_ACT_DATA::Deserialize(Serializer& buf) { buf.with("actData", "TPMS_ACT_DATA[]", "count", "std::uint32_t").readObjArr(actData); }
 
 void TPMS_CAPABILITY_DATA::toTpm(TpmBuffer& buf) const
 {
@@ -1026,18 +1026,18 @@ void TPMS_CLOCK_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_CLOCK_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("clock", "UINT64").writeInt64(clock);
-    buf.with("resetCount", "UINT32").writeInt(resetCount);
-    buf.with("restartCount", "UINT32").writeInt(restartCount);
-    buf.with("safe", "BYTE").writeByte(safe);
+    buf.with("clock", "std::uint64_t").writeInt64(clock);
+    buf.with("resetCount", "std::uint32_t").writeInt(resetCount);
+    buf.with("restartCount", "std::uint32_t").writeInt(restartCount);
+    buf.with("safe", "bool").writeByte(safe);
 }
 
 void TPMS_CLOCK_INFO::Deserialize(Serializer& buf)
 {
-    clock = buf.with("clock", "UINT64").readInt64();
-    resetCount = buf.with("resetCount", "UINT32").readInt();
-    restartCount = buf.with("restartCount", "UINT32").readInt();
-    safe = buf.with("safe", "BYTE").readByte();
+    clock = buf.with("clock", "std::uint64_t").readInt64();
+    resetCount = buf.with("resetCount", "std::uint32_t").readInt();
+    restartCount = buf.with("restartCount", "std::uint32_t").readInt();
+    safe = buf.with("safe", "bool").readByte();
 }
 
 void TPMS_TIME_INFO::toTpm(TpmBuffer& buf) const
@@ -1054,13 +1054,13 @@ void TPMS_TIME_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_TIME_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("time", "UINT64").writeInt64(time);
+    buf.with("time", "std::uint64_t").writeInt64(time);
     buf.with("clockInfo", "TPMS_CLOCK_INFO").writeObj(clockInfo);
 }
 
 void TPMS_TIME_INFO::Deserialize(Serializer& buf)
 {
-    time = buf.with("time", "UINT64").readInt64();
+    time = buf.with("time", "std::uint64_t").readInt64();
     buf.with("clockInfo", "TPMS_CLOCK_INFO").readObj(clockInfo);
 }
 
@@ -1079,13 +1079,13 @@ void TPMS_TIME_ATTEST_INFO::initFromTpm(TpmBuffer& buf)
 void TPMS_TIME_ATTEST_INFO::Serialize(Serializer& buf) const
 {
     buf.with("time", "TPMS_TIME_INFO").writeObj(time);
-    buf.with("firmwareVersion", "UINT64").writeInt64(firmwareVersion);
+    buf.with("firmwareVersion", "std::uint64_t").writeInt64(firmwareVersion);
 }
 
 void TPMS_TIME_ATTEST_INFO::Deserialize(Serializer& buf)
 {
     buf.with("time", "TPMS_TIME_INFO").readObj(time);
-    firmwareVersion = buf.with("firmwareVersion", "UINT64").readInt64();
+    firmwareVersion = buf.with("firmwareVersion", "std::uint64_t").readInt64();
 }
 
 void TPMS_CERTIFY_INFO::toTpm(TpmBuffer& buf) const
@@ -1102,14 +1102,14 @@ void TPMS_CERTIFY_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_CERTIFY_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("name", "BYTE[]", "nameSize", "UINT16").writeSizedByteBuf(name);
-    buf.with("qualifiedName", "BYTE[]", "qualifiedNameSize", "UINT16").writeSizedByteBuf(qualifiedName);
+    buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").writeSizedByteBuf(name);
+    buf.with("qualifiedName", "std::uint8_t[]", "qualifiedNameSize", "std::uint16_t").writeSizedByteBuf(qualifiedName);
 }
 
 void TPMS_CERTIFY_INFO::Deserialize(Serializer& buf)
 {
-    name = buf.with("name", "BYTE[]", "nameSize", "UINT16").readSizedByteBuf();
-    qualifiedName = buf.with("qualifiedName", "BYTE[]", "qualifiedNameSize", "UINT16").readSizedByteBuf();
+    name = buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").readSizedByteBuf();
+    qualifiedName = buf.with("qualifiedName", "std::uint8_t[]", "qualifiedNameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_QUOTE_INFO::toTpm(TpmBuffer& buf) const
@@ -1126,14 +1126,14 @@ void TPMS_QUOTE_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_QUOTE_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "UINT32").writeObjArr(pcrSelect);
-    buf.with("pcrDigest", "BYTE[]", "pcrDigestSize", "UINT16").writeSizedByteBuf(pcrDigest);
+    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "std::uint32_t").writeObjArr(pcrSelect);
+    buf.with("pcrDigest", "std::uint8_t[]", "pcrDigestSize", "std::uint16_t").writeSizedByteBuf(pcrDigest);
 }
 
 void TPMS_QUOTE_INFO::Deserialize(Serializer& buf)
 {
-    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "UINT32").readObjArr(pcrSelect);
-    pcrDigest = buf.with("pcrDigest", "BYTE[]", "pcrDigestSize", "UINT16").readSizedByteBuf();
+    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "std::uint32_t").readObjArr(pcrSelect);
+    pcrDigest = buf.with("pcrDigest", "std::uint8_t[]", "pcrDigestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_COMMAND_AUDIT_INFO::toTpm(TpmBuffer& buf) const
@@ -1154,18 +1154,18 @@ void TPMS_COMMAND_AUDIT_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_COMMAND_AUDIT_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("auditCounter", "UINT64").writeInt64(auditCounter);
+    buf.with("auditCounter", "std::uint64_t").writeInt64(auditCounter);
     buf.with("digestAlg", "TPM_ALG_ID").writeEnum(digestAlg);
-    buf.with("auditDigest", "BYTE[]", "auditDigestSize", "UINT16").writeSizedByteBuf(auditDigest);
-    buf.with("commandDigest", "BYTE[]", "commandDigestSize", "UINT16").writeSizedByteBuf(commandDigest);
+    buf.with("auditDigest", "std::uint8_t[]", "auditDigestSize", "std::uint16_t").writeSizedByteBuf(auditDigest);
+    buf.with("commandDigest", "std::uint8_t[]", "commandDigestSize", "std::uint16_t").writeSizedByteBuf(commandDigest);
 }
 
 void TPMS_COMMAND_AUDIT_INFO::Deserialize(Serializer& buf)
 {
-    auditCounter = buf.with("auditCounter", "UINT64").readInt64();
+    auditCounter = buf.with("auditCounter", "std::uint64_t").readInt64();
     buf.with("digestAlg", "TPM_ALG_ID").readEnum(digestAlg);
-    auditDigest = buf.with("auditDigest", "BYTE[]", "auditDigestSize", "UINT16").readSizedByteBuf();
-    commandDigest = buf.with("commandDigest", "BYTE[]", "commandDigestSize", "UINT16").readSizedByteBuf();
+    auditDigest = buf.with("auditDigest", "std::uint8_t[]", "auditDigestSize", "std::uint16_t").readSizedByteBuf();
+    commandDigest = buf.with("commandDigest", "std::uint8_t[]", "commandDigestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_SESSION_AUDIT_INFO::toTpm(TpmBuffer& buf) const
@@ -1182,14 +1182,14 @@ void TPMS_SESSION_AUDIT_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_SESSION_AUDIT_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("exclusiveSession", "BYTE").writeByte(exclusiveSession);
-    buf.with("sessionDigest", "BYTE[]", "sessionDigestSize", "UINT16").writeSizedByteBuf(sessionDigest);
+    buf.with("exclusiveSession", "bool").writeByte(exclusiveSession);
+    buf.with("sessionDigest", "std::uint8_t[]", "sessionDigestSize", "std::uint16_t").writeSizedByteBuf(sessionDigest);
 }
 
 void TPMS_SESSION_AUDIT_INFO::Deserialize(Serializer& buf)
 {
-    exclusiveSession = buf.with("exclusiveSession", "BYTE").readByte();
-    sessionDigest = buf.with("sessionDigest", "BYTE[]", "sessionDigestSize", "UINT16").readSizedByteBuf();
+    exclusiveSession = buf.with("exclusiveSession", "bool").readByte();
+    sessionDigest = buf.with("sessionDigest", "std::uint8_t[]", "sessionDigestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_CREATION_INFO::toTpm(TpmBuffer& buf) const
@@ -1206,14 +1206,14 @@ void TPMS_CREATION_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_CREATION_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").writeSizedByteBuf(objectName);
-    buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").writeSizedByteBuf(creationHash);
+    buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").writeSizedByteBuf(objectName);
+    buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").writeSizedByteBuf(creationHash);
 }
 
 void TPMS_CREATION_INFO::Deserialize(Serializer& buf)
 {
-    objectName = buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").readSizedByteBuf();
-    creationHash = buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").readSizedByteBuf();
+    objectName = buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").readSizedByteBuf();
+    creationHash = buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_NV_CERTIFY_INFO::toTpm(TpmBuffer& buf) const
@@ -1232,16 +1232,16 @@ void TPMS_NV_CERTIFY_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_NV_CERTIFY_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("indexName", "BYTE[]", "indexNameSize", "UINT16").writeSizedByteBuf(indexName);
-    buf.with("offset", "UINT16").writeShort(offset);
-    buf.with("nvContents", "BYTE[]", "nvContentsSize", "UINT16").writeSizedByteBuf(nvContents);
+    buf.with("indexName", "std::uint8_t[]", "indexNameSize", "std::uint16_t").writeSizedByteBuf(indexName);
+    buf.with("offset", "std::uint16_t").writeShort(offset);
+    buf.with("nvContents", "std::uint8_t[]", "nvContentsSize", "std::uint16_t").writeSizedByteBuf(nvContents);
 }
 
 void TPMS_NV_CERTIFY_INFO::Deserialize(Serializer& buf)
 {
-    indexName = buf.with("indexName", "BYTE[]", "indexNameSize", "UINT16").readSizedByteBuf();
-    offset = buf.with("offset", "UINT16").readShort();
-    nvContents = buf.with("nvContents", "BYTE[]", "nvContentsSize", "UINT16").readSizedByteBuf();
+    indexName = buf.with("indexName", "std::uint8_t[]", "indexNameSize", "std::uint16_t").readSizedByteBuf();
+    offset = buf.with("offset", "std::uint16_t").readShort();
+    nvContents = buf.with("nvContents", "std::uint8_t[]", "nvContentsSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_NV_DIGEST_CERTIFY_INFO::toTpm(TpmBuffer& buf) const
@@ -1258,14 +1258,14 @@ void TPMS_NV_DIGEST_CERTIFY_INFO::initFromTpm(TpmBuffer& buf)
 
 void TPMS_NV_DIGEST_CERTIFY_INFO::Serialize(Serializer& buf) const
 {
-    buf.with("indexName", "BYTE[]", "indexNameSize", "UINT16").writeSizedByteBuf(indexName);
-    buf.with("nvDigest", "BYTE[]", "nvDigestSize", "UINT16").writeSizedByteBuf(nvDigest);
+    buf.with("indexName", "std::uint8_t[]", "indexNameSize", "std::uint16_t").writeSizedByteBuf(indexName);
+    buf.with("nvDigest", "std::uint8_t[]", "nvDigestSize", "std::uint16_t").writeSizedByteBuf(nvDigest);
 }
 
 void TPMS_NV_DIGEST_CERTIFY_INFO::Deserialize(Serializer& buf)
 {
-    indexName = buf.with("indexName", "BYTE[]", "indexNameSize", "UINT16").readSizedByteBuf();
-    nvDigest = buf.with("nvDigest", "BYTE[]", "nvDigestSize", "UINT16").readSizedByteBuf();
+    indexName = buf.with("indexName", "std::uint8_t[]", "indexNameSize", "std::uint16_t").readSizedByteBuf();
+    nvDigest = buf.with("nvDigest", "std::uint8_t[]", "nvDigestSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_ATTEST::toTpm(TpmBuffer& buf) const
@@ -1295,10 +1295,10 @@ void TPMS_ATTEST::Serialize(Serializer& buf) const
 {
     buf.with("magic", "TPM_GENERATED").writeEnum(magic);
     buf.with("type", "TPM_ST").writeEnum(!attested ? (TPM_ST)0 : type());
-    buf.with("qualifiedSigner", "BYTE[]", "qualifiedSignerSize", "UINT16").writeSizedByteBuf(qualifiedSigner);
-    buf.with("extraData", "BYTE[]", "extraDataSize", "UINT16").writeSizedByteBuf(extraData);
+    buf.with("qualifiedSigner", "std::uint8_t[]", "qualifiedSignerSize", "std::uint16_t").writeSizedByteBuf(qualifiedSigner);
+    buf.with("extraData", "std::uint8_t[]", "extraDataSize", "std::uint16_t").writeSizedByteBuf(extraData);
     buf.with("clockInfo", "TPMS_CLOCK_INFO").writeObj(clockInfo);
-    buf.with("firmwareVersion", "UINT64").writeInt64(firmwareVersion);
+    buf.with("firmwareVersion", "std::uint64_t").writeInt64(firmwareVersion);
     if (attested) buf.with("attested", "TPMU_ATTEST").writeObj(*attested);
 }
 
@@ -1307,10 +1307,10 @@ void TPMS_ATTEST::Deserialize(Serializer& buf)
     buf.with("magic", "TPM_GENERATED").readEnum(magic);
     TPM_ST type;
     buf.with("type", "TPM_ST").readEnum(type);
-    qualifiedSigner = buf.with("qualifiedSigner", "BYTE[]", "qualifiedSignerSize", "UINT16").readSizedByteBuf();
-    extraData = buf.with("extraData", "BYTE[]", "extraDataSize", "UINT16").readSizedByteBuf();
+    qualifiedSigner = buf.with("qualifiedSigner", "std::uint8_t[]", "qualifiedSignerSize", "std::uint16_t").readSizedByteBuf();
+    extraData = buf.with("extraData", "std::uint8_t[]", "extraDataSize", "std::uint16_t").readSizedByteBuf();
     buf.with("clockInfo", "TPMS_CLOCK_INFO").readObj(clockInfo);
-    firmwareVersion = buf.with("firmwareVersion", "UINT64").readInt64();
+    firmwareVersion = buf.with("firmwareVersion", "std::uint64_t").readInt64();
     if (!type) attested.reset();
     else attested = CreateUnion<TPMU_ATTEST>(type);
     if (attested) buf.with("attested", "TPMU_ATTEST").readObj(*attested);
@@ -1320,9 +1320,9 @@ void TPM2B_ATTEST::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(attestationDa
 
 void TPM2B_ATTEST::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(attestationData); }
 
-void TPM2B_ATTEST::Serialize(Serializer& buf) const { buf.with("attestationData", "TPMS_ATTEST", "size", "UINT16").writeObj(attestationData); }
+void TPM2B_ATTEST::Serialize(Serializer& buf) const { buf.with("attestationData", "TPMS_ATTEST", "size", "std::uint16_t").writeObj(attestationData); }
 
-void TPM2B_ATTEST::Deserialize(Serializer& buf) { buf.with("attestationData", "TPMS_ATTEST", "size", "UINT16").readObj(attestationData); }
+void TPM2B_ATTEST::Deserialize(Serializer& buf) { buf.with("attestationData", "TPMS_ATTEST", "size", "std::uint16_t").readObj(attestationData); }
 
 void TPMS_AUTH_COMMAND::toTpm(TpmBuffer& buf) const
 {
@@ -1343,17 +1343,17 @@ void TPMS_AUTH_COMMAND::initFromTpm(TpmBuffer& buf)
 void TPMS_AUTH_COMMAND::Serialize(Serializer& buf) const
 {
     buf.with("sessionHandle", "TPM_HANDLE").writeObj(sessionHandle);
-    buf.with("nonce", "BYTE[]", "nonceSize", "UINT16").writeSizedByteBuf(nonce);
+    buf.with("nonce", "std::uint8_t[]", "nonceSize", "std::uint16_t").writeSizedByteBuf(nonce);
     buf.with("sessionAttributes", "TPMA_SESSION").writeEnum(sessionAttributes);
-    buf.with("hmac", "BYTE[]", "hmacSize", "UINT16").writeSizedByteBuf(hmac);
+    buf.with("hmac", "std::uint8_t[]", "hmacSize", "std::uint16_t").writeSizedByteBuf(hmac);
 }
 
 void TPMS_AUTH_COMMAND::Deserialize(Serializer& buf)
 {
     buf.with("sessionHandle", "TPM_HANDLE").readObj(sessionHandle);
-    nonce = buf.with("nonce", "BYTE[]", "nonceSize", "UINT16").readSizedByteBuf();
+    nonce = buf.with("nonce", "std::uint8_t[]", "nonceSize", "std::uint16_t").readSizedByteBuf();
     buf.with("sessionAttributes", "TPMA_SESSION").readEnum(sessionAttributes);
-    hmac = buf.with("hmac", "BYTE[]", "hmacSize", "UINT16").readSizedByteBuf();
+    hmac = buf.with("hmac", "std::uint8_t[]", "hmacSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_AUTH_RESPONSE::toTpm(TpmBuffer& buf) const
@@ -1372,16 +1372,16 @@ void TPMS_AUTH_RESPONSE::initFromTpm(TpmBuffer& buf)
 
 void TPMS_AUTH_RESPONSE::Serialize(Serializer& buf) const
 {
-    buf.with("nonce", "BYTE[]", "nonceSize", "UINT16").writeSizedByteBuf(nonce);
+    buf.with("nonce", "std::uint8_t[]", "nonceSize", "std::uint16_t").writeSizedByteBuf(nonce);
     buf.with("sessionAttributes", "TPMA_SESSION").writeEnum(sessionAttributes);
-    buf.with("hmac", "BYTE[]", "hmacSize", "UINT16").writeSizedByteBuf(hmac);
+    buf.with("hmac", "std::uint8_t[]", "hmacSize", "std::uint16_t").writeSizedByteBuf(hmac);
 }
 
 void TPMS_AUTH_RESPONSE::Deserialize(Serializer& buf)
 {
-    nonce = buf.with("nonce", "BYTE[]", "nonceSize", "UINT16").readSizedByteBuf();
+    nonce = buf.with("nonce", "std::uint8_t[]", "nonceSize", "std::uint16_t").readSizedByteBuf();
     buf.with("sessionAttributes", "TPMA_SESSION").readEnum(sessionAttributes);
-    hmac = buf.with("hmac", "BYTE[]", "hmacSize", "UINT16").readSizedByteBuf();
+    hmac = buf.with("hmac", "std::uint8_t[]", "hmacSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMT_SYM_DEF::toTpm(TpmBuffer& buf) const
@@ -1403,14 +1403,14 @@ void TPMT_SYM_DEF::initFromTpm(TpmBuffer& buf)
 void TPMT_SYM_DEF::Serialize(Serializer& buf) const
 {
     buf.with("algorithm", "TPM_ALG_ID").writeEnum(algorithm);
-    buf.with("keyBits", "UINT16").writeShort(keyBits);
+    buf.with("keyBits", "std::uint16_t").writeShort(keyBits);
     buf.with("mode", "TPM_ALG_ID").writeEnum(mode);
 }
 
 void TPMT_SYM_DEF::Deserialize(Serializer& buf)
 {
     buf.with("algorithm", "TPM_ALG_ID").readEnum(algorithm);
-    keyBits = buf.with("keyBits", "UINT16").readShort();
+    keyBits = buf.with("keyBits", "std::uint16_t").readShort();
     buf.with("mode", "TPM_ALG_ID").readEnum(mode);
 }
 
@@ -1433,14 +1433,14 @@ void TPMT_SYM_DEF_OBJECT::initFromTpm(TpmBuffer& buf)
 void TPMT_SYM_DEF_OBJECT::Serialize(Serializer& buf) const
 {
     buf.with("algorithm", "TPM_ALG_ID").writeEnum(algorithm);
-    buf.with("keyBits", "UINT16").writeShort(keyBits);
+    buf.with("keyBits", "std::uint16_t").writeShort(keyBits);
     buf.with("mode", "TPM_ALG_ID").writeEnum(mode);
 }
 
 void TPMT_SYM_DEF_OBJECT::Deserialize(Serializer& buf)
 {
     buf.with("algorithm", "TPM_ALG_ID").readEnum(algorithm);
-    keyBits = buf.with("keyBits", "UINT16").readShort();
+    keyBits = buf.with("keyBits", "std::uint16_t").readShort();
     buf.with("mode", "TPM_ALG_ID").readEnum(mode);
 }
 
@@ -1448,9 +1448,9 @@ void TPM2B_SYM_KEY::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer);
 
 void TPM2B_SYM_KEY::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_SYM_KEY::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_SYM_KEY::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_SYM_KEY::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_SYM_KEY::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_SYMCIPHER_PARMS::toTpm(TpmBuffer& buf) const { sym.toTpm(buf); }
 
@@ -1464,9 +1464,9 @@ void TPM2B_LABEL::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_LABEL::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_LABEL::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_LABEL::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_LABEL::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_LABEL::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_DERIVE::toTpm(TpmBuffer& buf) const
 {
@@ -1482,31 +1482,31 @@ void TPMS_DERIVE::initFromTpm(TpmBuffer& buf)
 
 void TPMS_DERIVE::Serialize(Serializer& buf) const
 {
-    buf.with("label", "BYTE[]", "labelSize", "UINT16").writeSizedByteBuf(label);
-    buf.with("context", "BYTE[]", "contextSize", "UINT16").writeSizedByteBuf(context);
+    buf.with("label", "std::uint8_t[]", "labelSize", "std::uint16_t").writeSizedByteBuf(label);
+    buf.with("context", "std::uint8_t[]", "contextSize", "std::uint16_t").writeSizedByteBuf(context);
 }
 
 void TPMS_DERIVE::Deserialize(Serializer& buf)
 {
-    label = buf.with("label", "BYTE[]", "labelSize", "UINT16").readSizedByteBuf();
-    context = buf.with("context", "BYTE[]", "contextSize", "UINT16").readSizedByteBuf();
+    label = buf.with("label", "std::uint8_t[]", "labelSize", "std::uint16_t").readSizedByteBuf();
+    context = buf.with("context", "std::uint8_t[]", "contextSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2B_DERIVE::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(buffer); }
 
 void TPM2B_DERIVE::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(buffer); }
 
-void TPM2B_DERIVE::Serialize(Serializer& buf) const { buf.with("buffer", "TPMS_DERIVE", "size", "UINT16").writeObj(buffer); }
+void TPM2B_DERIVE::Serialize(Serializer& buf) const { buf.with("buffer", "TPMS_DERIVE", "size", "std::uint16_t").writeObj(buffer); }
 
-void TPM2B_DERIVE::Deserialize(Serializer& buf) { buf.with("buffer", "TPMS_DERIVE", "size", "UINT16").readObj(buffer); }
+void TPM2B_DERIVE::Deserialize(Serializer& buf) { buf.with("buffer", "TPMS_DERIVE", "size", "std::uint16_t").readObj(buffer); }
 
 void TPM2B_SENSITIVE_DATA::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_SENSITIVE_DATA::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_SENSITIVE_DATA::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_SENSITIVE_DATA::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_SENSITIVE_DATA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_SENSITIVE_DATA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_SENSITIVE_CREATE::toTpm(TpmBuffer& buf) const
 {
@@ -1522,23 +1522,23 @@ void TPMS_SENSITIVE_CREATE::initFromTpm(TpmBuffer& buf)
 
 void TPMS_SENSITIVE_CREATE::Serialize(Serializer& buf) const
 {
-    buf.with("userAuth", "BYTE[]", "userAuthSize", "UINT16").writeSizedByteBuf(userAuth);
-    buf.with("data", "BYTE[]", "dataSize", "UINT16").writeSizedByteBuf(data);
+    buf.with("userAuth", "std::uint8_t[]", "userAuthSize", "std::uint16_t").writeSizedByteBuf(userAuth);
+    buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").writeSizedByteBuf(data);
 }
 
 void TPMS_SENSITIVE_CREATE::Deserialize(Serializer& buf)
 {
-    userAuth = buf.with("userAuth", "BYTE[]", "userAuthSize", "UINT16").readSizedByteBuf();
-    data = buf.with("data", "BYTE[]", "dataSize", "UINT16").readSizedByteBuf();
+    userAuth = buf.with("userAuth", "std::uint8_t[]", "userAuthSize", "std::uint16_t").readSizedByteBuf();
+    data = buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2B_SENSITIVE_CREATE::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(sensitive); }
 
 void TPM2B_SENSITIVE_CREATE::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(sensitive); }
 
-void TPM2B_SENSITIVE_CREATE::Serialize(Serializer& buf) const { buf.with("sensitive", "TPMS_SENSITIVE_CREATE", "size", "UINT16").writeObj(sensitive); }
+void TPM2B_SENSITIVE_CREATE::Serialize(Serializer& buf) const { buf.with("sensitive", "TPMS_SENSITIVE_CREATE", "size", "std::uint16_t").writeObj(sensitive); }
 
-void TPM2B_SENSITIVE_CREATE::Deserialize(Serializer& buf) { buf.with("sensitive", "TPMS_SENSITIVE_CREATE", "size", "UINT16").readObj(sensitive); }
+void TPM2B_SENSITIVE_CREATE::Deserialize(Serializer& buf) { buf.with("sensitive", "TPMS_SENSITIVE_CREATE", "size", "std::uint16_t").readObj(sensitive); }
 
 void TPMS_SCHEME_HASH::toTpm(TpmBuffer& buf) const { buf.writeShort(hashAlg); }
 
@@ -1563,13 +1563,13 @@ void TPMS_SCHEME_ECDAA::initFromTpm(TpmBuffer& buf)
 void TPMS_SCHEME_ECDAA::Serialize(Serializer& buf) const
 {
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
-    buf.with("count", "UINT16").writeShort(count);
+    buf.with("count", "std::uint16_t").writeShort(count);
 }
 
 void TPMS_SCHEME_ECDAA::Deserialize(Serializer& buf)
 {
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
-    count = buf.with("count", "UINT16").readShort();
+    count = buf.with("count", "std::uint16_t").readShort();
 }
 
 void TPMS_SCHEME_XOR::toTpm(TpmBuffer& buf) const
@@ -1774,25 +1774,25 @@ void TPM2B_PUBLIC_KEY_RSA::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(b
 
 void TPM2B_PUBLIC_KEY_RSA::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_PUBLIC_KEY_RSA::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_PUBLIC_KEY_RSA::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_PUBLIC_KEY_RSA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_PUBLIC_KEY_RSA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_PRIVATE_KEY_RSA::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_PRIVATE_KEY_RSA::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_PRIVATE_KEY_RSA::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_PRIVATE_KEY_RSA::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_PRIVATE_KEY_RSA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_PRIVATE_KEY_RSA::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_ECC_PARAMETER::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_ECC_PARAMETER::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_ECC_PARAMETER::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_ECC_PARAMETER::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_ECC_PARAMETER::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_ECC_PARAMETER::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_ECC_POINT::toTpm(TpmBuffer& buf) const
 {
@@ -1808,23 +1808,23 @@ void TPMS_ECC_POINT::initFromTpm(TpmBuffer& buf)
 
 void TPMS_ECC_POINT::Serialize(Serializer& buf) const
 {
-    buf.with("x", "BYTE[]", "xSize", "UINT16").writeSizedByteBuf(x);
-    buf.with("y", "BYTE[]", "ySize", "UINT16").writeSizedByteBuf(y);
+    buf.with("x", "std::uint8_t[]", "xSize", "std::uint16_t").writeSizedByteBuf(x);
+    buf.with("y", "std::uint8_t[]", "ySize", "std::uint16_t").writeSizedByteBuf(y);
 }
 
 void TPMS_ECC_POINT::Deserialize(Serializer& buf)
 {
-    x = buf.with("x", "BYTE[]", "xSize", "UINT16").readSizedByteBuf();
-    y = buf.with("y", "BYTE[]", "ySize", "UINT16").readSizedByteBuf();
+    x = buf.with("x", "std::uint8_t[]", "xSize", "std::uint16_t").readSizedByteBuf();
+    y = buf.with("y", "std::uint8_t[]", "ySize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2B_ECC_POINT::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(point); }
 
 void TPM2B_ECC_POINT::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(point); }
 
-void TPM2B_ECC_POINT::Serialize(Serializer& buf) const { buf.with("point", "TPMS_ECC_POINT", "size", "UINT16").writeObj(point); }
+void TPM2B_ECC_POINT::Serialize(Serializer& buf) const { buf.with("point", "TPMS_ECC_POINT", "size", "std::uint16_t").writeObj(point); }
 
-void TPM2B_ECC_POINT::Deserialize(Serializer& buf) { buf.with("point", "TPMS_ECC_POINT", "size", "UINT16").readObj(point); }
+void TPM2B_ECC_POINT::Deserialize(Serializer& buf) { buf.with("point", "TPMS_ECC_POINT", "size", "std::uint16_t").readObj(point); }
 
 void TPMT_ECC_SCHEME::toTpm(TpmBuffer& buf) const
 {
@@ -1894,24 +1894,24 @@ void TPMS_ALGORITHM_DETAIL_ECC::initFromTpm(TpmBuffer& buf)
 void TPMS_ALGORITHM_DETAIL_ECC::Serialize(Serializer& buf) const
 {
     buf.with("curveID", "TPM_ECC_CURVE").writeEnum(curveID);
-    buf.with("keySize", "UINT16").writeShort(keySize);
+    buf.with("keySize", "std::uint16_t").writeShort(keySize);
     buf.with("kdfScheme", "TPM_ALG_ID").writeEnum(kdfScheme());
     if (kdf) buf.with("kdf", "TPMU_KDF_SCHEME").writeObj(*kdf);
     buf.with("signScheme", "TPM_ALG_ID").writeEnum(signScheme());
     if (sign) buf.with("sign", "TPMU_ASYM_SCHEME").writeObj(*sign);
-    buf.with("p", "BYTE[]", "pSize", "UINT16").writeSizedByteBuf(p);
-    buf.with("a", "BYTE[]", "aSize", "UINT16").writeSizedByteBuf(a);
-    buf.with("b", "BYTE[]", "bSize", "UINT16").writeSizedByteBuf(b);
-    buf.with("gX", "BYTE[]", "gXSize", "UINT16").writeSizedByteBuf(gX);
-    buf.with("gY", "BYTE[]", "gYSize", "UINT16").writeSizedByteBuf(gY);
-    buf.with("n", "BYTE[]", "nSize", "UINT16").writeSizedByteBuf(n);
-    buf.with("h", "BYTE[]", "hSize", "UINT16").writeSizedByteBuf(h);
+    buf.with("p", "std::uint8_t[]", "pSize", "std::uint16_t").writeSizedByteBuf(p);
+    buf.with("a", "std::uint8_t[]", "aSize", "std::uint16_t").writeSizedByteBuf(a);
+    buf.with("b", "std::uint8_t[]", "bSize", "std::uint16_t").writeSizedByteBuf(b);
+    buf.with("gX", "std::uint8_t[]", "gXSize", "std::uint16_t").writeSizedByteBuf(gX);
+    buf.with("gY", "std::uint8_t[]", "gYSize", "std::uint16_t").writeSizedByteBuf(gY);
+    buf.with("n", "std::uint8_t[]", "nSize", "std::uint16_t").writeSizedByteBuf(n);
+    buf.with("h", "std::uint8_t[]", "hSize", "std::uint16_t").writeSizedByteBuf(h);
 }
 
 void TPMS_ALGORITHM_DETAIL_ECC::Deserialize(Serializer& buf)
 {
     buf.with("curveID", "TPM_ECC_CURVE").readEnum(curveID);
-    keySize = buf.with("keySize", "UINT16").readShort();
+    keySize = buf.with("keySize", "std::uint16_t").readShort();
     TPM_ALG_ID kdfScheme;
     buf.with("kdfScheme", "TPM_ALG_ID").readEnum(kdfScheme);
     if (!kdfScheme) kdf.reset();
@@ -1922,13 +1922,13 @@ void TPMS_ALGORITHM_DETAIL_ECC::Deserialize(Serializer& buf)
     if (!signScheme) sign.reset();
     else sign = CreateUnion<TPMU_ASYM_SCHEME>(signScheme);
     if (sign) buf.with("sign", "TPMU_ASYM_SCHEME").readObj(*sign);
-    p = buf.with("p", "BYTE[]", "pSize", "UINT16").readSizedByteBuf();
-    a = buf.with("a", "BYTE[]", "aSize", "UINT16").readSizedByteBuf();
-    b = buf.with("b", "BYTE[]", "bSize", "UINT16").readSizedByteBuf();
-    gX = buf.with("gX", "BYTE[]", "gXSize", "UINT16").readSizedByteBuf();
-    gY = buf.with("gY", "BYTE[]", "gYSize", "UINT16").readSizedByteBuf();
-    n = buf.with("n", "BYTE[]", "nSize", "UINT16").readSizedByteBuf();
-    h = buf.with("h", "BYTE[]", "hSize", "UINT16").readSizedByteBuf();
+    p = buf.with("p", "std::uint8_t[]", "pSize", "std::uint16_t").readSizedByteBuf();
+    a = buf.with("a", "std::uint8_t[]", "aSize", "std::uint16_t").readSizedByteBuf();
+    b = buf.with("b", "std::uint8_t[]", "bSize", "std::uint16_t").readSizedByteBuf();
+    gX = buf.with("gX", "std::uint8_t[]", "gXSize", "std::uint16_t").readSizedByteBuf();
+    gY = buf.with("gY", "std::uint8_t[]", "gYSize", "std::uint16_t").readSizedByteBuf();
+    n = buf.with("n", "std::uint8_t[]", "nSize", "std::uint16_t").readSizedByteBuf();
+    h = buf.with("h", "std::uint8_t[]", "hSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_SIGNATURE_RSA::toTpm(TpmBuffer& buf) const
@@ -1946,13 +1946,13 @@ void TPMS_SIGNATURE_RSA::initFromTpm(TpmBuffer& buf)
 void TPMS_SIGNATURE_RSA::Serialize(Serializer& buf) const
 {
     buf.with("hash", "TPM_ALG_ID").writeEnum(hash);
-    buf.with("sig", "BYTE[]", "sigSize", "UINT16").writeSizedByteBuf(sig);
+    buf.with("sig", "std::uint8_t[]", "sigSize", "std::uint16_t").writeSizedByteBuf(sig);
 }
 
 void TPMS_SIGNATURE_RSA::Deserialize(Serializer& buf)
 {
     buf.with("hash", "TPM_ALG_ID").readEnum(hash);
-    sig = buf.with("sig", "BYTE[]", "sigSize", "UINT16").readSizedByteBuf();
+    sig = buf.with("sig", "std::uint8_t[]", "sigSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMS_SIGNATURE_ECC::toTpm(TpmBuffer& buf) const
@@ -1972,15 +1972,15 @@ void TPMS_SIGNATURE_ECC::initFromTpm(TpmBuffer& buf)
 void TPMS_SIGNATURE_ECC::Serialize(Serializer& buf) const
 {
     buf.with("hash", "TPM_ALG_ID").writeEnum(hash);
-    buf.with("signatureR", "BYTE[]", "signatureRSize", "UINT16").writeSizedByteBuf(signatureR);
-    buf.with("signatureS", "BYTE[]", "signatureSSize", "UINT16").writeSizedByteBuf(signatureS);
+    buf.with("signatureR", "std::uint8_t[]", "signatureRSize", "std::uint16_t").writeSizedByteBuf(signatureR);
+    buf.with("signatureS", "std::uint8_t[]", "signatureSSize", "std::uint16_t").writeSizedByteBuf(signatureS);
 }
 
 void TPMS_SIGNATURE_ECC::Deserialize(Serializer& buf)
 {
     buf.with("hash", "TPM_ALG_ID").readEnum(hash);
-    signatureR = buf.with("signatureR", "BYTE[]", "signatureRSize", "UINT16").readSizedByteBuf();
-    signatureS = buf.with("signatureS", "BYTE[]", "signatureSSize", "UINT16").readSizedByteBuf();
+    signatureR = buf.with("signatureR", "std::uint8_t[]", "signatureRSize", "std::uint16_t").readSizedByteBuf();
+    signatureS = buf.with("signatureS", "std::uint8_t[]", "signatureSSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPMT_SIGNATURE::toTpm(TpmBuffer& buf) const
@@ -2016,9 +2016,9 @@ void TPM2B_ENCRYPTED_SECRET::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf
 
 void TPM2B_ENCRYPTED_SECRET::initFromTpm(TpmBuffer& buf) { secret = buf.readSizedByteBuf(); }
 
-void TPM2B_ENCRYPTED_SECRET::Serialize(Serializer& buf) const { buf.with("secret", "BYTE[]", "size", "UINT16").writeSizedByteBuf(secret); }
+void TPM2B_ENCRYPTED_SECRET::Serialize(Serializer& buf) const { buf.with("secret", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(secret); }
 
-void TPM2B_ENCRYPTED_SECRET::Deserialize(Serializer& buf) { secret = buf.with("secret", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_ENCRYPTED_SECRET::Deserialize(Serializer& buf) { secret = buf.with("secret", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_KEYEDHASH_PARMS::toTpm(TpmBuffer& buf) const
 {
@@ -2105,8 +2105,8 @@ void TPMS_RSA_PARMS::Serialize(Serializer& buf) const
     buf.with("symmetric", "TPMT_SYM_DEF_OBJECT").writeObj(symmetric);
     buf.with("schemeScheme", "TPM_ALG_ID").writeEnum(schemeScheme());
     if (scheme) buf.with("scheme", "TPMU_ASYM_SCHEME").writeObj(*scheme);
-    buf.with("keyBits", "UINT16").writeShort(keyBits);
-    buf.with("exponent", "UINT32").writeInt(exponent);
+    buf.with("keyBits", "std::uint16_t").writeShort(keyBits);
+    buf.with("exponent", "std::uint32_t").writeInt(exponent);
 }
 
 void TPMS_RSA_PARMS::Deserialize(Serializer& buf)
@@ -2117,8 +2117,8 @@ void TPMS_RSA_PARMS::Deserialize(Serializer& buf)
     if (!schemeScheme) scheme.reset();
     else scheme = CreateUnion<TPMU_ASYM_SCHEME>(schemeScheme);
     if (scheme) buf.with("scheme", "TPMU_ASYM_SCHEME").readObj(*scheme);
-    keyBits = buf.with("keyBits", "UINT16").readShort();
-    exponent = buf.with("exponent", "UINT32").readInt();
+    keyBits = buf.with("keyBits", "std::uint16_t").readShort();
+    exponent = buf.with("exponent", "std::uint32_t").readInt();
 }
 
 void TPMS_ECC_PARMS::toTpm(TpmBuffer& buf) const
@@ -2226,7 +2226,7 @@ void TPMT_PUBLIC::Serialize(Serializer& buf) const
     buf.with("type", "TPM_ALG_ID").writeEnum(!parameters ? (TPM_ALG_ID)0 : type());
     buf.with("nameAlg", "TPM_ALG_ID").writeEnum(nameAlg);
     buf.with("objectAttributes", "TPMA_OBJECT").writeEnum(objectAttributes);
-    buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").writeSizedByteBuf(authPolicy);
+    buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").writeSizedByteBuf(authPolicy);
     if (parameters) buf.with("parameters", "TPMU_PUBLIC_PARMS").writeObj(*parameters);
     if (unique) buf.with("unique", "TPMU_PUBLIC_ID").writeObj(*unique);
 }
@@ -2237,7 +2237,7 @@ void TPMT_PUBLIC::Deserialize(Serializer& buf)
     buf.with("type", "TPM_ALG_ID").readEnum(type);
     buf.with("nameAlg", "TPM_ALG_ID").readEnum(nameAlg);
     buf.with("objectAttributes", "TPMA_OBJECT").readEnum(objectAttributes);
-    authPolicy = buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").readSizedByteBuf();
+    authPolicy = buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").readSizedByteBuf();
     if (!type) parameters.reset();
     else parameters = CreateUnion<TPMU_PUBLIC_PARMS>(type);
     if (parameters) buf.with("parameters", "TPMU_PUBLIC_PARMS").readObj(*parameters);
@@ -2250,25 +2250,25 @@ void TPM2B_PUBLIC::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(publicArea); 
 
 void TPM2B_PUBLIC::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(publicArea); }
 
-void TPM2B_PUBLIC::Serialize(Serializer& buf) const { buf.with("publicArea", "TPMT_PUBLIC", "size", "UINT16").writeObj(publicArea); }
+void TPM2B_PUBLIC::Serialize(Serializer& buf) const { buf.with("publicArea", "TPMT_PUBLIC", "size", "std::uint16_t").writeObj(publicArea); }
 
-void TPM2B_PUBLIC::Deserialize(Serializer& buf) { buf.with("publicArea", "TPMT_PUBLIC", "size", "UINT16").readObj(publicArea); }
+void TPM2B_PUBLIC::Deserialize(Serializer& buf) { buf.with("publicArea", "TPMT_PUBLIC", "size", "std::uint16_t").readObj(publicArea); }
 
 void TPM2B_TEMPLATE::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_TEMPLATE::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_TEMPLATE::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_TEMPLATE::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_TEMPLATE::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_TEMPLATE::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2B_PRIVATE_VENDOR_SPECIFIC::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_PRIVATE_VENDOR_SPECIFIC::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_PRIVATE_VENDOR_SPECIFIC::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_PRIVATE_VENDOR_SPECIFIC::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_PRIVATE_VENDOR_SPECIFIC::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_PRIVATE_VENDOR_SPECIFIC::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMT_SENSITIVE::toTpm(TpmBuffer& buf) const
 {
@@ -2291,8 +2291,8 @@ void TPMT_SENSITIVE::initFromTpm(TpmBuffer& buf)
 void TPMT_SENSITIVE::Serialize(Serializer& buf) const
 {
     buf.with("sensitiveType", "TPM_ALG_ID").writeEnum(!sensitive ? (TPM_ALG_ID)0 : sensitiveType());
-    buf.with("authValue", "BYTE[]", "authValueSize", "UINT16").writeSizedByteBuf(authValue);
-    buf.with("seedValue", "BYTE[]", "seedValueSize", "UINT16").writeSizedByteBuf(seedValue);
+    buf.with("authValue", "std::uint8_t[]", "authValueSize", "std::uint16_t").writeSizedByteBuf(authValue);
+    buf.with("seedValue", "std::uint8_t[]", "seedValueSize", "std::uint16_t").writeSizedByteBuf(seedValue);
     if (sensitive) buf.with("sensitive", "TPMU_SENSITIVE_COMPOSITE").writeObj(*sensitive);
 }
 
@@ -2300,8 +2300,8 @@ void TPMT_SENSITIVE::Deserialize(Serializer& buf)
 {
     TPM_ALG_ID sensitiveType;
     buf.with("sensitiveType", "TPM_ALG_ID").readEnum(sensitiveType);
-    authValue = buf.with("authValue", "BYTE[]", "authValueSize", "UINT16").readSizedByteBuf();
-    seedValue = buf.with("seedValue", "BYTE[]", "seedValueSize", "UINT16").readSizedByteBuf();
+    authValue = buf.with("authValue", "std::uint8_t[]", "authValueSize", "std::uint16_t").readSizedByteBuf();
+    seedValue = buf.with("seedValue", "std::uint8_t[]", "seedValueSize", "std::uint16_t").readSizedByteBuf();
     if (!sensitiveType) sensitive.reset();
     else sensitive = CreateUnion<TPMU_SENSITIVE_COMPOSITE>(sensitiveType);
     if (sensitive) buf.with("sensitive", "TPMU_SENSITIVE_COMPOSITE").readObj(*sensitive);
@@ -2311,9 +2311,9 @@ void TPM2B_SENSITIVE::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(sensitiveA
 
 void TPM2B_SENSITIVE::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(sensitiveArea); }
 
-void TPM2B_SENSITIVE::Serialize(Serializer& buf) const { buf.with("sensitiveArea", "TPMT_SENSITIVE", "size", "UINT16").writeObj(sensitiveArea); }
+void TPM2B_SENSITIVE::Serialize(Serializer& buf) const { buf.with("sensitiveArea", "TPMT_SENSITIVE", "size", "std::uint16_t").writeObj(sensitiveArea); }
 
-void TPM2B_SENSITIVE::Deserialize(Serializer& buf) { buf.with("sensitiveArea", "TPMT_SENSITIVE", "size", "UINT16").readObj(sensitiveArea); }
+void TPM2B_SENSITIVE::Deserialize(Serializer& buf) { buf.with("sensitiveArea", "TPMT_SENSITIVE", "size", "std::uint16_t").readObj(sensitiveArea); }
 
 void _PRIVATE::toTpm(TpmBuffer& buf) const
 {
@@ -2331,25 +2331,25 @@ void _PRIVATE::initFromTpm(TpmBuffer& buf)
 
 void _PRIVATE::Serialize(Serializer& buf) const
 {
-    buf.with("integrityOuter", "BYTE[]", "integrityOuterSize", "UINT16").writeSizedByteBuf(integrityOuter);
-    buf.with("integrityInner", "BYTE[]", "integrityInnerSize", "UINT16").writeSizedByteBuf(integrityInner);
-    buf.with("sensitive", "TPMT_SENSITIVE", "sensitiveSize", "UINT16").writeObj(sensitive);
+    buf.with("integrityOuter", "std::uint8_t[]", "integrityOuterSize", "std::uint16_t").writeSizedByteBuf(integrityOuter);
+    buf.with("integrityInner", "std::uint8_t[]", "integrityInnerSize", "std::uint16_t").writeSizedByteBuf(integrityInner);
+    buf.with("sensitive", "TPMT_SENSITIVE", "sensitiveSize", "std::uint16_t").writeObj(sensitive);
 }
 
 void _PRIVATE::Deserialize(Serializer& buf)
 {
-    integrityOuter = buf.with("integrityOuter", "BYTE[]", "integrityOuterSize", "UINT16").readSizedByteBuf();
-    integrityInner = buf.with("integrityInner", "BYTE[]", "integrityInnerSize", "UINT16").readSizedByteBuf();
-    buf.with("sensitive", "TPMT_SENSITIVE", "sensitiveSize", "UINT16").readObj(sensitive);
+    integrityOuter = buf.with("integrityOuter", "std::uint8_t[]", "integrityOuterSize", "std::uint16_t").readSizedByteBuf();
+    integrityInner = buf.with("integrityInner", "std::uint8_t[]", "integrityInnerSize", "std::uint16_t").readSizedByteBuf();
+    buf.with("sensitive", "TPMT_SENSITIVE", "sensitiveSize", "std::uint16_t").readObj(sensitive);
 }
 
 void TPM2B_PRIVATE::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_PRIVATE::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_PRIVATE::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_PRIVATE::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_PRIVATE::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_PRIVATE::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_ID_OBJECT::toTpm(TpmBuffer& buf) const
 {
@@ -2365,23 +2365,23 @@ void TPMS_ID_OBJECT::initFromTpm(TpmBuffer& buf)
 
 void TPMS_ID_OBJECT::Serialize(Serializer& buf) const
 {
-    buf.with("integrityHMAC", "BYTE[]", "integrityHMACSize", "UINT16").writeSizedByteBuf(integrityHMAC);
-    buf.with("encIdentity", "BYTE[]", "encIdentitySize", "UINT16").writeSizedByteBuf(encIdentity);
+    buf.with("integrityHMAC", "std::uint8_t[]", "integrityHMACSize", "std::uint16_t").writeSizedByteBuf(integrityHMAC);
+    buf.with("encIdentity", "std::uint8_t[]", "encIdentitySize", "std::uint16_t").writeSizedByteBuf(encIdentity);
 }
 
 void TPMS_ID_OBJECT::Deserialize(Serializer& buf)
 {
-    integrityHMAC = buf.with("integrityHMAC", "BYTE[]", "integrityHMACSize", "UINT16").readSizedByteBuf();
-    encIdentity = buf.with("encIdentity", "BYTE[]", "encIdentitySize", "UINT16").readSizedByteBuf();
+    integrityHMAC = buf.with("integrityHMAC", "std::uint8_t[]", "integrityHMACSize", "std::uint16_t").readSizedByteBuf();
+    encIdentity = buf.with("encIdentity", "std::uint8_t[]", "encIdentitySize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2B_ID_OBJECT::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(credential); }
 
 void TPM2B_ID_OBJECT::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(credential); }
 
-void TPM2B_ID_OBJECT::Serialize(Serializer& buf) const { buf.with("credential", "TPMS_ID_OBJECT", "size", "UINT16").writeObj(credential); }
+void TPM2B_ID_OBJECT::Serialize(Serializer& buf) const { buf.with("credential", "TPMS_ID_OBJECT", "size", "std::uint16_t").writeObj(credential); }
 
-void TPM2B_ID_OBJECT::Deserialize(Serializer& buf) { buf.with("credential", "TPMS_ID_OBJECT", "size", "UINT16").readObj(credential); }
+void TPM2B_ID_OBJECT::Deserialize(Serializer& buf) { buf.with("credential", "TPMS_ID_OBJECT", "size", "std::uint16_t").readObj(credential); }
 
 void TPMS_NV_PIN_COUNTER_PARAMETERS::toTpm(TpmBuffer& buf) const
 {
@@ -2397,14 +2397,14 @@ void TPMS_NV_PIN_COUNTER_PARAMETERS::initFromTpm(TpmBuffer& buf)
 
 void TPMS_NV_PIN_COUNTER_PARAMETERS::Serialize(Serializer& buf) const
 {
-    buf.with("pinCount", "UINT32").writeInt(pinCount);
-    buf.with("pinLimit", "UINT32").writeInt(pinLimit);
+    buf.with("pinCount", "std::uint32_t").writeInt(pinCount);
+    buf.with("pinLimit", "std::uint32_t").writeInt(pinLimit);
 }
 
 void TPMS_NV_PIN_COUNTER_PARAMETERS::Deserialize(Serializer& buf)
 {
-    pinCount = buf.with("pinCount", "UINT32").readInt();
-    pinLimit = buf.with("pinLimit", "UINT32").readInt();
+    pinCount = buf.with("pinCount", "std::uint32_t").readInt();
+    pinLimit = buf.with("pinLimit", "std::uint32_t").readInt();
 }
 
 void TPMS_NV_PUBLIC::toTpm(TpmBuffer& buf) const
@@ -2430,8 +2430,8 @@ void TPMS_NV_PUBLIC::Serialize(Serializer& buf) const
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
     buf.with("nameAlg", "TPM_ALG_ID").writeEnum(nameAlg);
     buf.with("attributes", "TPMA_NV").writeEnum(attributes);
-    buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").writeSizedByteBuf(authPolicy);
-    buf.with("dataSize", "UINT16").writeShort(dataSize);
+    buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").writeSizedByteBuf(authPolicy);
+    buf.with("dataSize", "std::uint16_t").writeShort(dataSize);
 }
 
 void TPMS_NV_PUBLIC::Deserialize(Serializer& buf)
@@ -2439,25 +2439,25 @@ void TPMS_NV_PUBLIC::Deserialize(Serializer& buf)
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
     buf.with("nameAlg", "TPM_ALG_ID").readEnum(nameAlg);
     buf.with("attributes", "TPMA_NV").readEnum(attributes);
-    authPolicy = buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").readSizedByteBuf();
-    dataSize = buf.with("dataSize", "UINT16").readShort();
+    authPolicy = buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").readSizedByteBuf();
+    dataSize = buf.with("dataSize", "std::uint16_t").readShort();
 }
 
 void TPM2B_NV_PUBLIC::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(nvPublic); }
 
 void TPM2B_NV_PUBLIC::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(nvPublic); }
 
-void TPM2B_NV_PUBLIC::Serialize(Serializer& buf) const { buf.with("nvPublic", "TPMS_NV_PUBLIC", "size", "UINT16").writeObj(nvPublic); }
+void TPM2B_NV_PUBLIC::Serialize(Serializer& buf) const { buf.with("nvPublic", "TPMS_NV_PUBLIC", "size", "std::uint16_t").writeObj(nvPublic); }
 
-void TPM2B_NV_PUBLIC::Deserialize(Serializer& buf) { buf.with("nvPublic", "TPMS_NV_PUBLIC", "size", "UINT16").readObj(nvPublic); }
+void TPM2B_NV_PUBLIC::Deserialize(Serializer& buf) { buf.with("nvPublic", "TPMS_NV_PUBLIC", "size", "std::uint16_t").readObj(nvPublic); }
 
 void TPM2B_CONTEXT_SENSITIVE::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(buffer); }
 
 void TPM2B_CONTEXT_SENSITIVE::initFromTpm(TpmBuffer& buf) { buffer = buf.readSizedByteBuf(); }
 
-void TPM2B_CONTEXT_SENSITIVE::Serialize(Serializer& buf) const { buf.with("buffer", "BYTE[]", "size", "UINT16").writeSizedByteBuf(buffer); }
+void TPM2B_CONTEXT_SENSITIVE::Serialize(Serializer& buf) const { buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").writeSizedByteBuf(buffer); }
 
-void TPM2B_CONTEXT_SENSITIVE::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "BYTE[]", "size", "UINT16").readSizedByteBuf(); }
+void TPM2B_CONTEXT_SENSITIVE::Deserialize(Serializer& buf) { buffer = buf.with("buffer", "std::uint8_t[]", "size", "std::uint16_t").readSizedByteBuf(); }
 
 void TPMS_CONTEXT_DATA::toTpm(TpmBuffer& buf) const
 {
@@ -2473,23 +2473,23 @@ void TPMS_CONTEXT_DATA::initFromTpm(TpmBuffer& buf)
 
 void TPMS_CONTEXT_DATA::Serialize(Serializer& buf) const
 {
-    buf.with("integrity", "BYTE[]", "integritySize", "UINT16").writeSizedByteBuf(integrity);
-    buf.with("encrypted", "BYTE[]", "encryptedSize", "UINT16").writeSizedByteBuf(encrypted);
+    buf.with("integrity", "std::uint8_t[]", "integritySize", "std::uint16_t").writeSizedByteBuf(integrity);
+    buf.with("encrypted", "std::uint8_t[]", "encryptedSize", "std::uint16_t").writeSizedByteBuf(encrypted);
 }
 
 void TPMS_CONTEXT_DATA::Deserialize(Serializer& buf)
 {
-    integrity = buf.with("integrity", "BYTE[]", "integritySize", "UINT16").readSizedByteBuf();
-    encrypted = buf.with("encrypted", "BYTE[]", "encryptedSize", "UINT16").readSizedByteBuf();
+    integrity = buf.with("integrity", "std::uint8_t[]", "integritySize", "std::uint16_t").readSizedByteBuf();
+    encrypted = buf.with("encrypted", "std::uint8_t[]", "encryptedSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2B_CONTEXT_DATA::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(buffer); }
 
 void TPM2B_CONTEXT_DATA::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(buffer); }
 
-void TPM2B_CONTEXT_DATA::Serialize(Serializer& buf) const { buf.with("buffer", "TPMS_CONTEXT_DATA", "size", "UINT16").writeObj(buffer); }
+void TPM2B_CONTEXT_DATA::Serialize(Serializer& buf) const { buf.with("buffer", "TPMS_CONTEXT_DATA", "size", "std::uint16_t").writeObj(buffer); }
 
-void TPM2B_CONTEXT_DATA::Deserialize(Serializer& buf) { buf.with("buffer", "TPMS_CONTEXT_DATA", "size", "UINT16").readObj(buffer); }
+void TPM2B_CONTEXT_DATA::Deserialize(Serializer& buf) { buf.with("buffer", "TPMS_CONTEXT_DATA", "size", "std::uint16_t").readObj(buffer); }
 
 void TPMS_CONTEXT::toTpm(TpmBuffer& buf) const
 {
@@ -2509,18 +2509,18 @@ void TPMS_CONTEXT::initFromTpm(TpmBuffer& buf)
 
 void TPMS_CONTEXT::Serialize(Serializer& buf) const
 {
-    buf.with("sequence", "UINT64").writeInt64(sequence);
+    buf.with("sequence", "std::uint64_t").writeInt64(sequence);
     buf.with("savedHandle", "TPM_HANDLE").writeObj(savedHandle);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
-    buf.with("contextBlob", "TPMS_CONTEXT_DATA", "contextBlobSize", "UINT16").writeObj(contextBlob);
+    buf.with("contextBlob", "TPMS_CONTEXT_DATA", "contextBlobSize", "std::uint16_t").writeObj(contextBlob);
 }
 
 void TPMS_CONTEXT::Deserialize(Serializer& buf)
 {
-    sequence = buf.with("sequence", "UINT64").readInt64();
+    sequence = buf.with("sequence", "std::uint64_t").readInt64();
     buf.with("savedHandle", "TPM_HANDLE").readObj(savedHandle);
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
-    buf.with("contextBlob", "TPMS_CONTEXT_DATA", "contextBlobSize", "UINT16").readObj(contextBlob);
+    buf.with("contextBlob", "TPMS_CONTEXT_DATA", "contextBlobSize", "std::uint16_t").readObj(contextBlob);
 }
 
 void TPMS_CREATION_DATA::toTpm(TpmBuffer& buf) const
@@ -2547,33 +2547,33 @@ void TPMS_CREATION_DATA::initFromTpm(TpmBuffer& buf)
 
 void TPMS_CREATION_DATA::Serialize(Serializer& buf) const
 {
-    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "UINT32").writeObjArr(pcrSelect);
-    buf.with("pcrDigest", "BYTE[]", "pcrDigestSize", "UINT16").writeSizedByteBuf(pcrDigest);
+    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "std::uint32_t").writeObjArr(pcrSelect);
+    buf.with("pcrDigest", "std::uint8_t[]", "pcrDigestSize", "std::uint16_t").writeSizedByteBuf(pcrDigest);
     buf.with("locality", "TPMA_LOCALITY").writeEnum(locality);
     buf.with("parentNameAlg", "TPM_ALG_ID").writeEnum(parentNameAlg);
-    buf.with("parentName", "BYTE[]", "parentNameSize", "UINT16").writeSizedByteBuf(parentName);
-    buf.with("parentQualifiedName", "BYTE[]", "parentQualifiedNameSize", "UINT16").writeSizedByteBuf(parentQualifiedName);
-    buf.with("outsideInfo", "BYTE[]", "outsideInfoSize", "UINT16").writeSizedByteBuf(outsideInfo);
+    buf.with("parentName", "std::uint8_t[]", "parentNameSize", "std::uint16_t").writeSizedByteBuf(parentName);
+    buf.with("parentQualifiedName", "std::uint8_t[]", "parentQualifiedNameSize", "std::uint16_t").writeSizedByteBuf(parentQualifiedName);
+    buf.with("outsideInfo", "std::uint8_t[]", "outsideInfoSize", "std::uint16_t").writeSizedByteBuf(outsideInfo);
 }
 
 void TPMS_CREATION_DATA::Deserialize(Serializer& buf)
 {
-    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "UINT32").readObjArr(pcrSelect);
-    pcrDigest = buf.with("pcrDigest", "BYTE[]", "pcrDigestSize", "UINT16").readSizedByteBuf();
+    buf.with("pcrSelect", "TPMS_PCR_SELECTION[]", "pcrSelectCount", "std::uint32_t").readObjArr(pcrSelect);
+    pcrDigest = buf.with("pcrDigest", "std::uint8_t[]", "pcrDigestSize", "std::uint16_t").readSizedByteBuf();
     buf.with("locality", "TPMA_LOCALITY").readEnum(locality);
     buf.with("parentNameAlg", "TPM_ALG_ID").readEnum(parentNameAlg);
-    parentName = buf.with("parentName", "BYTE[]", "parentNameSize", "UINT16").readSizedByteBuf();
-    parentQualifiedName = buf.with("parentQualifiedName", "BYTE[]", "parentQualifiedNameSize", "UINT16").readSizedByteBuf();
-    outsideInfo = buf.with("outsideInfo", "BYTE[]", "outsideInfoSize", "UINT16").readSizedByteBuf();
+    parentName = buf.with("parentName", "std::uint8_t[]", "parentNameSize", "std::uint16_t").readSizedByteBuf();
+    parentQualifiedName = buf.with("parentQualifiedName", "std::uint8_t[]", "parentQualifiedNameSize", "std::uint16_t").readSizedByteBuf();
+    outsideInfo = buf.with("outsideInfo", "std::uint8_t[]", "outsideInfoSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2B_CREATION_DATA::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(creationData); }
 
 void TPM2B_CREATION_DATA::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(creationData); }
 
-void TPM2B_CREATION_DATA::Serialize(Serializer& buf) const { buf.with("creationData", "TPMS_CREATION_DATA", "size", "UINT16").writeObj(creationData); }
+void TPM2B_CREATION_DATA::Serialize(Serializer& buf) const { buf.with("creationData", "TPMS_CREATION_DATA", "size", "std::uint16_t").writeObj(creationData); }
 
-void TPM2B_CREATION_DATA::Deserialize(Serializer& buf) { buf.with("creationData", "TPMS_CREATION_DATA", "size", "UINT16").readObj(creationData); }
+void TPM2B_CREATION_DATA::Deserialize(Serializer& buf) { buf.with("creationData", "TPMS_CREATION_DATA", "size", "std::uint16_t").readObj(creationData); }
 
 void TPMS_AC_OUTPUT::toTpm(TpmBuffer& buf) const
 {
@@ -2590,22 +2590,22 @@ void TPMS_AC_OUTPUT::initFromTpm(TpmBuffer& buf)
 void TPMS_AC_OUTPUT::Serialize(Serializer& buf) const
 {
     buf.with("tag", "TPM_AT").writeEnum(tag);
-    buf.with("data", "UINT32").writeInt(data);
+    buf.with("data", "std::uint32_t").writeInt(data);
 }
 
 void TPMS_AC_OUTPUT::Deserialize(Serializer& buf)
 {
     buf.with("tag", "TPM_AT").readEnum(tag);
-    data = buf.with("data", "UINT32").readInt();
+    data = buf.with("data", "std::uint32_t").readInt();
 }
 
 void TPML_AC_CAPABILITIES::toTpm(TpmBuffer& buf) const { buf.writeObjArr(acCapabilities); }
 
 void TPML_AC_CAPABILITIES::initFromTpm(TpmBuffer& buf) { buf.readObjArr(acCapabilities); }
 
-void TPML_AC_CAPABILITIES::Serialize(Serializer& buf) const { buf.with("acCapabilities", "TPMS_AC_OUTPUT[]", "count", "UINT32").writeObjArr(acCapabilities); }
+void TPML_AC_CAPABILITIES::Serialize(Serializer& buf) const { buf.with("acCapabilities", "TPMS_AC_OUTPUT[]", "count", "std::uint32_t").writeObjArr(acCapabilities); }
 
-void TPML_AC_CAPABILITIES::Deserialize(Serializer& buf) { buf.with("acCapabilities", "TPMS_AC_OUTPUT[]", "count", "UINT32").readObjArr(acCapabilities); }
+void TPML_AC_CAPABILITIES::Deserialize(Serializer& buf) { buf.with("acCapabilities", "TPMS_AC_OUTPUT[]", "count", "std::uint32_t").readObjArr(acCapabilities); }
 
 void TPM2_Startup_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeShort(startupType); }
 
@@ -2627,25 +2627,25 @@ void TPM2_SelfTest_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeByte(fullTest
 
 void TPM2_SelfTest_REQUEST::initFromTpm(TpmBuffer& buf) { fullTest = buf.readByte(); }
 
-void TPM2_SelfTest_REQUEST::Serialize(Serializer& buf) const { buf.with("fullTest", "BYTE").writeByte(fullTest); }
+void TPM2_SelfTest_REQUEST::Serialize(Serializer& buf) const { buf.with("fullTest", "bool").writeByte(fullTest); }
 
-void TPM2_SelfTest_REQUEST::Deserialize(Serializer& buf) { fullTest = buf.with("fullTest", "BYTE").readByte(); }
+void TPM2_SelfTest_REQUEST::Deserialize(Serializer& buf) { fullTest = buf.with("fullTest", "bool").readByte(); }
 
 void TPM2_IncrementalSelfTest_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeValArr(toTest, 2); }
 
 void TPM2_IncrementalSelfTest_REQUEST::initFromTpm(TpmBuffer& buf) { buf.readValArr(toTest, 2); }
 
-void TPM2_IncrementalSelfTest_REQUEST::Serialize(Serializer& buf) const { buf.with("toTest", "TPM_ALG_ID[]", "toTestCount", "UINT32").writeEnumArr(toTest); }
+void TPM2_IncrementalSelfTest_REQUEST::Serialize(Serializer& buf) const { buf.with("toTest", "TPM_ALG_ID[]", "toTestCount", "std::uint32_t").writeEnumArr(toTest); }
 
-void TPM2_IncrementalSelfTest_REQUEST::Deserialize(Serializer& buf) { buf.with("toTest", "TPM_ALG_ID[]", "toTestCount", "UINT32").readEnumArr(toTest); }
+void TPM2_IncrementalSelfTest_REQUEST::Deserialize(Serializer& buf) { buf.with("toTest", "TPM_ALG_ID[]", "toTestCount", "std::uint32_t").readEnumArr(toTest); }
 
 void IncrementalSelfTestResponse::toTpm(TpmBuffer& buf) const { buf.writeValArr(toDoList, 2); }
 
 void IncrementalSelfTestResponse::initFromTpm(TpmBuffer& buf) { buf.readValArr(toDoList, 2); }
 
-void IncrementalSelfTestResponse::Serialize(Serializer& buf) const { buf.with("toDoList", "TPM_ALG_ID[]", "toDoListCount", "UINT32").writeEnumArr(toDoList); }
+void IncrementalSelfTestResponse::Serialize(Serializer& buf) const { buf.with("toDoList", "TPM_ALG_ID[]", "toDoListCount", "std::uint32_t").writeEnumArr(toDoList); }
 
-void IncrementalSelfTestResponse::Deserialize(Serializer& buf) { buf.with("toDoList", "TPM_ALG_ID[]", "toDoListCount", "UINT32").readEnumArr(toDoList); }
+void IncrementalSelfTestResponse::Deserialize(Serializer& buf) { buf.with("toDoList", "TPM_ALG_ID[]", "toDoListCount", "std::uint32_t").readEnumArr(toDoList); }
 
 void GetTestResultResponse::toTpm(TpmBuffer& buf) const
 {
@@ -2661,13 +2661,13 @@ void GetTestResultResponse::initFromTpm(TpmBuffer& buf)
 
 void GetTestResultResponse::Serialize(Serializer& buf) const
 {
-    buf.with("outData", "BYTE[]", "outDataSize", "UINT16").writeSizedByteBuf(outData);
+    buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").writeSizedByteBuf(outData);
     buf.with("testResult", "TPM_RC").writeEnum(testResult);
 }
 
 void GetTestResultResponse::Deserialize(Serializer& buf)
 {
-    outData = buf.with("outData", "BYTE[]", "outDataSize", "UINT16").readSizedByteBuf();
+    outData = buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").readSizedByteBuf();
     buf.with("testResult", "TPM_RC").readEnum(testResult);
 }
 
@@ -2693,8 +2693,8 @@ void TPM2_StartAuthSession_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("tpmKey", "TPM_HANDLE").writeObj(tpmKey);
     buf.with("bind", "TPM_HANDLE").writeObj(bind);
-    buf.with("nonceCaller", "BYTE[]", "nonceCallerSize", "UINT16").writeSizedByteBuf(nonceCaller);
-    buf.with("encryptedSalt", "BYTE[]", "encryptedSaltSize", "UINT16").writeSizedByteBuf(encryptedSalt);
+    buf.with("nonceCaller", "std::uint8_t[]", "nonceCallerSize", "std::uint16_t").writeSizedByteBuf(nonceCaller);
+    buf.with("encryptedSalt", "std::uint8_t[]", "encryptedSaltSize", "std::uint16_t").writeSizedByteBuf(encryptedSalt);
     buf.with("sessionType", "TPM_SE").writeEnum(sessionType);
     buf.with("symmetric", "TPMT_SYM_DEF").writeObj(symmetric);
     buf.with("authHash", "TPM_ALG_ID").writeEnum(authHash);
@@ -2704,8 +2704,8 @@ void TPM2_StartAuthSession_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("tpmKey", "TPM_HANDLE").readObj(tpmKey);
     buf.with("bind", "TPM_HANDLE").readObj(bind);
-    nonceCaller = buf.with("nonceCaller", "BYTE[]", "nonceCallerSize", "UINT16").readSizedByteBuf();
-    encryptedSalt = buf.with("encryptedSalt", "BYTE[]", "encryptedSaltSize", "UINT16").readSizedByteBuf();
+    nonceCaller = buf.with("nonceCaller", "std::uint8_t[]", "nonceCallerSize", "std::uint16_t").readSizedByteBuf();
+    encryptedSalt = buf.with("encryptedSalt", "std::uint8_t[]", "encryptedSaltSize", "std::uint16_t").readSizedByteBuf();
     buf.with("sessionType", "TPM_SE").readEnum(sessionType);
     buf.with("symmetric", "TPMT_SYM_DEF").readObj(symmetric);
     buf.with("authHash", "TPM_ALG_ID").readEnum(authHash);
@@ -2718,13 +2718,13 @@ void StartAuthSessionResponse::initFromTpm(TpmBuffer& buf) { nonceTPM = buf.read
 void StartAuthSessionResponse::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("nonceTPM", "BYTE[]", "nonceTPMSize", "UINT16").writeSizedByteBuf(nonceTPM);
+    buf.with("nonceTPM", "std::uint8_t[]", "nonceTPMSize", "std::uint16_t").writeSizedByteBuf(nonceTPM);
 }
 
 void StartAuthSessionResponse::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    nonceTPM = buf.with("nonceTPM", "BYTE[]", "nonceTPMSize", "UINT16").readSizedByteBuf();
+    nonceTPM = buf.with("nonceTPM", "std::uint8_t[]", "nonceTPMSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_PolicyRestart_REQUEST::Serialize(Serializer& buf) const { buf.with("sessionHandle", "TPM_HANDLE").writeObj(sessionHandle); }
@@ -2750,19 +2750,19 @@ void TPM2_Create_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_Create_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("parentHandle", "TPM_HANDLE").writeObj(parentHandle);
-    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "UINT16").writeObj(inSensitive);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").writeObj(inPublic);
-    buf.with("outsideInfo", "BYTE[]", "outsideInfoSize", "UINT16").writeSizedByteBuf(outsideInfo);
-    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "UINT32").writeObjArr(creationPCR);
+    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "std::uint16_t").writeObj(inSensitive);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").writeObj(inPublic);
+    buf.with("outsideInfo", "std::uint8_t[]", "outsideInfoSize", "std::uint16_t").writeSizedByteBuf(outsideInfo);
+    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "std::uint32_t").writeObjArr(creationPCR);
 }
 
 void TPM2_Create_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("parentHandle", "TPM_HANDLE").readObj(parentHandle);
-    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "UINT16").readObj(inSensitive);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").readObj(inPublic);
-    outsideInfo = buf.with("outsideInfo", "BYTE[]", "outsideInfoSize", "UINT16").readSizedByteBuf();
-    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "UINT32").readObjArr(creationPCR);
+    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "std::uint16_t").readObj(inSensitive);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").readObj(inPublic);
+    outsideInfo = buf.with("outsideInfo", "std::uint8_t[]", "outsideInfoSize", "std::uint16_t").readSizedByteBuf();
+    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "std::uint32_t").readObjArr(creationPCR);
 }
 
 void CreateResponse::toTpm(TpmBuffer& buf) const
@@ -2786,18 +2786,18 @@ void CreateResponse::initFromTpm(TpmBuffer& buf)
 void CreateResponse::Serialize(Serializer& buf) const
 {
     buf.with("outPrivate", "TPM2B_PRIVATE").writeObj(outPrivate);
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").writeObj(outPublic);
-    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "UINT16").writeObj(creationData);
-    buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").writeSizedByteBuf(creationHash);
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").writeObj(outPublic);
+    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "std::uint16_t").writeObj(creationData);
+    buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").writeSizedByteBuf(creationHash);
     buf.with("creationTicket", "TPMT_TK_CREATION").writeObj(creationTicket);
 }
 
 void CreateResponse::Deserialize(Serializer& buf)
 {
     buf.with("outPrivate", "TPM2B_PRIVATE").readObj(outPrivate);
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").readObj(outPublic);
-    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "UINT16").readObj(creationData);
-    creationHash = buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").readSizedByteBuf();
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").readObj(outPublic);
+    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "std::uint16_t").readObj(creationData);
+    creationHash = buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").readSizedByteBuf();
     buf.with("creationTicket", "TPMT_TK_CREATION").readObj(creationTicket);
 }
 
@@ -2817,14 +2817,14 @@ void TPM2_Load_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("parentHandle", "TPM_HANDLE").writeObj(parentHandle);
     buf.with("inPrivate", "TPM2B_PRIVATE").writeObj(inPrivate);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").writeObj(inPublic);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").writeObj(inPublic);
 }
 
 void TPM2_Load_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("parentHandle", "TPM_HANDLE").readObj(parentHandle);
     buf.with("inPrivate", "TPM2B_PRIVATE").readObj(inPrivate);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").readObj(inPublic);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").readObj(inPublic);
 }
 
 void LoadResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(name); }
@@ -2834,13 +2834,13 @@ void LoadResponse::initFromTpm(TpmBuffer& buf) { name = buf.readSizedByteBuf(); 
 void LoadResponse::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("name", "BYTE[]", "nameSize", "UINT16").writeSizedByteBuf(name);
+    buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").writeSizedByteBuf(name);
 }
 
 void LoadResponse::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    name = buf.with("name", "BYTE[]", "nameSize", "UINT16").readSizedByteBuf();
+    name = buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_LoadExternal_REQUEST::toTpm(TpmBuffer& buf) const
@@ -2859,15 +2859,15 @@ void TPM2_LoadExternal_REQUEST::initFromTpm(TpmBuffer& buf)
 
 void TPM2_LoadExternal_REQUEST::Serialize(Serializer& buf) const
 {
-    buf.with("inPrivate", "TPMT_SENSITIVE", "inPrivateSize", "UINT16").writeObj(inPrivate);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").writeObj(inPublic);
+    buf.with("inPrivate", "TPMT_SENSITIVE", "inPrivateSize", "std::uint16_t").writeObj(inPrivate);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").writeObj(inPublic);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
 }
 
 void TPM2_LoadExternal_REQUEST::Deserialize(Serializer& buf)
 {
-    buf.with("inPrivate", "TPMT_SENSITIVE", "inPrivateSize", "UINT16").readObj(inPrivate);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").readObj(inPublic);
+    buf.with("inPrivate", "TPMT_SENSITIVE", "inPrivateSize", "std::uint16_t").readObj(inPrivate);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").readObj(inPublic);
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
 }
 
@@ -2878,13 +2878,13 @@ void LoadExternalResponse::initFromTpm(TpmBuffer& buf) { name = buf.readSizedByt
 void LoadExternalResponse::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("name", "BYTE[]", "nameSize", "UINT16").writeSizedByteBuf(name);
+    buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").writeSizedByteBuf(name);
 }
 
 void LoadExternalResponse::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    name = buf.with("name", "BYTE[]", "nameSize", "UINT16").readSizedByteBuf();
+    name = buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_ReadPublic_REQUEST::Serialize(Serializer& buf) const { buf.with("objectHandle", "TPM_HANDLE").writeObj(objectHandle); }
@@ -2907,16 +2907,16 @@ void ReadPublicResponse::initFromTpm(TpmBuffer& buf)
 
 void ReadPublicResponse::Serialize(Serializer& buf) const
 {
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").writeObj(outPublic);
-    buf.with("name", "BYTE[]", "nameSize", "UINT16").writeSizedByteBuf(name);
-    buf.with("qualifiedName", "BYTE[]", "qualifiedNameSize", "UINT16").writeSizedByteBuf(qualifiedName);
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").writeObj(outPublic);
+    buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").writeSizedByteBuf(name);
+    buf.with("qualifiedName", "std::uint8_t[]", "qualifiedNameSize", "std::uint16_t").writeSizedByteBuf(qualifiedName);
 }
 
 void ReadPublicResponse::Deserialize(Serializer& buf)
 {
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").readObj(outPublic);
-    name = buf.with("name", "BYTE[]", "nameSize", "UINT16").readSizedByteBuf();
-    qualifiedName = buf.with("qualifiedName", "BYTE[]", "qualifiedNameSize", "UINT16").readSizedByteBuf();
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").readObj(outPublic);
+    name = buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").readSizedByteBuf();
+    qualifiedName = buf.with("qualifiedName", "std::uint8_t[]", "qualifiedNameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_ActivateCredential_REQUEST::toTpm(TpmBuffer& buf) const
@@ -2935,25 +2935,25 @@ void TPM2_ActivateCredential_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("activateHandle", "TPM_HANDLE").writeObj(activateHandle);
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "UINT16").writeObj(credentialBlob);
-    buf.with("secret", "BYTE[]", "secretSize", "UINT16").writeSizedByteBuf(secret);
+    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "std::uint16_t").writeObj(credentialBlob);
+    buf.with("secret", "std::uint8_t[]", "secretSize", "std::uint16_t").writeSizedByteBuf(secret);
 }
 
 void TPM2_ActivateCredential_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("activateHandle", "TPM_HANDLE").readObj(activateHandle);
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "UINT16").readObj(credentialBlob);
-    secret = buf.with("secret", "BYTE[]", "secretSize", "UINT16").readSizedByteBuf();
+    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "std::uint16_t").readObj(credentialBlob);
+    secret = buf.with("secret", "std::uint8_t[]", "secretSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void ActivateCredentialResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(certInfo); }
 
 void ActivateCredentialResponse::initFromTpm(TpmBuffer& buf) { certInfo = buf.readSizedByteBuf(); }
 
-void ActivateCredentialResponse::Serialize(Serializer& buf) const { buf.with("certInfo", "BYTE[]", "certInfoSize", "UINT16").writeSizedByteBuf(certInfo); }
+void ActivateCredentialResponse::Serialize(Serializer& buf) const { buf.with("certInfo", "std::uint8_t[]", "certInfoSize", "std::uint16_t").writeSizedByteBuf(certInfo); }
 
-void ActivateCredentialResponse::Deserialize(Serializer& buf) { certInfo = buf.with("certInfo", "BYTE[]", "certInfoSize", "UINT16").readSizedByteBuf(); }
+void ActivateCredentialResponse::Deserialize(Serializer& buf) { certInfo = buf.with("certInfo", "std::uint8_t[]", "certInfoSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_MakeCredential_REQUEST::toTpm(TpmBuffer& buf) const
 {
@@ -2970,15 +2970,15 @@ void TPM2_MakeCredential_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_MakeCredential_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("credential", "BYTE[]", "credentialSize", "UINT16").writeSizedByteBuf(credential);
-    buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").writeSizedByteBuf(objectName);
+    buf.with("credential", "std::uint8_t[]", "credentialSize", "std::uint16_t").writeSizedByteBuf(credential);
+    buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").writeSizedByteBuf(objectName);
 }
 
 void TPM2_MakeCredential_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    credential = buf.with("credential", "BYTE[]", "credentialSize", "UINT16").readSizedByteBuf();
-    objectName = buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").readSizedByteBuf();
+    credential = buf.with("credential", "std::uint8_t[]", "credentialSize", "std::uint16_t").readSizedByteBuf();
+    objectName = buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void MakeCredentialResponse::toTpm(TpmBuffer& buf) const
@@ -2995,14 +2995,14 @@ void MakeCredentialResponse::initFromTpm(TpmBuffer& buf)
 
 void MakeCredentialResponse::Serialize(Serializer& buf) const
 {
-    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "UINT16").writeObj(credentialBlob);
-    buf.with("secret", "BYTE[]", "secretSize", "UINT16").writeSizedByteBuf(secret);
+    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "std::uint16_t").writeObj(credentialBlob);
+    buf.with("secret", "std::uint8_t[]", "secretSize", "std::uint16_t").writeSizedByteBuf(secret);
 }
 
 void MakeCredentialResponse::Deserialize(Serializer& buf)
 {
-    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "UINT16").readObj(credentialBlob);
-    secret = buf.with("secret", "BYTE[]", "secretSize", "UINT16").readSizedByteBuf();
+    buf.with("credentialBlob", "TPMS_ID_OBJECT", "credentialBlobSize", "std::uint16_t").readObj(credentialBlob);
+    secret = buf.with("secret", "std::uint8_t[]", "secretSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_Unseal_REQUEST::Serialize(Serializer& buf) const { buf.with("itemHandle", "TPM_HANDLE").writeObj(itemHandle); }
@@ -3013,9 +3013,9 @@ void UnsealResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(outData
 
 void UnsealResponse::initFromTpm(TpmBuffer& buf) { outData = buf.readSizedByteBuf(); }
 
-void UnsealResponse::Serialize(Serializer& buf) const { buf.with("outData", "BYTE[]", "outDataSize", "UINT16").writeSizedByteBuf(outData); }
+void UnsealResponse::Serialize(Serializer& buf) const { buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").writeSizedByteBuf(outData); }
 
-void UnsealResponse::Deserialize(Serializer& buf) { outData = buf.with("outData", "BYTE[]", "outDataSize", "UINT16").readSizedByteBuf(); }
+void UnsealResponse::Deserialize(Serializer& buf) { outData = buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_ObjectChangeAuth_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(newAuth); }
 
@@ -3025,14 +3025,14 @@ void TPM2_ObjectChangeAuth_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("objectHandle", "TPM_HANDLE").writeObj(objectHandle);
     buf.with("parentHandle", "TPM_HANDLE").writeObj(parentHandle);
-    buf.with("newAuth", "BYTE[]", "newAuthSize", "UINT16").writeSizedByteBuf(newAuth);
+    buf.with("newAuth", "std::uint8_t[]", "newAuthSize", "std::uint16_t").writeSizedByteBuf(newAuth);
 }
 
 void TPM2_ObjectChangeAuth_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("objectHandle", "TPM_HANDLE").readObj(objectHandle);
     buf.with("parentHandle", "TPM_HANDLE").readObj(parentHandle);
-    newAuth = buf.with("newAuth", "BYTE[]", "newAuthSize", "UINT16").readSizedByteBuf();
+    newAuth = buf.with("newAuth", "std::uint8_t[]", "newAuthSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void ObjectChangeAuthResponse::toTpm(TpmBuffer& buf) const { outPrivate.toTpm(buf); }
@@ -3058,15 +3058,15 @@ void TPM2_CreateLoaded_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_CreateLoaded_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("parentHandle", "TPM_HANDLE").writeObj(parentHandle);
-    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "UINT16").writeObj(inSensitive);
-    buf.with("inPublic", "BYTE[]", "inPublicSize", "UINT16").writeSizedByteBuf(inPublic);
+    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "std::uint16_t").writeObj(inSensitive);
+    buf.with("inPublic", "std::uint8_t[]", "inPublicSize", "std::uint16_t").writeSizedByteBuf(inPublic);
 }
 
 void TPM2_CreateLoaded_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("parentHandle", "TPM_HANDLE").readObj(parentHandle);
-    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "UINT16").readObj(inSensitive);
-    inPublic = buf.with("inPublic", "BYTE[]", "inPublicSize", "UINT16").readSizedByteBuf();
+    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "std::uint16_t").readObj(inSensitive);
+    inPublic = buf.with("inPublic", "std::uint8_t[]", "inPublicSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void CreateLoadedResponse::toTpm(TpmBuffer& buf) const
@@ -3087,16 +3087,16 @@ void CreateLoadedResponse::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
     buf.with("outPrivate", "TPM2B_PRIVATE").writeObj(outPrivate);
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").writeObj(outPublic);
-    buf.with("name", "BYTE[]", "nameSize", "UINT16").writeSizedByteBuf(name);
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").writeObj(outPublic);
+    buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").writeSizedByteBuf(name);
 }
 
 void CreateLoadedResponse::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
     buf.with("outPrivate", "TPM2B_PRIVATE").readObj(outPrivate);
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").readObj(outPublic);
-    name = buf.with("name", "BYTE[]", "nameSize", "UINT16").readSizedByteBuf();
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").readObj(outPublic);
+    name = buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_Duplicate_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3115,7 +3115,7 @@ void TPM2_Duplicate_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("objectHandle", "TPM_HANDLE").writeObj(objectHandle);
     buf.with("newParentHandle", "TPM_HANDLE").writeObj(newParentHandle);
-    buf.with("encryptionKeyIn", "BYTE[]", "encryptionKeyInSize", "UINT16").writeSizedByteBuf(encryptionKeyIn);
+    buf.with("encryptionKeyIn", "std::uint8_t[]", "encryptionKeyInSize", "std::uint16_t").writeSizedByteBuf(encryptionKeyIn);
     buf.with("symmetricAlg", "TPMT_SYM_DEF_OBJECT").writeObj(symmetricAlg);
 }
 
@@ -3123,7 +3123,7 @@ void TPM2_Duplicate_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("objectHandle", "TPM_HANDLE").readObj(objectHandle);
     buf.with("newParentHandle", "TPM_HANDLE").readObj(newParentHandle);
-    encryptionKeyIn = buf.with("encryptionKeyIn", "BYTE[]", "encryptionKeyInSize", "UINT16").readSizedByteBuf();
+    encryptionKeyIn = buf.with("encryptionKeyIn", "std::uint8_t[]", "encryptionKeyInSize", "std::uint16_t").readSizedByteBuf();
     buf.with("symmetricAlg", "TPMT_SYM_DEF_OBJECT").readObj(symmetricAlg);
 }
 
@@ -3143,16 +3143,16 @@ void DuplicateResponse::initFromTpm(TpmBuffer& buf)
 
 void DuplicateResponse::Serialize(Serializer& buf) const
 {
-    buf.with("encryptionKeyOut", "BYTE[]", "encryptionKeyOutSize", "UINT16").writeSizedByteBuf(encryptionKeyOut);
+    buf.with("encryptionKeyOut", "std::uint8_t[]", "encryptionKeyOutSize", "std::uint16_t").writeSizedByteBuf(encryptionKeyOut);
     buf.with("duplicate", "TPM2B_PRIVATE").writeObj(duplicate);
-    buf.with("outSymSeed", "BYTE[]", "outSymSeedSize", "UINT16").writeSizedByteBuf(outSymSeed);
+    buf.with("outSymSeed", "std::uint8_t[]", "outSymSeedSize", "std::uint16_t").writeSizedByteBuf(outSymSeed);
 }
 
 void DuplicateResponse::Deserialize(Serializer& buf)
 {
-    encryptionKeyOut = buf.with("encryptionKeyOut", "BYTE[]", "encryptionKeyOutSize", "UINT16").readSizedByteBuf();
+    encryptionKeyOut = buf.with("encryptionKeyOut", "std::uint8_t[]", "encryptionKeyOutSize", "std::uint16_t").readSizedByteBuf();
     buf.with("duplicate", "TPM2B_PRIVATE").readObj(duplicate);
-    outSymSeed = buf.with("outSymSeed", "BYTE[]", "outSymSeedSize", "UINT16").readSizedByteBuf();
+    outSymSeed = buf.with("outSymSeed", "std::uint8_t[]", "outSymSeedSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_Rewrap_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3174,8 +3174,8 @@ void TPM2_Rewrap_REQUEST::Serialize(Serializer& buf) const
     buf.with("oldParent", "TPM_HANDLE").writeObj(oldParent);
     buf.with("newParent", "TPM_HANDLE").writeObj(newParent);
     buf.with("inDuplicate", "TPM2B_PRIVATE").writeObj(inDuplicate);
-    buf.with("name", "BYTE[]", "nameSize", "UINT16").writeSizedByteBuf(name);
-    buf.with("inSymSeed", "BYTE[]", "inSymSeedSize", "UINT16").writeSizedByteBuf(inSymSeed);
+    buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").writeSizedByteBuf(name);
+    buf.with("inSymSeed", "std::uint8_t[]", "inSymSeedSize", "std::uint16_t").writeSizedByteBuf(inSymSeed);
 }
 
 void TPM2_Rewrap_REQUEST::Deserialize(Serializer& buf)
@@ -3183,8 +3183,8 @@ void TPM2_Rewrap_REQUEST::Deserialize(Serializer& buf)
     buf.with("oldParent", "TPM_HANDLE").readObj(oldParent);
     buf.with("newParent", "TPM_HANDLE").readObj(newParent);
     buf.with("inDuplicate", "TPM2B_PRIVATE").readObj(inDuplicate);
-    name = buf.with("name", "BYTE[]", "nameSize", "UINT16").readSizedByteBuf();
-    inSymSeed = buf.with("inSymSeed", "BYTE[]", "inSymSeedSize", "UINT16").readSizedByteBuf();
+    name = buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").readSizedByteBuf();
+    inSymSeed = buf.with("inSymSeed", "std::uint8_t[]", "inSymSeedSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void RewrapResponse::toTpm(TpmBuffer& buf) const
@@ -3202,13 +3202,13 @@ void RewrapResponse::initFromTpm(TpmBuffer& buf)
 void RewrapResponse::Serialize(Serializer& buf) const
 {
     buf.with("outDuplicate", "TPM2B_PRIVATE").writeObj(outDuplicate);
-    buf.with("outSymSeed", "BYTE[]", "outSymSeedSize", "UINT16").writeSizedByteBuf(outSymSeed);
+    buf.with("outSymSeed", "std::uint8_t[]", "outSymSeedSize", "std::uint16_t").writeSizedByteBuf(outSymSeed);
 }
 
 void RewrapResponse::Deserialize(Serializer& buf)
 {
     buf.with("outDuplicate", "TPM2B_PRIVATE").readObj(outDuplicate);
-    outSymSeed = buf.with("outSymSeed", "BYTE[]", "outSymSeedSize", "UINT16").readSizedByteBuf();
+    outSymSeed = buf.with("outSymSeed", "std::uint8_t[]", "outSymSeedSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_Import_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3232,20 +3232,20 @@ void TPM2_Import_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_Import_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("parentHandle", "TPM_HANDLE").writeObj(parentHandle);
-    buf.with("encryptionKey", "BYTE[]", "encryptionKeySize", "UINT16").writeSizedByteBuf(encryptionKey);
-    buf.with("objectPublic", "TPMT_PUBLIC", "objectPublicSize", "UINT16").writeObj(objectPublic);
+    buf.with("encryptionKey", "std::uint8_t[]", "encryptionKeySize", "std::uint16_t").writeSizedByteBuf(encryptionKey);
+    buf.with("objectPublic", "TPMT_PUBLIC", "objectPublicSize", "std::uint16_t").writeObj(objectPublic);
     buf.with("duplicate", "TPM2B_PRIVATE").writeObj(duplicate);
-    buf.with("inSymSeed", "BYTE[]", "inSymSeedSize", "UINT16").writeSizedByteBuf(inSymSeed);
+    buf.with("inSymSeed", "std::uint8_t[]", "inSymSeedSize", "std::uint16_t").writeSizedByteBuf(inSymSeed);
     buf.with("symmetricAlg", "TPMT_SYM_DEF_OBJECT").writeObj(symmetricAlg);
 }
 
 void TPM2_Import_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("parentHandle", "TPM_HANDLE").readObj(parentHandle);
-    encryptionKey = buf.with("encryptionKey", "BYTE[]", "encryptionKeySize", "UINT16").readSizedByteBuf();
-    buf.with("objectPublic", "TPMT_PUBLIC", "objectPublicSize", "UINT16").readObj(objectPublic);
+    encryptionKey = buf.with("encryptionKey", "std::uint8_t[]", "encryptionKeySize", "std::uint16_t").readSizedByteBuf();
+    buf.with("objectPublic", "TPMT_PUBLIC", "objectPublicSize", "std::uint16_t").readObj(objectPublic);
     buf.with("duplicate", "TPM2B_PRIVATE").readObj(duplicate);
-    inSymSeed = buf.with("inSymSeed", "BYTE[]", "inSymSeedSize", "UINT16").readSizedByteBuf();
+    inSymSeed = buf.with("inSymSeed", "std::uint8_t[]", "inSymSeedSize", "std::uint16_t").readSizedByteBuf();
     buf.with("symmetricAlg", "TPMT_SYM_DEF_OBJECT").readObj(symmetricAlg);
 }
 
@@ -3277,31 +3277,31 @@ void TPM2_RSA_Encrypt_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_RSA_Encrypt_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("message", "BYTE[]", "messageSize", "UINT16").writeSizedByteBuf(message);
+    buf.with("message", "std::uint8_t[]", "messageSize", "std::uint16_t").writeSizedByteBuf(message);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_ASYM_SCHEME").writeObj(*inScheme);
-    buf.with("label", "BYTE[]", "labelSize", "UINT16").writeSizedByteBuf(label);
+    buf.with("label", "std::uint8_t[]", "labelSize", "std::uint16_t").writeSizedByteBuf(label);
 }
 
 void TPM2_RSA_Encrypt_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    message = buf.with("message", "BYTE[]", "messageSize", "UINT16").readSizedByteBuf();
+    message = buf.with("message", "std::uint8_t[]", "messageSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
     else inScheme = CreateUnion<TPMU_ASYM_SCHEME>(inSchemeScheme);
     if (inScheme) buf.with("inScheme", "TPMU_ASYM_SCHEME").readObj(*inScheme);
-    label = buf.with("label", "BYTE[]", "labelSize", "UINT16").readSizedByteBuf();
+    label = buf.with("label", "std::uint8_t[]", "labelSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void RSA_EncryptResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(outData); }
 
 void RSA_EncryptResponse::initFromTpm(TpmBuffer& buf) { outData = buf.readSizedByteBuf(); }
 
-void RSA_EncryptResponse::Serialize(Serializer& buf) const { buf.with("outData", "BYTE[]", "outDataSize", "UINT16").writeSizedByteBuf(outData); }
+void RSA_EncryptResponse::Serialize(Serializer& buf) const { buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").writeSizedByteBuf(outData); }
 
-void RSA_EncryptResponse::Deserialize(Serializer& buf) { outData = buf.with("outData", "BYTE[]", "outDataSize", "UINT16").readSizedByteBuf(); }
+void RSA_EncryptResponse::Deserialize(Serializer& buf) { outData = buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_RSA_Decrypt_REQUEST::toTpm(TpmBuffer& buf) const
 {
@@ -3323,31 +3323,31 @@ void TPM2_RSA_Decrypt_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_RSA_Decrypt_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("cipherText", "BYTE[]", "cipherTextSize", "UINT16").writeSizedByteBuf(cipherText);
+    buf.with("cipherText", "std::uint8_t[]", "cipherTextSize", "std::uint16_t").writeSizedByteBuf(cipherText);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_ASYM_SCHEME").writeObj(*inScheme);
-    buf.with("label", "BYTE[]", "labelSize", "UINT16").writeSizedByteBuf(label);
+    buf.with("label", "std::uint8_t[]", "labelSize", "std::uint16_t").writeSizedByteBuf(label);
 }
 
 void TPM2_RSA_Decrypt_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    cipherText = buf.with("cipherText", "BYTE[]", "cipherTextSize", "UINT16").readSizedByteBuf();
+    cipherText = buf.with("cipherText", "std::uint8_t[]", "cipherTextSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
     else inScheme = CreateUnion<TPMU_ASYM_SCHEME>(inSchemeScheme);
     if (inScheme) buf.with("inScheme", "TPMU_ASYM_SCHEME").readObj(*inScheme);
-    label = buf.with("label", "BYTE[]", "labelSize", "UINT16").readSizedByteBuf();
+    label = buf.with("label", "std::uint8_t[]", "labelSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void RSA_DecryptResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(message); }
 
 void RSA_DecryptResponse::initFromTpm(TpmBuffer& buf) { message = buf.readSizedByteBuf(); }
 
-void RSA_DecryptResponse::Serialize(Serializer& buf) const { buf.with("message", "BYTE[]", "messageSize", "UINT16").writeSizedByteBuf(message); }
+void RSA_DecryptResponse::Serialize(Serializer& buf) const { buf.with("message", "std::uint8_t[]", "messageSize", "std::uint16_t").writeSizedByteBuf(message); }
 
-void RSA_DecryptResponse::Deserialize(Serializer& buf) { message = buf.with("message", "BYTE[]", "messageSize", "UINT16").readSizedByteBuf(); }
+void RSA_DecryptResponse::Deserialize(Serializer& buf) { message = buf.with("message", "std::uint8_t[]", "messageSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_ECDH_KeyGen_REQUEST::Serialize(Serializer& buf) const { buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle); }
 
@@ -3367,14 +3367,14 @@ void ECDH_KeyGenResponse::initFromTpm(TpmBuffer& buf)
 
 void ECDH_KeyGenResponse::Serialize(Serializer& buf) const
 {
-    buf.with("zPoint", "TPMS_ECC_POINT", "zPointSize", "UINT16").writeObj(zPoint);
-    buf.with("pubPoint", "TPMS_ECC_POINT", "pubPointSize", "UINT16").writeObj(pubPoint);
+    buf.with("zPoint", "TPMS_ECC_POINT", "zPointSize", "std::uint16_t").writeObj(zPoint);
+    buf.with("pubPoint", "TPMS_ECC_POINT", "pubPointSize", "std::uint16_t").writeObj(pubPoint);
 }
 
 void ECDH_KeyGenResponse::Deserialize(Serializer& buf)
 {
-    buf.with("zPoint", "TPMS_ECC_POINT", "zPointSize", "UINT16").readObj(zPoint);
-    buf.with("pubPoint", "TPMS_ECC_POINT", "pubPointSize", "UINT16").readObj(pubPoint);
+    buf.with("zPoint", "TPMS_ECC_POINT", "zPointSize", "std::uint16_t").readObj(zPoint);
+    buf.with("pubPoint", "TPMS_ECC_POINT", "pubPointSize", "std::uint16_t").readObj(pubPoint);
 }
 
 void TPM2_ECDH_ZGen_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(inPoint); }
@@ -3384,22 +3384,22 @@ void TPM2_ECDH_ZGen_REQUEST::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(inPo
 void TPM2_ECDH_ZGen_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("inPoint", "TPMS_ECC_POINT", "inPointSize", "UINT16").writeObj(inPoint);
+    buf.with("inPoint", "TPMS_ECC_POINT", "inPointSize", "std::uint16_t").writeObj(inPoint);
 }
 
 void TPM2_ECDH_ZGen_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    buf.with("inPoint", "TPMS_ECC_POINT", "inPointSize", "UINT16").readObj(inPoint);
+    buf.with("inPoint", "TPMS_ECC_POINT", "inPointSize", "std::uint16_t").readObj(inPoint);
 }
 
 void ECDH_ZGenResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedObj(outPoint); }
 
 void ECDH_ZGenResponse::initFromTpm(TpmBuffer& buf) { buf.readSizedObj(outPoint); }
 
-void ECDH_ZGenResponse::Serialize(Serializer& buf) const { buf.with("outPoint", "TPMS_ECC_POINT", "outPointSize", "UINT16").writeObj(outPoint); }
+void ECDH_ZGenResponse::Serialize(Serializer& buf) const { buf.with("outPoint", "TPMS_ECC_POINT", "outPointSize", "std::uint16_t").writeObj(outPoint); }
 
-void ECDH_ZGenResponse::Deserialize(Serializer& buf) { buf.with("outPoint", "TPMS_ECC_POINT", "outPointSize", "UINT16").readObj(outPoint); }
+void ECDH_ZGenResponse::Deserialize(Serializer& buf) { buf.with("outPoint", "TPMS_ECC_POINT", "outPointSize", "std::uint16_t").readObj(outPoint); }
 
 void TPM2_ECC_Parameters_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeShort(curveID); }
 
@@ -3436,19 +3436,19 @@ void TPM2_ZGen_2Phase_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_ZGen_2Phase_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyA", "TPM_HANDLE").writeObj(keyA);
-    buf.with("inQsB", "TPMS_ECC_POINT", "inQsBSize", "UINT16").writeObj(inQsB);
-    buf.with("inQeB", "TPMS_ECC_POINT", "inQeBSize", "UINT16").writeObj(inQeB);
+    buf.with("inQsB", "TPMS_ECC_POINT", "inQsBSize", "std::uint16_t").writeObj(inQsB);
+    buf.with("inQeB", "TPMS_ECC_POINT", "inQeBSize", "std::uint16_t").writeObj(inQeB);
     buf.with("inScheme", "TPM_ALG_ID").writeEnum(inScheme);
-    buf.with("counter", "UINT16").writeShort(counter);
+    buf.with("counter", "std::uint16_t").writeShort(counter);
 }
 
 void TPM2_ZGen_2Phase_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyA", "TPM_HANDLE").readObj(keyA);
-    buf.with("inQsB", "TPMS_ECC_POINT", "inQsBSize", "UINT16").readObj(inQsB);
-    buf.with("inQeB", "TPMS_ECC_POINT", "inQeBSize", "UINT16").readObj(inQeB);
+    buf.with("inQsB", "TPMS_ECC_POINT", "inQsBSize", "std::uint16_t").readObj(inQsB);
+    buf.with("inQeB", "TPMS_ECC_POINT", "inQeBSize", "std::uint16_t").readObj(inQeB);
     buf.with("inScheme", "TPM_ALG_ID").readEnum(inScheme);
-    counter = buf.with("counter", "UINT16").readShort();
+    counter = buf.with("counter", "std::uint16_t").readShort();
 }
 
 void ZGen_2PhaseResponse::toTpm(TpmBuffer& buf) const
@@ -3465,14 +3465,14 @@ void ZGen_2PhaseResponse::initFromTpm(TpmBuffer& buf)
 
 void ZGen_2PhaseResponse::Serialize(Serializer& buf) const
 {
-    buf.with("outZ1", "TPMS_ECC_POINT", "outZ1Size", "UINT16").writeObj(outZ1);
-    buf.with("outZ2", "TPMS_ECC_POINT", "outZ2Size", "UINT16").writeObj(outZ2);
+    buf.with("outZ1", "TPMS_ECC_POINT", "outZ1Size", "std::uint16_t").writeObj(outZ1);
+    buf.with("outZ2", "TPMS_ECC_POINT", "outZ2Size", "std::uint16_t").writeObj(outZ2);
 }
 
 void ZGen_2PhaseResponse::Deserialize(Serializer& buf)
 {
-    buf.with("outZ1", "TPMS_ECC_POINT", "outZ1Size", "UINT16").readObj(outZ1);
-    buf.with("outZ2", "TPMS_ECC_POINT", "outZ2Size", "UINT16").readObj(outZ2);
+    buf.with("outZ1", "TPMS_ECC_POINT", "outZ1Size", "std::uint16_t").readObj(outZ1);
+    buf.with("outZ2", "TPMS_ECC_POINT", "outZ2Size", "std::uint16_t").readObj(outZ2);
 }
 
 void TPM2_ECC_Encrypt_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3493,7 +3493,7 @@ void TPM2_ECC_Encrypt_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_ECC_Encrypt_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("plainText", "BYTE[]", "plainTextSize", "UINT16").writeSizedByteBuf(plainText);
+    buf.with("plainText", "std::uint8_t[]", "plainTextSize", "std::uint16_t").writeSizedByteBuf(plainText);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_KDF_SCHEME").writeObj(*inScheme);
 }
@@ -3501,7 +3501,7 @@ void TPM2_ECC_Encrypt_REQUEST::Serialize(Serializer& buf) const
 void TPM2_ECC_Encrypt_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    plainText = buf.with("plainText", "BYTE[]", "plainTextSize", "UINT16").readSizedByteBuf();
+    plainText = buf.with("plainText", "std::uint8_t[]", "plainTextSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -3525,16 +3525,16 @@ void ECC_EncryptResponse::initFromTpm(TpmBuffer& buf)
 
 void ECC_EncryptResponse::Serialize(Serializer& buf) const
 {
-    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "UINT16").writeObj(C1);
-    buf.with("C2", "BYTE[]", "C2Size", "UINT16").writeSizedByteBuf(C2);
-    buf.with("C3", "BYTE[]", "C3Size", "UINT16").writeSizedByteBuf(C3);
+    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "std::uint16_t").writeObj(C1);
+    buf.with("C2", "std::uint8_t[]", "C2Size", "std::uint16_t").writeSizedByteBuf(C2);
+    buf.with("C3", "std::uint8_t[]", "C3Size", "std::uint16_t").writeSizedByteBuf(C3);
 }
 
 void ECC_EncryptResponse::Deserialize(Serializer& buf)
 {
-    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "UINT16").readObj(C1);
-    C2 = buf.with("C2", "BYTE[]", "C2Size", "UINT16").readSizedByteBuf();
-    C3 = buf.with("C3", "BYTE[]", "C3Size", "UINT16").readSizedByteBuf();
+    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "std::uint16_t").readObj(C1);
+    C2 = buf.with("C2", "std::uint8_t[]", "C2Size", "std::uint16_t").readSizedByteBuf();
+    C3 = buf.with("C3", "std::uint8_t[]", "C3Size", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_ECC_Decrypt_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3559,9 +3559,9 @@ void TPM2_ECC_Decrypt_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_ECC_Decrypt_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "UINT16").writeObj(C1);
-    buf.with("C2", "BYTE[]", "C2Size", "UINT16").writeSizedByteBuf(C2);
-    buf.with("C3", "BYTE[]", "C3Size", "UINT16").writeSizedByteBuf(C3);
+    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "std::uint16_t").writeObj(C1);
+    buf.with("C2", "std::uint8_t[]", "C2Size", "std::uint16_t").writeSizedByteBuf(C2);
+    buf.with("C3", "std::uint8_t[]", "C3Size", "std::uint16_t").writeSizedByteBuf(C3);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_KDF_SCHEME").writeObj(*inScheme);
 }
@@ -3569,9 +3569,9 @@ void TPM2_ECC_Decrypt_REQUEST::Serialize(Serializer& buf) const
 void TPM2_ECC_Decrypt_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "UINT16").readObj(C1);
-    C2 = buf.with("C2", "BYTE[]", "C2Size", "UINT16").readSizedByteBuf();
-    C3 = buf.with("C3", "BYTE[]", "C3Size", "UINT16").readSizedByteBuf();
+    buf.with("C1", "TPMS_ECC_POINT", "C1Size", "std::uint16_t").readObj(C1);
+    C2 = buf.with("C2", "std::uint8_t[]", "C2Size", "std::uint16_t").readSizedByteBuf();
+    C3 = buf.with("C3", "std::uint8_t[]", "C3Size", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -3583,9 +3583,9 @@ void ECC_DecryptResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(pl
 
 void ECC_DecryptResponse::initFromTpm(TpmBuffer& buf) { plainText = buf.readSizedByteBuf(); }
 
-void ECC_DecryptResponse::Serialize(Serializer& buf) const { buf.with("plainText", "BYTE[]", "plainTextSize", "UINT16").writeSizedByteBuf(plainText); }
+void ECC_DecryptResponse::Serialize(Serializer& buf) const { buf.with("plainText", "std::uint8_t[]", "plainTextSize", "std::uint16_t").writeSizedByteBuf(plainText); }
 
-void ECC_DecryptResponse::Deserialize(Serializer& buf) { plainText = buf.with("plainText", "BYTE[]", "plainTextSize", "UINT16").readSizedByteBuf(); }
+void ECC_DecryptResponse::Deserialize(Serializer& buf) { plainText = buf.with("plainText", "std::uint8_t[]", "plainTextSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_EncryptDecrypt_REQUEST::toTpm(TpmBuffer& buf) const
 {
@@ -3606,19 +3606,19 @@ void TPM2_EncryptDecrypt_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_EncryptDecrypt_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("decrypt", "BYTE").writeByte(decrypt);
+    buf.with("decrypt", "bool").writeByte(decrypt);
     buf.with("mode", "TPM_ALG_ID").writeEnum(mode);
-    buf.with("ivIn", "BYTE[]", "ivInSize", "UINT16").writeSizedByteBuf(ivIn);
-    buf.with("inData", "BYTE[]", "inDataSize", "UINT16").writeSizedByteBuf(inData);
+    buf.with("ivIn", "std::uint8_t[]", "ivInSize", "std::uint16_t").writeSizedByteBuf(ivIn);
+    buf.with("inData", "std::uint8_t[]", "inDataSize", "std::uint16_t").writeSizedByteBuf(inData);
 }
 
 void TPM2_EncryptDecrypt_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    decrypt = buf.with("decrypt", "BYTE").readByte();
+    decrypt = buf.with("decrypt", "bool").readByte();
     buf.with("mode", "TPM_ALG_ID").readEnum(mode);
-    ivIn = buf.with("ivIn", "BYTE[]", "ivInSize", "UINT16").readSizedByteBuf();
-    inData = buf.with("inData", "BYTE[]", "inDataSize", "UINT16").readSizedByteBuf();
+    ivIn = buf.with("ivIn", "std::uint8_t[]", "ivInSize", "std::uint16_t").readSizedByteBuf();
+    inData = buf.with("inData", "std::uint8_t[]", "inDataSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void EncryptDecryptResponse::toTpm(TpmBuffer& buf) const
@@ -3635,14 +3635,14 @@ void EncryptDecryptResponse::initFromTpm(TpmBuffer& buf)
 
 void EncryptDecryptResponse::Serialize(Serializer& buf) const
 {
-    buf.with("outData", "BYTE[]", "outDataSize", "UINT16").writeSizedByteBuf(outData);
-    buf.with("ivOut", "BYTE[]", "ivOutSize", "UINT16").writeSizedByteBuf(ivOut);
+    buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").writeSizedByteBuf(outData);
+    buf.with("ivOut", "std::uint8_t[]", "ivOutSize", "std::uint16_t").writeSizedByteBuf(ivOut);
 }
 
 void EncryptDecryptResponse::Deserialize(Serializer& buf)
 {
-    outData = buf.with("outData", "BYTE[]", "outDataSize", "UINT16").readSizedByteBuf();
-    ivOut = buf.with("ivOut", "BYTE[]", "ivOutSize", "UINT16").readSizedByteBuf();
+    outData = buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").readSizedByteBuf();
+    ivOut = buf.with("ivOut", "std::uint8_t[]", "ivOutSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_EncryptDecrypt2_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3664,19 +3664,19 @@ void TPM2_EncryptDecrypt2_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_EncryptDecrypt2_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("inData", "BYTE[]", "inDataSize", "UINT16").writeSizedByteBuf(inData);
-    buf.with("decrypt", "BYTE").writeByte(decrypt);
+    buf.with("inData", "std::uint8_t[]", "inDataSize", "std::uint16_t").writeSizedByteBuf(inData);
+    buf.with("decrypt", "bool").writeByte(decrypt);
     buf.with("mode", "TPM_ALG_ID").writeEnum(mode);
-    buf.with("ivIn", "BYTE[]", "ivInSize", "UINT16").writeSizedByteBuf(ivIn);
+    buf.with("ivIn", "std::uint8_t[]", "ivInSize", "std::uint16_t").writeSizedByteBuf(ivIn);
 }
 
 void TPM2_EncryptDecrypt2_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    inData = buf.with("inData", "BYTE[]", "inDataSize", "UINT16").readSizedByteBuf();
-    decrypt = buf.with("decrypt", "BYTE").readByte();
+    inData = buf.with("inData", "std::uint8_t[]", "inDataSize", "std::uint16_t").readSizedByteBuf();
+    decrypt = buf.with("decrypt", "bool").readByte();
     buf.with("mode", "TPM_ALG_ID").readEnum(mode);
-    ivIn = buf.with("ivIn", "BYTE[]", "ivInSize", "UINT16").readSizedByteBuf();
+    ivIn = buf.with("ivIn", "std::uint8_t[]", "ivInSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void EncryptDecrypt2Response::toTpm(TpmBuffer& buf) const
@@ -3693,14 +3693,14 @@ void EncryptDecrypt2Response::initFromTpm(TpmBuffer& buf)
 
 void EncryptDecrypt2Response::Serialize(Serializer& buf) const
 {
-    buf.with("outData", "BYTE[]", "outDataSize", "UINT16").writeSizedByteBuf(outData);
-    buf.with("ivOut", "BYTE[]", "ivOutSize", "UINT16").writeSizedByteBuf(ivOut);
+    buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").writeSizedByteBuf(outData);
+    buf.with("ivOut", "std::uint8_t[]", "ivOutSize", "std::uint16_t").writeSizedByteBuf(ivOut);
 }
 
 void EncryptDecrypt2Response::Deserialize(Serializer& buf)
 {
-    outData = buf.with("outData", "BYTE[]", "outDataSize", "UINT16").readSizedByteBuf();
-    ivOut = buf.with("ivOut", "BYTE[]", "ivOutSize", "UINT16").readSizedByteBuf();
+    outData = buf.with("outData", "std::uint8_t[]", "outDataSize", "std::uint16_t").readSizedByteBuf();
+    ivOut = buf.with("ivOut", "std::uint8_t[]", "ivOutSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_Hash_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3719,14 +3719,14 @@ void TPM2_Hash_REQUEST::initFromTpm(TpmBuffer& buf)
 
 void TPM2_Hash_REQUEST::Serialize(Serializer& buf) const
 {
-    buf.with("data", "BYTE[]", "dataSize", "UINT16").writeSizedByteBuf(data);
+    buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").writeSizedByteBuf(data);
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
 }
 
 void TPM2_Hash_REQUEST::Deserialize(Serializer& buf)
 {
-    data = buf.with("data", "BYTE[]", "dataSize", "UINT16").readSizedByteBuf();
+    data = buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").readSizedByteBuf();
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
 }
@@ -3745,13 +3745,13 @@ void HashResponse::initFromTpm(TpmBuffer& buf)
 
 void HashResponse::Serialize(Serializer& buf) const
 {
-    buf.with("outHash", "BYTE[]", "outHashSize", "UINT16").writeSizedByteBuf(outHash);
+    buf.with("outHash", "std::uint8_t[]", "outHashSize", "std::uint16_t").writeSizedByteBuf(outHash);
     buf.with("validation", "TPMT_TK_HASHCHECK").writeObj(validation);
 }
 
 void HashResponse::Deserialize(Serializer& buf)
 {
-    outHash = buf.with("outHash", "BYTE[]", "outHashSize", "UINT16").readSizedByteBuf();
+    outHash = buf.with("outHash", "std::uint8_t[]", "outHashSize", "std::uint16_t").readSizedByteBuf();
     buf.with("validation", "TPMT_TK_HASHCHECK").readObj(validation);
 }
 
@@ -3770,14 +3770,14 @@ void TPM2_HMAC_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_HMAC_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").writeSizedByteBuf(buffer);
+    buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").writeSizedByteBuf(buffer);
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
 }
 
 void TPM2_HMAC_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    buffer = buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").readSizedByteBuf();
+    buffer = buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").readSizedByteBuf();
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
 }
 
@@ -3785,9 +3785,9 @@ void HMACResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(outHMAC);
 
 void HMACResponse::initFromTpm(TpmBuffer& buf) { outHMAC = buf.readSizedByteBuf(); }
 
-void HMACResponse::Serialize(Serializer& buf) const { buf.with("outHMAC", "BYTE[]", "outHMACSize", "UINT16").writeSizedByteBuf(outHMAC); }
+void HMACResponse::Serialize(Serializer& buf) const { buf.with("outHMAC", "std::uint8_t[]", "outHMACSize", "std::uint16_t").writeSizedByteBuf(outHMAC); }
 
-void HMACResponse::Deserialize(Serializer& buf) { outHMAC = buf.with("outHMAC", "BYTE[]", "outHMACSize", "UINT16").readSizedByteBuf(); }
+void HMACResponse::Deserialize(Serializer& buf) { outHMAC = buf.with("outHMAC", "std::uint8_t[]", "outHMACSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_MAC_REQUEST::toTpm(TpmBuffer& buf) const
 {
@@ -3804,14 +3804,14 @@ void TPM2_MAC_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_MAC_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").writeSizedByteBuf(buffer);
+    buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").writeSizedByteBuf(buffer);
     buf.with("inScheme", "TPM_ALG_ID").writeEnum(inScheme);
 }
 
 void TPM2_MAC_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    buffer = buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").readSizedByteBuf();
+    buffer = buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").readSizedByteBuf();
     buf.with("inScheme", "TPM_ALG_ID").readEnum(inScheme);
 }
 
@@ -3819,33 +3819,33 @@ void MACResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(outMAC); }
 
 void MACResponse::initFromTpm(TpmBuffer& buf) { outMAC = buf.readSizedByteBuf(); }
 
-void MACResponse::Serialize(Serializer& buf) const { buf.with("outMAC", "BYTE[]", "outMACSize", "UINT16").writeSizedByteBuf(outMAC); }
+void MACResponse::Serialize(Serializer& buf) const { buf.with("outMAC", "std::uint8_t[]", "outMACSize", "std::uint16_t").writeSizedByteBuf(outMAC); }
 
-void MACResponse::Deserialize(Serializer& buf) { outMAC = buf.with("outMAC", "BYTE[]", "outMACSize", "UINT16").readSizedByteBuf(); }
+void MACResponse::Deserialize(Serializer& buf) { outMAC = buf.with("outMAC", "std::uint8_t[]", "outMACSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_GetRandom_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeShort(bytesRequested); }
 
 void TPM2_GetRandom_REQUEST::initFromTpm(TpmBuffer& buf) { bytesRequested = buf.readShort(); }
 
-void TPM2_GetRandom_REQUEST::Serialize(Serializer& buf) const { buf.with("bytesRequested", "UINT16").writeShort(bytesRequested); }
+void TPM2_GetRandom_REQUEST::Serialize(Serializer& buf) const { buf.with("bytesRequested", "std::uint16_t").writeShort(bytesRequested); }
 
-void TPM2_GetRandom_REQUEST::Deserialize(Serializer& buf) { bytesRequested = buf.with("bytesRequested", "UINT16").readShort(); }
+void TPM2_GetRandom_REQUEST::Deserialize(Serializer& buf) { bytesRequested = buf.with("bytesRequested", "std::uint16_t").readShort(); }
 
 void GetRandomResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(randomBytes); }
 
 void GetRandomResponse::initFromTpm(TpmBuffer& buf) { randomBytes = buf.readSizedByteBuf(); }
 
-void GetRandomResponse::Serialize(Serializer& buf) const { buf.with("randomBytes", "BYTE[]", "randomBytesSize", "UINT16").writeSizedByteBuf(randomBytes); }
+void GetRandomResponse::Serialize(Serializer& buf) const { buf.with("randomBytes", "std::uint8_t[]", "randomBytesSize", "std::uint16_t").writeSizedByteBuf(randomBytes); }
 
-void GetRandomResponse::Deserialize(Serializer& buf) { randomBytes = buf.with("randomBytes", "BYTE[]", "randomBytesSize", "UINT16").readSizedByteBuf(); }
+void GetRandomResponse::Deserialize(Serializer& buf) { randomBytes = buf.with("randomBytes", "std::uint8_t[]", "randomBytesSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_StirRandom_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(inData); }
 
 void TPM2_StirRandom_REQUEST::initFromTpm(TpmBuffer& buf) { inData = buf.readSizedByteBuf(); }
 
-void TPM2_StirRandom_REQUEST::Serialize(Serializer& buf) const { buf.with("inData", "BYTE[]", "inDataSize", "UINT16").writeSizedByteBuf(inData); }
+void TPM2_StirRandom_REQUEST::Serialize(Serializer& buf) const { buf.with("inData", "std::uint8_t[]", "inDataSize", "std::uint16_t").writeSizedByteBuf(inData); }
 
-void TPM2_StirRandom_REQUEST::Deserialize(Serializer& buf) { inData = buf.with("inData", "BYTE[]", "inDataSize", "UINT16").readSizedByteBuf(); }
+void TPM2_StirRandom_REQUEST::Deserialize(Serializer& buf) { inData = buf.with("inData", "std::uint8_t[]", "inDataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_HMAC_Start_REQUEST::toTpm(TpmBuffer& buf) const
 {
@@ -3862,14 +3862,14 @@ void TPM2_HMAC_Start_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_HMAC_Start_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("auth", "BYTE[]", "authSize", "UINT16").writeSizedByteBuf(auth);
+    buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").writeSizedByteBuf(auth);
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
 }
 
 void TPM2_HMAC_Start_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    auth = buf.with("auth", "BYTE[]", "authSize", "UINT16").readSizedByteBuf();
+    auth = buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").readSizedByteBuf();
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
 }
 
@@ -3892,14 +3892,14 @@ void TPM2_MAC_Start_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_MAC_Start_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("auth", "BYTE[]", "authSize", "UINT16").writeSizedByteBuf(auth);
+    buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").writeSizedByteBuf(auth);
     buf.with("inScheme", "TPM_ALG_ID").writeEnum(inScheme);
 }
 
 void TPM2_MAC_Start_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    auth = buf.with("auth", "BYTE[]", "authSize", "UINT16").readSizedByteBuf();
+    auth = buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").readSizedByteBuf();
     buf.with("inScheme", "TPM_ALG_ID").readEnum(inScheme);
 }
 
@@ -3921,13 +3921,13 @@ void TPM2_HashSequenceStart_REQUEST::initFromTpm(TpmBuffer& buf)
 
 void TPM2_HashSequenceStart_REQUEST::Serialize(Serializer& buf) const
 {
-    buf.with("auth", "BYTE[]", "authSize", "UINT16").writeSizedByteBuf(auth);
+    buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").writeSizedByteBuf(auth);
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
 }
 
 void TPM2_HashSequenceStart_REQUEST::Deserialize(Serializer& buf)
 {
-    auth = buf.with("auth", "BYTE[]", "authSize", "UINT16").readSizedByteBuf();
+    auth = buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").readSizedByteBuf();
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
 }
 
@@ -3942,13 +3942,13 @@ void TPM2_SequenceUpdate_REQUEST::initFromTpm(TpmBuffer& buf) { buffer = buf.rea
 void TPM2_SequenceUpdate_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("sequenceHandle", "TPM_HANDLE").writeObj(sequenceHandle);
-    buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").writeSizedByteBuf(buffer);
+    buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").writeSizedByteBuf(buffer);
 }
 
 void TPM2_SequenceUpdate_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("sequenceHandle", "TPM_HANDLE").readObj(sequenceHandle);
-    buffer = buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").readSizedByteBuf();
+    buffer = buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_SequenceComplete_REQUEST::toTpm(TpmBuffer& buf) const
@@ -3966,14 +3966,14 @@ void TPM2_SequenceComplete_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_SequenceComplete_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("sequenceHandle", "TPM_HANDLE").writeObj(sequenceHandle);
-    buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").writeSizedByteBuf(buffer);
+    buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").writeSizedByteBuf(buffer);
     buf.with("hierarchy", "TPM_HANDLE").writeObj(hierarchy);
 }
 
 void TPM2_SequenceComplete_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("sequenceHandle", "TPM_HANDLE").readObj(sequenceHandle);
-    buffer = buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").readSizedByteBuf();
+    buffer = buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").readSizedByteBuf();
     buf.with("hierarchy", "TPM_HANDLE").readObj(hierarchy);
 }
 
@@ -3991,13 +3991,13 @@ void SequenceCompleteResponse::initFromTpm(TpmBuffer& buf)
 
 void SequenceCompleteResponse::Serialize(Serializer& buf) const
 {
-    buf.with("result", "BYTE[]", "resultSize", "UINT16").writeSizedByteBuf(result);
+    buf.with("result", "std::uint8_t[]", "resultSize", "std::uint16_t").writeSizedByteBuf(result);
     buf.with("validation", "TPMT_TK_HASHCHECK").writeObj(validation);
 }
 
 void SequenceCompleteResponse::Deserialize(Serializer& buf)
 {
-    result = buf.with("result", "BYTE[]", "resultSize", "UINT16").readSizedByteBuf();
+    result = buf.with("result", "std::uint8_t[]", "resultSize", "std::uint16_t").readSizedByteBuf();
     buf.with("validation", "TPMT_TK_HASHCHECK").readObj(validation);
 }
 
@@ -4009,23 +4009,23 @@ void TPM2_EventSequenceComplete_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("pcrHandle", "TPM_HANDLE").writeObj(pcrHandle);
     buf.with("sequenceHandle", "TPM_HANDLE").writeObj(sequenceHandle);
-    buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").writeSizedByteBuf(buffer);
+    buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").writeSizedByteBuf(buffer);
 }
 
 void TPM2_EventSequenceComplete_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("pcrHandle", "TPM_HANDLE").readObj(pcrHandle);
     buf.with("sequenceHandle", "TPM_HANDLE").readObj(sequenceHandle);
-    buffer = buf.with("buffer", "BYTE[]", "bufferSize", "UINT16").readSizedByteBuf();
+    buffer = buf.with("buffer", "std::uint8_t[]", "bufferSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void EventSequenceCompleteResponse::toTpm(TpmBuffer& buf) const { buf.writeObjArr(results); }
 
 void EventSequenceCompleteResponse::initFromTpm(TpmBuffer& buf) { buf.readObjArr(results); }
 
-void EventSequenceCompleteResponse::Serialize(Serializer& buf) const { buf.with("results", "TPMT_HA[]", "resultsCount", "UINT32").writeObjArr(results); }
+void EventSequenceCompleteResponse::Serialize(Serializer& buf) const { buf.with("results", "TPMT_HA[]", "resultsCount", "std::uint32_t").writeObjArr(results); }
 
-void EventSequenceCompleteResponse::Deserialize(Serializer& buf) { buf.with("results", "TPMT_HA[]", "resultsCount", "UINT32").readObjArr(results); }
+void EventSequenceCompleteResponse::Deserialize(Serializer& buf) { buf.with("results", "TPMT_HA[]", "resultsCount", "std::uint32_t").readObjArr(results); }
 
 void TPM2_Certify_REQUEST::toTpm(TpmBuffer& buf) const
 {
@@ -4046,7 +4046,7 @@ void TPM2_Certify_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("objectHandle", "TPM_HANDLE").writeObj(objectHandle);
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
-    buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").writeSizedByteBuf(qualifyingData);
+    buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").writeSizedByteBuf(qualifyingData);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
 }
@@ -4055,7 +4055,7 @@ void TPM2_Certify_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("objectHandle", "TPM_HANDLE").readObj(objectHandle);
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
-    qualifyingData = buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").readSizedByteBuf();
+    qualifyingData = buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -4080,14 +4080,14 @@ void CertifyResponse::initFromTpm(TpmBuffer& buf)
 
 void CertifyResponse::Serialize(Serializer& buf) const
 {
-    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "UINT16").writeObj(certifyInfo);
+    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "std::uint16_t").writeObj(certifyInfo);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void CertifyResponse::Deserialize(Serializer& buf)
 {
-    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "UINT16").readObj(certifyInfo);
+    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "std::uint16_t").readObj(certifyInfo);
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4118,8 +4118,8 @@ void TPM2_CertifyCreation_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
     buf.with("objectHandle", "TPM_HANDLE").writeObj(objectHandle);
-    buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").writeSizedByteBuf(qualifyingData);
-    buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").writeSizedByteBuf(creationHash);
+    buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").writeSizedByteBuf(qualifyingData);
+    buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").writeSizedByteBuf(creationHash);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
     buf.with("creationTicket", "TPMT_TK_CREATION").writeObj(creationTicket);
@@ -4129,8 +4129,8 @@ void TPM2_CertifyCreation_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
     buf.with("objectHandle", "TPM_HANDLE").readObj(objectHandle);
-    qualifyingData = buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").readSizedByteBuf();
-    creationHash = buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").readSizedByteBuf();
+    qualifyingData = buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").readSizedByteBuf();
+    creationHash = buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -4156,14 +4156,14 @@ void CertifyCreationResponse::initFromTpm(TpmBuffer& buf)
 
 void CertifyCreationResponse::Serialize(Serializer& buf) const
 {
-    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "UINT16").writeObj(certifyInfo);
+    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "std::uint16_t").writeObj(certifyInfo);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void CertifyCreationResponse::Deserialize(Serializer& buf)
 {
-    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "UINT16").readObj(certifyInfo);
+    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "std::uint16_t").readObj(certifyInfo);
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4191,22 +4191,22 @@ void TPM2_Quote_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_Quote_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
-    buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").writeSizedByteBuf(qualifyingData);
+    buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").writeSizedByteBuf(qualifyingData);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
-    buf.with("PCRselect", "TPMS_PCR_SELECTION[]", "PCRselectCount", "UINT32").writeObjArr(PCRselect);
+    buf.with("PCRselect", "TPMS_PCR_SELECTION[]", "PCRselectCount", "std::uint32_t").writeObjArr(PCRselect);
 }
 
 void TPM2_Quote_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
-    qualifyingData = buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").readSizedByteBuf();
+    qualifyingData = buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
     else inScheme = CreateUnion<TPMU_SIG_SCHEME>(inSchemeScheme);
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").readObj(*inScheme);
-    buf.with("PCRselect", "TPMS_PCR_SELECTION[]", "PCRselectCount", "UINT32").readObjArr(PCRselect);
+    buf.with("PCRselect", "TPMS_PCR_SELECTION[]", "PCRselectCount", "std::uint32_t").readObjArr(PCRselect);
 }
 
 void QuoteResponse::toTpm(TpmBuffer& buf) const
@@ -4226,14 +4226,14 @@ void QuoteResponse::initFromTpm(TpmBuffer& buf)
 
 void QuoteResponse::Serialize(Serializer& buf) const
 {
-    buf.with("quoted", "TPMS_ATTEST", "quotedSize", "UINT16").writeObj(quoted);
+    buf.with("quoted", "TPMS_ATTEST", "quotedSize", "std::uint16_t").writeObj(quoted);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void QuoteResponse::Deserialize(Serializer& buf)
 {
-    buf.with("quoted", "TPMS_ATTEST", "quotedSize", "UINT16").readObj(quoted);
+    buf.with("quoted", "TPMS_ATTEST", "quotedSize", "std::uint16_t").readObj(quoted);
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4261,7 +4261,7 @@ void TPM2_GetSessionAuditDigest_REQUEST::Serialize(Serializer& buf) const
     buf.with("privacyAdminHandle", "TPM_HANDLE").writeObj(privacyAdminHandle);
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
     buf.with("sessionHandle", "TPM_HANDLE").writeObj(sessionHandle);
-    buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").writeSizedByteBuf(qualifyingData);
+    buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").writeSizedByteBuf(qualifyingData);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
 }
@@ -4271,7 +4271,7 @@ void TPM2_GetSessionAuditDigest_REQUEST::Deserialize(Serializer& buf)
     buf.with("privacyAdminHandle", "TPM_HANDLE").readObj(privacyAdminHandle);
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
     buf.with("sessionHandle", "TPM_HANDLE").readObj(sessionHandle);
-    qualifyingData = buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").readSizedByteBuf();
+    qualifyingData = buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -4296,14 +4296,14 @@ void GetSessionAuditDigestResponse::initFromTpm(TpmBuffer& buf)
 
 void GetSessionAuditDigestResponse::Serialize(Serializer& buf) const
 {
-    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "UINT16").writeObj(auditInfo);
+    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "std::uint16_t").writeObj(auditInfo);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void GetSessionAuditDigestResponse::Deserialize(Serializer& buf)
 {
-    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "UINT16").readObj(auditInfo);
+    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "std::uint16_t").readObj(auditInfo);
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4330,7 +4330,7 @@ void TPM2_GetCommandAuditDigest_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("privacyHandle", "TPM_HANDLE").writeObj(privacyHandle);
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
-    buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").writeSizedByteBuf(qualifyingData);
+    buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").writeSizedByteBuf(qualifyingData);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
 }
@@ -4339,7 +4339,7 @@ void TPM2_GetCommandAuditDigest_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("privacyHandle", "TPM_HANDLE").readObj(privacyHandle);
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
-    qualifyingData = buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").readSizedByteBuf();
+    qualifyingData = buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -4364,14 +4364,14 @@ void GetCommandAuditDigestResponse::initFromTpm(TpmBuffer& buf)
 
 void GetCommandAuditDigestResponse::Serialize(Serializer& buf) const
 {
-    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "UINT16").writeObj(auditInfo);
+    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "std::uint16_t").writeObj(auditInfo);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void GetCommandAuditDigestResponse::Deserialize(Serializer& buf)
 {
-    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "UINT16").readObj(auditInfo);
+    buf.with("auditInfo", "TPMS_ATTEST", "auditInfoSize", "std::uint16_t").readObj(auditInfo);
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4398,7 +4398,7 @@ void TPM2_GetTime_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("privacyAdminHandle", "TPM_HANDLE").writeObj(privacyAdminHandle);
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
-    buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").writeSizedByteBuf(qualifyingData);
+    buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").writeSizedByteBuf(qualifyingData);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
 }
@@ -4407,7 +4407,7 @@ void TPM2_GetTime_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("privacyAdminHandle", "TPM_HANDLE").readObj(privacyAdminHandle);
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
-    qualifyingData = buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").readSizedByteBuf();
+    qualifyingData = buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -4432,14 +4432,14 @@ void GetTimeResponse::initFromTpm(TpmBuffer& buf)
 
 void GetTimeResponse::Serialize(Serializer& buf) const
 {
-    buf.with("timeInfo", "TPMS_ATTEST", "timeInfoSize", "UINT16").writeObj(timeInfo);
+    buf.with("timeInfo", "TPMS_ATTEST", "timeInfoSize", "std::uint16_t").writeObj(timeInfo);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void GetTimeResponse::Deserialize(Serializer& buf)
 {
-    buf.with("timeInfo", "TPMS_ATTEST", "timeInfoSize", "UINT16").readObj(timeInfo);
+    buf.with("timeInfo", "TPMS_ATTEST", "timeInfoSize", "std::uint16_t").readObj(timeInfo);
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4468,23 +4468,23 @@ void TPM2_CertifyX509_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("objectHandle", "TPM_HANDLE").writeObj(objectHandle);
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
-    buf.with("reserved", "BYTE[]", "reservedSize", "UINT16").writeSizedByteBuf(reserved);
+    buf.with("reserved", "std::uint8_t[]", "reservedSize", "std::uint16_t").writeSizedByteBuf(reserved);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
-    buf.with("partialCertificate", "BYTE[]", "partialCertificateSize", "UINT16").writeSizedByteBuf(partialCertificate);
+    buf.with("partialCertificate", "std::uint8_t[]", "partialCertificateSize", "std::uint16_t").writeSizedByteBuf(partialCertificate);
 }
 
 void TPM2_CertifyX509_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("objectHandle", "TPM_HANDLE").readObj(objectHandle);
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
-    reserved = buf.with("reserved", "BYTE[]", "reservedSize", "UINT16").readSizedByteBuf();
+    reserved = buf.with("reserved", "std::uint8_t[]", "reservedSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
     else inScheme = CreateUnion<TPMU_SIG_SCHEME>(inSchemeScheme);
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").readObj(*inScheme);
-    partialCertificate = buf.with("partialCertificate", "BYTE[]", "partialCertificateSize", "UINT16").readSizedByteBuf();
+    partialCertificate = buf.with("partialCertificate", "std::uint8_t[]", "partialCertificateSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void CertifyX509Response::toTpm(TpmBuffer& buf) const
@@ -4506,16 +4506,16 @@ void CertifyX509Response::initFromTpm(TpmBuffer& buf)
 
 void CertifyX509Response::Serialize(Serializer& buf) const
 {
-    buf.with("addedToCertificate", "BYTE[]", "addedToCertificateSize", "UINT16").writeSizedByteBuf(addedToCertificate);
-    buf.with("tbsDigest", "BYTE[]", "tbsDigestSize", "UINT16").writeSizedByteBuf(tbsDigest);
+    buf.with("addedToCertificate", "std::uint8_t[]", "addedToCertificateSize", "std::uint16_t").writeSizedByteBuf(addedToCertificate);
+    buf.with("tbsDigest", "std::uint8_t[]", "tbsDigestSize", "std::uint16_t").writeSizedByteBuf(tbsDigest);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void CertifyX509Response::Deserialize(Serializer& buf)
 {
-    addedToCertificate = buf.with("addedToCertificate", "BYTE[]", "addedToCertificateSize", "UINT16").readSizedByteBuf();
-    tbsDigest = buf.with("tbsDigest", "BYTE[]", "tbsDigestSize", "UINT16").readSizedByteBuf();
+    addedToCertificate = buf.with("addedToCertificate", "std::uint8_t[]", "addedToCertificateSize", "std::uint16_t").readSizedByteBuf();
+    tbsDigest = buf.with("tbsDigest", "std::uint8_t[]", "tbsDigestSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4540,17 +4540,17 @@ void TPM2_Commit_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_Commit_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
-    buf.with("P1", "TPMS_ECC_POINT", "P1Size", "UINT16").writeObj(P1);
-    buf.with("s2", "BYTE[]", "s2Size", "UINT16").writeSizedByteBuf(s2);
-    buf.with("y2", "BYTE[]", "y2Size", "UINT16").writeSizedByteBuf(y2);
+    buf.with("P1", "TPMS_ECC_POINT", "P1Size", "std::uint16_t").writeObj(P1);
+    buf.with("s2", "std::uint8_t[]", "s2Size", "std::uint16_t").writeSizedByteBuf(s2);
+    buf.with("y2", "std::uint8_t[]", "y2Size", "std::uint16_t").writeSizedByteBuf(y2);
 }
 
 void TPM2_Commit_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
-    buf.with("P1", "TPMS_ECC_POINT", "P1Size", "UINT16").readObj(P1);
-    s2 = buf.with("s2", "BYTE[]", "s2Size", "UINT16").readSizedByteBuf();
-    y2 = buf.with("y2", "BYTE[]", "y2Size", "UINT16").readSizedByteBuf();
+    buf.with("P1", "TPMS_ECC_POINT", "P1Size", "std::uint16_t").readObj(P1);
+    s2 = buf.with("s2", "std::uint8_t[]", "s2Size", "std::uint16_t").readSizedByteBuf();
+    y2 = buf.with("y2", "std::uint8_t[]", "y2Size", "std::uint16_t").readSizedByteBuf();
 }
 
 void CommitResponse::toTpm(TpmBuffer& buf) const
@@ -4571,18 +4571,18 @@ void CommitResponse::initFromTpm(TpmBuffer& buf)
 
 void CommitResponse::Serialize(Serializer& buf) const
 {
-    buf.with("K", "TPMS_ECC_POINT", "KSize", "UINT16").writeObj(K);
-    buf.with("L", "TPMS_ECC_POINT", "LSize", "UINT16").writeObj(L);
-    buf.with("E", "TPMS_ECC_POINT", "ESize", "UINT16").writeObj(E);
-    buf.with("counter", "UINT16").writeShort(counter);
+    buf.with("K", "TPMS_ECC_POINT", "KSize", "std::uint16_t").writeObj(K);
+    buf.with("L", "TPMS_ECC_POINT", "LSize", "std::uint16_t").writeObj(L);
+    buf.with("E", "TPMS_ECC_POINT", "ESize", "std::uint16_t").writeObj(E);
+    buf.with("counter", "std::uint16_t").writeShort(counter);
 }
 
 void CommitResponse::Deserialize(Serializer& buf)
 {
-    buf.with("K", "TPMS_ECC_POINT", "KSize", "UINT16").readObj(K);
-    buf.with("L", "TPMS_ECC_POINT", "LSize", "UINT16").readObj(L);
-    buf.with("E", "TPMS_ECC_POINT", "ESize", "UINT16").readObj(E);
-    counter = buf.with("counter", "UINT16").readShort();
+    buf.with("K", "TPMS_ECC_POINT", "KSize", "std::uint16_t").readObj(K);
+    buf.with("L", "TPMS_ECC_POINT", "LSize", "std::uint16_t").readObj(L);
+    buf.with("E", "TPMS_ECC_POINT", "ESize", "std::uint16_t").readObj(E);
+    counter = buf.with("counter", "std::uint16_t").readShort();
 }
 
 void TPM2_EC_Ephemeral_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeShort(curveID); }
@@ -4607,14 +4607,14 @@ void EC_EphemeralResponse::initFromTpm(TpmBuffer& buf)
 
 void EC_EphemeralResponse::Serialize(Serializer& buf) const
 {
-    buf.with("Q", "TPMS_ECC_POINT", "QSize", "UINT16").writeObj(Q);
-    buf.with("counter", "UINT16").writeShort(counter);
+    buf.with("Q", "TPMS_ECC_POINT", "QSize", "std::uint16_t").writeObj(Q);
+    buf.with("counter", "std::uint16_t").writeShort(counter);
 }
 
 void EC_EphemeralResponse::Deserialize(Serializer& buf)
 {
-    buf.with("Q", "TPMS_ECC_POINT", "QSize", "UINT16").readObj(Q);
-    counter = buf.with("counter", "UINT16").readShort();
+    buf.with("Q", "TPMS_ECC_POINT", "QSize", "std::uint16_t").readObj(Q);
+    counter = buf.with("counter", "std::uint16_t").readShort();
 }
 
 void TPM2_VerifySignature_REQUEST::toTpm(TpmBuffer& buf) const
@@ -4635,7 +4635,7 @@ void TPM2_VerifySignature_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_VerifySignature_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("digest", "BYTE[]", "digestSize", "UINT16").writeSizedByteBuf(digest);
+    buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").writeSizedByteBuf(digest);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
@@ -4643,7 +4643,7 @@ void TPM2_VerifySignature_REQUEST::Serialize(Serializer& buf) const
 void TPM2_VerifySignature_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    digest = buf.with("digest", "BYTE[]", "digestSize", "UINT16").readSizedByteBuf();
+    digest = buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -4679,7 +4679,7 @@ void TPM2_Sign_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_Sign_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("digest", "BYTE[]", "digestSize", "UINT16").writeSizedByteBuf(digest);
+    buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").writeSizedByteBuf(digest);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
     buf.with("validation", "TPMT_TK_HASHCHECK").writeObj(validation);
@@ -4688,7 +4688,7 @@ void TPM2_Sign_REQUEST::Serialize(Serializer& buf) const
 void TPM2_Sign_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    digest = buf.with("digest", "BYTE[]", "digestSize", "UINT16").readSizedByteBuf();
+    digest = buf.with("digest", "std::uint8_t[]", "digestSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
@@ -4744,16 +4744,16 @@ void TPM2_SetCommandCodeAuditStatus_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("auth", "TPM_HANDLE").writeObj(auth);
     buf.with("auditAlg", "TPM_ALG_ID").writeEnum(auditAlg);
-    buf.with("setList", "TPM_CC[]", "setListCount", "UINT32").writeEnumArr(setList);
-    buf.with("clearList", "TPM_CC[]", "clearListCount", "UINT32").writeEnumArr(clearList);
+    buf.with("setList", "TPM_CC[]", "setListCount", "std::uint32_t").writeEnumArr(setList);
+    buf.with("clearList", "TPM_CC[]", "clearListCount", "std::uint32_t").writeEnumArr(clearList);
 }
 
 void TPM2_SetCommandCodeAuditStatus_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("auth", "TPM_HANDLE").readObj(auth);
     buf.with("auditAlg", "TPM_ALG_ID").readEnum(auditAlg);
-    buf.with("setList", "TPM_CC[]", "setListCount", "UINT32").readEnumArr(setList);
-    buf.with("clearList", "TPM_CC[]", "clearListCount", "UINT32").readEnumArr(clearList);
+    buf.with("setList", "TPM_CC[]", "setListCount", "std::uint32_t").readEnumArr(setList);
+    buf.with("clearList", "TPM_CC[]", "clearListCount", "std::uint32_t").readEnumArr(clearList);
 }
 
 void TPM2_PCR_Extend_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeObjArr(digests); }
@@ -4763,13 +4763,13 @@ void TPM2_PCR_Extend_REQUEST::initFromTpm(TpmBuffer& buf) { buf.readObjArr(diges
 void TPM2_PCR_Extend_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("pcrHandle", "TPM_HANDLE").writeObj(pcrHandle);
-    buf.with("digests", "TPMT_HA[]", "digestsCount", "UINT32").writeObjArr(digests);
+    buf.with("digests", "TPMT_HA[]", "digestsCount", "std::uint32_t").writeObjArr(digests);
 }
 
 void TPM2_PCR_Extend_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("pcrHandle", "TPM_HANDLE").readObj(pcrHandle);
-    buf.with("digests", "TPMT_HA[]", "digestsCount", "UINT32").readObjArr(digests);
+    buf.with("digests", "TPMT_HA[]", "digestsCount", "std::uint32_t").readObjArr(digests);
 }
 
 void TPM2_PCR_Event_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(eventData); }
@@ -4779,30 +4779,30 @@ void TPM2_PCR_Event_REQUEST::initFromTpm(TpmBuffer& buf) { eventData = buf.readS
 void TPM2_PCR_Event_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("pcrHandle", "TPM_HANDLE").writeObj(pcrHandle);
-    buf.with("eventData", "BYTE[]", "eventDataSize", "UINT16").writeSizedByteBuf(eventData);
+    buf.with("eventData", "std::uint8_t[]", "eventDataSize", "std::uint16_t").writeSizedByteBuf(eventData);
 }
 
 void TPM2_PCR_Event_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("pcrHandle", "TPM_HANDLE").readObj(pcrHandle);
-    eventData = buf.with("eventData", "BYTE[]", "eventDataSize", "UINT16").readSizedByteBuf();
+    eventData = buf.with("eventData", "std::uint8_t[]", "eventDataSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void PCR_EventResponse::toTpm(TpmBuffer& buf) const { buf.writeObjArr(digests); }
 
 void PCR_EventResponse::initFromTpm(TpmBuffer& buf) { buf.readObjArr(digests); }
 
-void PCR_EventResponse::Serialize(Serializer& buf) const { buf.with("digests", "TPMT_HA[]", "digestsCount", "UINT32").writeObjArr(digests); }
+void PCR_EventResponse::Serialize(Serializer& buf) const { buf.with("digests", "TPMT_HA[]", "digestsCount", "std::uint32_t").writeObjArr(digests); }
 
-void PCR_EventResponse::Deserialize(Serializer& buf) { buf.with("digests", "TPMT_HA[]", "digestsCount", "UINT32").readObjArr(digests); }
+void PCR_EventResponse::Deserialize(Serializer& buf) { buf.with("digests", "TPMT_HA[]", "digestsCount", "std::uint32_t").readObjArr(digests); }
 
 void TPM2_PCR_Read_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeObjArr(pcrSelectionIn); }
 
 void TPM2_PCR_Read_REQUEST::initFromTpm(TpmBuffer& buf) { buf.readObjArr(pcrSelectionIn); }
 
-void TPM2_PCR_Read_REQUEST::Serialize(Serializer& buf) const { buf.with("pcrSelectionIn", "TPMS_PCR_SELECTION[]", "pcrSelectionInCount", "UINT32").writeObjArr(pcrSelectionIn); }
+void TPM2_PCR_Read_REQUEST::Serialize(Serializer& buf) const { buf.with("pcrSelectionIn", "TPMS_PCR_SELECTION[]", "pcrSelectionInCount", "std::uint32_t").writeObjArr(pcrSelectionIn); }
 
-void TPM2_PCR_Read_REQUEST::Deserialize(Serializer& buf) { buf.with("pcrSelectionIn", "TPMS_PCR_SELECTION[]", "pcrSelectionInCount", "UINT32").readObjArr(pcrSelectionIn); }
+void TPM2_PCR_Read_REQUEST::Deserialize(Serializer& buf) { buf.with("pcrSelectionIn", "TPMS_PCR_SELECTION[]", "pcrSelectionInCount", "std::uint32_t").readObjArr(pcrSelectionIn); }
 
 void PCR_ReadResponse::toTpm(TpmBuffer& buf) const
 {
@@ -4820,16 +4820,16 @@ void PCR_ReadResponse::initFromTpm(TpmBuffer& buf)
 
 void PCR_ReadResponse::Serialize(Serializer& buf) const
 {
-    buf.with("pcrUpdateCounter", "UINT32").writeInt(pcrUpdateCounter);
-    buf.with("pcrSelectionOut", "TPMS_PCR_SELECTION[]", "pcrSelectionOutCount", "UINT32").writeObjArr(pcrSelectionOut);
-    buf.with("pcrValues", "TPM2B_DIGEST[]", "pcrValuesCount", "UINT32").writeObjArr(pcrValues);
+    buf.with("pcrUpdateCounter", "std::uint32_t").writeInt(pcrUpdateCounter);
+    buf.with("pcrSelectionOut", "TPMS_PCR_SELECTION[]", "pcrSelectionOutCount", "std::uint32_t").writeObjArr(pcrSelectionOut);
+    buf.with("pcrValues", "TPM2B_DIGEST[]", "pcrValuesCount", "std::uint32_t").writeObjArr(pcrValues);
 }
 
 void PCR_ReadResponse::Deserialize(Serializer& buf)
 {
-    pcrUpdateCounter = buf.with("pcrUpdateCounter", "UINT32").readInt();
-    buf.with("pcrSelectionOut", "TPMS_PCR_SELECTION[]", "pcrSelectionOutCount", "UINT32").readObjArr(pcrSelectionOut);
-    buf.with("pcrValues", "TPM2B_DIGEST[]", "pcrValuesCount", "UINT32").readObjArr(pcrValues);
+    pcrUpdateCounter = buf.with("pcrUpdateCounter", "std::uint32_t").readInt();
+    buf.with("pcrSelectionOut", "TPMS_PCR_SELECTION[]", "pcrSelectionOutCount", "std::uint32_t").readObjArr(pcrSelectionOut);
+    buf.with("pcrValues", "TPM2B_DIGEST[]", "pcrValuesCount", "std::uint32_t").readObjArr(pcrValues);
 }
 
 void TPM2_PCR_Allocate_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeObjArr(pcrAllocation); }
@@ -4839,13 +4839,13 @@ void TPM2_PCR_Allocate_REQUEST::initFromTpm(TpmBuffer& buf) { buf.readObjArr(pcr
 void TPM2_PCR_Allocate_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
-    buf.with("pcrAllocation", "TPMS_PCR_SELECTION[]", "pcrAllocationCount", "UINT32").writeObjArr(pcrAllocation);
+    buf.with("pcrAllocation", "TPMS_PCR_SELECTION[]", "pcrAllocationCount", "std::uint32_t").writeObjArr(pcrAllocation);
 }
 
 void TPM2_PCR_Allocate_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
-    buf.with("pcrAllocation", "TPMS_PCR_SELECTION[]", "pcrAllocationCount", "UINT32").readObjArr(pcrAllocation);
+    buf.with("pcrAllocation", "TPMS_PCR_SELECTION[]", "pcrAllocationCount", "std::uint32_t").readObjArr(pcrAllocation);
 }
 
 void PCR_AllocateResponse::toTpm(TpmBuffer& buf) const
@@ -4866,18 +4866,18 @@ void PCR_AllocateResponse::initFromTpm(TpmBuffer& buf)
 
 void PCR_AllocateResponse::Serialize(Serializer& buf) const
 {
-    buf.with("allocationSuccess", "BYTE").writeByte(allocationSuccess);
-    buf.with("maxPCR", "UINT32").writeInt(maxPCR);
-    buf.with("sizeNeeded", "UINT32").writeInt(sizeNeeded);
-    buf.with("sizeAvailable", "UINT32").writeInt(sizeAvailable);
+    buf.with("allocationSuccess", "bool").writeByte(allocationSuccess);
+    buf.with("maxPCR", "std::uint32_t").writeInt(maxPCR);
+    buf.with("sizeNeeded", "std::uint32_t").writeInt(sizeNeeded);
+    buf.with("sizeAvailable", "std::uint32_t").writeInt(sizeAvailable);
 }
 
 void PCR_AllocateResponse::Deserialize(Serializer& buf)
 {
-    allocationSuccess = buf.with("allocationSuccess", "BYTE").readByte();
-    maxPCR = buf.with("maxPCR", "UINT32").readInt();
-    sizeNeeded = buf.with("sizeNeeded", "UINT32").readInt();
-    sizeAvailable = buf.with("sizeAvailable", "UINT32").readInt();
+    allocationSuccess = buf.with("allocationSuccess", "bool").readByte();
+    maxPCR = buf.with("maxPCR", "std::uint32_t").readInt();
+    sizeNeeded = buf.with("sizeNeeded", "std::uint32_t").readInt();
+    sizeAvailable = buf.with("sizeAvailable", "std::uint32_t").readInt();
 }
 
 void TPM2_PCR_SetAuthPolicy_REQUEST::toTpm(TpmBuffer& buf) const
@@ -4897,7 +4897,7 @@ void TPM2_PCR_SetAuthPolicy_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_PCR_SetAuthPolicy_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
-    buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").writeSizedByteBuf(authPolicy);
+    buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").writeSizedByteBuf(authPolicy);
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
     buf.with("pcrNum", "TPM_HANDLE").writeObj(pcrNum);
 }
@@ -4905,7 +4905,7 @@ void TPM2_PCR_SetAuthPolicy_REQUEST::Serialize(Serializer& buf) const
 void TPM2_PCR_SetAuthPolicy_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
-    authPolicy = buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").readSizedByteBuf();
+    authPolicy = buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").readSizedByteBuf();
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
     buf.with("pcrNum", "TPM_HANDLE").readObj(pcrNum);
 }
@@ -4917,13 +4917,13 @@ void TPM2_PCR_SetAuthValue_REQUEST::initFromTpm(TpmBuffer& buf) { auth = buf.rea
 void TPM2_PCR_SetAuthValue_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("pcrHandle", "TPM_HANDLE").writeObj(pcrHandle);
-    buf.with("auth", "BYTE[]", "authSize", "UINT16").writeSizedByteBuf(auth);
+    buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").writeSizedByteBuf(auth);
 }
 
 void TPM2_PCR_SetAuthValue_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("pcrHandle", "TPM_HANDLE").readObj(pcrHandle);
-    auth = buf.with("auth", "BYTE[]", "authSize", "UINT16").readSizedByteBuf();
+    auth = buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_PCR_Reset_REQUEST::Serialize(Serializer& buf) const { buf.with("pcrHandle", "TPM_HANDLE").writeObj(pcrHandle); }
@@ -4955,10 +4955,10 @@ void TPM2_PolicySigned_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authObject", "TPM_HANDLE").writeObj(authObject);
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("nonceTPM", "BYTE[]", "nonceTPMSize", "UINT16").writeSizedByteBuf(nonceTPM);
-    buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").writeSizedByteBuf(cpHashA);
-    buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").writeSizedByteBuf(policyRef);
-    buf.with("expiration", "INT32").writeInt(expiration);
+    buf.with("nonceTPM", "std::uint8_t[]", "nonceTPMSize", "std::uint16_t").writeSizedByteBuf(nonceTPM);
+    buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").writeSizedByteBuf(cpHashA);
+    buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").writeSizedByteBuf(policyRef);
+    buf.with("expiration", "std::int32_t").writeInt(expiration);
     buf.with("authSigAlg", "TPM_ALG_ID").writeEnum(authSigAlg());
     if (auth) buf.with("auth", "TPMU_SIGNATURE").writeObj(*auth);
 }
@@ -4967,10 +4967,10 @@ void TPM2_PolicySigned_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authObject", "TPM_HANDLE").readObj(authObject);
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    nonceTPM = buf.with("nonceTPM", "BYTE[]", "nonceTPMSize", "UINT16").readSizedByteBuf();
-    cpHashA = buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").readSizedByteBuf();
-    policyRef = buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").readSizedByteBuf();
-    expiration = buf.with("expiration", "INT32").readInt();
+    nonceTPM = buf.with("nonceTPM", "std::uint8_t[]", "nonceTPMSize", "std::uint16_t").readSizedByteBuf();
+    cpHashA = buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").readSizedByteBuf();
+    policyRef = buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").readSizedByteBuf();
+    expiration = buf.with("expiration", "std::int32_t").readInt();
     TPM_ALG_ID authSigAlg;
     buf.with("authSigAlg", "TPM_ALG_ID").readEnum(authSigAlg);
     if (!authSigAlg) auth.reset();
@@ -4992,13 +4992,13 @@ void PolicySignedResponse::initFromTpm(TpmBuffer& buf)
 
 void PolicySignedResponse::Serialize(Serializer& buf) const
 {
-    buf.with("timeout", "BYTE[]", "timeoutSize", "UINT16").writeSizedByteBuf(timeout);
+    buf.with("timeout", "std::uint8_t[]", "timeoutSize", "std::uint16_t").writeSizedByteBuf(timeout);
     buf.with("policyTicket", "TPMT_TK_AUTH").writeObj(policyTicket);
 }
 
 void PolicySignedResponse::Deserialize(Serializer& buf)
 {
-    timeout = buf.with("timeout", "BYTE[]", "timeoutSize", "UINT16").readSizedByteBuf();
+    timeout = buf.with("timeout", "std::uint8_t[]", "timeoutSize", "std::uint16_t").readSizedByteBuf();
     buf.with("policyTicket", "TPMT_TK_AUTH").readObj(policyTicket);
 }
 
@@ -5022,20 +5022,20 @@ void TPM2_PolicySecret_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("nonceTPM", "BYTE[]", "nonceTPMSize", "UINT16").writeSizedByteBuf(nonceTPM);
-    buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").writeSizedByteBuf(cpHashA);
-    buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").writeSizedByteBuf(policyRef);
-    buf.with("expiration", "INT32").writeInt(expiration);
+    buf.with("nonceTPM", "std::uint8_t[]", "nonceTPMSize", "std::uint16_t").writeSizedByteBuf(nonceTPM);
+    buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").writeSizedByteBuf(cpHashA);
+    buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").writeSizedByteBuf(policyRef);
+    buf.with("expiration", "std::int32_t").writeInt(expiration);
 }
 
 void TPM2_PolicySecret_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    nonceTPM = buf.with("nonceTPM", "BYTE[]", "nonceTPMSize", "UINT16").readSizedByteBuf();
-    cpHashA = buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").readSizedByteBuf();
-    policyRef = buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").readSizedByteBuf();
-    expiration = buf.with("expiration", "INT32").readInt();
+    nonceTPM = buf.with("nonceTPM", "std::uint8_t[]", "nonceTPMSize", "std::uint16_t").readSizedByteBuf();
+    cpHashA = buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").readSizedByteBuf();
+    policyRef = buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").readSizedByteBuf();
+    expiration = buf.with("expiration", "std::int32_t").readInt();
 }
 
 void PolicySecretResponse::toTpm(TpmBuffer& buf) const
@@ -5052,13 +5052,13 @@ void PolicySecretResponse::initFromTpm(TpmBuffer& buf)
 
 void PolicySecretResponse::Serialize(Serializer& buf) const
 {
-    buf.with("timeout", "BYTE[]", "timeoutSize", "UINT16").writeSizedByteBuf(timeout);
+    buf.with("timeout", "std::uint8_t[]", "timeoutSize", "std::uint16_t").writeSizedByteBuf(timeout);
     buf.with("policyTicket", "TPMT_TK_AUTH").writeObj(policyTicket);
 }
 
 void PolicySecretResponse::Deserialize(Serializer& buf)
 {
-    timeout = buf.with("timeout", "BYTE[]", "timeoutSize", "UINT16").readSizedByteBuf();
+    timeout = buf.with("timeout", "std::uint8_t[]", "timeoutSize", "std::uint16_t").readSizedByteBuf();
     buf.with("policyTicket", "TPMT_TK_AUTH").readObj(policyTicket);
 }
 
@@ -5083,20 +5083,20 @@ void TPM2_PolicyTicket_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_PolicyTicket_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("timeout", "BYTE[]", "timeoutSize", "UINT16").writeSizedByteBuf(timeout);
-    buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").writeSizedByteBuf(cpHashA);
-    buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").writeSizedByteBuf(policyRef);
-    buf.with("authName", "BYTE[]", "authNameSize", "UINT16").writeSizedByteBuf(authName);
+    buf.with("timeout", "std::uint8_t[]", "timeoutSize", "std::uint16_t").writeSizedByteBuf(timeout);
+    buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").writeSizedByteBuf(cpHashA);
+    buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").writeSizedByteBuf(policyRef);
+    buf.with("authName", "std::uint8_t[]", "authNameSize", "std::uint16_t").writeSizedByteBuf(authName);
     buf.with("ticket", "TPMT_TK_AUTH").writeObj(ticket);
 }
 
 void TPM2_PolicyTicket_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    timeout = buf.with("timeout", "BYTE[]", "timeoutSize", "UINT16").readSizedByteBuf();
-    cpHashA = buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").readSizedByteBuf();
-    policyRef = buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").readSizedByteBuf();
-    authName = buf.with("authName", "BYTE[]", "authNameSize", "UINT16").readSizedByteBuf();
+    timeout = buf.with("timeout", "std::uint8_t[]", "timeoutSize", "std::uint16_t").readSizedByteBuf();
+    cpHashA = buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").readSizedByteBuf();
+    policyRef = buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").readSizedByteBuf();
+    authName = buf.with("authName", "std::uint8_t[]", "authNameSize", "std::uint16_t").readSizedByteBuf();
     buf.with("ticket", "TPMT_TK_AUTH").readObj(ticket);
 }
 
@@ -5107,13 +5107,13 @@ void TPM2_PolicyOR_REQUEST::initFromTpm(TpmBuffer& buf) { buf.readObjArr(pHashLi
 void TPM2_PolicyOR_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("pHashList", "TPM2B_DIGEST[]", "pHashListCount", "UINT32").writeObjArr(pHashList);
+    buf.with("pHashList", "TPM2B_DIGEST[]", "pHashListCount", "std::uint32_t").writeObjArr(pHashList);
 }
 
 void TPM2_PolicyOR_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    buf.with("pHashList", "TPM2B_DIGEST[]", "pHashListCount", "UINT32").readObjArr(pHashList);
+    buf.with("pHashList", "TPM2B_DIGEST[]", "pHashListCount", "std::uint32_t").readObjArr(pHashList);
 }
 
 void TPM2_PolicyPCR_REQUEST::toTpm(TpmBuffer& buf) const
@@ -5131,15 +5131,15 @@ void TPM2_PolicyPCR_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_PolicyPCR_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("pcrDigest", "BYTE[]", "pcrDigestSize", "UINT16").writeSizedByteBuf(pcrDigest);
-    buf.with("pcrs", "TPMS_PCR_SELECTION[]", "pcrsCount", "UINT32").writeObjArr(pcrs);
+    buf.with("pcrDigest", "std::uint8_t[]", "pcrDigestSize", "std::uint16_t").writeSizedByteBuf(pcrDigest);
+    buf.with("pcrs", "TPMS_PCR_SELECTION[]", "pcrsCount", "std::uint32_t").writeObjArr(pcrs);
 }
 
 void TPM2_PolicyPCR_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    pcrDigest = buf.with("pcrDigest", "BYTE[]", "pcrDigestSize", "UINT16").readSizedByteBuf();
-    buf.with("pcrs", "TPMS_PCR_SELECTION[]", "pcrsCount", "UINT32").readObjArr(pcrs);
+    pcrDigest = buf.with("pcrDigest", "std::uint8_t[]", "pcrDigestSize", "std::uint16_t").readSizedByteBuf();
+    buf.with("pcrs", "TPMS_PCR_SELECTION[]", "pcrsCount", "std::uint32_t").readObjArr(pcrs);
 }
 
 void TPM2_PolicyLocality_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeByte(locality); }
@@ -5177,8 +5177,8 @@ void TPM2_PolicyNV_REQUEST::Serialize(Serializer& buf) const
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("operandB", "BYTE[]", "operandBSize", "UINT16").writeSizedByteBuf(operandB);
-    buf.with("offset", "UINT16").writeShort(offset);
+    buf.with("operandB", "std::uint8_t[]", "operandBSize", "std::uint16_t").writeSizedByteBuf(operandB);
+    buf.with("offset", "std::uint16_t").writeShort(offset);
     buf.with("operation", "TPM_EO").writeEnum(operation);
 }
 
@@ -5187,8 +5187,8 @@ void TPM2_PolicyNV_REQUEST::Deserialize(Serializer& buf)
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    operandB = buf.with("operandB", "BYTE[]", "operandBSize", "UINT16").readSizedByteBuf();
-    offset = buf.with("offset", "UINT16").readShort();
+    operandB = buf.with("operandB", "std::uint8_t[]", "operandBSize", "std::uint16_t").readSizedByteBuf();
+    offset = buf.with("offset", "std::uint16_t").readShort();
     buf.with("operation", "TPM_EO").readEnum(operation);
 }
 
@@ -5209,16 +5209,16 @@ void TPM2_PolicyCounterTimer_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_PolicyCounterTimer_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("operandB", "BYTE[]", "operandBSize", "UINT16").writeSizedByteBuf(operandB);
-    buf.with("offset", "UINT16").writeShort(offset);
+    buf.with("operandB", "std::uint8_t[]", "operandBSize", "std::uint16_t").writeSizedByteBuf(operandB);
+    buf.with("offset", "std::uint16_t").writeShort(offset);
     buf.with("operation", "TPM_EO").writeEnum(operation);
 }
 
 void TPM2_PolicyCounterTimer_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    operandB = buf.with("operandB", "BYTE[]", "operandBSize", "UINT16").readSizedByteBuf();
-    offset = buf.with("offset", "UINT16").readShort();
+    operandB = buf.with("operandB", "std::uint8_t[]", "operandBSize", "std::uint16_t").readSizedByteBuf();
+    offset = buf.with("offset", "std::uint16_t").readShort();
     buf.with("operation", "TPM_EO").readEnum(operation);
 }
 
@@ -5249,13 +5249,13 @@ void TPM2_PolicyCpHash_REQUEST::initFromTpm(TpmBuffer& buf) { cpHashA = buf.read
 void TPM2_PolicyCpHash_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").writeSizedByteBuf(cpHashA);
+    buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").writeSizedByteBuf(cpHashA);
 }
 
 void TPM2_PolicyCpHash_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    cpHashA = buf.with("cpHashA", "BYTE[]", "cpHashASize", "UINT16").readSizedByteBuf();
+    cpHashA = buf.with("cpHashA", "std::uint8_t[]", "cpHashASize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_PolicyNameHash_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(nameHash); }
@@ -5265,13 +5265,13 @@ void TPM2_PolicyNameHash_REQUEST::initFromTpm(TpmBuffer& buf) { nameHash = buf.r
 void TPM2_PolicyNameHash_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("nameHash", "BYTE[]", "nameHashSize", "UINT16").writeSizedByteBuf(nameHash);
+    buf.with("nameHash", "std::uint8_t[]", "nameHashSize", "std::uint16_t").writeSizedByteBuf(nameHash);
 }
 
 void TPM2_PolicyNameHash_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    nameHash = buf.with("nameHash", "BYTE[]", "nameHashSize", "UINT16").readSizedByteBuf();
+    nameHash = buf.with("nameHash", "std::uint8_t[]", "nameHashSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_PolicyDuplicationSelect_REQUEST::toTpm(TpmBuffer& buf) const
@@ -5291,17 +5291,17 @@ void TPM2_PolicyDuplicationSelect_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_PolicyDuplicationSelect_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").writeSizedByteBuf(objectName);
-    buf.with("newParentName", "BYTE[]", "newParentNameSize", "UINT16").writeSizedByteBuf(newParentName);
-    buf.with("includeObject", "BYTE").writeByte(includeObject);
+    buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").writeSizedByteBuf(objectName);
+    buf.with("newParentName", "std::uint8_t[]", "newParentNameSize", "std::uint16_t").writeSizedByteBuf(newParentName);
+    buf.with("includeObject", "bool").writeByte(includeObject);
 }
 
 void TPM2_PolicyDuplicationSelect_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    objectName = buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").readSizedByteBuf();
-    newParentName = buf.with("newParentName", "BYTE[]", "newParentNameSize", "UINT16").readSizedByteBuf();
-    includeObject = buf.with("includeObject", "BYTE").readByte();
+    objectName = buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").readSizedByteBuf();
+    newParentName = buf.with("newParentName", "std::uint8_t[]", "newParentNameSize", "std::uint16_t").readSizedByteBuf();
+    includeObject = buf.with("includeObject", "bool").readByte();
 }
 
 void TPM2_PolicyAuthorize_REQUEST::toTpm(TpmBuffer& buf) const
@@ -5323,18 +5323,18 @@ void TPM2_PolicyAuthorize_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_PolicyAuthorize_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("approvedPolicy", "BYTE[]", "approvedPolicySize", "UINT16").writeSizedByteBuf(approvedPolicy);
-    buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").writeSizedByteBuf(policyRef);
-    buf.with("keySign", "BYTE[]", "keySignSize", "UINT16").writeSizedByteBuf(keySign);
+    buf.with("approvedPolicy", "std::uint8_t[]", "approvedPolicySize", "std::uint16_t").writeSizedByteBuf(approvedPolicy);
+    buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").writeSizedByteBuf(policyRef);
+    buf.with("keySign", "std::uint8_t[]", "keySignSize", "std::uint16_t").writeSizedByteBuf(keySign);
     buf.with("checkTicket", "TPMT_TK_VERIFIED").writeObj(checkTicket);
 }
 
 void TPM2_PolicyAuthorize_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    approvedPolicy = buf.with("approvedPolicy", "BYTE[]", "approvedPolicySize", "UINT16").readSizedByteBuf();
-    policyRef = buf.with("policyRef", "BYTE[]", "policyRefSize", "UINT16").readSizedByteBuf();
-    keySign = buf.with("keySign", "BYTE[]", "keySignSize", "UINT16").readSizedByteBuf();
+    approvedPolicy = buf.with("approvedPolicy", "std::uint8_t[]", "approvedPolicySize", "std::uint16_t").readSizedByteBuf();
+    policyRef = buf.with("policyRef", "std::uint8_t[]", "policyRefSize", "std::uint16_t").readSizedByteBuf();
+    keySign = buf.with("keySign", "std::uint8_t[]", "keySignSize", "std::uint16_t").readSizedByteBuf();
     buf.with("checkTicket", "TPMT_TK_VERIFIED").readObj(checkTicket);
 }
 
@@ -5354,9 +5354,9 @@ void PolicyGetDigestResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBu
 
 void PolicyGetDigestResponse::initFromTpm(TpmBuffer& buf) { policyDigest = buf.readSizedByteBuf(); }
 
-void PolicyGetDigestResponse::Serialize(Serializer& buf) const { buf.with("policyDigest", "BYTE[]", "policyDigestSize", "UINT16").writeSizedByteBuf(policyDigest); }
+void PolicyGetDigestResponse::Serialize(Serializer& buf) const { buf.with("policyDigest", "std::uint8_t[]", "policyDigestSize", "std::uint16_t").writeSizedByteBuf(policyDigest); }
 
-void PolicyGetDigestResponse::Deserialize(Serializer& buf) { policyDigest = buf.with("policyDigest", "BYTE[]", "policyDigestSize", "UINT16").readSizedByteBuf(); }
+void PolicyGetDigestResponse::Deserialize(Serializer& buf) { policyDigest = buf.with("policyDigest", "std::uint8_t[]", "policyDigestSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_PolicyNvWritten_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeByte(writtenSet); }
 
@@ -5365,13 +5365,13 @@ void TPM2_PolicyNvWritten_REQUEST::initFromTpm(TpmBuffer& buf) { writtenSet = bu
 void TPM2_PolicyNvWritten_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("writtenSet", "BYTE").writeByte(writtenSet);
+    buf.with("writtenSet", "bool").writeByte(writtenSet);
 }
 
 void TPM2_PolicyNvWritten_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    writtenSet = buf.with("writtenSet", "BYTE").readByte();
+    writtenSet = buf.with("writtenSet", "bool").readByte();
 }
 
 void TPM2_PolicyTemplate_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(templateHash); }
@@ -5381,13 +5381,13 @@ void TPM2_PolicyTemplate_REQUEST::initFromTpm(TpmBuffer& buf) { templateHash = b
 void TPM2_PolicyTemplate_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("templateHash", "BYTE[]", "templateHashSize", "UINT16").writeSizedByteBuf(templateHash);
+    buf.with("templateHash", "std::uint8_t[]", "templateHashSize", "std::uint16_t").writeSizedByteBuf(templateHash);
 }
 
 void TPM2_PolicyTemplate_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    templateHash = buf.with("templateHash", "BYTE[]", "templateHashSize", "UINT16").readSizedByteBuf();
+    templateHash = buf.with("templateHash", "std::uint8_t[]", "templateHashSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_PolicyAuthorizeNV_REQUEST::Serialize(Serializer& buf) const
@@ -5423,19 +5423,19 @@ void TPM2_CreatePrimary_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_CreatePrimary_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("primaryHandle", "TPM_HANDLE").writeObj(primaryHandle);
-    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "UINT16").writeObj(inSensitive);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").writeObj(inPublic);
-    buf.with("outsideInfo", "BYTE[]", "outsideInfoSize", "UINT16").writeSizedByteBuf(outsideInfo);
-    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "UINT32").writeObjArr(creationPCR);
+    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "std::uint16_t").writeObj(inSensitive);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").writeObj(inPublic);
+    buf.with("outsideInfo", "std::uint8_t[]", "outsideInfoSize", "std::uint16_t").writeSizedByteBuf(outsideInfo);
+    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "std::uint32_t").writeObjArr(creationPCR);
 }
 
 void TPM2_CreatePrimary_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("primaryHandle", "TPM_HANDLE").readObj(primaryHandle);
-    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "UINT16").readObj(inSensitive);
-    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "UINT16").readObj(inPublic);
-    outsideInfo = buf.with("outsideInfo", "BYTE[]", "outsideInfoSize", "UINT16").readSizedByteBuf();
-    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "UINT32").readObjArr(creationPCR);
+    buf.with("inSensitive", "TPMS_SENSITIVE_CREATE", "inSensitiveSize", "std::uint16_t").readObj(inSensitive);
+    buf.with("inPublic", "TPMT_PUBLIC", "inPublicSize", "std::uint16_t").readObj(inPublic);
+    outsideInfo = buf.with("outsideInfo", "std::uint8_t[]", "outsideInfoSize", "std::uint16_t").readSizedByteBuf();
+    buf.with("creationPCR", "TPMS_PCR_SELECTION[]", "creationPCRCount", "std::uint32_t").readObjArr(creationPCR);
 }
 
 void CreatePrimaryResponse::toTpm(TpmBuffer& buf) const
@@ -5459,21 +5459,21 @@ void CreatePrimaryResponse::initFromTpm(TpmBuffer& buf)
 void CreatePrimaryResponse::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").writeObj(outPublic);
-    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "UINT16").writeObj(creationData);
-    buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").writeSizedByteBuf(creationHash);
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").writeObj(outPublic);
+    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "std::uint16_t").writeObj(creationData);
+    buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").writeSizedByteBuf(creationHash);
     buf.with("creationTicket", "TPMT_TK_CREATION").writeObj(creationTicket);
-    buf.with("name", "BYTE[]", "nameSize", "UINT16").writeSizedByteBuf(name);
+    buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").writeSizedByteBuf(name);
 }
 
 void CreatePrimaryResponse::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "UINT16").readObj(outPublic);
-    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "UINT16").readObj(creationData);
-    creationHash = buf.with("creationHash", "BYTE[]", "creationHashSize", "UINT16").readSizedByteBuf();
+    buf.with("outPublic", "TPMT_PUBLIC", "outPublicSize", "std::uint16_t").readObj(outPublic);
+    buf.with("creationData", "TPMS_CREATION_DATA", "creationDataSize", "std::uint16_t").readObj(creationData);
+    creationHash = buf.with("creationHash", "std::uint8_t[]", "creationHashSize", "std::uint16_t").readSizedByteBuf();
     buf.with("creationTicket", "TPMT_TK_CREATION").readObj(creationTicket);
-    name = buf.with("name", "BYTE[]", "nameSize", "UINT16").readSizedByteBuf();
+    name = buf.with("name", "std::uint8_t[]", "nameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_HierarchyControl_REQUEST::toTpm(TpmBuffer& buf) const
@@ -5492,14 +5492,14 @@ void TPM2_HierarchyControl_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("enable", "TPM_HANDLE").writeObj(enable);
-    buf.with("state", "BYTE").writeByte(state);
+    buf.with("state", "bool").writeByte(state);
 }
 
 void TPM2_HierarchyControl_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("enable", "TPM_HANDLE").readObj(enable);
-    state = buf.with("state", "BYTE").readByte();
+    state = buf.with("state", "bool").readByte();
 }
 
 void TPM2_SetPrimaryPolicy_REQUEST::toTpm(TpmBuffer& buf) const
@@ -5517,14 +5517,14 @@ void TPM2_SetPrimaryPolicy_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_SetPrimaryPolicy_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
-    buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").writeSizedByteBuf(authPolicy);
+    buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").writeSizedByteBuf(authPolicy);
     buf.with("hashAlg", "TPM_ALG_ID").writeEnum(hashAlg);
 }
 
 void TPM2_SetPrimaryPolicy_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
-    authPolicy = buf.with("authPolicy", "BYTE[]", "authPolicySize", "UINT16").readSizedByteBuf();
+    authPolicy = buf.with("authPolicy", "std::uint8_t[]", "authPolicySize", "std::uint16_t").readSizedByteBuf();
     buf.with("hashAlg", "TPM_ALG_ID").readEnum(hashAlg);
 }
 
@@ -5547,13 +5547,13 @@ void TPM2_ClearControl_REQUEST::initFromTpm(TpmBuffer& buf) { disable = buf.read
 void TPM2_ClearControl_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("auth", "TPM_HANDLE").writeObj(auth);
-    buf.with("disable", "BYTE").writeByte(disable);
+    buf.with("disable", "bool").writeByte(disable);
 }
 
 void TPM2_ClearControl_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("auth", "TPM_HANDLE").readObj(auth);
-    disable = buf.with("disable", "BYTE").readByte();
+    disable = buf.with("disable", "bool").readByte();
 }
 
 void TPM2_HierarchyChangeAuth_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(newAuth); }
@@ -5563,13 +5563,13 @@ void TPM2_HierarchyChangeAuth_REQUEST::initFromTpm(TpmBuffer& buf) { newAuth = b
 void TPM2_HierarchyChangeAuth_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
-    buf.with("newAuth", "BYTE[]", "newAuthSize", "UINT16").writeSizedByteBuf(newAuth);
+    buf.with("newAuth", "std::uint8_t[]", "newAuthSize", "std::uint16_t").writeSizedByteBuf(newAuth);
 }
 
 void TPM2_HierarchyChangeAuth_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
-    newAuth = buf.with("newAuth", "BYTE[]", "newAuthSize", "UINT16").readSizedByteBuf();
+    newAuth = buf.with("newAuth", "std::uint8_t[]", "newAuthSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_DictionaryAttackLockReset_REQUEST::Serialize(Serializer& buf) const { buf.with("lockHandle", "TPM_HANDLE").writeObj(lockHandle); }
@@ -5593,17 +5593,17 @@ void TPM2_DictionaryAttackParameters_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_DictionaryAttackParameters_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("lockHandle", "TPM_HANDLE").writeObj(lockHandle);
-    buf.with("newMaxTries", "UINT32").writeInt(newMaxTries);
-    buf.with("newRecoveryTime", "UINT32").writeInt(newRecoveryTime);
-    buf.with("lockoutRecovery", "UINT32").writeInt(lockoutRecovery);
+    buf.with("newMaxTries", "std::uint32_t").writeInt(newMaxTries);
+    buf.with("newRecoveryTime", "std::uint32_t").writeInt(newRecoveryTime);
+    buf.with("lockoutRecovery", "std::uint32_t").writeInt(lockoutRecovery);
 }
 
 void TPM2_DictionaryAttackParameters_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("lockHandle", "TPM_HANDLE").readObj(lockHandle);
-    newMaxTries = buf.with("newMaxTries", "UINT32").readInt();
-    newRecoveryTime = buf.with("newRecoveryTime", "UINT32").readInt();
-    lockoutRecovery = buf.with("lockoutRecovery", "UINT32").readInt();
+    newMaxTries = buf.with("newMaxTries", "std::uint32_t").readInt();
+    newRecoveryTime = buf.with("newRecoveryTime", "std::uint32_t").readInt();
+    lockoutRecovery = buf.with("lockoutRecovery", "std::uint32_t").readInt();
 }
 
 void TPM2_PP_Commands_REQUEST::toTpm(TpmBuffer& buf) const
@@ -5621,15 +5621,15 @@ void TPM2_PP_Commands_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_PP_Commands_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("auth", "TPM_HANDLE").writeObj(auth);
-    buf.with("setList", "TPM_CC[]", "setListCount", "UINT32").writeEnumArr(setList);
-    buf.with("clearList", "TPM_CC[]", "clearListCount", "UINT32").writeEnumArr(clearList);
+    buf.with("setList", "TPM_CC[]", "setListCount", "std::uint32_t").writeEnumArr(setList);
+    buf.with("clearList", "TPM_CC[]", "clearListCount", "std::uint32_t").writeEnumArr(clearList);
 }
 
 void TPM2_PP_Commands_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("auth", "TPM_HANDLE").readObj(auth);
-    buf.with("setList", "TPM_CC[]", "setListCount", "UINT32").readEnumArr(setList);
-    buf.with("clearList", "TPM_CC[]", "clearListCount", "UINT32").readEnumArr(clearList);
+    buf.with("setList", "TPM_CC[]", "setListCount", "std::uint32_t").readEnumArr(setList);
+    buf.with("clearList", "TPM_CC[]", "clearListCount", "std::uint32_t").readEnumArr(clearList);
 }
 
 void TPM2_SetAlgorithmSet_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeInt(algorithmSet); }
@@ -5639,13 +5639,13 @@ void TPM2_SetAlgorithmSet_REQUEST::initFromTpm(TpmBuffer& buf) { algorithmSet = 
 void TPM2_SetAlgorithmSet_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
-    buf.with("algorithmSet", "UINT32").writeInt(algorithmSet);
+    buf.with("algorithmSet", "std::uint32_t").writeInt(algorithmSet);
 }
 
 void TPM2_SetAlgorithmSet_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
-    algorithmSet = buf.with("algorithmSet", "UINT32").readInt();
+    algorithmSet = buf.with("algorithmSet", "std::uint32_t").readInt();
 }
 
 void TPM2_FieldUpgradeStart_REQUEST::toTpm(TpmBuffer& buf) const
@@ -5667,7 +5667,7 @@ void TPM2_FieldUpgradeStart_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authorization", "TPM_HANDLE").writeObj(authorization);
     buf.with("keyHandle", "TPM_HANDLE").writeObj(keyHandle);
-    buf.with("fuDigest", "BYTE[]", "fuDigestSize", "UINT16").writeSizedByteBuf(fuDigest);
+    buf.with("fuDigest", "std::uint8_t[]", "fuDigestSize", "std::uint16_t").writeSizedByteBuf(fuDigest);
     buf.with("manifestSignatureSigAlg", "TPM_ALG_ID").writeEnum(manifestSignatureSigAlg());
     if (manifestSignature) buf.with("manifestSignature", "TPMU_SIGNATURE").writeObj(*manifestSignature);
 }
@@ -5676,7 +5676,7 @@ void TPM2_FieldUpgradeStart_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authorization", "TPM_HANDLE").readObj(authorization);
     buf.with("keyHandle", "TPM_HANDLE").readObj(keyHandle);
-    fuDigest = buf.with("fuDigest", "BYTE[]", "fuDigestSize", "UINT16").readSizedByteBuf();
+    fuDigest = buf.with("fuDigest", "std::uint8_t[]", "fuDigestSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID manifestSignatureSigAlg;
     buf.with("manifestSignatureSigAlg", "TPM_ALG_ID").readEnum(manifestSignatureSigAlg);
     if (!manifestSignatureSigAlg) manifestSignature.reset();
@@ -5688,9 +5688,9 @@ void TPM2_FieldUpgradeData_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSized
 
 void TPM2_FieldUpgradeData_REQUEST::initFromTpm(TpmBuffer& buf) { fuData = buf.readSizedByteBuf(); }
 
-void TPM2_FieldUpgradeData_REQUEST::Serialize(Serializer& buf) const { buf.with("fuData", "BYTE[]", "fuDataSize", "UINT16").writeSizedByteBuf(fuData); }
+void TPM2_FieldUpgradeData_REQUEST::Serialize(Serializer& buf) const { buf.with("fuData", "std::uint8_t[]", "fuDataSize", "std::uint16_t").writeSizedByteBuf(fuData); }
 
-void TPM2_FieldUpgradeData_REQUEST::Deserialize(Serializer& buf) { fuData = buf.with("fuData", "BYTE[]", "fuDataSize", "UINT16").readSizedByteBuf(); }
+void TPM2_FieldUpgradeData_REQUEST::Deserialize(Serializer& buf) { fuData = buf.with("fuData", "std::uint8_t[]", "fuDataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void FieldUpgradeDataResponse::toTpm(TpmBuffer& buf) const
 {
@@ -5720,17 +5720,17 @@ void TPM2_FirmwareRead_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeInt(seque
 
 void TPM2_FirmwareRead_REQUEST::initFromTpm(TpmBuffer& buf) { sequenceNumber = buf.readInt(); }
 
-void TPM2_FirmwareRead_REQUEST::Serialize(Serializer& buf) const { buf.with("sequenceNumber", "UINT32").writeInt(sequenceNumber); }
+void TPM2_FirmwareRead_REQUEST::Serialize(Serializer& buf) const { buf.with("sequenceNumber", "std::uint32_t").writeInt(sequenceNumber); }
 
-void TPM2_FirmwareRead_REQUEST::Deserialize(Serializer& buf) { sequenceNumber = buf.with("sequenceNumber", "UINT32").readInt(); }
+void TPM2_FirmwareRead_REQUEST::Deserialize(Serializer& buf) { sequenceNumber = buf.with("sequenceNumber", "std::uint32_t").readInt(); }
 
 void FirmwareReadResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(fuData); }
 
 void FirmwareReadResponse::initFromTpm(TpmBuffer& buf) { fuData = buf.readSizedByteBuf(); }
 
-void FirmwareReadResponse::Serialize(Serializer& buf) const { buf.with("fuData", "BYTE[]", "fuDataSize", "UINT16").writeSizedByteBuf(fuData); }
+void FirmwareReadResponse::Serialize(Serializer& buf) const { buf.with("fuData", "std::uint8_t[]", "fuDataSize", "std::uint16_t").writeSizedByteBuf(fuData); }
 
-void FirmwareReadResponse::Deserialize(Serializer& buf) { fuData = buf.with("fuData", "BYTE[]", "fuDataSize", "UINT16").readSizedByteBuf(); }
+void FirmwareReadResponse::Deserialize(Serializer& buf) { fuData = buf.with("fuData", "std::uint8_t[]", "fuDataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_ContextSave_REQUEST::Serialize(Serializer& buf) const { buf.with("saveHandle", "TPM_HANDLE").writeObj(saveHandle); }
 
@@ -5797,13 +5797,13 @@ void TPM2_ClockSet_REQUEST::initFromTpm(TpmBuffer& buf) { newTime = buf.readInt6
 void TPM2_ClockSet_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("auth", "TPM_HANDLE").writeObj(auth);
-    buf.with("newTime", "UINT64").writeInt64(newTime);
+    buf.with("newTime", "std::uint64_t").writeInt64(newTime);
 }
 
 void TPM2_ClockSet_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("auth", "TPM_HANDLE").readObj(auth);
-    newTime = buf.with("newTime", "UINT64").readInt64();
+    newTime = buf.with("newTime", "std::uint64_t").readInt64();
 }
 
 void TPM2_ClockRateAdjust_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeByte(rateAdjust); }
@@ -5839,15 +5839,15 @@ void TPM2_GetCapability_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_GetCapability_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("capability", "TPM_CAP").writeEnum(capability);
-    buf.with("property", "UINT32").writeInt(property);
-    buf.with("propertyCount", "UINT32").writeInt(propertyCount);
+    buf.with("property", "std::uint32_t").writeInt(property);
+    buf.with("propertyCount", "std::uint32_t").writeInt(propertyCount);
 }
 
 void TPM2_GetCapability_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("capability", "TPM_CAP").readEnum(capability);
-    property = buf.with("property", "UINT32").readInt();
-    propertyCount = buf.with("propertyCount", "UINT32").readInt();
+    property = buf.with("property", "std::uint32_t").readInt();
+    propertyCount = buf.with("propertyCount", "std::uint32_t").readInt();
 }
 
 void GetCapabilityResponse::toTpm(TpmBuffer& buf) const
@@ -5867,14 +5867,14 @@ void GetCapabilityResponse::initFromTpm(TpmBuffer& buf)
 
 void GetCapabilityResponse::Serialize(Serializer& buf) const
 {
-    buf.with("moreData", "BYTE").writeByte(moreData);
+    buf.with("moreData", "bool").writeByte(moreData);
     buf.with("capabilityDataCapability", "TPM_CAP").writeEnum(!capabilityData ? (TPM_CAP)0 : capabilityDataCapability());
     if (capabilityData) buf.with("capabilityData", "TPMU_CAPABILITIES").writeObj(*capabilityData);
 }
 
 void GetCapabilityResponse::Deserialize(Serializer& buf)
 {
-    moreData = buf.with("moreData", "BYTE").readByte();
+    moreData = buf.with("moreData", "bool").readByte();
     TPM_CAP capabilityDataCapability;
     buf.with("capabilityDataCapability", "TPM_CAP").readEnum(capabilityDataCapability);
     if (!capabilityDataCapability) capabilityData.reset();
@@ -5926,15 +5926,15 @@ void TPM2_NV_DefineSpace_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_NV_DefineSpace_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
-    buf.with("auth", "BYTE[]", "authSize", "UINT16").writeSizedByteBuf(auth);
-    buf.with("publicInfo", "TPMS_NV_PUBLIC", "publicInfoSize", "UINT16").writeObj(publicInfo);
+    buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").writeSizedByteBuf(auth);
+    buf.with("publicInfo", "TPMS_NV_PUBLIC", "publicInfoSize", "std::uint16_t").writeObj(publicInfo);
 }
 
 void TPM2_NV_DefineSpace_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
-    auth = buf.with("auth", "BYTE[]", "authSize", "UINT16").readSizedByteBuf();
-    buf.with("publicInfo", "TPMS_NV_PUBLIC", "publicInfoSize", "UINT16").readObj(publicInfo);
+    auth = buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").readSizedByteBuf();
+    buf.with("publicInfo", "TPMS_NV_PUBLIC", "publicInfoSize", "std::uint16_t").readObj(publicInfo);
 }
 
 void TPM2_NV_UndefineSpace_REQUEST::Serialize(Serializer& buf) const
@@ -5979,14 +5979,14 @@ void NV_ReadPublicResponse::initFromTpm(TpmBuffer& buf)
 
 void NV_ReadPublicResponse::Serialize(Serializer& buf) const
 {
-    buf.with("nvPublic", "TPMS_NV_PUBLIC", "nvPublicSize", "UINT16").writeObj(nvPublic);
-    buf.with("nvName", "BYTE[]", "nvNameSize", "UINT16").writeSizedByteBuf(nvName);
+    buf.with("nvPublic", "TPMS_NV_PUBLIC", "nvPublicSize", "std::uint16_t").writeObj(nvPublic);
+    buf.with("nvName", "std::uint8_t[]", "nvNameSize", "std::uint16_t").writeSizedByteBuf(nvName);
 }
 
 void NV_ReadPublicResponse::Deserialize(Serializer& buf)
 {
-    buf.with("nvPublic", "TPMS_NV_PUBLIC", "nvPublicSize", "UINT16").readObj(nvPublic);
-    nvName = buf.with("nvName", "BYTE[]", "nvNameSize", "UINT16").readSizedByteBuf();
+    buf.with("nvPublic", "TPMS_NV_PUBLIC", "nvPublicSize", "std::uint16_t").readObj(nvPublic);
+    nvName = buf.with("nvName", "std::uint8_t[]", "nvNameSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_NV_Write_REQUEST::toTpm(TpmBuffer& buf) const
@@ -6005,16 +6005,16 @@ void TPM2_NV_Write_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
-    buf.with("data", "BYTE[]", "dataSize", "UINT16").writeSizedByteBuf(data);
-    buf.with("offset", "UINT16").writeShort(offset);
+    buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").writeSizedByteBuf(data);
+    buf.with("offset", "std::uint16_t").writeShort(offset);
 }
 
 void TPM2_NV_Write_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
-    data = buf.with("data", "BYTE[]", "dataSize", "UINT16").readSizedByteBuf();
-    offset = buf.with("offset", "UINT16").readShort();
+    data = buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").readSizedByteBuf();
+    offset = buf.with("offset", "std::uint16_t").readShort();
 }
 
 void TPM2_NV_Increment_REQUEST::Serialize(Serializer& buf) const
@@ -6037,14 +6037,14 @@ void TPM2_NV_Extend_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
-    buf.with("data", "BYTE[]", "dataSize", "UINT16").writeSizedByteBuf(data);
+    buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").writeSizedByteBuf(data);
 }
 
 void TPM2_NV_Extend_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
-    data = buf.with("data", "BYTE[]", "dataSize", "UINT16").readSizedByteBuf();
+    data = buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_NV_SetBits_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeInt64(bits); }
@@ -6055,14 +6055,14 @@ void TPM2_NV_SetBits_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
-    buf.with("bits", "UINT64").writeInt64(bits);
+    buf.with("bits", "std::uint64_t").writeInt64(bits);
 }
 
 void TPM2_NV_SetBits_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
-    bits = buf.with("bits", "UINT64").readInt64();
+    bits = buf.with("bits", "std::uint64_t").readInt64();
 }
 
 void TPM2_NV_WriteLock_REQUEST::Serialize(Serializer& buf) const
@@ -6097,25 +6097,25 @@ void TPM2_NV_Read_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
-    buf.with("size", "UINT16").writeShort(size);
-    buf.with("offset", "UINT16").writeShort(offset);
+    buf.with("size", "std::uint16_t").writeShort(size);
+    buf.with("offset", "std::uint16_t").writeShort(offset);
 }
 
 void TPM2_NV_Read_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
-    size = buf.with("size", "UINT16").readShort();
-    offset = buf.with("offset", "UINT16").readShort();
+    size = buf.with("size", "std::uint16_t").readShort();
+    offset = buf.with("offset", "std::uint16_t").readShort();
 }
 
 void NV_ReadResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(data); }
 
 void NV_ReadResponse::initFromTpm(TpmBuffer& buf) { data = buf.readSizedByteBuf(); }
 
-void NV_ReadResponse::Serialize(Serializer& buf) const { buf.with("data", "BYTE[]", "dataSize", "UINT16").writeSizedByteBuf(data); }
+void NV_ReadResponse::Serialize(Serializer& buf) const { buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").writeSizedByteBuf(data); }
 
-void NV_ReadResponse::Deserialize(Serializer& buf) { data = buf.with("data", "BYTE[]", "dataSize", "UINT16").readSizedByteBuf(); }
+void NV_ReadResponse::Deserialize(Serializer& buf) { data = buf.with("data", "std::uint8_t[]", "dataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TPM2_NV_ReadLock_REQUEST::Serialize(Serializer& buf) const
 {
@@ -6136,13 +6136,13 @@ void TPM2_NV_ChangeAuth_REQUEST::initFromTpm(TpmBuffer& buf) { newAuth = buf.rea
 void TPM2_NV_ChangeAuth_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
-    buf.with("newAuth", "BYTE[]", "newAuthSize", "UINT16").writeSizedByteBuf(newAuth);
+    buf.with("newAuth", "std::uint8_t[]", "newAuthSize", "std::uint16_t").writeSizedByteBuf(newAuth);
 }
 
 void TPM2_NV_ChangeAuth_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
-    newAuth = buf.with("newAuth", "BYTE[]", "newAuthSize", "UINT16").readSizedByteBuf();
+    newAuth = buf.with("newAuth", "std::uint8_t[]", "newAuthSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void TPM2_NV_Certify_REQUEST::toTpm(TpmBuffer& buf) const
@@ -6169,11 +6169,11 @@ void TPM2_NV_Certify_REQUEST::Serialize(Serializer& buf) const
     buf.with("signHandle", "TPM_HANDLE").writeObj(signHandle);
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").writeObj(nvIndex);
-    buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").writeSizedByteBuf(qualifyingData);
+    buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").writeSizedByteBuf(qualifyingData);
     buf.with("inSchemeScheme", "TPM_ALG_ID").writeEnum(inSchemeScheme());
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").writeObj(*inScheme);
-    buf.with("size", "UINT16").writeShort(size);
-    buf.with("offset", "UINT16").writeShort(offset);
+    buf.with("size", "std::uint16_t").writeShort(size);
+    buf.with("offset", "std::uint16_t").writeShort(offset);
 }
 
 void TPM2_NV_Certify_REQUEST::Deserialize(Serializer& buf)
@@ -6181,14 +6181,14 @@ void TPM2_NV_Certify_REQUEST::Deserialize(Serializer& buf)
     buf.with("signHandle", "TPM_HANDLE").readObj(signHandle);
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("nvIndex", "TPM_HANDLE").readObj(nvIndex);
-    qualifyingData = buf.with("qualifyingData", "BYTE[]", "qualifyingDataSize", "UINT16").readSizedByteBuf();
+    qualifyingData = buf.with("qualifyingData", "std::uint8_t[]", "qualifyingDataSize", "std::uint16_t").readSizedByteBuf();
     TPM_ALG_ID inSchemeScheme;
     buf.with("inSchemeScheme", "TPM_ALG_ID").readEnum(inSchemeScheme);
     if (!inSchemeScheme) inScheme.reset();
     else inScheme = CreateUnion<TPMU_SIG_SCHEME>(inSchemeScheme);
     if (inScheme) buf.with("inScheme", "TPMU_SIG_SCHEME").readObj(*inScheme);
-    size = buf.with("size", "UINT16").readShort();
-    offset = buf.with("offset", "UINT16").readShort();
+    size = buf.with("size", "std::uint16_t").readShort();
+    offset = buf.with("offset", "std::uint16_t").readShort();
 }
 
 void NV_CertifyResponse::toTpm(TpmBuffer& buf) const
@@ -6208,14 +6208,14 @@ void NV_CertifyResponse::initFromTpm(TpmBuffer& buf)
 
 void NV_CertifyResponse::Serialize(Serializer& buf) const
 {
-    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "UINT16").writeObj(certifyInfo);
+    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "std::uint16_t").writeObj(certifyInfo);
     buf.with("signatureSigAlg", "TPM_ALG_ID").writeEnum(signatureSigAlg());
     if (signature) buf.with("signature", "TPMU_SIGNATURE").writeObj(*signature);
 }
 
 void NV_CertifyResponse::Deserialize(Serializer& buf)
 {
-    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "UINT16").readObj(certifyInfo);
+    buf.with("certifyInfo", "TPMS_ATTEST", "certifyInfoSize", "std::uint16_t").readObj(certifyInfo);
     TPM_ALG_ID signatureSigAlg;
     buf.with("signatureSigAlg", "TPM_ALG_ID").readEnum(signatureSigAlg);
     if (!signatureSigAlg) signature.reset();
@@ -6239,14 +6239,14 @@ void TPM2_AC_GetCapability_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("ac", "TPM_HANDLE").writeObj(ac);
     buf.with("capability", "TPM_AT").writeEnum(capability);
-    buf.with("count", "UINT32").writeInt(count);
+    buf.with("count", "std::uint32_t").writeInt(count);
 }
 
 void TPM2_AC_GetCapability_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("ac", "TPM_HANDLE").readObj(ac);
     buf.with("capability", "TPM_AT").readEnum(capability);
-    count = buf.with("count", "UINT32").readInt();
+    count = buf.with("count", "std::uint32_t").readInt();
 }
 
 void AC_GetCapabilityResponse::toTpm(TpmBuffer& buf) const
@@ -6263,14 +6263,14 @@ void AC_GetCapabilityResponse::initFromTpm(TpmBuffer& buf)
 
 void AC_GetCapabilityResponse::Serialize(Serializer& buf) const
 {
-    buf.with("moreData", "BYTE").writeByte(moreData);
-    buf.with("capabilitiesData", "TPMS_AC_OUTPUT[]", "capabilitiesDataCount", "UINT32").writeObjArr(capabilitiesData);
+    buf.with("moreData", "bool").writeByte(moreData);
+    buf.with("capabilitiesData", "TPMS_AC_OUTPUT[]", "capabilitiesDataCount", "std::uint32_t").writeObjArr(capabilitiesData);
 }
 
 void AC_GetCapabilityResponse::Deserialize(Serializer& buf)
 {
-    moreData = buf.with("moreData", "BYTE").readByte();
-    buf.with("capabilitiesData", "TPMS_AC_OUTPUT[]", "capabilitiesDataCount", "UINT32").readObjArr(capabilitiesData);
+    moreData = buf.with("moreData", "bool").readByte();
+    buf.with("capabilitiesData", "TPMS_AC_OUTPUT[]", "capabilitiesDataCount", "std::uint32_t").readObjArr(capabilitiesData);
 }
 
 void TPM2_AC_Send_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(acDataIn); }
@@ -6282,7 +6282,7 @@ void TPM2_AC_Send_REQUEST::Serialize(Serializer& buf) const
     buf.with("sendObject", "TPM_HANDLE").writeObj(sendObject);
     buf.with("authHandle", "TPM_HANDLE").writeObj(authHandle);
     buf.with("ac", "TPM_HANDLE").writeObj(ac);
-    buf.with("acDataIn", "BYTE[]", "acDataInSize", "UINT16").writeSizedByteBuf(acDataIn);
+    buf.with("acDataIn", "std::uint8_t[]", "acDataInSize", "std::uint16_t").writeSizedByteBuf(acDataIn);
 }
 
 void TPM2_AC_Send_REQUEST::Deserialize(Serializer& buf)
@@ -6290,7 +6290,7 @@ void TPM2_AC_Send_REQUEST::Deserialize(Serializer& buf)
     buf.with("sendObject", "TPM_HANDLE").readObj(sendObject);
     buf.with("authHandle", "TPM_HANDLE").readObj(authHandle);
     buf.with("ac", "TPM_HANDLE").readObj(ac);
-    acDataIn = buf.with("acDataIn", "BYTE[]", "acDataInSize", "UINT16").readSizedByteBuf();
+    acDataIn = buf.with("acDataIn", "std::uint8_t[]", "acDataInSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void AC_SendResponse::toTpm(TpmBuffer& buf) const { acDataOut.toTpm(buf); }
@@ -6320,19 +6320,19 @@ void TPM2_Policy_AC_SendSelect_REQUEST::initFromTpm(TpmBuffer& buf)
 void TPM2_Policy_AC_SendSelect_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("policySession", "TPM_HANDLE").writeObj(policySession);
-    buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").writeSizedByteBuf(objectName);
-    buf.with("authHandleName", "BYTE[]", "authHandleNameSize", "UINT16").writeSizedByteBuf(authHandleName);
-    buf.with("acName", "BYTE[]", "acNameSize", "UINT16").writeSizedByteBuf(acName);
-    buf.with("includeObject", "BYTE").writeByte(includeObject);
+    buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").writeSizedByteBuf(objectName);
+    buf.with("authHandleName", "std::uint8_t[]", "authHandleNameSize", "std::uint16_t").writeSizedByteBuf(authHandleName);
+    buf.with("acName", "std::uint8_t[]", "acNameSize", "std::uint16_t").writeSizedByteBuf(acName);
+    buf.with("includeObject", "bool").writeByte(includeObject);
 }
 
 void TPM2_Policy_AC_SendSelect_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("policySession", "TPM_HANDLE").readObj(policySession);
-    objectName = buf.with("objectName", "BYTE[]", "objectNameSize", "UINT16").readSizedByteBuf();
-    authHandleName = buf.with("authHandleName", "BYTE[]", "authHandleNameSize", "UINT16").readSizedByteBuf();
-    acName = buf.with("acName", "BYTE[]", "acNameSize", "UINT16").readSizedByteBuf();
-    includeObject = buf.with("includeObject", "BYTE").readByte();
+    objectName = buf.with("objectName", "std::uint8_t[]", "objectNameSize", "std::uint16_t").readSizedByteBuf();
+    authHandleName = buf.with("authHandleName", "std::uint8_t[]", "authHandleNameSize", "std::uint16_t").readSizedByteBuf();
+    acName = buf.with("acName", "std::uint8_t[]", "acNameSize", "std::uint16_t").readSizedByteBuf();
+    includeObject = buf.with("includeObject", "bool").readByte();
 }
 
 void TPM2_ACT_SetTimeout_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeInt(startTimeout); }
@@ -6342,30 +6342,30 @@ void TPM2_ACT_SetTimeout_REQUEST::initFromTpm(TpmBuffer& buf) { startTimeout = b
 void TPM2_ACT_SetTimeout_REQUEST::Serialize(Serializer& buf) const
 {
     buf.with("actHandle", "TPM_HANDLE").writeObj(actHandle);
-    buf.with("startTimeout", "UINT32").writeInt(startTimeout);
+    buf.with("startTimeout", "std::uint32_t").writeInt(startTimeout);
 }
 
 void TPM2_ACT_SetTimeout_REQUEST::Deserialize(Serializer& buf)
 {
     buf.with("actHandle", "TPM_HANDLE").readObj(actHandle);
-    startTimeout = buf.with("startTimeout", "UINT32").readInt();
+    startTimeout = buf.with("startTimeout", "std::uint32_t").readInt();
 }
 
 void TPM2_Vendor_TCG_Test_REQUEST::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(inputData); }
 
 void TPM2_Vendor_TCG_Test_REQUEST::initFromTpm(TpmBuffer& buf) { inputData = buf.readSizedByteBuf(); }
 
-void TPM2_Vendor_TCG_Test_REQUEST::Serialize(Serializer& buf) const { buf.with("inputData", "BYTE[]", "inputDataSize", "UINT16").writeSizedByteBuf(inputData); }
+void TPM2_Vendor_TCG_Test_REQUEST::Serialize(Serializer& buf) const { buf.with("inputData", "std::uint8_t[]", "inputDataSize", "std::uint16_t").writeSizedByteBuf(inputData); }
 
-void TPM2_Vendor_TCG_Test_REQUEST::Deserialize(Serializer& buf) { inputData = buf.with("inputData", "BYTE[]", "inputDataSize", "UINT16").readSizedByteBuf(); }
+void TPM2_Vendor_TCG_Test_REQUEST::Deserialize(Serializer& buf) { inputData = buf.with("inputData", "std::uint8_t[]", "inputDataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void Vendor_TCG_TestResponse::toTpm(TpmBuffer& buf) const { buf.writeSizedByteBuf(outputData); }
 
 void Vendor_TCG_TestResponse::initFromTpm(TpmBuffer& buf) { outputData = buf.readSizedByteBuf(); }
 
-void Vendor_TCG_TestResponse::Serialize(Serializer& buf) const { buf.with("outputData", "BYTE[]", "outputDataSize", "UINT16").writeSizedByteBuf(outputData); }
+void Vendor_TCG_TestResponse::Serialize(Serializer& buf) const { buf.with("outputData", "std::uint8_t[]", "outputDataSize", "std::uint16_t").writeSizedByteBuf(outputData); }
 
-void Vendor_TCG_TestResponse::Deserialize(Serializer& buf) { outputData = buf.with("outputData", "BYTE[]", "outputDataSize", "UINT16").readSizedByteBuf(); }
+void Vendor_TCG_TestResponse::Deserialize(Serializer& buf) { outputData = buf.with("outputData", "std::uint8_t[]", "outputDataSize", "std::uint16_t").readSizedByteBuf(); }
 
 void TssObject::toTpm(TpmBuffer& buf) const
 {
@@ -6409,13 +6409,13 @@ void PcrValue::initFromTpm(TpmBuffer& buf)
 
 void PcrValue::Serialize(Serializer& buf) const
 {
-    buf.with("index", "UINT32").writeInt(index);
+    buf.with("index", "std::uint32_t").writeInt(index);
     buf.with("value", "TPMT_HA").writeObj(value);
 }
 
 void PcrValue::Deserialize(Serializer& buf)
 {
-    index = buf.with("index", "UINT32").readInt();
+    index = buf.with("index", "std::uint32_t").readInt();
     buf.with("value", "TPMT_HA").readObj(value);
 }
 
@@ -6438,17 +6438,17 @@ void SessionIn::initFromTpm(TpmBuffer& buf)
 void SessionIn::Serialize(Serializer& buf) const
 {
     buf.with("handle", "TPM_HANDLE").writeObj(handle);
-    buf.with("nonceCaller", "BYTE[]", "nonceCallerSize", "UINT16").writeSizedByteBuf(nonceCaller);
+    buf.with("nonceCaller", "std::uint8_t[]", "nonceCallerSize", "std::uint16_t").writeSizedByteBuf(nonceCaller);
     buf.with("attributes", "TPMA_SESSION").writeEnum(attributes);
-    buf.with("auth", "BYTE[]", "authSize", "UINT16").writeSizedByteBuf(auth);
+    buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").writeSizedByteBuf(auth);
 }
 
 void SessionIn::Deserialize(Serializer& buf)
 {
     buf.with("handle", "TPM_HANDLE").readObj(handle);
-    nonceCaller = buf.with("nonceCaller", "BYTE[]", "nonceCallerSize", "UINT16").readSizedByteBuf();
+    nonceCaller = buf.with("nonceCaller", "std::uint8_t[]", "nonceCallerSize", "std::uint16_t").readSizedByteBuf();
     buf.with("attributes", "TPMA_SESSION").readEnum(attributes);
-    auth = buf.with("auth", "BYTE[]", "authSize", "UINT16").readSizedByteBuf();
+    auth = buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void SessionOut::toTpm(TpmBuffer& buf) const
@@ -6467,16 +6467,16 @@ void SessionOut::initFromTpm(TpmBuffer& buf)
 
 void SessionOut::Serialize(Serializer& buf) const
 {
-    buf.with("nonceTpm", "BYTE[]", "nonceTpmSize", "UINT16").writeSizedByteBuf(nonceTpm);
+    buf.with("nonceTpm", "std::uint8_t[]", "nonceTpmSize", "std::uint16_t").writeSizedByteBuf(nonceTpm);
     buf.with("attributes", "TPMA_SESSION").writeEnum(attributes);
-    buf.with("auth", "BYTE[]", "authSize", "UINT16").writeSizedByteBuf(auth);
+    buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").writeSizedByteBuf(auth);
 }
 
 void SessionOut::Deserialize(Serializer& buf)
 {
-    nonceTpm = buf.with("nonceTpm", "BYTE[]", "nonceTpmSize", "UINT16").readSizedByteBuf();
+    nonceTpm = buf.with("nonceTpm", "std::uint8_t[]", "nonceTpmSize", "std::uint16_t").readSizedByteBuf();
     buf.with("attributes", "TPMA_SESSION").readEnum(attributes);
-    auth = buf.with("auth", "BYTE[]", "authSize", "UINT16").readSizedByteBuf();
+    auth = buf.with("auth", "std::uint8_t[]", "authSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void CommandHeader::toTpm(TpmBuffer& buf) const
@@ -6496,14 +6496,14 @@ void CommandHeader::initFromTpm(TpmBuffer& buf)
 void CommandHeader::Serialize(Serializer& buf) const
 {
     buf.with("Tag", "TPM_ST").writeEnum(Tag);
-    buf.with("CommandSize", "UINT32").writeInt(CommandSize);
+    buf.with("CommandSize", "std::uint32_t").writeInt(CommandSize);
     buf.with("CommandCode", "TPM_CC").writeEnum(CommandCode);
 }
 
 void CommandHeader::Deserialize(Serializer& buf)
 {
     buf.with("Tag", "TPM_ST").readEnum(Tag);
-    CommandSize = buf.with("CommandSize", "UINT32").readInt();
+    CommandSize = buf.with("CommandSize", "std::uint32_t").readInt();
     buf.with("CommandCode", "TPM_CC").readEnum(CommandCode);
 }
 
@@ -6522,13 +6522,13 @@ void TSS_KEY::initFromTpm(TpmBuffer& buf)
 void TSS_KEY::Serialize(Serializer& buf) const
 {
     buf.with("publicPart", "TPMT_PUBLIC").writeObj(publicPart);
-    buf.with("privatePart", "BYTE[]", "privatePartSize", "UINT16").writeSizedByteBuf(privatePart);
+    buf.with("privatePart", "std::uint8_t[]", "privatePartSize", "std::uint16_t").writeSizedByteBuf(privatePart);
 }
 
 void TSS_KEY::Deserialize(Serializer& buf)
 {
     buf.with("publicPart", "TPMT_PUBLIC").readObj(publicPart);
-    privatePart = buf.with("privatePart", "BYTE[]", "privatePartSize", "UINT16").readSizedByteBuf();
+    privatePart = buf.with("privatePart", "std::uint8_t[]", "privatePartSize", "std::uint16_t").readSizedByteBuf();
 }
 
 void Tpm2::Startup(TPM_SU startupType)
@@ -6543,7 +6543,7 @@ void Tpm2::Shutdown(TPM_SU shutdownType)
     Dispatch(TPM_CC::Shutdown, req);
 }
 
-void Tpm2::SelfTest(BYTE fullTest)
+void Tpm2::SelfTest(bool fullTest)
 {
     TPM2_SelfTest_REQUEST req(fullTest);
     Dispatch(TPM_CC::SelfTest, req);
@@ -6775,7 +6775,7 @@ ZGen_2PhaseResponse Tpm2::ZGen_2Phase(
     const TPMS_ECC_POINT& inQsB, 
     const TPMS_ECC_POINT& inQeB, 
     TPM_ALG_ID inScheme, 
-    UINT16 counter)
+    std::uint16_t counter)
 {
     TPM2_ZGen_2Phase_REQUEST req(keyA, inQsB, inQeB, inScheme, counter);
     ZGen_2PhaseResponse resp;
@@ -6809,7 +6809,7 @@ ByteVec Tpm2::ECC_Decrypt(
 
 EncryptDecryptResponse Tpm2::EncryptDecrypt(
     const TPM_HANDLE& keyHandle, 
-    BYTE decrypt, 
+    bool decrypt, 
     TPM_ALG_ID mode, 
     const ByteVec& ivIn, 
     const ByteVec& inData)
@@ -6823,7 +6823,7 @@ EncryptDecryptResponse Tpm2::EncryptDecrypt(
 EncryptDecrypt2Response Tpm2::EncryptDecrypt2(
     const TPM_HANDLE& keyHandle, 
     const ByteVec& inData, 
-    BYTE decrypt, 
+    bool decrypt, 
     TPM_ALG_ID mode, 
     const ByteVec& ivIn)
 {
@@ -6866,7 +6866,7 @@ ByteVec Tpm2::MAC(
     return resp.outMAC;
 }
 
-ByteVec Tpm2::GetRandom(UINT16 bytesRequested)
+ByteVec Tpm2::GetRandom(std::uint16_t bytesRequested)
 {
     TPM2_GetRandom_REQUEST req(bytesRequested);
     GetRandomResponse resp;
@@ -7149,7 +7149,7 @@ PolicySignedResponse Tpm2::PolicySigned(
     const ByteVec& nonceTPM, 
     const ByteVec& cpHashA, 
     const ByteVec& policyRef, 
-    INT32 expiration, 
+    std::int32_t expiration, 
     const TPMU_SIGNATURE& auth)
 {
     TPM2_PolicySigned_REQUEST req(authObject, policySession, nonceTPM, cpHashA, policyRef, expiration, auth);
@@ -7164,7 +7164,7 @@ PolicySecretResponse Tpm2::PolicySecret(
     const ByteVec& nonceTPM, 
     const ByteVec& cpHashA, 
     const ByteVec& policyRef, 
-    INT32 expiration)
+    std::int32_t expiration)
 {
     TPM2_PolicySecret_REQUEST req(authHandle, policySession, nonceTPM, cpHashA, policyRef, expiration);
     PolicySecretResponse resp;
@@ -7214,7 +7214,7 @@ void Tpm2::PolicyNV(
     const TPM_HANDLE& nvIndex, 
     const TPM_HANDLE& policySession, 
     const ByteVec& operandB, 
-    UINT16 offset, 
+    std::uint16_t offset, 
     TPM_EO operation)
 {
     TPM2_PolicyNV_REQUEST req(authHandle, nvIndex, policySession, operandB, offset, operation);
@@ -7224,7 +7224,7 @@ void Tpm2::PolicyNV(
 void Tpm2::PolicyCounterTimer(
     const TPM_HANDLE& policySession, 
     const ByteVec& operandB, 
-    UINT16 offset, 
+    std::uint16_t offset, 
     TPM_EO operation)
 {
     TPM2_PolicyCounterTimer_REQUEST req(policySession, operandB, offset, operation);
@@ -7265,7 +7265,7 @@ void Tpm2::PolicyDuplicationSelect(
     const TPM_HANDLE& policySession, 
     const ByteVec& objectName, 
     const ByteVec& newParentName, 
-    BYTE includeObject)
+    bool includeObject)
 {
     TPM2_PolicyDuplicationSelect_REQUEST req(policySession, objectName, newParentName, includeObject);
     Dispatch(TPM_CC::PolicyDuplicationSelect, req);
@@ -7304,7 +7304,7 @@ ByteVec Tpm2::PolicyGetDigest(const TPM_HANDLE& policySession)
 
 void Tpm2::PolicyNvWritten(
     const TPM_HANDLE& policySession, 
-    BYTE writtenSet)
+    bool writtenSet)
 {
     TPM2_PolicyNvWritten_REQUEST req(policySession, writtenSet);
     Dispatch(TPM_CC::PolicyNvWritten, req);
@@ -7343,7 +7343,7 @@ CreatePrimaryResponse Tpm2::CreatePrimary(
 void Tpm2::HierarchyControl(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& enable, 
-    BYTE state)
+    bool state)
 {
     TPM2_HierarchyControl_REQUEST req(authHandle, enable, state);
     Dispatch(TPM_CC::HierarchyControl, req);
@@ -7378,7 +7378,7 @@ void Tpm2::Clear(const TPM_HANDLE& authHandle)
 
 void Tpm2::ClearControl(
     const TPM_HANDLE& auth, 
-    BYTE disable)
+    bool disable)
 {
     TPM2_ClearControl_REQUEST req(auth, disable);
     Dispatch(TPM_CC::ClearControl, req);
@@ -7400,9 +7400,9 @@ void Tpm2::DictionaryAttackLockReset(const TPM_HANDLE& lockHandle)
 
 void Tpm2::DictionaryAttackParameters(
     const TPM_HANDLE& lockHandle, 
-    UINT32 newMaxTries, 
-    UINT32 newRecoveryTime, 
-    UINT32 lockoutRecovery)
+    std::uint32_t newMaxTries, 
+    std::uint32_t newRecoveryTime, 
+    std::uint32_t lockoutRecovery)
 {
     TPM2_DictionaryAttackParameters_REQUEST req(lockHandle, newMaxTries, newRecoveryTime, lockoutRecovery);
     Dispatch(TPM_CC::DictionaryAttackParameters, req);
@@ -7419,7 +7419,7 @@ void Tpm2::PP_Commands(
 
 void Tpm2::SetAlgorithmSet(
     const TPM_HANDLE& authHandle, 
-    UINT32 algorithmSet)
+    std::uint32_t algorithmSet)
 {
     TPM2_SetAlgorithmSet_REQUEST req(authHandle, algorithmSet);
     Dispatch(TPM_CC::SetAlgorithmSet, req);
@@ -7443,7 +7443,7 @@ FieldUpgradeDataResponse Tpm2::FieldUpgradeData(const ByteVec& fuData)
     return resp;
 }
 
-ByteVec Tpm2::FirmwareRead(UINT32 sequenceNumber)
+ByteVec Tpm2::FirmwareRead(std::uint32_t sequenceNumber)
 {
     TPM2_FirmwareRead_REQUEST req(sequenceNumber);
     FirmwareReadResponse resp;
@@ -7491,7 +7491,7 @@ TPMS_TIME_INFO Tpm2::ReadClock()
 
 void Tpm2::ClockSet(
     const TPM_HANDLE& auth, 
-    UINT64 newTime)
+    std::uint64_t newTime)
 {
     TPM2_ClockSet_REQUEST req(auth, newTime);
     Dispatch(TPM_CC::ClockSet, req);
@@ -7507,8 +7507,8 @@ void Tpm2::ClockRateAdjust(
 
 GetCapabilityResponse Tpm2::GetCapability(
     TPM_CAP capability, 
-    UINT32 property, 
-    UINT32 propertyCount)
+    std::uint32_t property, 
+    std::uint32_t propertyCount)
 {
     TPM2_GetCapability_REQUEST req(capability, property, propertyCount);
     GetCapabilityResponse resp;
@@ -7559,7 +7559,7 @@ void Tpm2::NV_Write(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& nvIndex, 
     const ByteVec& data, 
-    UINT16 offset)
+    std::uint16_t offset)
 {
     TPM2_NV_Write_REQUEST req(authHandle, nvIndex, data, offset);
     Dispatch(TPM_CC::NV_Write, req);
@@ -7585,7 +7585,7 @@ void Tpm2::NV_Extend(
 void Tpm2::NV_SetBits(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& nvIndex, 
-    UINT64 bits)
+    std::uint64_t bits)
 {
     TPM2_NV_SetBits_REQUEST req(authHandle, nvIndex, bits);
     Dispatch(TPM_CC::NV_SetBits, req);
@@ -7608,8 +7608,8 @@ void Tpm2::NV_GlobalWriteLock(const TPM_HANDLE& authHandle)
 ByteVec Tpm2::NV_Read(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& nvIndex, 
-    UINT16 size, 
-    UINT16 offset)
+    std::uint16_t size, 
+    std::uint16_t offset)
 {
     TPM2_NV_Read_REQUEST req(authHandle, nvIndex, size, offset);
     NV_ReadResponse resp;
@@ -7639,8 +7639,8 @@ NV_CertifyResponse Tpm2::NV_Certify(
     const TPM_HANDLE& nvIndex, 
     const ByteVec& qualifyingData, 
     const TPMU_SIG_SCHEME& inScheme, 
-    UINT16 size, 
-    UINT16 offset)
+    std::uint16_t size, 
+    std::uint16_t offset)
 {
     TPM2_NV_Certify_REQUEST req(signHandle, authHandle, nvIndex, qualifyingData, inScheme, size, offset);
     NV_CertifyResponse resp;
@@ -7651,7 +7651,7 @@ NV_CertifyResponse Tpm2::NV_Certify(
 AC_GetCapabilityResponse Tpm2::AC_GetCapability(
     const TPM_HANDLE& ac, 
     TPM_AT capability, 
-    UINT32 count)
+    std::uint32_t count)
 {
     TPM2_AC_GetCapability_REQUEST req(ac, capability, count);
     AC_GetCapabilityResponse resp;
@@ -7676,7 +7676,7 @@ void Tpm2::Policy_AC_SendSelect(
     const ByteVec& objectName, 
     const ByteVec& authHandleName, 
     const ByteVec& acName, 
-    BYTE includeObject)
+    bool includeObject)
 {
     TPM2_Policy_AC_SendSelect_REQUEST req(policySession, objectName, authHandleName, acName, includeObject);
     Dispatch(TPM_CC::Policy_AC_SendSelect, req);
@@ -7684,7 +7684,7 @@ void Tpm2::Policy_AC_SendSelect(
 
 void Tpm2::ACT_SetTimeout(
     const TPM_HANDLE& actHandle, 
-    UINT32 startTimeout)
+    std::uint32_t startTimeout)
 {
     TPM2_ACT_SetTimeout_REQUEST req(actHandle, startTimeout);
     Dispatch(TPM_CC::ACT_SetTimeout, req);
@@ -7710,7 +7710,7 @@ void Tpm2::AsyncMethods::Shutdown(TPM_SU shutdownType)
     theTpm.DispatchOut(TPM_CC::Shutdown, req);
 }
 
-void Tpm2::AsyncMethods::SelfTest(BYTE fullTest)
+void Tpm2::AsyncMethods::SelfTest(bool fullTest)
 {
     TPM2_SelfTest_REQUEST req(fullTest);
     theTpm.DispatchOut(TPM_CC::SelfTest, req);
@@ -7902,7 +7902,7 @@ void Tpm2::AsyncMethods::ZGen_2Phase(
     const TPMS_ECC_POINT& inQsB, 
     const TPMS_ECC_POINT& inQeB, 
     TPM_ALG_ID inScheme, 
-    UINT16 counter)
+    std::uint16_t counter)
 {
     TPM2_ZGen_2Phase_REQUEST req(keyA, inQsB, inQeB, inScheme, counter);
     theTpm.DispatchOut(TPM_CC::ZGen_2Phase, req);
@@ -7930,7 +7930,7 @@ void Tpm2::AsyncMethods::ECC_Decrypt(
 
 void Tpm2::AsyncMethods::EncryptDecrypt(
     const TPM_HANDLE& keyHandle, 
-    BYTE decrypt, 
+    bool decrypt, 
     TPM_ALG_ID mode, 
     const ByteVec& ivIn, 
     const ByteVec& inData)
@@ -7942,7 +7942,7 @@ void Tpm2::AsyncMethods::EncryptDecrypt(
 void Tpm2::AsyncMethods::EncryptDecrypt2(
     const TPM_HANDLE& keyHandle, 
     const ByteVec& inData, 
-    BYTE decrypt, 
+    bool decrypt, 
     TPM_ALG_ID mode, 
     const ByteVec& ivIn)
 {
@@ -7977,7 +7977,7 @@ void Tpm2::AsyncMethods::MAC(
     theTpm.DispatchOut(TPM_CC::MAC, req);
 }
 
-void Tpm2::AsyncMethods::GetRandom(UINT16 bytesRequested)
+void Tpm2::AsyncMethods::GetRandom(std::uint16_t bytesRequested)
 {
     TPM2_GetRandom_REQUEST req(bytesRequested);
     theTpm.DispatchOut(TPM_CC::GetRandom, req);
@@ -8220,7 +8220,7 @@ void Tpm2::AsyncMethods::PolicySigned(
     const ByteVec& nonceTPM, 
     const ByteVec& cpHashA, 
     const ByteVec& policyRef, 
-    INT32 expiration, 
+    std::int32_t expiration, 
     const TPMU_SIGNATURE& auth)
 {
     TPM2_PolicySigned_REQUEST req(authObject, policySession, nonceTPM, cpHashA, policyRef, expiration, auth);
@@ -8233,7 +8233,7 @@ void Tpm2::AsyncMethods::PolicySecret(
     const ByteVec& nonceTPM, 
     const ByteVec& cpHashA, 
     const ByteVec& policyRef, 
-    INT32 expiration)
+    std::int32_t expiration)
 {
     TPM2_PolicySecret_REQUEST req(authHandle, policySession, nonceTPM, cpHashA, policyRef, expiration);
     theTpm.DispatchOut(TPM_CC::PolicySecret, req);
@@ -8281,7 +8281,7 @@ void Tpm2::AsyncMethods::PolicyNV(
     const TPM_HANDLE& nvIndex, 
     const TPM_HANDLE& policySession, 
     const ByteVec& operandB, 
-    UINT16 offset, 
+    std::uint16_t offset, 
     TPM_EO operation)
 {
     TPM2_PolicyNV_REQUEST req(authHandle, nvIndex, policySession, operandB, offset, operation);
@@ -8291,7 +8291,7 @@ void Tpm2::AsyncMethods::PolicyNV(
 void Tpm2::AsyncMethods::PolicyCounterTimer(
     const TPM_HANDLE& policySession, 
     const ByteVec& operandB, 
-    UINT16 offset, 
+    std::uint16_t offset, 
     TPM_EO operation)
 {
     TPM2_PolicyCounterTimer_REQUEST req(policySession, operandB, offset, operation);
@@ -8332,7 +8332,7 @@ void Tpm2::AsyncMethods::PolicyDuplicationSelect(
     const TPM_HANDLE& policySession, 
     const ByteVec& objectName, 
     const ByteVec& newParentName, 
-    BYTE includeObject)
+    bool includeObject)
 {
     TPM2_PolicyDuplicationSelect_REQUEST req(policySession, objectName, newParentName, includeObject);
     theTpm.DispatchOut(TPM_CC::PolicyDuplicationSelect, req);
@@ -8369,7 +8369,7 @@ void Tpm2::AsyncMethods::PolicyGetDigest(const TPM_HANDLE& policySession)
 
 void Tpm2::AsyncMethods::PolicyNvWritten(
     const TPM_HANDLE& policySession, 
-    BYTE writtenSet)
+    bool writtenSet)
 {
     TPM2_PolicyNvWritten_REQUEST req(policySession, writtenSet);
     theTpm.DispatchOut(TPM_CC::PolicyNvWritten, req);
@@ -8406,7 +8406,7 @@ void Tpm2::AsyncMethods::CreatePrimary(
 void Tpm2::AsyncMethods::HierarchyControl(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& enable, 
-    BYTE state)
+    bool state)
 {
     TPM2_HierarchyControl_REQUEST req(authHandle, enable, state);
     theTpm.DispatchOut(TPM_CC::HierarchyControl, req);
@@ -8441,7 +8441,7 @@ void Tpm2::AsyncMethods::Clear(const TPM_HANDLE& authHandle)
 
 void Tpm2::AsyncMethods::ClearControl(
     const TPM_HANDLE& auth, 
-    BYTE disable)
+    bool disable)
 {
     TPM2_ClearControl_REQUEST req(auth, disable);
     theTpm.DispatchOut(TPM_CC::ClearControl, req);
@@ -8463,9 +8463,9 @@ void Tpm2::AsyncMethods::DictionaryAttackLockReset(const TPM_HANDLE& lockHandle)
 
 void Tpm2::AsyncMethods::DictionaryAttackParameters(
     const TPM_HANDLE& lockHandle, 
-    UINT32 newMaxTries, 
-    UINT32 newRecoveryTime, 
-    UINT32 lockoutRecovery)
+    std::uint32_t newMaxTries, 
+    std::uint32_t newRecoveryTime, 
+    std::uint32_t lockoutRecovery)
 {
     TPM2_DictionaryAttackParameters_REQUEST req(lockHandle, newMaxTries, newRecoveryTime, lockoutRecovery);
     theTpm.DispatchOut(TPM_CC::DictionaryAttackParameters, req);
@@ -8482,7 +8482,7 @@ void Tpm2::AsyncMethods::PP_Commands(
 
 void Tpm2::AsyncMethods::SetAlgorithmSet(
     const TPM_HANDLE& authHandle, 
-    UINT32 algorithmSet)
+    std::uint32_t algorithmSet)
 {
     TPM2_SetAlgorithmSet_REQUEST req(authHandle, algorithmSet);
     theTpm.DispatchOut(TPM_CC::SetAlgorithmSet, req);
@@ -8504,7 +8504,7 @@ void Tpm2::AsyncMethods::FieldUpgradeData(const ByteVec& fuData)
     theTpm.DispatchOut(TPM_CC::FieldUpgradeData, req);
 }
 
-void Tpm2::AsyncMethods::FirmwareRead(UINT32 sequenceNumber)
+void Tpm2::AsyncMethods::FirmwareRead(std::uint32_t sequenceNumber)
 {
     TPM2_FirmwareRead_REQUEST req(sequenceNumber);
     theTpm.DispatchOut(TPM_CC::FirmwareRead, req);
@@ -8544,7 +8544,7 @@ void Tpm2::AsyncMethods::ReadClock()
 
 void Tpm2::AsyncMethods::ClockSet(
     const TPM_HANDLE& auth, 
-    UINT64 newTime)
+    std::uint64_t newTime)
 {
     TPM2_ClockSet_REQUEST req(auth, newTime);
     theTpm.DispatchOut(TPM_CC::ClockSet, req);
@@ -8560,8 +8560,8 @@ void Tpm2::AsyncMethods::ClockRateAdjust(
 
 void Tpm2::AsyncMethods::GetCapability(
     TPM_CAP capability, 
-    UINT32 property, 
-    UINT32 propertyCount)
+    std::uint32_t property, 
+    std::uint32_t propertyCount)
 {
     TPM2_GetCapability_REQUEST req(capability, property, propertyCount);
     theTpm.DispatchOut(TPM_CC::GetCapability, req);
@@ -8608,7 +8608,7 @@ void Tpm2::AsyncMethods::NV_Write(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& nvIndex, 
     const ByteVec& data, 
-    UINT16 offset)
+    std::uint16_t offset)
 {
     TPM2_NV_Write_REQUEST req(authHandle, nvIndex, data, offset);
     theTpm.DispatchOut(TPM_CC::NV_Write, req);
@@ -8634,7 +8634,7 @@ void Tpm2::AsyncMethods::NV_Extend(
 void Tpm2::AsyncMethods::NV_SetBits(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& nvIndex, 
-    UINT64 bits)
+    std::uint64_t bits)
 {
     TPM2_NV_SetBits_REQUEST req(authHandle, nvIndex, bits);
     theTpm.DispatchOut(TPM_CC::NV_SetBits, req);
@@ -8657,8 +8657,8 @@ void Tpm2::AsyncMethods::NV_GlobalWriteLock(const TPM_HANDLE& authHandle)
 void Tpm2::AsyncMethods::NV_Read(
     const TPM_HANDLE& authHandle, 
     const TPM_HANDLE& nvIndex, 
-    UINT16 size, 
-    UINT16 offset)
+    std::uint16_t size, 
+    std::uint16_t offset)
 {
     TPM2_NV_Read_REQUEST req(authHandle, nvIndex, size, offset);
     theTpm.DispatchOut(TPM_CC::NV_Read, req);
@@ -8686,8 +8686,8 @@ void Tpm2::AsyncMethods::NV_Certify(
     const TPM_HANDLE& nvIndex, 
     const ByteVec& qualifyingData, 
     const TPMU_SIG_SCHEME& inScheme, 
-    UINT16 size, 
-    UINT16 offset)
+    std::uint16_t size, 
+    std::uint16_t offset)
 {
     TPM2_NV_Certify_REQUEST req(signHandle, authHandle, nvIndex, qualifyingData, inScheme, size, offset);
     theTpm.DispatchOut(TPM_CC::NV_Certify, req);
@@ -8696,7 +8696,7 @@ void Tpm2::AsyncMethods::NV_Certify(
 void Tpm2::AsyncMethods::AC_GetCapability(
     const TPM_HANDLE& ac, 
     TPM_AT capability, 
-    UINT32 count)
+    std::uint32_t count)
 {
     TPM2_AC_GetCapability_REQUEST req(ac, capability, count);
     theTpm.DispatchOut(TPM_CC::AC_GetCapability, req);
@@ -8717,7 +8717,7 @@ void Tpm2::AsyncMethods::Policy_AC_SendSelect(
     const ByteVec& objectName, 
     const ByteVec& authHandleName, 
     const ByteVec& acName, 
-    BYTE includeObject)
+    bool includeObject)
 {
     TPM2_Policy_AC_SendSelect_REQUEST req(policySession, objectName, authHandleName, acName, includeObject);
     theTpm.DispatchOut(TPM_CC::Policy_AC_SendSelect, req);
@@ -8725,7 +8725,7 @@ void Tpm2::AsyncMethods::Policy_AC_SendSelect(
 
 void Tpm2::AsyncMethods::ACT_SetTimeout(
     const TPM_HANDLE& actHandle, 
-    UINT32 startTimeout)
+    std::uint32_t startTimeout)
 {
     TPM2_ACT_SetTimeout_REQUEST req(actHandle, startTimeout);
     theTpm.DispatchOut(TPM_CC::ACT_SetTimeout, req);
