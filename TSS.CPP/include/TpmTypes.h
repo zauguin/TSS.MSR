@@ -29,7 +29,7 @@
 
 namespace TpmCpp {
 
-class _DLLEXP_ Tpm2;
+class TPM_DLLEXP Tpm2;
 
 // <<AUTOGEN_BEGIN>>
 // ------------------------------------------------------------------------------------------------
@@ -3020,7 +3020,7 @@ const EnumID &enumID<TPMA_NV>::value;
 /// <remarks> One of: TPML_ALG_PROPERTY, TPML_HANDLE, TPML_CCA, TPML_CC,
 /// TPML_PCR_SELECTION, TPML_TAGGED_TPM_PROPERTY, TPML_TAGGED_PCR_PROPERTY,
 /// TPML_ECC_CURVE, TPML_TAGGED_POLICY, TPML_ACT_DATA. </remarks>
-class _DLLEXP_ TPMU_CAPABILITIES: public virtual TpmStructure
+class TPM_DLLEXP TPMU_CAPABILITIES: public virtual TpmStructure
 {
     public: virtual TPM_CAP GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3030,7 +3030,7 @@ class _DLLEXP_ TPMU_CAPABILITIES: public virtual TpmStructure
 /// <remarks> One of: TPMS_CERTIFY_INFO, TPMS_CREATION_INFO, TPMS_QUOTE_INFO,
 /// TPMS_COMMAND_AUDIT_INFO, TPMS_SESSION_AUDIT_INFO, TPMS_TIME_ATTEST_INFO,
 /// TPMS_NV_CERTIFY_INFO, TPMS_NV_DIGEST_CERTIFY_INFO. </remarks>
-class _DLLEXP_ TPMU_ATTEST: public virtual TpmStructure
+class TPM_DLLEXP TPMU_ATTEST: public virtual TpmStructure
 {
     public: virtual TPM_ST GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3041,7 +3041,7 @@ class _DLLEXP_ TPMU_ATTEST: public virtual TpmStructure
 /// <remarks> One of: TPMS_TDES_SYM_DETAILS, TPMS_AES_SYM_DETAILS, TPMS_SM4_SYM_DETAILS,
 /// TPMS_CAMELLIA_SYM_DETAILS, TPMS_ANY_SYM_DETAILS, TPMS_XOR_SYM_DETAILS,
 /// TPMS_NULL_SYM_DETAILS. </remarks>
-class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmStructure
+class TPM_DLLEXP TPMU_SYM_DETAILS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3052,7 +3052,7 @@ class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmStructure
 /// determined by context. When an object is being derived, the derivation values are
 /// present. </summary>
 /// <remarks> One of: byte, TPMS_DERIVE. </remarks>
-class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmStructure
+class TPM_DLLEXP TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3060,7 +3060,7 @@ class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 
 /// <summary> Table 157 Definition of TPMU_SCHEME_KEYEDHASH Union [IN/OUT] </summary>
 /// <remarks> One of: TPMS_SCHEME_HMAC, TPMS_SCHEME_XOR, TPMS_NULL_SCHEME_KEYEDHASH. </remarks>
-class _DLLEXP_ TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
+class TPM_DLLEXP TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3070,7 +3070,7 @@ class _DLLEXP_ TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
 /// <remarks> One of: TPMS_SIG_SCHEME_RSASSA, TPMS_SIG_SCHEME_RSAPSS,
 /// TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA, TPMS_SIG_SCHEME_SM2,
 /// TPMS_SIG_SCHEME_ECSCHNORR, TPMS_SCHEME_HMAC, TPMS_SCHEME_HASH, TPMS_NULL_SIG_SCHEME. </remarks>
-class _DLLEXP_ TPMU_SIG_SCHEME: public virtual TpmStructure
+class TPM_DLLEXP TPMU_SIG_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3080,7 +3080,7 @@ class _DLLEXP_ TPMU_SIG_SCHEME: public virtual TpmStructure
 /// <remarks> One of: TPMS_KDF_SCHEME_MGF1, TPMS_KDF_SCHEME_KDF1_SP800_56A,
 /// TPMS_KDF_SCHEME_KDF2, TPMS_KDF_SCHEME_KDF1_SP800_108, TPMS_SCHEME_HASH,
 /// TPMS_NULL_KDF_SCHEME. </remarks>
-class _DLLEXP_ TPMU_KDF_SCHEME: public virtual TpmStructure
+class TPM_DLLEXP TPMU_KDF_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3093,7 +3093,7 @@ class _DLLEXP_ TPMU_KDF_SCHEME: public virtual TpmStructure
 /// TPMS_SIG_SCHEME_RSAPSS, TPMS_SIG_SCHEME_ECDSA, TPMS_SIG_SCHEME_ECDAA,
 /// TPMS_SIG_SCHEME_SM2, TPMS_SIG_SCHEME_ECSCHNORR, TPMS_ENC_SCHEME_RSAES,
 /// TPMS_ENC_SCHEME_OAEP, TPMS_SCHEME_HASH, TPMS_NULL_ASYM_SCHEME. </remarks>
-class _DLLEXP_ TPMU_ASYM_SCHEME: public virtual TpmStructure
+class TPM_DLLEXP TPMU_ASYM_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3105,7 +3105,7 @@ class _DLLEXP_ TPMU_ASYM_SCHEME: public virtual TpmStructure
 /// <remarks> One of: TPMS_SIGNATURE_RSASSA, TPMS_SIGNATURE_RSAPSS, TPMS_SIGNATURE_ECDSA,
 /// TPMS_SIGNATURE_ECDAA, TPMS_SIGNATURE_SM2, TPMS_SIGNATURE_ECSCHNORR, TPMT_HA,
 /// TPMS_SCHEME_HASH, TPMS_NULL_SIGNATURE. </remarks>
-class _DLLEXP_ TPMU_SIGNATURE: public virtual TpmStructure
+class TPM_DLLEXP TPMU_SIGNATURE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3115,7 +3115,7 @@ class _DLLEXP_ TPMU_SIGNATURE: public virtual TpmStructure
 /// TPMT_PUBLIC. </summary>
 /// <remarks> One of: TPM2B_DIGEST_KEYEDHASH, TPM2B_DIGEST_SYMCIPHER,
 /// TPM2B_PUBLIC_KEY_RSA, TPMS_ECC_POINT, TPMS_DERIVE. </remarks>
-class _DLLEXP_ TPMU_PUBLIC_ID: public virtual TpmStructure
+class TPM_DLLEXP TPMU_PUBLIC_ID: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3126,7 +3126,7 @@ class _DLLEXP_ TPMU_PUBLIC_ID: public virtual TpmStructure
 /// field must be a TPMT_SYM_DEF_OBJECT. See 11.1.7. </summary>
 /// <remarks> One of: TPMS_KEYEDHASH_PARMS, TPMS_SYMCIPHER_PARMS, TPMS_RSA_PARMS,
 /// TPMS_ECC_PARMS, TPMS_ASYM_PARMS. </remarks>
-class _DLLEXP_ TPMU_PUBLIC_PARMS: public virtual TpmStructure
+class TPM_DLLEXP TPMU_PUBLIC_PARMS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
@@ -3135,14 +3135,14 @@ class _DLLEXP_ TPMU_PUBLIC_PARMS: public virtual TpmStructure
 /// <summary> Table 205 Definition of TPMU_SENSITIVE_COMPOSITE Union [IN/OUT] </summary>
 /// <remarks> One of: TPM2B_PRIVATE_KEY_RSA, TPM2B_ECC_PARAMETER, TPM2B_SENSITIVE_DATA,
 /// TPM2B_SYM_KEY, TPM2B_PRIVATE_VENDOR_SPECIFIC. </remarks>
-class _DLLEXP_ TPMU_SENSITIVE_COMPOSITE: public virtual TpmStructure
+class TPM_DLLEXP TPMU_SENSITIVE_COMPOSITE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
     public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> Handle of a loaded TPM key or other object [TSS] </summary>
-class _DLLEXP_ TPM_HANDLE : public TpmStructure
+class TPM_DLLEXP TPM_HANDLE : public TpmStructure
 {
 public:
     /// <summary> Handle value </summary>
@@ -3248,7 +3248,7 @@ public:
 /// An empty union element does not contain any data to marshal.
 /// This data structure can be used in place of any other union
 /// initialized with its own empty element. </summary>
-class _DLLEXP_ TPMS_NULL_UNION : public virtual TpmStructure, public TPMU_SYM_DETAILS, public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_NULL_UNION : public virtual TpmStructure, public TPMU_SYM_DETAILS, public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
 {
 public:
 public:
@@ -3272,7 +3272,7 @@ public:
 /// <summary> This structure is used as a placeholder. In some cases, a union will have a
 /// selector value with no data to unmarshal when that type is selected. Rather than leave
 /// the entry empty, TPMS_EMPTY may be selected. </summary>
-class _DLLEXP_ TPMS_EMPTY : public virtual TpmStructure, public TPMU_ASYM_SCHEME
+class TPM_DLLEXP TPMS_EMPTY : public virtual TpmStructure, public TPMU_ASYM_SCHEME
 {
 public:
 public:
@@ -3295,7 +3295,7 @@ public:
 
 /// <summary> This structure is a return value for a TPM2_GetCapability() that reads the
 /// installed algorithms. </summary>
-class _DLLEXP_ TPMS_ALGORITHM_DESCRIPTION : public TpmStructure
+class TPM_DLLEXP TPMS_ALGORITHM_DESCRIPTION : public TpmStructure
 {
 public:
     /// <summary> An algorithm </summary>
@@ -3332,7 +3332,7 @@ public:
 /// <summary> Table 80 shows the basic hash-agile structure used in this specification. To
 /// handle hash agility, this structure uses the hashAlg parameter to indicate the
 /// algorithm used to compute the digest and, by implication, the size of the digest. </summary>
-class _DLLEXP_ TPMT_HA : public virtual TpmStructure, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMT_HA : public virtual TpmStructure, public TPMU_SIGNATURE
 {
 public:
     /// <summary> Selector of the hash contained in the digest that implies the size of the digest
@@ -3416,7 +3416,7 @@ public:
 
 /// <summary> This structure is used for a sized buffer that cannot be larger than the
 /// largest digest produced by any hash algorithm implemented on the TPM. </summary>
-class _DLLEXP_ TPM2B_DIGEST : public virtual TpmStructure, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPM2B_DIGEST : public virtual TpmStructure, public TPMU_PUBLIC_ID
 {
 public:
     /// <summary> The buffer area that can be no larger than a digest </summary>
@@ -3453,7 +3453,7 @@ public:
 
 /// <summary> This structure is used for a data buffer that is required to be no larger
 /// than the size of the Name of an object. </summary>
-class _DLLEXP_ TPM2B_DATA : public TpmStructure
+class TPM_DLLEXP TPM2B_DATA : public TpmStructure
 {
 public:
     ByteVec buffer;
@@ -3500,7 +3500,7 @@ typedef TPM2B_DIGEST TPM2B_AUTH;
 typedef TPM2B_DIGEST TPM2B_OPERAND;
 
 /// <summary> This type is a sized buffer that can hold event data. </summary>
-class _DLLEXP_ TPM2B_EVENT : public TpmStructure
+class TPM_DLLEXP TPM2B_EVENT : public TpmStructure
 {
 public:
     /// <summary> The operand </summary>
@@ -3534,7 +3534,7 @@ public:
 /// <summary> This type is a sized buffer that can hold a maximally sized buffer for
 /// commands that use a large data buffer such as TPM2_Hash(), TPM2_SequenceUpdate(), or
 /// TPM2_FieldUpgradeData(). </summary>
-class _DLLEXP_ TPM2B_MAX_BUFFER : public TpmStructure
+class TPM_DLLEXP TPM2B_MAX_BUFFER : public TpmStructure
 {
 public:
     /// <summary> The operand </summary>
@@ -3567,7 +3567,7 @@ public:
 
 /// <summary> This type is a sized buffer that can hold a maximally sized buffer for NV
 /// data commands such as TPM2_NV_Read(), TPM2_NV_Write(), and TPM2_NV_Certify(). </summary>
-class _DLLEXP_ TPM2B_MAX_NV_BUFFER : public TpmStructure
+class TPM_DLLEXP TPM2B_MAX_NV_BUFFER : public TpmStructure
 {
 public:
     /// <summary> The operand
@@ -3601,7 +3601,7 @@ public:
 
 /// <summary> This TPM-dependent structure is used to provide the timeout value for an
 /// authorization. The size shall be 8 or less. </summary>
-class _DLLEXP_ TPM2B_TIMEOUT : public TpmStructure
+class TPM_DLLEXP TPM2B_TIMEOUT : public TpmStructure
 {
 public:
     /// <summary> The timeout value </summary>
@@ -3635,7 +3635,7 @@ public:
 /// <summary> This structure is used for passing an initial value for a symmetric block
 /// cipher to or from the TPM. The size is set to be the largest block size of any
 /// implemented symmetric cipher implemented on the TPM. </summary>
-class _DLLEXP_ TPM2B_IV : public TpmStructure
+class TPM_DLLEXP TPM2B_IV : public TpmStructure
 {
 public:
     /// <summary> The IV value </summary>
@@ -3667,7 +3667,7 @@ public:
 }; // class TPM2B_IV
 
 /// <summary> This buffer holds a Name for any entity type. </summary>
-class _DLLEXP_ TPM2B_NAME : public TpmStructure
+class TPM_DLLEXP TPM2B_NAME : public TpmStructure
 {
 public:
     /// <summary> The Name structure </summary>
@@ -3699,7 +3699,7 @@ public:
 }; // class TPM2B_NAME
 
 /// <summary> This structure provides a standard method of specifying a list of PCR. </summary>
-class _DLLEXP_ TPMS_PCR_SELECT : public TpmStructure
+class TPM_DLLEXP TPMS_PCR_SELECT : public TpmStructure
 {
 public:
     /// <summary> The bit map of selected PCR </summary>
@@ -3731,7 +3731,7 @@ public:
 }; // class TPMS_PCR_SELECT
 
 /// <summary> Table 94 Definition of TPMS_PCR_SELECTION Structure </summary>
-class _DLLEXP_ TPMS_PCR_SELECTION : public TpmStructure
+class TPM_DLLEXP TPMS_PCR_SELECTION : public TpmStructure
 {
 public:
     /// <summary> The hash algorithm associated with the selection </summary>
@@ -3795,7 +3795,7 @@ public:
 /// <summary> This ticket is produced by TPM2_Create() or TPM2_CreatePrimary(). It is used
 /// to bind the creation data to the object to which it applies. The ticket is computed by
 /// </summary>
-class _DLLEXP_ TPMT_TK_CREATION : public TpmStructure
+class TPM_DLLEXP TPMT_TK_CREATION : public TpmStructure
 {
 public:
     /// <summary> The hierarchy containing name </summary>
@@ -3832,7 +3832,7 @@ public:
 /// <summary> This ticket is produced by TPM2_VerifySignature(). This formulation is used
 /// for multiple ticket uses. The ticket provides evidence that the TPM has validated that
 /// a digest was signed by a key with the Name of keyName. The ticket is computed by </summary>
-class _DLLEXP_ TPMT_TK_VERIFIED : public TpmStructure
+class TPM_DLLEXP TPMT_TK_VERIFIED : public TpmStructure
 {
 public:
     /// <summary> The hierarchy containing keyName </summary>
@@ -3869,7 +3869,7 @@ public:
 /// <summary> This ticket is produced by TPM2_PolicySigned() and TPM2_PolicySecret() when
 /// the authorization has an expiration time. If nonceTPM was provided in the policy
 /// command, the ticket is computed by </summary>
-class _DLLEXP_ TPMT_TK_AUTH : public TpmStructure
+class TPM_DLLEXP TPMT_TK_AUTH : public TpmStructure
 {
 public:
     /// <summary> Ticket structure tag </summary>
@@ -3909,7 +3909,7 @@ public:
 /// <summary> This ticket is produced by TPM2_SequenceComplete() or TPM2_Hash() when the
 /// message that was digested did not start with TPM_GENERATED_VALUE. The ticket is
 /// computed by </summary>
-class _DLLEXP_ TPMT_TK_HASHCHECK : public TpmStructure
+class TPM_DLLEXP TPMT_TK_HASHCHECK : public TpmStructure
 {
 public:
     /// <summary> The hierarchy </summary>
@@ -3948,7 +3948,7 @@ public:
 
 /// <summary> This structure is used to report the properties of an algorithm identifier.
 /// It is returned in response to a TPM2_GetCapability() with capability = TPM_CAP_ALG. </summary>
-class _DLLEXP_ TPMS_ALG_PROPERTY : public TpmStructure
+class TPM_DLLEXP TPMS_ALG_PROPERTY : public TpmStructure
 {
 public:
     /// <summary> An algorithm identifier </summary>
@@ -3984,7 +3984,7 @@ public:
 
 /// <summary> This structure is used to report the properties that are UINT32 values. It
 /// is returned in response to a TPM2_GetCapability(). </summary>
-class _DLLEXP_ TPMS_TAGGED_PROPERTY : public TpmStructure
+class TPM_DLLEXP TPMS_TAGGED_PROPERTY : public TpmStructure
 {
 public:
     /// <summary> A property identifier </summary>
@@ -4020,7 +4020,7 @@ public:
 
 /// <summary> This structure is used in TPM2_GetCapability() to return the attributes of
 /// the PCR. </summary>
-class _DLLEXP_ TPMS_TAGGED_PCR_SELECT : public TpmStructure
+class TPM_DLLEXP TPMS_TAGGED_PCR_SELECT : public TpmStructure
 {
 public:
     /// <summary> The property identifier </summary>
@@ -4056,7 +4056,7 @@ public:
 
 /// <summary> This structure is used in TPM2_GetCapability() to return the policy
 /// associated with a permanent handle. </summary>
-class _DLLEXP_ TPMS_TAGGED_POLICY : public TpmStructure
+class TPM_DLLEXP TPMS_TAGGED_POLICY : public TpmStructure
 {
 public:
     /// <summary> A permanent handle </summary>
@@ -4091,7 +4091,7 @@ public:
 }; // class TPMS_TAGGED_POLICY
 
 /// <summary> This structure is used in TPM2_GetCapability() to return the ACT data. </summary>
-class _DLLEXP_ TPMS_ACT_DATA : public TpmStructure
+class TPM_DLLEXP TPMS_ACT_DATA : public TpmStructure
 {
 public:
     /// <summary> A permanent handle </summary>
@@ -4130,7 +4130,7 @@ public:
 
 /// <summary> A list of command codes may be input to the TPM or returned by the TPM
 /// depending on the command. </summary>
-class _DLLEXP_ TPML_CC : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_CC : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> A list of command codes
@@ -4166,7 +4166,7 @@ public:
 
 /// <summary> This list is only used in TPM2_GetCapability(capability = TPM_CAP_COMMANDS).
 /// </summary>
-class _DLLEXP_ TPML_CCA : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_CCA : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> A list of command codes attributes </summary>
@@ -4199,7 +4199,7 @@ public:
 }; // class TPML_CCA
 
 /// <summary> This list is returned by TPM2_IncrementalSelfTest(). </summary>
-class _DLLEXP_ TPML_ALG : public TpmStructure
+class TPM_DLLEXP TPML_ALG : public TpmStructure
 {
 public:
     /// <summary> A list of algorithm IDs
@@ -4234,7 +4234,7 @@ public:
 
 /// <summary> This structure is used when the TPM returns a list of loaded handles when
 /// the capability in TPM2_GetCapability() is TPM_CAP_HANDLE. </summary>
-class _DLLEXP_ TPML_HANDLE : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_HANDLE : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> An array of handles </summary>
@@ -4268,7 +4268,7 @@ public:
 
 /// <summary> This list is used to convey a list of digest values. This type is used in
 /// TPM2_PolicyOR() and in TPM2_PCR_Read(). </summary>
-class _DLLEXP_ TPML_DIGEST : public TpmStructure
+class TPM_DLLEXP TPML_DIGEST : public TpmStructure
 {
 public:
     /// <summary> A list of digests
@@ -4305,7 +4305,7 @@ public:
 /// <summary> This list is used to convey a list of digest values. This type is returned
 /// by TPM2_PCR_Event() and TPM2_EventSequenceComplete() and is an input for
 /// TPM2_PCR_Extend(). </summary>
-class _DLLEXP_ TPML_DIGEST_VALUES : public TpmStructure
+class TPM_DLLEXP TPML_DIGEST_VALUES : public TpmStructure
 {
 public:
     /// <summary> A list of tagged digests </summary>
@@ -4338,7 +4338,7 @@ public:
 
 /// <summary> This list is used to indicate the PCR that are included in a selection when
 /// more than one PCR value may be selected. </summary>
-class _DLLEXP_ TPML_PCR_SELECTION : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_PCR_SELECTION : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> List of selections </summary>
@@ -4372,7 +4372,7 @@ public:
 
 /// <summary> This list is used to report on a list of algorithm attributes. It is
 /// returned in a TPM2_GetCapability(). </summary>
-class _DLLEXP_ TPML_ALG_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_ALG_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> List of properties </summary>
@@ -4406,7 +4406,7 @@ public:
 
 /// <summary> This list is used to report on a list of properties that are
 /// TPMS_TAGGED_PROPERTY values. It is returned by a TPM2_GetCapability(). </summary>
-class _DLLEXP_ TPML_TAGGED_TPM_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_TAGGED_TPM_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> An array of tagged properties </summary>
@@ -4440,7 +4440,7 @@ public:
 
 /// <summary> This list is used to report on a list of properties that are TPMS_PCR_SELECT
 /// values. It is returned by a TPM2_GetCapability(). </summary>
-class _DLLEXP_ TPML_TAGGED_PCR_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_TAGGED_PCR_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> A tagged PCR selection </summary>
@@ -4474,7 +4474,7 @@ public:
 
 /// <summary> This list is used to report the ECC curve ID values supported by the TPM. It
 /// is returned by a TPM2_GetCapability(). </summary>
-class _DLLEXP_ TPML_ECC_CURVE : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_ECC_CURVE : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> Array of ECC curve identifiers </summary>
@@ -4509,7 +4509,7 @@ public:
 /// <summary> This list is used to report the authorization policy values for permanent
 /// handles. This is list may be generated by TPM2_GetCapabiltiy(). A permanent handle
 /// that cannot have a policy is not included in the list. </summary>
-class _DLLEXP_ TPML_TAGGED_POLICY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_TAGGED_POLICY : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> Array of tagged policies </summary>
@@ -4543,7 +4543,7 @@ public:
 
 /// <summary> This list is used to report the timeout and state for the ACT. This list may
 /// be generated by TPM2_GetCapabilty(). Only implemented ACT are present in the list </summary>
-class _DLLEXP_ TPML_ACT_DATA : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_ACT_DATA : public virtual TpmStructure, public TPMU_CAPABILITIES
 {
 public:
     /// <summary> Array of ACT data </summary>
@@ -4576,7 +4576,7 @@ public:
 }; // class TPML_ACT_DATA
 
 /// <summary> This data area is returned in response to a TPM2_GetCapability(). </summary>
-class _DLLEXP_ TPMS_CAPABILITY_DATA : public TpmStructure
+class TPM_DLLEXP TPMS_CAPABILITY_DATA : public TpmStructure
 {
 public:
     /// <summary> The capability </summary>
@@ -4614,7 +4614,7 @@ public:
 }; // class TPMS_CAPABILITY_DATA
 
 /// <summary> This structure is used in each of the attestation commands. </summary>
-class _DLLEXP_ TPMS_CLOCK_INFO : public TpmStructure
+class TPM_DLLEXP TPMS_CLOCK_INFO : public TpmStructure
 {
 public:
     /// <summary> Time value in milliseconds that advances while the TPM is powered
@@ -4663,7 +4663,7 @@ public:
 
 /// <summary> This structure is used in, e.g., the TPM2_GetTime() attestation and
 /// TPM2_ReadClock(). </summary>
-class _DLLEXP_ TPMS_TIME_INFO : public TpmStructure
+class TPM_DLLEXP TPMS_TIME_INFO : public TpmStructure
 {
 public:
     /// <summary> Time in milliseconds since the TIme circuit was last reset
@@ -4699,7 +4699,7 @@ public:
 }; // class TPMS_TIME_INFO
 
 /// <summary> This structure is used when the TPM performs TPM2_GetTime. </summary>
-class _DLLEXP_ TPMS_TIME_ATTEST_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_TIME_ATTEST_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> The Time, Clock, resetCount, restartCount, and Safe indicator </summary>
@@ -4735,7 +4735,7 @@ public:
 }; // class TPMS_TIME_ATTEST_INFO
 
 /// <summary> This is the attested data for TPM2_Certify(). </summary>
-class _DLLEXP_ TPMS_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the certified object </summary>
@@ -4771,7 +4771,7 @@ public:
 }; // class TPMS_CERTIFY_INFO
 
 /// <summary> This is the attested data for TPM2_Quote(). </summary>
-class _DLLEXP_ TPMS_QUOTE_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_QUOTE_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> Information on algID, PCR selected and digest </summary>
@@ -4807,7 +4807,7 @@ public:
 }; // class TPMS_QUOTE_INFO
 
 /// <summary> This is the attested data for TPM2_GetCommandAuditDigest(). </summary>
-class _DLLEXP_ TPMS_COMMAND_AUDIT_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_COMMAND_AUDIT_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> The monotonic audit counter </summary>
@@ -4849,7 +4849,7 @@ public:
 }; // class TPMS_COMMAND_AUDIT_INFO
 
 /// <summary> This is the attested data for TPM2_GetSessionAuditDigest(). </summary>
-class _DLLEXP_ TPMS_SESSION_AUDIT_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_SESSION_AUDIT_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> Current exclusive status of the session
@@ -4887,7 +4887,7 @@ public:
 }; // class TPMS_SESSION_AUDIT_INFO
 
 /// <summary> This is the attested data for TPM2_CertifyCreation(). </summary>
-class _DLLEXP_ TPMS_CREATION_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_CREATION_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the object </summary>
@@ -4924,7 +4924,7 @@ public:
 
 /// <summary> This structure contains the Name and contents of the selected NV Index that
 /// is certified by TPM2_NV_Certify(). </summary>
-class _DLLEXP_ TPMS_NV_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_NV_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the NV Index </summary>
@@ -4965,7 +4965,7 @@ public:
 /// <summary> This structure contains the Name and hash of the contents of the selected NV
 /// Index that is certified by TPM2_NV_Certify(). The data is hashed using hash of the
 /// signing scheme. </summary>
-class _DLLEXP_ TPMS_NV_DIGEST_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_NV_DIGEST_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the NV Index </summary>
@@ -5002,7 +5002,7 @@ public:
 
 /// <summary> This structure is used on each TPM-generated signed structure. The signature
 /// is over this structure. </summary>
-class _DLLEXP_ TPMS_ATTEST : public TpmStructure
+class TPM_DLLEXP TPMS_ATTEST : public TpmStructure
 {
 public:
     /// <summary> The indication that this structure was created by a TPM (always
@@ -5060,7 +5060,7 @@ public:
 
 /// <summary> This sized buffer to contain the signed structure. The attestationData is
 /// the signed portion of the structure. The size parameter is not signed. </summary>
-class _DLLEXP_ TPM2B_ATTEST : public TpmStructure
+class TPM_DLLEXP TPM2B_ATTEST : public TpmStructure
 {
 public:
     /// <summary> The signed structure </summary>
@@ -5093,7 +5093,7 @@ public:
 
 /// <summary> This is the format used for each of the authorizations in the session area
 /// of a command. </summary>
-class _DLLEXP_ TPMS_AUTH_COMMAND : public TpmStructure
+class TPM_DLLEXP TPMS_AUTH_COMMAND : public TpmStructure
 {
 public:
     /// <summary> The session handle </summary>
@@ -5137,7 +5137,7 @@ public:
 /// response. If the TPM returns TPM_RC_SUCCESS, then the session area of the response
 /// contains the same number of authorizations as the command and the authorizations are
 /// in the same order. </summary>
-class _DLLEXP_ TPMS_AUTH_RESPONSE : public TpmStructure
+class TPM_DLLEXP TPMS_AUTH_RESPONSE : public TpmStructure
 {
 public:
     /// <summary> The session nonce, may be the Empty Buffer </summary>
@@ -5177,7 +5177,7 @@ public:
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_TDES for the union TPMU_SYM_DETAILS
 /// </summary>
-class _DLLEXP_ TPMS_TDES_SYM_DETAILS : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_TDES_SYM_DETAILS : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5200,7 +5200,7 @@ public:
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_AES for the union TPMU_SYM_DETAILS </summary>
-class _DLLEXP_ TPMS_AES_SYM_DETAILS : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_AES_SYM_DETAILS : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5223,7 +5223,7 @@ public:
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_SM4 for the union TPMU_SYM_DETAILS </summary>
-class _DLLEXP_ TPMS_SM4_SYM_DETAILS : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_SM4_SYM_DETAILS : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5247,7 +5247,7 @@ public:
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_CAMELLIA for the union
 /// TPMU_SYM_DETAILS </summary>
-class _DLLEXP_ TPMS_CAMELLIA_SYM_DETAILS : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_CAMELLIA_SYM_DETAILS : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5270,7 +5270,7 @@ public:
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_ANY for the union TPMU_SYM_DETAILS </summary>
-class _DLLEXP_ TPMS_ANY_SYM_DETAILS : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_ANY_SYM_DETAILS : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5293,7 +5293,7 @@ public:
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_XOR for the union TPMU_SYM_DETAILS </summary>
-class _DLLEXP_ TPMS_XOR_SYM_DETAILS : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_XOR_SYM_DETAILS : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5317,7 +5317,7 @@ public:
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_NULL for the union TPMU_SYM_DETAILS
 /// </summary>
-class _DLLEXP_ TPMS_NULL_SYM_DETAILS : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_NULL_SYM_DETAILS : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5341,7 +5341,7 @@ public:
 /// <summary> The TPMT_SYM_DEF structure is used to select an algorithm to be used for
 /// parameter encryption in those cases when different symmetric algorithms may be
 /// selected. </summary>
-class _DLLEXP_ TPMT_SYM_DEF : public TpmStructure
+class TPM_DLLEXP TPMT_SYM_DEF : public TpmStructure
 {
 public:
     /// <summary> Indicates a symmetric algorithm </summary>
@@ -5389,7 +5389,7 @@ public:
 /// <summary> This structure is used when different symmetric block cipher (not XOR)
 /// algorithms may be selected. If the Object can be an ordinary parent (not a derivation
 /// parent), this must be the first field in the Object's parameter (see 12.2.3.7) field. </summary>
-class _DLLEXP_ TPMT_SYM_DEF_OBJECT : public TpmStructure
+class TPM_DLLEXP TPMT_SYM_DEF_OBJECT : public TpmStructure
 {
 public:
     /// <summary> Selects a symmetric block cipher
@@ -5439,7 +5439,7 @@ public:
 
 /// <summary> This structure is used to hold a symmetric key in the sensitive area of an
 /// asymmetric object. </summary>
-class _DLLEXP_ TPM2B_SYM_KEY : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_SYM_KEY : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     /// <summary> The key </summary>
@@ -5472,7 +5472,7 @@ public:
 }; // class TPM2B_SYM_KEY
 
 /// <summary> This structure contains the parameters for a symmetric block cipher object. </summary>
-class _DLLEXP_ TPMS_SYMCIPHER_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_SYMCIPHER_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> A symmetric block cipher </summary>
@@ -5507,7 +5507,7 @@ public:
 /// <summary> This buffer holds a label or context value. For interoperability and
 /// backwards compatibility, LABEL_MAX_BUFFER is the minimum of the largest digest on the
 /// device and the largest ECC parameter (MAX_ECC_KEY_BYTES) but no more than 32 bytes. </summary>
-class _DLLEXP_ TPM2B_LABEL : public TpmStructure
+class TPM_DLLEXP TPM2B_LABEL : public TpmStructure
 {
 public:
     /// <summary> Symmetric data for a created object or the label and context for a derived
@@ -5542,7 +5542,7 @@ public:
 /// <summary> This structure contains the label and context fields for a derived object.
 /// These values are used in the derivation KDF. The values in the unique field of
 /// inPublic area template take precedence over the values in the inSensitive parameter. </summary>
-class _DLLEXP_ TPMS_DERIVE : public virtual TpmStructure, public TPMU_SENSITIVE_CREATE, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPMS_DERIVE : public virtual TpmStructure, public TPMU_SENSITIVE_CREATE, public TPMU_PUBLIC_ID
 {
 public:
     ByteVec label;
@@ -5575,7 +5575,7 @@ public:
 }; // class TPMS_DERIVE
 
 /// <summary> Table 147 Definition of TPM2B_DERIVE Structure </summary>
-class _DLLEXP_ TPM2B_DERIVE : public TpmStructure
+class TPM_DLLEXP TPM2B_DERIVE : public TpmStructure
 {
 public:
     /// <summary> Symmetric data for a created object or the label and context for a derived
@@ -5608,7 +5608,7 @@ public:
 }; // class TPM2B_DERIVE
 
 /// <summary> This buffer wraps the TPMU_SENSITIVE_CREATE structure. </summary>
-class _DLLEXP_ TPM2B_SENSITIVE_DATA : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_SENSITIVE_DATA : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     /// <summary> Symmetric data for a created object or the label and context for a derived
@@ -5644,7 +5644,7 @@ public:
 /// <summary> This structure defines the values to be placed in the sensitive area of a
 /// created object. This structure is only used within a TPM2B_SENSITIVE_CREATE structure.
 /// </summary>
-class _DLLEXP_ TPMS_SENSITIVE_CREATE : public TpmStructure
+class TPM_DLLEXP TPMS_SENSITIVE_CREATE : public TpmStructure
 {
 public:
     /// <summary> The USER auth secret value </summary>
@@ -5682,7 +5682,7 @@ public:
 /// structure is defined so that both the userAuth and data values of the
 /// TPMS_SENSITIVE_CREATE may be passed as a single parameter for parameter encryption
 /// purposes. </summary>
-class _DLLEXP_ TPM2B_SENSITIVE_CREATE : public TpmStructure
+class TPM_DLLEXP TPM2B_SENSITIVE_CREATE : public TpmStructure
 {
 public:
     /// <summary> Data to be sealed or a symmetric key value. </summary>
@@ -5715,7 +5715,7 @@ public:
 
 /// <summary> This structure is the scheme data for schemes that only require a hash to
 /// complete their definition. </summary>
-class _DLLEXP_ TPMS_SCHEME_HASH : public virtual TpmStructure, public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_SCHEME_HASH : public virtual TpmStructure, public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
 {
 public:
     /// <summary> The hash algorithm used to digest the message </summary>
@@ -5748,7 +5748,7 @@ public:
 }; // class TPMS_SCHEME_HASH
 
 /// <summary> This definition is for split signing schemes that require a commit count. </summary>
-class _DLLEXP_ TPMS_SCHEME_ECDAA : public virtual TpmStructure, public TPMU_SIG_SCHEME, public TPMU_ASYM_SCHEME
+class TPM_DLLEXP TPMS_SCHEME_ECDAA : public virtual TpmStructure, public TPMU_SIG_SCHEME, public TPMU_ASYM_SCHEME
 {
 public:
     /// <summary> The hash algorithm used to digest the message </summary>
@@ -5784,7 +5784,7 @@ public:
 }; // class TPMS_SCHEME_ECDAA
 
 /// <summary> Table 155 Definition of Types for HMAC_SIG_SCHEME </summary>
-class _DLLEXP_ TPMS_SCHEME_HMAC : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_SCHEME_HMAC : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -5809,7 +5809,7 @@ public:
 }; // class TPMS_SCHEME_HMAC
 
 /// <summary> This structure is for the XOR encryption scheme. </summary>
-class _DLLEXP_ TPMS_SCHEME_XOR : public virtual TpmStructure, public TPMU_SCHEME_KEYEDHASH
+class TPM_DLLEXP TPMS_SCHEME_XOR : public virtual TpmStructure, public TPMU_SCHEME_KEYEDHASH
 {
 public:
     /// <summary> The hash algorithm used to digest the message </summary>
@@ -5852,7 +5852,7 @@ public:
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_NULL for the union
 /// TPMU_SCHEME_KEYEDHASH </summary>
-class _DLLEXP_ TPMS_NULL_SCHEME_KEYEDHASH : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_NULL_SCHEME_KEYEDHASH : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -5874,7 +5874,7 @@ public:
 }; // class TPMS_NULL_SCHEME_KEYEDHASH
 
 /// <summary> This structure is used for a hash signing object. </summary>
-class _DLLEXP_ TPMT_KEYEDHASH_SCHEME : public TpmStructure
+class TPM_DLLEXP TPMT_KEYEDHASH_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Selects the scheme </summary>
@@ -5911,7 +5911,7 @@ public:
 
 /// <summary> These are the RSA schemes that only need a hash algorithm as a scheme
 /// parameter. </summary>
-class _DLLEXP_ TPMS_SIG_SCHEME_RSASSA : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_SIG_SCHEME_RSASSA : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -5937,7 +5937,7 @@ public:
 
 /// <summary> These are the RSA schemes that only need a hash algorithm as a scheme
 /// parameter. </summary>
-class _DLLEXP_ TPMS_SIG_SCHEME_RSAPSS : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_SIG_SCHEME_RSAPSS : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -5964,7 +5964,7 @@ public:
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
 /// the definition and can be typed as TPMS_SCHEME_HASH. Anonymous algorithms also require
 /// a count value so they are typed to be TPMS_SCHEME_ECDAA. </summary>
-class _DLLEXP_ TPMS_SIG_SCHEME_ECDSA : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_SIG_SCHEME_ECDSA : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -5991,7 +5991,7 @@ public:
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
 /// the definition and can be typed as TPMS_SCHEME_HASH. Anonymous algorithms also require
 /// a count value so they are typed to be TPMS_SCHEME_ECDAA. </summary>
-class _DLLEXP_ TPMS_SIG_SCHEME_SM2 : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_SIG_SCHEME_SM2 : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6018,7 +6018,7 @@ public:
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
 /// the definition and can be typed as TPMS_SCHEME_HASH. Anonymous algorithms also require
 /// a count value so they are typed to be TPMS_SCHEME_ECDAA. </summary>
-class _DLLEXP_ TPMS_SIG_SCHEME_ECSCHNORR : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_SIG_SCHEME_ECSCHNORR : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6045,7 +6045,7 @@ public:
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
 /// the definition and can be typed as TPMS_SCHEME_HASH. Anonymous algorithms also require
 /// a count value so they are typed to be TPMS_SCHEME_ECDAA. </summary>
-class _DLLEXP_ TPMS_SIG_SCHEME_ECDAA : public TPMS_SCHEME_ECDAA
+class TPM_DLLEXP TPMS_SIG_SCHEME_ECDAA : public TPMS_SCHEME_ECDAA
 {
 public:
 public:
@@ -6071,7 +6071,7 @@ public:
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_NULL for the union TPMU_SIG_SCHEME </summary>
-class _DLLEXP_ TPMS_NULL_SIG_SCHEME : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_NULL_SIG_SCHEME : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -6093,7 +6093,7 @@ public:
 }; // class TPMS_NULL_SIG_SCHEME
 
 /// <summary> Table 162 Definition of TPMT_SIG_SCHEME Structure </summary>
-class _DLLEXP_ TPMT_SIG_SCHEME : public TpmStructure
+class TPM_DLLEXP TPMT_SIG_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
@@ -6132,7 +6132,7 @@ public:
 
 /// <summary> These are the RSA encryption schemes that only need a hash algorithm as a
 /// controlling parameter. </summary>
-class _DLLEXP_ TPMS_ENC_SCHEME_OAEP : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_ENC_SCHEME_OAEP : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6158,7 +6158,7 @@ public:
 
 /// <summary> These are the RSA encryption schemes that only need a hash algorithm as a
 /// controlling parameter. </summary>
-class _DLLEXP_ TPMS_ENC_SCHEME_RSAES : public TPMS_EMPTY
+class TPM_DLLEXP TPMS_ENC_SCHEME_RSAES : public TPMS_EMPTY
 {
 public:
 public:
@@ -6181,7 +6181,7 @@ public:
 
 /// <summary> These are the ECC schemes that only need a hash algorithm as a controlling
 /// parameter. </summary>
-class _DLLEXP_ TPMS_KEY_SCHEME_ECDH : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_KEY_SCHEME_ECDH : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6207,7 +6207,7 @@ public:
 
 /// <summary> These are the ECC schemes that only need a hash algorithm as a controlling
 /// parameter. </summary>
-class _DLLEXP_ TPMS_KEY_SCHEME_ECMQV : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_KEY_SCHEME_ECMQV : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6234,7 +6234,7 @@ public:
 /// <summary> These structures are used to define the key derivation for symmetric secret
 /// sharing using asymmetric methods. A secret sharing scheme is required in any
 /// asymmetric key with the decrypt attribute SET. </summary>
-class _DLLEXP_ TPMS_KDF_SCHEME_MGF1 : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_KDF_SCHEME_MGF1 : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6261,7 +6261,7 @@ public:
 /// <summary> These structures are used to define the key derivation for symmetric secret
 /// sharing using asymmetric methods. A secret sharing scheme is required in any
 /// asymmetric key with the decrypt attribute SET. </summary>
-class _DLLEXP_ TPMS_KDF_SCHEME_KDF1_SP800_56A : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_KDF_SCHEME_KDF1_SP800_56A : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6288,7 +6288,7 @@ public:
 /// <summary> These structures are used to define the key derivation for symmetric secret
 /// sharing using asymmetric methods. A secret sharing scheme is required in any
 /// asymmetric key with the decrypt attribute SET. </summary>
-class _DLLEXP_ TPMS_KDF_SCHEME_KDF2 : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_KDF_SCHEME_KDF2 : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6315,7 +6315,7 @@ public:
 /// <summary> These structures are used to define the key derivation for symmetric secret
 /// sharing using asymmetric methods. A secret sharing scheme is required in any
 /// asymmetric key with the decrypt attribute SET. </summary>
-class _DLLEXP_ TPMS_KDF_SCHEME_KDF1_SP800_108 : public TPMS_SCHEME_HASH
+class TPM_DLLEXP TPMS_KDF_SCHEME_KDF1_SP800_108 : public TPMS_SCHEME_HASH
 {
 public:
 public:
@@ -6341,7 +6341,7 @@ public:
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_NULL for the union TPMU_KDF_SCHEME </summary>
-class _DLLEXP_ TPMS_NULL_KDF_SCHEME : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_NULL_KDF_SCHEME : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -6363,7 +6363,7 @@ public:
 }; // class TPMS_NULL_KDF_SCHEME
 
 /// <summary> Table 167 Definition of TPMT_KDF_SCHEME Structure </summary>
-class _DLLEXP_ TPMT_KDF_SCHEME : public TpmStructure
+class TPM_DLLEXP TPMT_KDF_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
@@ -6403,7 +6403,7 @@ public:
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_NULL for the union TPMU_ASYM_SCHEME
 /// </summary>
-class _DLLEXP_ TPMS_NULL_ASYM_SCHEME : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_NULL_ASYM_SCHEME : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -6427,7 +6427,7 @@ public:
 /// <summary> This structure is defined to allow overlay of all of the schemes for any
 /// asymmetric object. This structure is not sent on the interface. It is defined so that
 /// common functions may operate on any similar scheme structure. </summary>
-class _DLLEXP_ TPMT_ASYM_SCHEME : public TpmStructure
+class TPM_DLLEXP TPMT_ASYM_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
@@ -6466,7 +6466,7 @@ public:
 }; // class TPMT_ASYM_SCHEME
 
 /// <summary> Table 172 Definition of {RSA} TPMT_RSA_SCHEME Structure </summary>
-class _DLLEXP_ TPMT_RSA_SCHEME : public TpmStructure
+class TPM_DLLEXP TPMT_RSA_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
@@ -6505,7 +6505,7 @@ public:
 }; // class TPMT_RSA_SCHEME
 
 /// <summary> Table 174 Definition of {RSA} TPMT_RSA_DECRYPT Structure </summary>
-class _DLLEXP_ TPMT_RSA_DECRYPT : public TpmStructure
+class TPM_DLLEXP TPMT_RSA_DECRYPT : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
@@ -6544,7 +6544,7 @@ public:
 }; // class TPMT_RSA_DECRYPT
 
 /// <summary> This sized buffer holds the largest RSA public key supported by the TPM. </summary>
-class _DLLEXP_ TPM2B_PUBLIC_KEY_RSA : public virtual TpmStructure, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPM2B_PUBLIC_KEY_RSA : public virtual TpmStructure, public TPMU_PUBLIC_ID
 {
 public:
     /// <summary> Value </summary>
@@ -6577,7 +6577,7 @@ public:
 }; // class TPM2B_PUBLIC_KEY_RSA
 
 /// <summary> This sized buffer holds the largest RSA prime number supported by the TPM. </summary>
-class _DLLEXP_ TPM2B_PRIVATE_KEY_RSA : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_PRIVATE_KEY_RSA : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     ByteVec buffer;
@@ -6610,7 +6610,7 @@ public:
 
 /// <summary> This sized buffer holds the largest ECC parameter (coordinate) supported by
 /// the TPM. </summary>
-class _DLLEXP_ TPM2B_ECC_PARAMETER : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_ECC_PARAMETER : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     /// <summary> The parameter data </summary>
@@ -6644,7 +6644,7 @@ public:
 
 /// <summary> This structure holds two ECC coordinates that, together, make up an ECC
 /// point. </summary>
-class _DLLEXP_ TPMS_ECC_POINT : public virtual TpmStructure, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPMS_ECC_POINT : public virtual TpmStructure, public TPMU_PUBLIC_ID
 {
 public:
     /// <summary> X coordinate </summary>
@@ -6681,7 +6681,7 @@ public:
 
 /// <summary> This structure is defined to allow a point to be a single sized parameter so
 /// that it may be encrypted. </summary>
-class _DLLEXP_ TPM2B_ECC_POINT : public TpmStructure
+class TPM_DLLEXP TPM2B_ECC_POINT : public TpmStructure
 {
 public:
     /// <summary> Coordinates </summary>
@@ -6713,7 +6713,7 @@ public:
 }; // class TPM2B_ECC_POINT
 
 /// <summary> Table 183 Definition of (TPMT_SIG_SCHEME) {ECC} TPMT_ECC_SCHEME Structure </summary>
-class _DLLEXP_ TPMT_ECC_SCHEME : public TpmStructure
+class TPM_DLLEXP TPMT_ECC_SCHEME : public TpmStructure
 {
 public:
     /// <summary> Scheme selector </summary>
@@ -6753,7 +6753,7 @@ public:
 
 /// <summary> This structure is used to report on the curve parameters of an ECC curve. It
 /// is returned by TPM2_ECC_Parameters(). </summary>
-class _DLLEXP_ TPMS_ALGORITHM_DETAIL_ECC : public TpmStructure
+class TPM_DLLEXP TPMS_ALGORITHM_DETAIL_ECC : public TpmStructure
 {
 public:
     /// <summary> Identifier for the curve </summary>
@@ -6830,7 +6830,7 @@ public:
 }; // class TPMS_ALGORITHM_DETAIL_ECC
 
 /// <summary> Table 185 Definition of {RSA} TPMS_SIGNATURE_RSA Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_RSA : public virtual TpmStructure, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_SIGNATURE_RSA : public virtual TpmStructure, public TPMU_SIGNATURE
 {
 public:
     /// <summary> The hash algorithm used to digest the message
@@ -6867,7 +6867,7 @@ public:
 }; // class TPMS_SIGNATURE_RSA
 
 /// <summary> Table 185 Definition of {RSA} TPMS_SIGNATURE_RSA Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_RSASSA : public TPMS_SIGNATURE_RSA
+class TPM_DLLEXP TPMS_SIGNATURE_RSASSA : public TPMS_SIGNATURE_RSA
 {
 public:
 public:
@@ -6892,7 +6892,7 @@ public:
 }; // class TPMS_SIGNATURE_RSASSA
 
 /// <summary> Table 185 Definition of {RSA} TPMS_SIGNATURE_RSA Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_RSAPSS : public TPMS_SIGNATURE_RSA
+class TPM_DLLEXP TPMS_SIGNATURE_RSAPSS : public TPMS_SIGNATURE_RSA
 {
 public:
 public:
@@ -6917,7 +6917,7 @@ public:
 }; // class TPMS_SIGNATURE_RSAPSS
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_ECC : public virtual TpmStructure, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_SIGNATURE_ECC : public virtual TpmStructure, public TPMU_SIGNATURE
 {
 public:
     /// <summary> The hash algorithm used in the signature process
@@ -6953,7 +6953,7 @@ public:
 }; // class TPMS_SIGNATURE_ECC
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_ECDSA : public TPMS_SIGNATURE_ECC
+class TPM_DLLEXP TPMS_SIGNATURE_ECDSA : public TPMS_SIGNATURE_ECC
 {
 public:
 public:
@@ -6978,7 +6978,7 @@ public:
 }; // class TPMS_SIGNATURE_ECDSA
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_ECDAA : public TPMS_SIGNATURE_ECC
+class TPM_DLLEXP TPMS_SIGNATURE_ECDAA : public TPMS_SIGNATURE_ECC
 {
 public:
 public:
@@ -7003,7 +7003,7 @@ public:
 }; // class TPMS_SIGNATURE_ECDAA
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_SM2 : public TPMS_SIGNATURE_ECC
+class TPM_DLLEXP TPMS_SIGNATURE_SM2 : public TPMS_SIGNATURE_ECC
 {
 public:
 public:
@@ -7028,7 +7028,7 @@ public:
 }; // class TPMS_SIGNATURE_SM2
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
-class _DLLEXP_ TPMS_SIGNATURE_ECSCHNORR : public TPMS_SIGNATURE_ECC
+class TPM_DLLEXP TPMS_SIGNATURE_ECSCHNORR : public TPMS_SIGNATURE_ECC
 {
 public:
 public:
@@ -7054,7 +7054,7 @@ public:
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
 /// no data to marshal) for selector algorithm TPM_ALG_NULL for the union TPMU_SIGNATURE </summary>
-class _DLLEXP_ TPMS_NULL_SIGNATURE : public TPMS_NULL_UNION
+class TPM_DLLEXP TPMS_NULL_SIGNATURE : public TPMS_NULL_UNION
 {
 public:
 public:
@@ -7080,7 +7080,7 @@ public:
 /// for the signature. This structure is output from commands such as the attestation
 /// commands and TPM2_Sign, and is an input to commands such as TPM2_VerifySignature(),
 /// TPM2_PolicySigned(), and TPM2_FieldUpgradeStart(). </summary>
-class _DLLEXP_ TPMT_SIGNATURE : public TpmStructure
+class TPM_DLLEXP TPMT_SIGNATURE : public TpmStructure
 {
 public:
     /// <summary> Selector of the algorithm used to construct the signature </summary>
@@ -7118,7 +7118,7 @@ public:
 }; // class TPMT_SIGNATURE
 
 /// <summary> Table 192 Definition of TPM2B_ENCRYPTED_SECRET Structure </summary>
-class _DLLEXP_ TPM2B_ENCRYPTED_SECRET : public TpmStructure
+class TPM_DLLEXP TPM2B_ENCRYPTED_SECRET : public TpmStructure
 {
 public:
     /// <summary> Secret </summary>
@@ -7151,7 +7151,7 @@ public:
 
 /// <summary> This structure describes the parameters that would appear in the public area
 /// of a KEYEDHASH object. </summary>
-class _DLLEXP_ TPMS_KEYEDHASH_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_KEYEDHASH_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> Selects the scheme </summary>
@@ -7192,7 +7192,7 @@ public:
 /// <summary> This structure contains the common public area parameters for an asymmetric
 /// key. The first two parameters of the parameter definition structures of an asymmetric
 /// key shall have the same two first components. </summary>
-class _DLLEXP_ TPMS_ASYM_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_ASYM_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> The companion symmetric algorithm for a restricted decryption key and shall
@@ -7244,7 +7244,7 @@ public:
 /// the default of 216 + 1. Support for other values is optional. Use of other exponents
 /// in duplicated keys is not recommended because the resulting keys would not be
 /// interoperable with other TPMs. </summary>
-class _DLLEXP_ TPMS_RSA_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_RSA_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> For a restricted decryption key, shall be set to a supported symmetric
@@ -7304,7 +7304,7 @@ public:
 }; // class TPMS_RSA_PARMS
 
 /// <summary> This structure contains the parameters for prime modulus ECC. </summary>
-class _DLLEXP_ TPMS_ECC_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_ECC_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> For a restricted decryption key, shall be set to a supported symmetric
@@ -7372,7 +7372,7 @@ public:
 
 /// <summary> This structure is used in TPM2_TestParms() to validate that a set of
 /// algorithm parameters is supported by the TPM. </summary>
-class _DLLEXP_ TPMT_PUBLIC_PARMS : public TpmStructure
+class TPM_DLLEXP TPMT_PUBLIC_PARMS : public TpmStructure
 {
 public:
     /// <summary> The algorithm to be tested </summary>
@@ -7410,7 +7410,7 @@ public:
 
 /// <summary> Table 201 defines the public area structure. The Name of the object is
 /// nameAlg concatenated with the digest of this structure using nameAlg. </summary>
-class _DLLEXP_ TPMT_PUBLIC : public TpmStructure
+class TPM_DLLEXP TPMT_PUBLIC : public TpmStructure
 {
 public:
     /// <summary> Algorithm associated with this object </summary>
@@ -7523,7 +7523,7 @@ public:
 
 /// <summary> This sized buffer is used to embed a TPMT_PUBLIC in a load command and in
 /// any response that returns a public area. </summary>
-class _DLLEXP_ TPM2B_PUBLIC : public TpmStructure
+class TPM_DLLEXP TPM2B_PUBLIC : public TpmStructure
 {
 public:
     /// <summary> The public area
@@ -7557,7 +7557,7 @@ public:
 }; // class TPM2B_PUBLIC
 
 /// <summary> This sized buffer is used to embed a TPMT_TEMPLATE for TPM2_CreateLoaded(). </summary>
-class _DLLEXP_ TPM2B_TEMPLATE : public TpmStructure
+class TPM_DLLEXP TPM2B_TEMPLATE : public TpmStructure
 {
 public:
     /// <summary> The public area </summary>
@@ -7594,7 +7594,7 @@ public:
 /// other values will be computed so that computations using the private key will not need
 /// to start with just one prime factor. This structure can be used to store the results
 /// of such vendor-specific calculations. </summary>
-class _DLLEXP_ TPM2B_PRIVATE_VENDOR_SPECIFIC : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_PRIVATE_VENDOR_SPECIFIC : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     ByteVec buffer;
@@ -7628,7 +7628,7 @@ public:
 /// <summary> AuthValue shall not be larger than the size of the digest produced by the
 /// nameAlg of the object. seedValue shall be the size of the digest produced by the
 /// nameAlg of the object. </summary>
-class _DLLEXP_ TPMT_SENSITIVE : public TpmStructure
+class TPM_DLLEXP TPMT_SENSITIVE : public TpmStructure
 {
 public:
     /// <summary> Identifier for the sensitive area
@@ -7680,7 +7680,7 @@ public:
 /// <summary> The TPM2B_SENSITIVE structure is used as a parameter in TPM2_LoadExternal().
 /// It is an unencrypted sensitive area but it may be encrypted using parameter
 /// encryption. </summary>
-class _DLLEXP_ TPM2B_SENSITIVE : public TpmStructure
+class TPM_DLLEXP TPM2B_SENSITIVE : public TpmStructure
 {
 public:
     /// <summary> An unencrypted sensitive area </summary>
@@ -7713,7 +7713,7 @@ public:
 
 /// <summary> This structure is defined to size the contents of a TPM2B_PRIVATE. This
 /// structure is not directly marshaled or unmarshaled. </summary>
-class _DLLEXP_ _PRIVATE : public TpmStructure
+class TPM_DLLEXP _PRIVATE : public TpmStructure
 {
 public:
     ByteVec integrityOuter;
@@ -7751,7 +7751,7 @@ public:
 
 /// <summary> The TPM2B_PRIVATE structure is used as a parameter in multiple commands that
 /// create, load, and modify the sensitive area of an object. </summary>
-class _DLLEXP_ TPM2B_PRIVATE : public TpmStructure
+class TPM_DLLEXP TPM2B_PRIVATE : public TpmStructure
 {
 public:
     /// <summary> An encrypted private area </summary>
@@ -7783,7 +7783,7 @@ public:
 }; // class TPM2B_PRIVATE
 
 /// <summary> This structure is used for sizing the TPM2B_ID_OBJECT. </summary>
-class _DLLEXP_ TPMS_ID_OBJECT : public TpmStructure
+class TPM_DLLEXP TPMS_ID_OBJECT : public TpmStructure
 {
 public:
     /// <summary> HMAC using the nameAlg of the storage key on the target TPM </summary>
@@ -7823,7 +7823,7 @@ public:
 
 /// <summary> This structure is an output from TPM2_MakeCredential() and is an input to
 /// TPM2_ActivateCredential(). </summary>
-class _DLLEXP_ TPM2B_ID_OBJECT : public TpmStructure
+class TPM_DLLEXP TPM2B_ID_OBJECT : public TpmStructure
 {
 public:
     /// <summary> An encrypted credential area </summary>
@@ -7857,7 +7857,7 @@ public:
 /// <summary> This is the data that can be written to and read from a TPM_NT_PIN_PASS or
 /// TPM_NT_PIN_FAIL non-volatile index. pinCount is the most significant octets. pinLimit
 /// is the least significant octets. </summary>
-class _DLLEXP_ TPMS_NV_PIN_COUNTER_PARAMETERS : public TpmStructure
+class TPM_DLLEXP TPMS_NV_PIN_COUNTER_PARAMETERS : public TpmStructure
 {
 public:
     /// <summary> This counter shows the current number of successful authValue authorization
@@ -7895,7 +7895,7 @@ public:
 }; // class TPMS_NV_PIN_COUNTER_PARAMETERS
 
 /// <summary> This structure describes an NV Index. </summary>
-class _DLLEXP_ TPMS_NV_PUBLIC : public TpmStructure
+class TPM_DLLEXP TPMS_NV_PUBLIC : public TpmStructure
 {
 public:
     /// <summary> The handle of the data area </summary>
@@ -7944,7 +7944,7 @@ public:
 }; // class TPMS_NV_PUBLIC
 
 /// <summary> This structure is used when a TPMS_NV_PUBLIC is sent on the TPM interface. </summary>
-class _DLLEXP_ TPM2B_NV_PUBLIC : public TpmStructure
+class TPM_DLLEXP TPM2B_NV_PUBLIC : public TpmStructure
 {
 public:
     /// <summary> The public area </summary>
@@ -7977,7 +7977,7 @@ public:
 
 /// <summary> This structure holds the object or session context data. When saved, the
 /// full structure is encrypted. </summary>
-class _DLLEXP_ TPM2B_CONTEXT_SENSITIVE : public TpmStructure
+class TPM_DLLEXP TPM2B_CONTEXT_SENSITIVE : public TpmStructure
 {
 public:
     /// <summary> The sensitive data </summary>
@@ -8010,7 +8010,7 @@ public:
 
 /// <summary> This structure holds the integrity value and the encrypted data for a
 /// context. </summary>
-class _DLLEXP_ TPMS_CONTEXT_DATA : public TpmStructure
+class TPM_DLLEXP TPMS_CONTEXT_DATA : public TpmStructure
 {
 public:
     /// <summary> The integrity value </summary>
@@ -8045,7 +8045,7 @@ public:
 }; // class TPMS_CONTEXT_DATA
 
 /// <summary> This structure is used in a TPMS_CONTEXT. </summary>
-class _DLLEXP_ TPM2B_CONTEXT_DATA : public TpmStructure
+class TPM_DLLEXP TPM2B_CONTEXT_DATA : public TpmStructure
 {
 public:
     TPMS_CONTEXT_DATA buffer;
@@ -8079,7 +8079,7 @@ public:
 /// values of the TPMS_CONTEXT structure in TPM2_ContextLoad() are not the same as the
 /// values when the context was saved (TPM2_ContextSave()), then the TPM shall not load
 /// the context. </summary>
-class _DLLEXP_ TPMS_CONTEXT : public TpmStructure
+class TPM_DLLEXP TPMS_CONTEXT : public TpmStructure
 {
 public:
     /// <summary> The sequence number of the context
@@ -8126,7 +8126,7 @@ public:
 /// digest of selected PCR. These values represent the environment in which the object was
 /// created. Creation data allows a relying party to determine if an object was created
 /// when some appropriate protections were present. </summary>
-class _DLLEXP_ TPMS_CREATION_DATA : public TpmStructure
+class TPM_DLLEXP TPMS_CREATION_DATA : public TpmStructure
 {
 public:
     /// <summary> List indicating the PCR included in pcrDigest </summary>
@@ -8185,7 +8185,7 @@ public:
 
 /// <summary> This structure is created by TPM2_Create() and TPM2_CreatePrimary(). It is
 /// never entered into the TPM and never has a size of zero. </summary>
-class _DLLEXP_ TPM2B_CREATION_DATA : public TpmStructure
+class TPM_DLLEXP TPM2B_CREATION_DATA : public TpmStructure
 {
 public:
     TPMS_CREATION_DATA creationData;
@@ -8217,7 +8217,7 @@ public:
 
 /// <summary> TPMS_AC_OUTPUT is used to return information about an AC. The tag structure
 /// parameter indicates the type of the data value. </summary>
-class _DLLEXP_ TPMS_AC_OUTPUT : public TpmStructure
+class TPM_DLLEXP TPMS_AC_OUTPUT : public TpmStructure
 {
 public:
     /// <summary> Tag indicating the contents of data </summary>
@@ -8252,7 +8252,7 @@ public:
 }; // class TPMS_AC_OUTPUT
 
 /// <summary> This list is only used in TPM2_AC_GetCapability(). </summary>
-class _DLLEXP_ TPML_AC_CAPABILITIES : public TpmStructure
+class TPM_DLLEXP TPML_AC_CAPABILITIES : public TpmStructure
 {
 public:
     /// <summary> A list of AC values </summary>
@@ -8289,7 +8289,7 @@ public:
 /// not allowed after it has completed successfully. If a TPM requires TPM2_Startup() and
 /// another command is received, or if the TPM receives TPM2_Startup() when it is not
 /// required, the TPM shall return TPM_RC_INITIALIZE. </summary>
-class _DLLEXP_ TPM2_Startup_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Startup_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_SU_CLEAR or TPM_SU_STATE </summary>
@@ -8322,7 +8322,7 @@ public:
 
 /// <summary> This command is used to prepare the TPM for a power cycle. The shutdownType
 /// parameter indicates how the subsequent TPM2_Startup() will be processed. </summary>
-class _DLLEXP_ TPM2_Shutdown_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Shutdown_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_SU_CLEAR or TPM_SU_STATE </summary>
@@ -8356,7 +8356,7 @@ public:
 /// <summary> This command causes the TPM to perform a test of its capabilities. If the
 /// fullTest is YES, the TPM will test all functions. If fullTest = NO, the TPM will only
 /// test those functions that have not previously been tested. </summary>
-class _DLLEXP_ TPM2_SelfTest_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_SelfTest_REQUEST : public ReqStructure
 {
 public:
     /// <summary> YES if full test to be performed
@@ -8389,7 +8389,7 @@ public:
 }; // class TPM2_SelfTest_REQUEST
 
 /// <summary> This command causes the TPM to perform a test of the selected algorithms. </summary>
-class _DLLEXP_ TPM2_IncrementalSelfTest_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_IncrementalSelfTest_REQUEST : public ReqStructure
 {
 public:
     /// <summary> List of algorithms that should be tested </summary>
@@ -8424,7 +8424,7 @@ protected:
 }; // class TPM2_IncrementalSelfTest_REQUEST
 
 /// <summary> This command causes the TPM to perform a test of the selected algorithms. </summary>
-class _DLLEXP_ IncrementalSelfTestResponse : public RespStructure
+class TPM_DLLEXP IncrementalSelfTestResponse : public RespStructure
 {
 public:
     /// <summary> List of algorithms that need testing </summary>
@@ -8457,7 +8457,7 @@ protected:
 
 /// <summary> This command returns manufacturer-specific information regarding the results
 /// of a self-test and an indication of the test status. </summary>
-class _DLLEXP_ TPM2_GetTestResult_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_GetTestResult_REQUEST : public ReqStructure
 {
 public:
 public:
@@ -8479,7 +8479,7 @@ public:
 
 /// <summary> This command returns manufacturer-specific information regarding the results
 /// of a self-test and an indication of the test status. </summary>
-class _DLLEXP_ GetTestResultResponse : public RespStructure
+class TPM_DLLEXP GetTestResultResponse : public RespStructure
 {
 public:
     /// <summary> Test result data
@@ -8515,7 +8515,7 @@ protected:
 /// <summary> This command is used to start an authorization session using alternative
 /// methods of establishing the session key (sessionKey). The session key is then used to
 /// derive values used for authorization and for encrypting parameters. </summary>
-class _DLLEXP_ TPM2_StartAuthSession_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_StartAuthSession_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of a loaded decrypt key used to encrypt salt
@@ -8583,7 +8583,7 @@ protected:
 /// <summary> This command is used to start an authorization session using alternative
 /// methods of establishing the session key (sessionKey). The session key is then used to
 /// derive values used for authorization and for encrypting parameters. </summary>
-class _DLLEXP_ StartAuthSessionResponse : public RespStructure
+class TPM_DLLEXP StartAuthSessionResponse : public RespStructure
 {
 public:
     /// <summary> Handle for the newly created session </summary>
@@ -8627,7 +8627,7 @@ protected:
 /// TPM2_PolicyPCR() was executed. Restarting the session allows the authorizations to be
 /// replayed because the session restarts with the same nonceTPM. If the PCR are valid for
 /// the policy, the policy may then succeed. </summary>
-class _DLLEXP_ TPM2_PolicyRestart_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyRestart_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The handle for the policy session </summary>
@@ -8667,7 +8667,7 @@ protected:
 /// responsibility of the caller. The object will need to be loaded (TPM2_Load()) before
 /// it may be used. The only difference between the inPublic TPMT_PUBLIC template and the
 /// outPublic TPMT_PUBLIC object is in the unique field. </summary>
-class _DLLEXP_ TPM2_Create_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Create_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of parent for new object
@@ -8727,7 +8727,7 @@ protected:
 /// responsibility of the caller. The object will need to be loaded (TPM2_Load()) before
 /// it may be used. The only difference between the inPublic TPMT_PUBLIC template and the
 /// outPublic TPMT_PUBLIC object is in the unique field. </summary>
-class _DLLEXP_ CreateResponse : public RespStructure
+class TPM_DLLEXP CreateResponse : public RespStructure
 {
 public:
     /// <summary> The private portion of the object </summary>
@@ -8771,7 +8771,7 @@ public:
 /// <summary> This command is used to load objects into the TPM. This command is used when
 /// both a TPM2B_PUBLIC and TPM2B_PRIVATE are to be loaded. If only a TPM2B_PUBLIC is to
 /// be loaded, the TPM2_LoadExternal command is used. </summary>
-class _DLLEXP_ TPM2_Load_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Load_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM handle of parent key; shall not be a reserved handle
@@ -8818,7 +8818,7 @@ protected:
 /// <summary> This command is used to load objects into the TPM. This command is used when
 /// both a TPM2B_PUBLIC and TPM2B_PRIVATE are to be loaded. If only a TPM2B_PUBLIC is to
 /// be loaded, the TPM2_LoadExternal command is used. </summary>
-class _DLLEXP_ LoadResponse : public RespStructure
+class TPM_DLLEXP LoadResponse : public RespStructure
 {
 public:
     /// <summary> Handle of type TPM_HT_TRANSIENT for the loaded object </summary>
@@ -8859,7 +8859,7 @@ protected:
 /// <summary> This command is used to load an object that is not a Protected Object into
 /// the TPM. The command allows loading of a public area or both a public and sensitive
 /// area. </summary>
-class _DLLEXP_ TPM2_LoadExternal_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_LoadExternal_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The sensitive portion of the object (optional) </summary>
@@ -8902,7 +8902,7 @@ protected:
 /// <summary> This command is used to load an object that is not a Protected Object into
 /// the TPM. The command allows loading of a public area or both a public and sensitive
 /// area. </summary>
-class _DLLEXP_ LoadExternalResponse : public RespStructure
+class TPM_DLLEXP LoadExternalResponse : public RespStructure
 {
 public:
     /// <summary> Handle of type TPM_HT_TRANSIENT for the loaded object </summary>
@@ -8941,7 +8941,7 @@ protected:
 }; // class LoadExternalResponse
 
 /// <summary> This command allows access to the public area of a loaded object. </summary>
-class _DLLEXP_ TPM2_ReadPublic_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ReadPublic_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM handle of an object
@@ -8976,7 +8976,7 @@ protected:
 }; // class TPM2_ReadPublic_REQUEST
 
 /// <summary> This command allows access to the public area of a loaded object. </summary>
-class _DLLEXP_ ReadPublicResponse : public RespStructure
+class TPM_DLLEXP ReadPublicResponse : public RespStructure
 {
 public:
     /// <summary> Structure containing the public area of an object </summary>
@@ -9015,7 +9015,7 @@ protected:
 
 /// <summary> This command enables the association of a credential with an object in a way
 /// that ensures that the TPM has validated the parameters of the credentialed object. </summary>
-class _DLLEXP_ TPM2_ActivateCredential_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ActivateCredential_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the object associated with certificate in credentialBlob
@@ -9068,7 +9068,7 @@ protected:
 
 /// <summary> This command enables the association of a credential with an object in a way
 /// that ensures that the TPM has validated the parameters of the credentialed object. </summary>
-class _DLLEXP_ ActivateCredentialResponse : public RespStructure
+class TPM_DLLEXP ActivateCredentialResponse : public RespStructure
 {
 public:
     /// <summary> The decrypted certificate information
@@ -9103,7 +9103,7 @@ protected:
 
 /// <summary> This command allows the TPM to perform the actions required of a Certificate
 /// Authority (CA) in creating a TPM2B_ID_OBJECT containing an activation credential. </summary>
-class _DLLEXP_ TPM2_MakeCredential_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_MakeCredential_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Loaded public area, used to encrypt the sensitive area containing the
@@ -9151,7 +9151,7 @@ protected:
 
 /// <summary> This command allows the TPM to perform the actions required of a Certificate
 /// Authority (CA) in creating a TPM2B_ID_OBJECT containing an activation credential. </summary>
-class _DLLEXP_ MakeCredentialResponse : public RespStructure
+class TPM_DLLEXP MakeCredentialResponse : public RespStructure
 {
 public:
     /// <summary> The credential </summary>
@@ -9187,7 +9187,7 @@ protected:
 }; // class MakeCredentialResponse
 
 /// <summary> This command returns the data in a loaded Sealed Data Object. </summary>
-class _DLLEXP_ TPM2_Unseal_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Unseal_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of a loaded data object
@@ -9223,7 +9223,7 @@ protected:
 }; // class TPM2_Unseal_REQUEST
 
 /// <summary> This command returns the data in a loaded Sealed Data Object. </summary>
-class _DLLEXP_ UnsealResponse : public RespStructure
+class TPM_DLLEXP UnsealResponse : public RespStructure
 {
 public:
     /// <summary> Unsealed data
@@ -9257,7 +9257,7 @@ protected:
 
 /// <summary> This command is used to change the authorization secret for a TPM-resident
 /// object. </summary>
-class _DLLEXP_ TPM2_ObjectChangeAuth_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ObjectChangeAuth_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the object
@@ -9306,7 +9306,7 @@ protected:
 
 /// <summary> This command is used to change the authorization secret for a TPM-resident
 /// object. </summary>
-class _DLLEXP_ ObjectChangeAuthResponse : public RespStructure
+class TPM_DLLEXP ObjectChangeAuthResponse : public RespStructure
 {
 public:
     /// <summary> Private area containing the new authorization value </summary>
@@ -9340,7 +9340,7 @@ public:
 /// created; if parentHandle references a Storage Parent, then an Ordinary Object is
 /// created; and if parentHandle references a Derivation Parent, then a Derived Object is
 /// generated. </summary>
-class _DLLEXP_ TPM2_CreateLoaded_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_CreateLoaded_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of a transient storage key, a persistent storage key,
@@ -9393,7 +9393,7 @@ protected:
 /// created; if parentHandle references a Storage Parent, then an Ordinary Object is
 /// created; and if parentHandle references a Derivation Parent, then a Derived Object is
 /// generated. </summary>
-class _DLLEXP_ CreateLoadedResponse : public RespStructure
+class TPM_DLLEXP CreateLoadedResponse : public RespStructure
 {
 public:
     /// <summary> Handle of type TPM_HT_TRANSIENT for created object </summary>
@@ -9439,7 +9439,7 @@ protected:
 /// different hierarchy. The new parent key for the duplicate may be on the same or
 /// different TPM or TPM_RH_NULL. Only the public area of newParentHandle is required to
 /// be loaded. </summary>
-class _DLLEXP_ TPM2_Duplicate_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Duplicate_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Loaded object to duplicate
@@ -9496,7 +9496,7 @@ protected:
 /// different hierarchy. The new parent key for the duplicate may be on the same or
 /// different TPM or TPM_RH_NULL. Only the public area of newParentHandle is required to
 /// be loaded. </summary>
-class _DLLEXP_ DuplicateResponse : public RespStructure
+class TPM_DLLEXP DuplicateResponse : public RespStructure
 {
 public:
     /// <summary> If the caller provided an encryption key or if symmetricAlg was
@@ -9543,7 +9543,7 @@ protected:
 /// appropriate for newParent and the blob is re-encrypted and a new integrity value is
 /// computed. The re-encrypted blob is returned in outDuplicate and the symmetric key
 /// returned in outSymKey. </summary>
-class _DLLEXP_ TPM2_Rewrap_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Rewrap_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Parent of object
@@ -9602,7 +9602,7 @@ protected:
 /// appropriate for newParent and the blob is re-encrypted and a new integrity value is
 /// computed. The re-encrypted blob is returned in outDuplicate and the symmetric key
 /// returned in outSymKey. </summary>
-class _DLLEXP_ RewrapResponse : public RespStructure
+class TPM_DLLEXP RewrapResponse : public RespStructure
 {
 public:
     /// <summary> An object encrypted using symmetric key derived from outSymSeed </summary>
@@ -9637,7 +9637,7 @@ public:
 /// values of a Storage Key. After encryption, the object may be loaded and used in the
 /// new hierarchy. The imported object (duplicate) may be singly encrypted, multiply
 /// encrypted, or unencrypted. </summary>
-class _DLLEXP_ TPM2_Import_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Import_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The handle of the new parent for the object
@@ -9705,7 +9705,7 @@ protected:
 /// values of a Storage Key. After encryption, the object may be loaded and used in the
 /// new hierarchy. The imported object (duplicate) may be singly encrypted, multiply
 /// encrypted, or unencrypted. </summary>
-class _DLLEXP_ ImportResponse : public RespStructure
+class TPM_DLLEXP ImportResponse : public RespStructure
 {
 public:
     /// <summary> The sensitive area encrypted with the symmetric key of parentHandle </summary>
@@ -9738,7 +9738,7 @@ public:
 /// caller may use inScheme to specify the padding scheme. If scheme of keyHandle is not
 /// TPM_ALG_NULL, then inScheme shall either be TPM_ALG_NULL or be the same as scheme
 /// (TPM_RC_SCHEME). </summary>
-class _DLLEXP_ TPM2_RSA_Encrypt_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_RSA_Encrypt_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Reference to public portion of RSA key to use for encryption
@@ -9804,7 +9804,7 @@ protected:
 /// caller may use inScheme to specify the padding scheme. If scheme of keyHandle is not
 /// TPM_ALG_NULL, then inScheme shall either be TPM_ALG_NULL or be the same as scheme
 /// (TPM_RC_SCHEME). </summary>
-class _DLLEXP_ RSA_EncryptResponse : public RespStructure
+class TPM_DLLEXP RSA_EncryptResponse : public RespStructure
 {
 public:
     /// <summary> Encrypted output </summary>
@@ -9837,7 +9837,7 @@ protected:
 
 /// <summary> This command performs RSA decryption using the indicated padding scheme
 /// according to IETF RFC 8017 ((PKCS#1). </summary>
-class _DLLEXP_ TPM2_RSA_Decrypt_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_RSA_Decrypt_REQUEST : public ReqStructure
 {
 public:
     /// <summary> RSA key to use for decryption
@@ -9897,7 +9897,7 @@ protected:
 
 /// <summary> This command performs RSA decryption using the indicated padding scheme
 /// according to IETF RFC 8017 ((PKCS#1). </summary>
-class _DLLEXP_ RSA_DecryptResponse : public RespStructure
+class TPM_DLLEXP RSA_DecryptResponse : public RespStructure
 {
 public:
     /// <summary> Decrypted output </summary>
@@ -9931,7 +9931,7 @@ protected:
 /// <summary> This command uses the TPM to generate an ephemeral key pair (de, Qe where Qe
 /// [de]G). It uses the private ephemeral key and a loaded public key (QS) to compute the
 /// shared secret value (P [hde]QS). </summary>
-class _DLLEXP_ TPM2_ECDH_KeyGen_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ECDH_KeyGen_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of a loaded ECC key public area.
@@ -9968,7 +9968,7 @@ protected:
 /// <summary> This command uses the TPM to generate an ephemeral key pair (de, Qe where Qe
 /// [de]G). It uses the private ephemeral key and a loaded public key (QS) to compute the
 /// shared secret value (P [hde]QS). </summary>
-class _DLLEXP_ ECDH_KeyGenResponse : public RespStructure
+class TPM_DLLEXP ECDH_KeyGenResponse : public RespStructure
 {
 public:
     /// <summary> Results of P h[de]Qs </summary>
@@ -10006,7 +10006,7 @@ protected:
 /// and a private key (ds). It will perform the multiplication of the provided inPoint
 /// (QB) with the private key (ds) and return the coordinates of the resultant point (Z =
 /// (xZ , yZ) [hds]QB; where h is the cofactor of the curve). </summary>
-class _DLLEXP_ TPM2_ECDH_ZGen_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ECDH_ZGen_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of a loaded ECC key
@@ -10053,7 +10053,7 @@ protected:
 /// and a private key (ds). It will perform the multiplication of the provided inPoint
 /// (QB) with the private key (ds) and return the coordinates of the resultant point (Z =
 /// (xZ , yZ) [hds]QB; where h is the cofactor of the curve). </summary>
-class _DLLEXP_ ECDH_ZGenResponse : public RespStructure
+class TPM_DLLEXP ECDH_ZGenResponse : public RespStructure
 {
 public:
     /// <summary> X and Y coordinates of the product of the multiplication Z = (xZ , yZ)
@@ -10087,7 +10087,7 @@ protected:
 
 /// <summary> This command returns the parameters of an ECC curve identified by its
 /// TCG-assigned curveID. </summary>
-class _DLLEXP_ TPM2_ECC_Parameters_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ECC_Parameters_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Parameter set selector </summary>
@@ -10120,7 +10120,7 @@ public:
 
 /// <summary> This command returns the parameters of an ECC curve identified by its
 /// TCG-assigned curveID. </summary>
-class _DLLEXP_ ECC_ParametersResponse : public RespStructure
+class TPM_DLLEXP ECC_ParametersResponse : public RespStructure
 {
 public:
     /// <summary> ECC parameters for the selected curve </summary>
@@ -10152,7 +10152,7 @@ public:
 /// in combination with TPM2_EC_Ephemeral(). TPM2_EC_Ephemeral() generates an ephemeral
 /// key and returns the public point of that ephemeral key along with a numeric value that
 /// allows the TPM to regenerate the associated private key. </summary>
-class _DLLEXP_ TPM2_ZGen_2Phase_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ZGen_2Phase_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of an unrestricted decryption key ECC
@@ -10209,7 +10209,7 @@ protected:
 /// in combination with TPM2_EC_Ephemeral(). TPM2_EC_Ephemeral() generates an ephemeral
 /// key and returns the public point of that ephemeral key along with a numeric value that
 /// allows the TPM to regenerate the associated private key. </summary>
-class _DLLEXP_ ZGen_2PhaseResponse : public RespStructure
+class TPM_DLLEXP ZGen_2PhaseResponse : public RespStructure
 {
 public:
     /// <summary> X and Y coordinates of the computed value (scheme dependent) </summary>
@@ -10244,7 +10244,7 @@ protected:
 }; // class ZGen_2PhaseResponse
 
 /// <summary> This command performs ECC encryption as described in Part 1, Annex D. </summary>
-class _DLLEXP_ TPM2_ECC_Encrypt_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ECC_Encrypt_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Reference to public portion of ECC key to use for encryption
@@ -10296,7 +10296,7 @@ protected:
 }; // class TPM2_ECC_Encrypt_REQUEST
 
 /// <summary> This command performs ECC encryption as described in Part 1, Annex D. </summary>
-class _DLLEXP_ ECC_EncryptResponse : public RespStructure
+class TPM_DLLEXP ECC_EncryptResponse : public RespStructure
 {
 public:
     /// <summary> The public ephemeral key used for ECDH </summary>
@@ -10334,7 +10334,7 @@ protected:
 }; // class ECC_EncryptResponse
 
 /// <summary> This command performs ECC decryption. </summary>
-class _DLLEXP_ TPM2_ECC_Decrypt_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ECC_Decrypt_REQUEST : public ReqStructure
 {
 public:
     /// <summary> ECC key to use for decryption
@@ -10393,7 +10393,7 @@ protected:
 }; // class TPM2_ECC_Decrypt_REQUEST
 
 /// <summary> This command performs ECC decryption. </summary>
-class _DLLEXP_ ECC_DecryptResponse : public RespStructure
+class TPM_DLLEXP ECC_DecryptResponse : public RespStructure
 {
 public:
     /// <summary> Decrypted output </summary>
@@ -10426,7 +10426,7 @@ protected:
 
 /// <summary> NOTE 1 This command is deprecated, and TPM2_EncryptDecrypt2() is preferred.
 /// This should be reflected in platform-specific specifications. </summary>
-class _DLLEXP_ TPM2_EncryptDecrypt_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_EncryptDecrypt_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The symmetric key used for the operation
@@ -10480,7 +10480,7 @@ protected:
 
 /// <summary> NOTE 1 This command is deprecated, and TPM2_EncryptDecrypt2() is preferred.
 /// This should be reflected in platform-specific specifications. </summary>
-class _DLLEXP_ EncryptDecryptResponse : public RespStructure
+class TPM_DLLEXP EncryptDecryptResponse : public RespStructure
 {
 public:
     /// <summary> Encrypted or decrypted output </summary>
@@ -10516,7 +10516,7 @@ protected:
 
 /// <summary> This command is identical to TPM2_EncryptDecrypt(), except that the inData
 /// parameter is the first parameter. This permits inData to be parameter encrypted. </summary>
-class _DLLEXP_ TPM2_EncryptDecrypt2_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_EncryptDecrypt2_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The symmetric key used for the operation
@@ -10572,7 +10572,7 @@ protected:
 
 /// <summary> This command is identical to TPM2_EncryptDecrypt(), except that the inData
 /// parameter is the first parameter. This permits inData to be parameter encrypted. </summary>
-class _DLLEXP_ EncryptDecrypt2Response : public RespStructure
+class TPM_DLLEXP EncryptDecrypt2Response : public RespStructure
 {
 public:
     /// <summary> Encrypted or decrypted output </summary>
@@ -10608,7 +10608,7 @@ protected:
 
 /// <summary> This command performs a hash operation on a data buffer and returns the
 /// results. </summary>
-class _DLLEXP_ TPM2_Hash_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Hash_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Data to be hashed </summary>
@@ -10650,7 +10650,7 @@ protected:
 
 /// <summary> This command performs a hash operation on a data buffer and returns the
 /// results. </summary>
-class _DLLEXP_ HashResponse : public RespStructure
+class TPM_DLLEXP HashResponse : public RespStructure
 {
 public:
     /// <summary> Results </summary>
@@ -10688,7 +10688,7 @@ protected:
 
 /// <summary> This command performs an HMAC on the supplied data using the indicated hash
 /// algorithm. </summary>
-class _DLLEXP_ TPM2_HMAC_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_HMAC_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the symmetric signing key providing the HMAC key
@@ -10736,7 +10736,7 @@ protected:
 
 /// <summary> This command performs an HMAC on the supplied data using the indicated hash
 /// algorithm. </summary>
-class _DLLEXP_ HMACResponse : public RespStructure
+class TPM_DLLEXP HMACResponse : public RespStructure
 {
 public:
     /// <summary> The returned HMAC in a sized buffer </summary>
@@ -10769,7 +10769,7 @@ protected:
 
 /// <summary> This command performs an HMAC or a block cipher MAC on the supplied data
 /// using the indicated algorithm. </summary>
-class _DLLEXP_ TPM2_MAC_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_MAC_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the symmetric signing key providing the MAC key
@@ -10817,7 +10817,7 @@ protected:
 
 /// <summary> This command performs an HMAC or a block cipher MAC on the supplied data
 /// using the indicated algorithm. </summary>
-class _DLLEXP_ MACResponse : public RespStructure
+class TPM_DLLEXP MACResponse : public RespStructure
 {
 public:
     /// <summary> The returned MAC in a sized buffer </summary>
@@ -10850,7 +10850,7 @@ protected:
 
 /// <summary> This command returns the next bytesRequested octets from the random number
 /// generator (RNG). </summary>
-class _DLLEXP_ TPM2_GetRandom_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_GetRandom_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Number of octets to return </summary>
@@ -10883,7 +10883,7 @@ public:
 
 /// <summary> This command returns the next bytesRequested octets from the random number
 /// generator (RNG). </summary>
-class _DLLEXP_ GetRandomResponse : public RespStructure
+class TPM_DLLEXP GetRandomResponse : public RespStructure
 {
 public:
     /// <summary> The random octets </summary>
@@ -10915,7 +10915,7 @@ protected:
 }; // class GetRandomResponse
 
 /// <summary> This command is used to add "additional information" to the RNG state. </summary>
-class _DLLEXP_ TPM2_StirRandom_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_StirRandom_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Additional information </summary>
@@ -10952,7 +10952,7 @@ protected:
 /// <summary> This command starts an HMAC sequence. The TPM will create and initialize an
 /// HMAC sequence structure, assign a handle to the sequence, and set the authValue of the
 /// sequence object to the value in auth. </summary>
-class _DLLEXP_ TPM2_HMAC_Start_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_HMAC_Start_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of an HMAC key
@@ -11001,7 +11001,7 @@ protected:
 /// <summary> This command starts an HMAC sequence. The TPM will create and initialize an
 /// HMAC sequence structure, assign a handle to the sequence, and set the authValue of the
 /// sequence object to the value in auth. </summary>
-class _DLLEXP_ HMAC_StartResponse : public RespStructure
+class TPM_DLLEXP HMAC_StartResponse : public RespStructure
 {
 public:
     /// <summary> A handle to reference the sequence </summary>
@@ -11034,7 +11034,7 @@ protected:
 /// <summary> This command starts a MAC sequence. The TPM will create and initialize a MAC
 /// sequence structure, assign a handle to the sequence, and set the authValue of the
 /// sequence object to the value in auth. </summary>
-class _DLLEXP_ TPM2_MAC_Start_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_MAC_Start_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of a MAC key
@@ -11083,7 +11083,7 @@ protected:
 /// <summary> This command starts a MAC sequence. The TPM will create and initialize a MAC
 /// sequence structure, assign a handle to the sequence, and set the authValue of the
 /// sequence object to the value in auth. </summary>
-class _DLLEXP_ MAC_StartResponse : public RespStructure
+class TPM_DLLEXP MAC_StartResponse : public RespStructure
 {
 public:
     /// <summary> A handle to reference the sequence </summary>
@@ -11117,7 +11117,7 @@ protected:
 /// implemented hash, then a hash sequence is started. If hashAlg is TPM_ALG_NULL, then an
 /// Event Sequence is started. If hashAlg is neither an implemented algorithm nor
 /// TPM_ALG_NULL, then the TPM shall return TPM_RC_HASH. </summary>
-class _DLLEXP_ TPM2_HashSequenceStart_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_HashSequenceStart_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Authorization value for subsequent use of the sequence </summary>
@@ -11159,7 +11159,7 @@ protected:
 /// implemented hash, then a hash sequence is started. If hashAlg is TPM_ALG_NULL, then an
 /// Event Sequence is started. If hashAlg is neither an implemented algorithm nor
 /// TPM_ALG_NULL, then the TPM shall return TPM_RC_HASH. </summary>
-class _DLLEXP_ HashSequenceStartResponse : public RespStructure
+class TPM_DLLEXP HashSequenceStartResponse : public RespStructure
 {
 public:
     /// <summary> A handle to reference the sequence </summary>
@@ -11191,7 +11191,7 @@ protected:
 
 /// <summary> This command is used to add data to a hash or HMAC sequence. The amount of
 /// data in buffer may be any size up to the limits of the TPM. </summary>
-class _DLLEXP_ TPM2_SequenceUpdate_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_SequenceUpdate_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the sequence object
@@ -11236,7 +11236,7 @@ protected:
 
 /// <summary> This command adds the last part of data, if any, to a hash/HMAC sequence and
 /// returns the result. </summary>
-class _DLLEXP_ TPM2_SequenceComplete_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_SequenceComplete_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Authorization for the sequence
@@ -11284,7 +11284,7 @@ protected:
 
 /// <summary> This command adds the last part of data, if any, to a hash/HMAC sequence and
 /// returns the result. </summary>
-class _DLLEXP_ SequenceCompleteResponse : public RespStructure
+class TPM_DLLEXP SequenceCompleteResponse : public RespStructure
 {
 public:
     /// <summary> The returned HMAC or digest in a sized buffer </summary>
@@ -11326,7 +11326,7 @@ protected:
 /// digest list input parameter to TPM2_PCR_Extend(). That is, if a bank contains a PCR
 /// associated with pcrHandle, it is extended with the associated digest value from the
 /// list. </summary>
-class _DLLEXP_ TPM2_EventSequenceComplete_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_EventSequenceComplete_REQUEST : public ReqStructure
 {
 public:
     /// <summary> PCR to be extended with the Event data
@@ -11380,7 +11380,7 @@ protected:
 /// digest list input parameter to TPM2_PCR_Extend(). That is, if a bank contains a PCR
 /// associated with pcrHandle, it is extended with the associated digest value from the
 /// list. </summary>
-class _DLLEXP_ EventSequenceCompleteResponse : public RespStructure
+class TPM_DLLEXP EventSequenceCompleteResponse : public RespStructure
 {
 public:
     /// <summary> List of digests computed for the PCR </summary>
@@ -11416,7 +11416,7 @@ protected:
 /// public area with a given Name is self-consistent and associated with a valid sensitive
 /// area. If a relying party has a public area that has the same Name as a Name certified
 /// with this command, then the values in that public area are correct. </summary>
-class _DLLEXP_ TPM2_Certify_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Certify_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the object to be certified
@@ -11478,7 +11478,7 @@ protected:
 /// public area with a given Name is self-consistent and associated with a valid sensitive
 /// area. If a relying party has a public area that has the same Name as a Name certified
 /// with this command, then the values in that public area are correct. </summary>
-class _DLLEXP_ CertifyResponse : public RespStructure
+class TPM_DLLEXP CertifyResponse : public RespStructure
 {
 public:
     /// <summary> The structure that was signed </summary>
@@ -11523,7 +11523,7 @@ protected:
 /// creation data. The TPM will validate that the ticket was produced by the TPM and that
 /// the ticket validates the association between a loaded public area and the provided
 /// hash of the creation data (creationHash). </summary>
-class _DLLEXP_ TPM2_CertifyCreation_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_CertifyCreation_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the key that will sign the attestation block
@@ -11589,7 +11589,7 @@ protected:
 /// creation data. The TPM will validate that the ticket was produced by the TPM and that
 /// the ticket validates the association between a loaded public area and the provided
 /// hash of the creation data (creationHash). </summary>
-class _DLLEXP_ CertifyCreationResponse : public RespStructure
+class TPM_DLLEXP CertifyCreationResponse : public RespStructure
 {
 public:
     /// <summary> The structure that was signed </summary>
@@ -11630,7 +11630,7 @@ protected:
 }; // class CertifyCreationResponse
 
 /// <summary> This command is used to quote PCR values. </summary>
-class _DLLEXP_ TPM2_Quote_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Quote_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of key that will perform signature
@@ -11686,7 +11686,7 @@ protected:
 }; // class TPM2_Quote_REQUEST
 
 /// <summary> This command is used to quote PCR values. </summary>
-class _DLLEXP_ QuoteResponse : public RespStructure
+class TPM_DLLEXP QuoteResponse : public RespStructure
 {
 public:
     /// <summary> The quoted information </summary>
@@ -11727,7 +11727,7 @@ protected:
 }; // class QuoteResponse
 
 /// <summary> This command returns a digital signature of the audit session digest. </summary>
-class _DLLEXP_ TPM2_GetSessionAuditDigest_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_GetSessionAuditDigest_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the privacy administrator (TPM_RH_ENDORSEMENT)
@@ -11789,7 +11789,7 @@ protected:
 }; // class TPM2_GetSessionAuditDigest_REQUEST
 
 /// <summary> This command returns a digital signature of the audit session digest. </summary>
-class _DLLEXP_ GetSessionAuditDigestResponse : public RespStructure
+class TPM_DLLEXP GetSessionAuditDigestResponse : public RespStructure
 {
 public:
     /// <summary> The audit information that was signed </summary>
@@ -11832,7 +11832,7 @@ protected:
 /// <summary> This command returns the current value of the command audit digest, a digest
 /// of the commands being audited, and the audit hash algorithm. These values are placed
 /// in an attestation structure and signed with the key referenced by signHandle. </summary>
-class _DLLEXP_ TPM2_GetCommandAuditDigest_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_GetCommandAuditDigest_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the privacy administrator (TPM_RH_ENDORSEMENT)
@@ -11892,7 +11892,7 @@ protected:
 /// <summary> This command returns the current value of the command audit digest, a digest
 /// of the commands being audited, and the audit hash algorithm. These values are placed
 /// in an attestation structure and signed with the key referenced by signHandle. </summary>
-class _DLLEXP_ GetCommandAuditDigestResponse : public RespStructure
+class TPM_DLLEXP GetCommandAuditDigestResponse : public RespStructure
 {
 public:
     /// <summary> The auditInfo that was signed </summary>
@@ -11933,7 +11933,7 @@ protected:
 }; // class GetCommandAuditDigestResponse
 
 /// <summary> This command returns the current values of Time and Clock. </summary>
-class _DLLEXP_ TPM2_GetTime_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_GetTime_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the privacy administrator (TPM_RH_ENDORSEMENT)
@@ -11991,7 +11991,7 @@ protected:
 }; // class TPM2_GetTime_REQUEST
 
 /// <summary> This command returns the current values of Time and Clock. </summary>
-class _DLLEXP_ GetTimeResponse : public RespStructure
+class TPM_DLLEXP GetTimeResponse : public RespStructure
 {
 public:
     /// <summary> Standard TPM-generated attestation block </summary>
@@ -12037,7 +12037,7 @@ protected:
 /// information, TPM2_CertifyX509 encodes the attestation information in a DER-encoded
 /// X.509 certificate that is compliant with RFC5280 Internet X.509 Public Key
 /// Infrastructure Certificate and Certificate Revocation List (CRL) Profile. </summary>
-class _DLLEXP_ TPM2_CertifyX509_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_CertifyX509_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the object to be certified
@@ -12103,7 +12103,7 @@ protected:
 /// information, TPM2_CertifyX509 encodes the attestation information in a DER-encoded
 /// X.509 certificate that is compliant with RFC5280 Internet X.509 Public Key
 /// Infrastructure Certificate and Certificate Revocation List (CRL) Profile. </summary>
-class _DLLEXP_ CertifyX509Response : public RespStructure
+class TPM_DLLEXP CertifyX509Response : public RespStructure
 {
 public:
     /// <summary> A DER encoded SEQUENCE containing the DER encoded fields added to
@@ -12151,7 +12151,7 @@ protected:
 /// The TPM will perform the point multiplications on the provided points and return
 /// intermediate signing values. The signHandle parameter shall refer to an ECC key and
 /// the signing scheme must be anonymous (TPM_RC_SCHEME). </summary>
-class _DLLEXP_ TPM2_Commit_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Commit_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the key that will be used in the signing operation
@@ -12204,7 +12204,7 @@ protected:
 /// The TPM will perform the point multiplications on the provided points and return
 /// intermediate signing values. The signHandle parameter shall refer to an ECC key and
 /// the signing scheme must be anonymous (TPM_RC_SCHEME). </summary>
-class _DLLEXP_ CommitResponse : public RespStructure
+class TPM_DLLEXP CommitResponse : public RespStructure
 {
 public:
     /// <summary> ECC point K [ds](x2, y2) </summary>
@@ -12246,7 +12246,7 @@ protected:
 
 /// <summary> TPM2_EC_Ephemeral() creates an ephemeral key for use in a two-phase key
 /// exchange protocol. </summary>
-class _DLLEXP_ TPM2_EC_Ephemeral_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_EC_Ephemeral_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The curve for the computed ephemeral point </summary>
@@ -12279,7 +12279,7 @@ public:
 
 /// <summary> TPM2_EC_Ephemeral() creates an ephemeral key for use in a two-phase key
 /// exchange protocol. </summary>
-class _DLLEXP_ EC_EphemeralResponse : public RespStructure
+class TPM_DLLEXP EC_EphemeralResponse : public RespStructure
 {
 public:
     /// <summary> Ephemeral public key Q [r]G </summary>
@@ -12315,7 +12315,7 @@ protected:
 
 /// <summary> This command uses loaded keys to validate a signature on a message with the
 /// message digest passed to the TPM. </summary>
-class _DLLEXP_ TPM2_VerifySignature_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_VerifySignature_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of public key that will be used in the validation
@@ -12368,7 +12368,7 @@ protected:
 
 /// <summary> This command uses loaded keys to validate a signature on a message with the
 /// message digest passed to the TPM. </summary>
-class _DLLEXP_ VerifySignatureResponse : public RespStructure
+class TPM_DLLEXP VerifySignatureResponse : public RespStructure
 {
 public:
     TPMT_TK_VERIFIED validation;
@@ -12397,7 +12397,7 @@ public:
 
 /// <summary> This command causes the TPM to sign an externally provided hash with the
 /// specified symmetric or asymmetric signing key. </summary>
-class _DLLEXP_ TPM2_Sign_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Sign_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of key that will perform signing
@@ -12456,7 +12456,7 @@ protected:
 
 /// <summary> This command causes the TPM to sign an externally provided hash with the
 /// specified symmetric or asymmetric signing key. </summary>
-class _DLLEXP_ SignResponse : public RespStructure
+class TPM_DLLEXP SignResponse : public RespStructure
 {
 public:
     /// <summary> Selector of the algorithm used to construct the signature </summary>
@@ -12493,7 +12493,7 @@ public:
 /// <summary> This command may be used by the Privacy Administrator or platform to change
 /// the audit status of a command or to set the hash algorithm used for the audit digest,
 /// but not both at the same time. </summary>
-class _DLLEXP_ TPM2_SetCommandCodeAuditStatus_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_SetCommandCodeAuditStatus_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -12545,7 +12545,7 @@ protected:
 /// parameter contains one or more tagged digest values identified by an algorithm ID. For
 /// each digest, the PCR associated with pcrHandle is Extended into the bank identified by
 /// the tag (hashAlg). </summary>
-class _DLLEXP_ TPM2_PCR_Extend_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PCR_Extend_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the PCR
@@ -12589,7 +12589,7 @@ protected:
 }; // class TPM2_PCR_Extend_REQUEST
 
 /// <summary> This command is used to cause an update to the indicated PCR. </summary>
-class _DLLEXP_ TPM2_PCR_Event_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PCR_Event_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the PCR
@@ -12633,7 +12633,7 @@ protected:
 }; // class TPM2_PCR_Event_REQUEST
 
 /// <summary> This command is used to cause an update to the indicated PCR. </summary>
-class _DLLEXP_ PCR_EventResponse : public RespStructure
+class TPM_DLLEXP PCR_EventResponse : public RespStructure
 {
 public:
     vector<TPMT_HA> digests;
@@ -12664,7 +12664,7 @@ protected:
 }; // class PCR_EventResponse
 
 /// <summary> This command returns the values of all PCR specified in pcrSelectionIn. </summary>
-class _DLLEXP_ TPM2_PCR_Read_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PCR_Read_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The selection of PCR to read </summary>
@@ -12699,7 +12699,7 @@ protected:
 }; // class TPM2_PCR_Read_REQUEST
 
 /// <summary> This command returns the values of all PCR specified in pcrSelectionIn. </summary>
-class _DLLEXP_ PCR_ReadResponse : public RespStructure
+class TPM_DLLEXP PCR_ReadResponse : public RespStructure
 {
 public:
     /// <summary> The current value of the PCR update counter </summary>
@@ -12736,7 +12736,7 @@ public:
 
 /// <summary> This command is used to set the desired PCR allocation of PCR and
 /// algorithms. This command requires Platform Authorization. </summary>
-class _DLLEXP_ TPM2_PCR_Allocate_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PCR_Allocate_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_PLATFORM+{PP}
@@ -12781,7 +12781,7 @@ protected:
 
 /// <summary> This command is used to set the desired PCR allocation of PCR and
 /// algorithms. This command requires Platform Authorization. </summary>
-class _DLLEXP_ PCR_AllocateResponse : public RespStructure
+class TPM_DLLEXP PCR_AllocateResponse : public RespStructure
 {
 public:
     /// <summary> YES if the allocation succeeded </summary>
@@ -12820,7 +12820,7 @@ public:
 
 /// <summary> This command is used to associate a policy with a PCR or group of PCR. The
 /// policy determines the conditions under which a PCR may be extended or reset. </summary>
-class _DLLEXP_ TPM2_PCR_SetAuthPolicy_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PCR_SetAuthPolicy_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_PLATFORM+{PP}
@@ -12870,7 +12870,7 @@ protected:
 }; // class TPM2_PCR_SetAuthPolicy_REQUEST
 
 /// <summary> This command changes the authValue of a PCR or group of PCR. </summary>
-class _DLLEXP_ TPM2_PCR_SetAuthValue_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PCR_SetAuthValue_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for a PCR that may have an authorization value set
@@ -12917,7 +12917,7 @@ protected:
 /// authorization is provided, then this command may be used to set the PCR in all banks
 /// to zero. The attributes of the PCR may restrict the locality that can perform the
 /// reset operation. </summary>
-class _DLLEXP_ TPM2_PCR_Reset_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PCR_Reset_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The PCR to reset
@@ -12955,7 +12955,7 @@ protected:
 /// <summary> This command includes a signed authorization in a policy. The command ties
 /// the policy to a signing key by including the Name of the signing key in the
 /// policyDigest </summary>
-class _DLLEXP_ TPM2_PolicySigned_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicySigned_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for a key that will validate the signature
@@ -13029,7 +13029,7 @@ protected:
 /// <summary> This command includes a signed authorization in a policy. The command ties
 /// the policy to a signing key by including the Name of the signing key in the
 /// policyDigest </summary>
-class _DLLEXP_ PolicySignedResponse : public RespStructure
+class TPM_DLLEXP PolicySignedResponse : public RespStructure
 {
 public:
     /// <summary> Implementation-specific time value, used to indicate to the TPM when the
@@ -13071,7 +13071,7 @@ protected:
 /// authValue associated with authHandle. A password session, an HMAC session, or a policy
 /// session containing TPM2_PolicyAuthValue() or TPM2_PolicyPassword() will satisfy this
 /// requirement. </summary>
-class _DLLEXP_ TPM2_PolicySecret_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicySecret_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for an entity providing the authorization
@@ -13139,7 +13139,7 @@ protected:
 /// authValue associated with authHandle. A password session, an HMAC session, or a policy
 /// session containing TPM2_PolicyAuthValue() or TPM2_PolicyPassword() will satisfy this
 /// requirement. </summary>
-class _DLLEXP_ PolicySecretResponse : public RespStructure
+class TPM_DLLEXP PolicySecretResponse : public RespStructure
 {
 public:
     /// <summary> Implementation-specific time value used to indicate to the TPM when the
@@ -13178,7 +13178,7 @@ protected:
 /// <summary> This command is similar to TPM2_PolicySigned() except that it takes a ticket
 /// instead of a signed authorization. The ticket represents a validated authorization
 /// that had an expiration time associated with it. </summary>
-class _DLLEXP_ TPM2_PolicyTicket_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyTicket_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13240,7 +13240,7 @@ protected:
 /// evaluate all of the options. If a policy may be satisfied by different sets of
 /// conditions, the TPM need only evaluate one set that satisfies the policy. This command
 /// will indicate that one of the required sets of conditions has been satisfied. </summary>
-class _DLLEXP_ TPM2_PolicyOR_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyOR_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13286,7 +13286,7 @@ protected:
 /// This command together with TPM2_PolicyOR() allows one group of authorizations to occur
 /// when PCR are in one state and a different set of authorizations when the PCR are in a
 /// different state. </summary>
-class _DLLEXP_ TPM2_PolicyPCR_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyPCR_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13334,7 +13334,7 @@ protected:
 
 /// <summary> This command indicates that the authorization will be limited to a specific
 /// locality. </summary>
-class _DLLEXP_ TPM2_PolicyLocality_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyLocality_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13377,7 +13377,7 @@ protected:
 /// <summary> This command is used to cause conditional gating of a policy based on the
 /// contents of an NV Index. It is an immediate assertion. The NV index is validated
 /// during the TPM2_PolicyNV() command, not when the session is used for authorization. </summary>
-class _DLLEXP_ TPM2_PolicyNV_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyNV_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the source of the authorization value
@@ -13436,7 +13436,7 @@ protected:
 
 /// <summary> This command is used to cause conditional gating of a policy based on the
 /// contents of the TPMS_TIME_INFO structure. </summary>
-class _DLLEXP_ TPM2_PolicyCounterTimer_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyCounterTimer_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13486,7 +13486,7 @@ protected:
 
 /// <summary> This command indicates that the authorization will be limited to a specific
 /// command code. </summary>
-class _DLLEXP_ TPM2_PolicyCommandCode_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyCommandCode_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13528,7 +13528,7 @@ protected:
 
 /// <summary> This command indicates that physical presence will need to be asserted at
 /// the time the authorization is performed. </summary>
-class _DLLEXP_ TPM2_PolicyPhysicalPresence_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyPhysicalPresence_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13564,7 +13564,7 @@ protected:
 
 /// <summary> This command is used to allow a policy to be bound to a specific command and
 /// command parameters. </summary>
-class _DLLEXP_ TPM2_PolicyCpHash_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyCpHash_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13610,7 +13610,7 @@ protected:
 /// without being bound to the parameters of the command. This is most useful for commands
 /// such as TPM2_Duplicate() and for TPM2_PCR_Event() when the referenced PCR requires a
 /// policy. </summary>
-class _DLLEXP_ TPM2_PolicyNameHash_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyNameHash_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13654,7 +13654,7 @@ protected:
 
 /// <summary> This command allows qualification of duplication to allow duplication to a
 /// selected new parent. </summary>
-class _DLLEXP_ TPM2_PolicyDuplicationSelect_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyDuplicationSelect_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13706,7 +13706,7 @@ protected:
 /// <summary> This command allows policies to change. If a policy were static, then it
 /// would be difficult to add users to a policy. This command lets a policy authority sign
 /// a new policy so that it may be used in an existing policy. </summary>
-class _DLLEXP_ TPM2_PolicyAuthorize_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyAuthorize_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13759,7 +13759,7 @@ protected:
 
 /// <summary> This command allows a policy to be bound to the authorization value of the
 /// authorized entity. </summary>
-class _DLLEXP_ TPM2_PolicyAuthValue_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyAuthValue_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13795,7 +13795,7 @@ protected:
 
 /// <summary> This command allows a policy to be bound to the authorization value of the
 /// authorized object. </summary>
-class _DLLEXP_ TPM2_PolicyPassword_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyPassword_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13832,7 +13832,7 @@ protected:
 /// <summary> This command returns the current policyDigest of the session. This command
 /// allows the TPM to be used to perform the actions required to pre-compute the
 /// authPolicy for an object. </summary>
-class _DLLEXP_ TPM2_PolicyGetDigest_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyGetDigest_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session
@@ -13869,7 +13869,7 @@ protected:
 /// <summary> This command returns the current policyDigest of the session. This command
 /// allows the TPM to be used to perform the actions required to pre-compute the
 /// authPolicy for an object. </summary>
-class _DLLEXP_ PolicyGetDigestResponse : public RespStructure
+class TPM_DLLEXP PolicyGetDigestResponse : public RespStructure
 {
 public:
     /// <summary> The current value of the policySessionpolicyDigest </summary>
@@ -13903,7 +13903,7 @@ protected:
 /// <summary> This command allows a policy to be bound to the TPMA_NV_WRITTEN attributes.
 /// This is a deferred assertion. Values are stored in the policy session context and
 /// checked when the policy is used for authorization. </summary>
-class _DLLEXP_ TPM2_PolicyNvWritten_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyNvWritten_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13947,7 +13947,7 @@ protected:
 /// <summary> This command allows a policy to be bound to a specific creation template.
 /// This is most useful for an object creation command such as TPM2_Create(),
 /// TPM2_CreatePrimary(), or TPM2_CreateLoaded(). </summary>
-class _DLLEXP_ TPM2_PolicyTemplate_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyTemplate_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -13994,7 +13994,7 @@ protected:
 /// authorization may not be withdrawn. With this command, the approved policy is kept in
 /// an NV Index location so that the policy may be changed as needed to render the old
 /// policy unusable. </summary>
-class _DLLEXP_ TPM2_PolicyAuthorizeNV_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PolicyAuthorizeNV_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the source of the authorization value
@@ -14042,7 +14042,7 @@ protected:
 /// template for the object to be created. The size of the unique field shall not be
 /// checked for consistency with the other object parameters. The command will create and
 /// load a Primary Object. The sensitive area is not returned. </summary>
-class _DLLEXP_ TPM2_CreatePrimary_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_CreatePrimary_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_ENDORSEMENT, TPM_RH_OWNER, TPM_RH_PLATFORM+{PP}, or TPM_RH_NULL
@@ -14100,7 +14100,7 @@ protected:
 /// template for the object to be created. The size of the unique field shall not be
 /// checked for consistency with the other object parameters. The command will create and
 /// load a Primary Object. The sensitive area is not returned. </summary>
-class _DLLEXP_ CreatePrimaryResponse : public RespStructure
+class TPM_DLLEXP CreatePrimaryResponse : public RespStructure
 {
 public:
     /// <summary> Handle of type TPM_HT_TRANSIENT for created Primary Object </summary>
@@ -14154,7 +14154,7 @@ protected:
 /// <summary> This command enables and disables use of a hierarchy and its associated NV
 /// storage. The command allows phEnable, phEnableNV, shEnable, and ehEnable to be changed
 /// when the proper authorization is provided. </summary>
-class _DLLEXP_ TPM2_HierarchyControl_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_HierarchyControl_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_ENDORSEMENT, TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -14204,7 +14204,7 @@ protected:
 /// (ownerPolicy), and the endorsement hierarchy (endorsementPolicy). On TPMs implementing
 /// Authenticated Countdown Timers (ACT), this command may also be used to set the
 /// authorization policy for an ACT. </summary>
-class _DLLEXP_ TPM2_SetPrimaryPolicy_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_SetPrimaryPolicy_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_LOCKOUT, TPM_RH_ENDORSEMENT, TPM_RH_OWNER, TPMI_RH_ACT or TPM_RH_PLATFORM+{PP}
@@ -14254,7 +14254,7 @@ protected:
 
 /// <summary> This replaces the current platform primary seed (PPS) with a value from the
 /// RNG and sets platformPolicy to the default initialization value (the Empty Buffer). </summary>
-class _DLLEXP_ TPM2_ChangePPS_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ChangePPS_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_PLATFORM+{PP}
@@ -14295,7 +14295,7 @@ protected:
 /// Empty Buffer. It will flush any resident objects (transient or persistent) in the
 /// Endorsement hierarchy and not allow objects in the hierarchy associated with the
 /// previous EPS to be loaded. </summary>
-class _DLLEXP_ TPM2_ChangeEPS_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ChangeEPS_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_PLATFORM+{PP}
@@ -14331,7 +14331,7 @@ protected:
 }; // class TPM2_ChangeEPS_REQUEST
 
 /// <summary> This command removes all TPM context associated with a specific Owner. </summary>
-class _DLLEXP_ TPM2_Clear_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Clear_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_LOCKOUT or TPM_RH_PLATFORM+{PP}
@@ -14367,7 +14367,7 @@ protected:
 }; // class TPM2_Clear_REQUEST
 
 /// <summary> TPM2_ClearControl() disables and enables the execution of TPM2_Clear(). </summary>
-class _DLLEXP_ TPM2_ClearControl_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ClearControl_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_LOCKOUT or TPM_RH_PLATFORM+{PP}
@@ -14411,7 +14411,7 @@ protected:
 
 /// <summary> This command allows the authorization secret for a hierarchy or lockout to
 /// be changed using the current authorization value as the command authorization. </summary>
-class _DLLEXP_ TPM2_HierarchyChangeAuth_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_HierarchyChangeAuth_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_LOCKOUT, TPM_RH_ENDORSEMENT, TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -14457,7 +14457,7 @@ protected:
 /// <summary> This command cancels the effect of a TPM lockout due to a number of
 /// successive authorization failures. If this command is properly authorized, the lockout
 /// counter is set to zero. </summary>
-class _DLLEXP_ TPM2_DictionaryAttackLockReset_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_DictionaryAttackLockReset_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_LOCKOUT
@@ -14493,7 +14493,7 @@ protected:
 }; // class TPM2_DictionaryAttackLockReset_REQUEST
 
 /// <summary> This command changes the lockout parameters. </summary>
-class _DLLEXP_ TPM2_DictionaryAttackParameters_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_DictionaryAttackParameters_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_LOCKOUT
@@ -14544,7 +14544,7 @@ protected:
 
 /// <summary> This command is used to determine which commands require assertion of
 /// Physical Presence (PP) in addition to platformAuth/platformPolicy. </summary>
-class _DLLEXP_ TPM2_PP_Commands_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_PP_Commands_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_PLATFORM+PP
@@ -14594,7 +14594,7 @@ protected:
 
 /// <summary> This command allows the platform to change the set of algorithms that are
 /// used by the TPM. The algorithmSet setting is a vendor-dependent value. </summary>
-class _DLLEXP_ TPM2_SetAlgorithmSet_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_SetAlgorithmSet_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_PLATFORM
@@ -14637,7 +14637,7 @@ protected:
 
 /// <summary> This command uses platformPolicy and a TPM Vendor Authorization Key to
 /// authorize a Field Upgrade Manifest. </summary>
-class _DLLEXP_ TPM2_FieldUpgradeStart_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_FieldUpgradeStart_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_PLATFORM+{PP}
@@ -14700,7 +14700,7 @@ protected:
 /// following a successful TPM2_FieldUpgradeStart(). If the TPM has not received a
 /// properly authorized TPM2_FieldUpgradeStart(), then the TPM shall return
 /// TPM_RC_FIELDUPGRADE. </summary>
-class _DLLEXP_ TPM2_FieldUpgradeData_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_FieldUpgradeData_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Field upgrade image data </summary>
@@ -14739,7 +14739,7 @@ protected:
 /// following a successful TPM2_FieldUpgradeStart(). If the TPM has not received a
 /// properly authorized TPM2_FieldUpgradeStart(), then the TPM shall return
 /// TPM_RC_FIELDUPGRADE. </summary>
-class _DLLEXP_ FieldUpgradeDataResponse : public RespStructure
+class TPM_DLLEXP FieldUpgradeDataResponse : public RespStructure
 {
 public:
     /// <summary> Tagged digest of the next block
@@ -14773,7 +14773,7 @@ public:
 
 /// <summary> This command is used to read a copy of the current firmware installed in the
 /// TPM. </summary>
-class _DLLEXP_ TPM2_FirmwareRead_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_FirmwareRead_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The number of previous calls to this command in this sequence
@@ -14807,7 +14807,7 @@ public:
 
 /// <summary> This command is used to read a copy of the current firmware installed in the
 /// TPM. </summary>
-class _DLLEXP_ FirmwareReadResponse : public RespStructure
+class TPM_DLLEXP FirmwareReadResponse : public RespStructure
 {
 public:
     /// <summary> Field upgrade image data </summary>
@@ -14840,7 +14840,7 @@ protected:
 
 /// <summary> This command saves a session context, object context, or sequence object
 /// context outside the TPM. </summary>
-class _DLLEXP_ TPM2_ContextSave_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ContextSave_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the resource to save
@@ -14876,7 +14876,7 @@ protected:
 
 /// <summary> This command saves a session context, object context, or sequence object
 /// context outside the TPM. </summary>
-class _DLLEXP_ ContextSaveResponse : public RespStructure
+class TPM_DLLEXP ContextSaveResponse : public RespStructure
 {
 public:
     TPMS_CONTEXT context;
@@ -14905,7 +14905,7 @@ public:
 
 /// <summary> This command is used to reload a context that has been saved by
 /// TPM2_ContextSave(). </summary>
-class _DLLEXP_ TPM2_ContextLoad_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ContextLoad_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The context blob </summary>
@@ -14938,7 +14938,7 @@ public:
 
 /// <summary> This command is used to reload a context that has been saved by
 /// TPM2_ContextSave(). </summary>
-class _DLLEXP_ ContextLoadResponse : public RespStructure
+class TPM_DLLEXP ContextLoadResponse : public RespStructure
 {
 public:
     /// <summary> The handle assigned to the resource after it has been successfully loaded </summary>
@@ -14970,7 +14970,7 @@ protected:
 
 /// <summary> This command causes all context associated with a loaded object, sequence
 /// object, or session to be removed from TPM memory. </summary>
-class _DLLEXP_ TPM2_FlushContext_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_FlushContext_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The handle of the item to flush
@@ -15004,7 +15004,7 @@ public:
 
 /// <summary> This command allows certain Transient Objects to be made persistent or a
 /// persistent object to be evicted. </summary>
-class _DLLEXP_ TPM2_EvictControl_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_EvictControl_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -15054,7 +15054,7 @@ protected:
 
 /// <summary> This command reads the current TPMS_TIME_INFO structure that contains the
 /// current setting of Time, Clock, resetCount, and restartCount. </summary>
-class _DLLEXP_ TPM2_ReadClock_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ReadClock_REQUEST : public ReqStructure
 {
 public:
 public:
@@ -15076,7 +15076,7 @@ public:
 
 /// <summary> This command reads the current TPMS_TIME_INFO structure that contains the
 /// current setting of Time, Clock, resetCount, and restartCount. </summary>
-class _DLLEXP_ ReadClockResponse : public RespStructure
+class TPM_DLLEXP ReadClockResponse : public RespStructure
 {
 public:
     TPMS_TIME_INFO currentTime;
@@ -15108,7 +15108,7 @@ public:
 /// greater than FFFF00000000000016. If both of these checks succeed, Clock is set to
 /// newTime. If either of these checks fails, the TPM shall return TPM_RC_VALUE and make
 /// no change to Clock. </summary>
-class _DLLEXP_ TPM2_ClockSet_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ClockSet_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -15151,7 +15151,7 @@ protected:
 
 /// <summary> This command adjusts the rate of advance of Clock and Time to provide a
 /// better approximation to real time. </summary>
-class _DLLEXP_ TPM2_ClockRateAdjust_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ClockRateAdjust_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -15194,7 +15194,7 @@ protected:
 
 /// <summary> This command returns various information regarding the TPM and its current
 /// state. </summary>
-class _DLLEXP_ TPM2_GetCapability_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_GetCapability_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Group selection; determines the format of the response </summary>
@@ -15233,7 +15233,7 @@ public:
 
 /// <summary> This command returns various information regarding the TPM and its current
 /// state. </summary>
-class _DLLEXP_ GetCapabilityResponse : public RespStructure
+class TPM_DLLEXP GetCapabilityResponse : public RespStructure
 {
 public:
     /// <summary> Flag to indicate if there are more values of this type </summary>
@@ -15272,7 +15272,7 @@ public:
 
 /// <summary> This command is used to check to see if specific combinations of algorithm
 /// parameters are supported. </summary>
-class _DLLEXP_ TPM2_TestParms_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_TestParms_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The algorithm to be tested </summary>
@@ -15311,7 +15311,7 @@ public:
 /// <summary> This command defines the attributes of an NV Index and causes the TPM to
 /// reserve space to hold the data associated with the NV Index. If a definition already
 /// exists at the NV Index, the TPM will return TPM_RC_NV_DEFINED. </summary>
-class _DLLEXP_ TPM2_NV_DefineSpace_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_DefineSpace_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -15358,7 +15358,7 @@ protected:
 }; // class TPM2_NV_DefineSpace_REQUEST
 
 /// <summary> This command removes an Index from the TPM. </summary>
-class _DLLEXP_ TPM2_NV_UndefineSpace_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_UndefineSpace_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -15399,7 +15399,7 @@ protected:
 
 /// <summary> This command allows removal of a platform-created NV Index that has
 /// TPMA_NV_POLICY_DELETE SET. </summary>
-class _DLLEXP_ TPM2_NV_UndefineSpaceSpecial_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_UndefineSpaceSpecial_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Index to be deleted
@@ -15442,7 +15442,7 @@ protected:
 /// <summary> This command is used to read the public area and Name of an NV Index. The
 /// public area of an Index is not privacy-sensitive and no authorization is required to
 /// read this data. </summary>
-class _DLLEXP_ TPM2_NV_ReadPublic_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_ReadPublic_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The NV Index
@@ -15479,7 +15479,7 @@ protected:
 /// <summary> This command is used to read the public area and Name of an NV Index. The
 /// public area of an Index is not privacy-sensitive and no authorization is required to
 /// read this data. </summary>
-class _DLLEXP_ NV_ReadPublicResponse : public RespStructure
+class TPM_DLLEXP NV_ReadPublicResponse : public RespStructure
 {
 public:
     /// <summary> The public area of the NV Index </summary>
@@ -15515,7 +15515,7 @@ protected:
 
 /// <summary> This command writes a value to an area in NV memory that was previously
 /// defined by TPM2_NV_DefineSpace(). </summary>
-class _DLLEXP_ TPM2_NV_Write_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_Write_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the source of the authorization value
@@ -15567,7 +15567,7 @@ protected:
 
 /// <summary> This command is used to increment the value in an NV Index that has the
 /// TPM_NT_COUNTER attribute. The data value of the NV Index is incremented by one. </summary>
-class _DLLEXP_ TPM2_NV_Increment_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_Increment_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the source of the authorization value
@@ -15608,7 +15608,7 @@ protected:
 
 /// <summary> This command extends a value to an area in NV memory that was previously
 /// defined by TPM2_NV_DefineSpace. </summary>
-class _DLLEXP_ TPM2_NV_Extend_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_Extend_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the source of the authorization value
@@ -15658,7 +15658,7 @@ protected:
 /// <summary> This command is used to SET bits in an NV Index that was created as a bit
 /// field. Any number of bits from 0 to 64 may be SET. The contents of bits are ORed with
 /// the current contents of the NV Index. </summary>
-class _DLLEXP_ TPM2_NV_SetBits_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_SetBits_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the source of the authorization value
@@ -15706,7 +15706,7 @@ protected:
 /// <summary> If the TPMA_NV_WRITEDEFINE or TPMA_NV_WRITE_STCLEAR attributes of an NV
 /// location are SET, then this command may be used to inhibit further writes of the NV
 /// Index. </summary>
-class _DLLEXP_ TPM2_NV_WriteLock_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_WriteLock_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the source of the authorization value
@@ -15747,7 +15747,7 @@ protected:
 
 /// <summary> The command will SET TPMA_NV_WRITELOCKED for all indexes that have their
 /// TPMA_NV_GLOBALLOCK attribute SET. </summary>
-class _DLLEXP_ TPM2_NV_GlobalWriteLock_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_GlobalWriteLock_REQUEST : public ReqStructure
 {
 public:
     /// <summary> TPM_RH_OWNER or TPM_RH_PLATFORM+{PP}
@@ -15784,7 +15784,7 @@ protected:
 
 /// <summary> This command reads a value from an area in NV memory previously defined by
 /// TPM2_NV_DefineSpace(). </summary>
-class _DLLEXP_ TPM2_NV_Read_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_Read_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The handle indicating the source of the authorization value
@@ -15835,7 +15835,7 @@ protected:
 
 /// <summary> This command reads a value from an area in NV memory previously defined by
 /// TPM2_NV_DefineSpace(). </summary>
-class _DLLEXP_ NV_ReadResponse : public RespStructure
+class TPM_DLLEXP NV_ReadResponse : public RespStructure
 {
 public:
     /// <summary> The data read </summary>
@@ -15868,7 +15868,7 @@ protected:
 
 /// <summary> If TPMA_NV_READ_STCLEAR is SET in an Index, then this command may be used to
 /// prevent further reads of the NV Index until the next TPM2_Startup (TPM_SU_CLEAR). </summary>
-class _DLLEXP_ TPM2_NV_ReadLock_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_ReadLock_REQUEST : public ReqStructure
 {
 public:
     /// <summary> The handle indicating the source of the authorization value
@@ -15908,7 +15908,7 @@ protected:
 }; // class TPM2_NV_ReadLock_REQUEST
 
 /// <summary> This command allows the authorization secret for an NV Index to be changed. </summary>
-class _DLLEXP_ TPM2_NV_ChangeAuth_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_ChangeAuth_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the entity
@@ -15953,7 +15953,7 @@ protected:
 
 /// <summary> The purpose of this command is to certify the contents of an NV Index or
 /// portion of an NV Index. </summary>
-class _DLLEXP_ TPM2_NV_Certify_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_NV_Certify_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the key used to sign the attestation structure
@@ -16023,7 +16023,7 @@ protected:
 
 /// <summary> The purpose of this command is to certify the contents of an NV Index or
 /// portion of an NV Index. </summary>
-class _DLLEXP_ NV_CertifyResponse : public RespStructure
+class TPM_DLLEXP NV_CertifyResponse : public RespStructure
 {
 public:
     /// <summary> The structure that was signed </summary>
@@ -16066,7 +16066,7 @@ protected:
 
 /// <summary> The purpose of this command is to obtain information about an Attached
 /// Component referenced by an AC handle. </summary>
-class _DLLEXP_ TPM2_AC_GetCapability_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_AC_GetCapability_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle indicating the Attached Component
@@ -16111,7 +16111,7 @@ protected:
 
 /// <summary> The purpose of this command is to obtain information about an Attached
 /// Component referenced by an AC handle. </summary>
-class _DLLEXP_ AC_GetCapabilityResponse : public RespStructure
+class TPM_DLLEXP AC_GetCapabilityResponse : public RespStructure
 {
 public:
     /// <summary> Flag to indicate whether there are more values </summary>
@@ -16144,7 +16144,7 @@ public:
 
 /// <summary> The purpose of this command is to send (copy) a loaded object from the TPM
 /// to an Attached Component. </summary>
-class _DLLEXP_ TPM2_AC_Send_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_AC_Send_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the object being sent to ac
@@ -16198,7 +16198,7 @@ protected:
 
 /// <summary> The purpose of this command is to send (copy) a loaded object from the TPM
 /// to an Attached Component. </summary>
-class _DLLEXP_ AC_SendResponse : public RespStructure
+class TPM_DLLEXP AC_SendResponse : public RespStructure
 {
 public:
     /// <summary> May include AC specific data or information about an error. </summary>
@@ -16230,7 +16230,7 @@ public:
 /// an Attached Component (AC). Qualification includes selection of the receiving AC and
 /// the method of authentication for the AC, and, in certain circumstances, the Object to
 /// be sent may be specified. </summary>
-class _DLLEXP_ TPM2_Policy_AC_SendSelect_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Policy_AC_SendSelect_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle for the policy session being extended
@@ -16284,7 +16284,7 @@ protected:
 
 /// <summary> This command is used to set the time remaining before an Authenticated
 /// Countdown Timer (ACT) expires. </summary>
-class _DLLEXP_ TPM2_ACT_SetTimeout_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_ACT_SetTimeout_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Handle of the selected ACT
@@ -16326,7 +16326,7 @@ protected:
 }; // class TPM2_ACT_SetTimeout_REQUEST
 
 /// <summary> This is a placeholder to allow testing of the dispatch code. </summary>
-class _DLLEXP_ TPM2_Vendor_TCG_Test_REQUEST : public ReqStructure
+class TPM_DLLEXP TPM2_Vendor_TCG_Test_REQUEST : public ReqStructure
 {
 public:
     /// <summary> Dummy data </summary>
@@ -16361,7 +16361,7 @@ protected:
 }; // class TPM2_Vendor_TCG_Test_REQUEST
 
 /// <summary> This is a placeholder to allow testing of the dispatch code. </summary>
-class _DLLEXP_ Vendor_TCG_TestResponse : public RespStructure
+class TPM_DLLEXP Vendor_TCG_TestResponse : public RespStructure
 {
 public:
     /// <summary> Dummy data </summary>
@@ -16453,7 +16453,7 @@ typedef TPMS_KDF_SCHEME_KDF1_SP800_108 TPMS_SCHEME_KDF1_SP800_108;
 
 /// <summary> Contains the public and the plaintext-sensitive and/or encrypted private
 /// part of a TPM key (or other object) </summary>
-class _DLLEXP_ TssObject : public TpmStructure
+class TPM_DLLEXP TssObject : public TpmStructure
 {
 public:
     /// <summary> Public part of key </summary>
@@ -16491,7 +16491,7 @@ public:
 }; // class TssObject
 
 /// <summary> Contains a PCR index and associated hash(pcr-value) [TSS] </summary>
-class _DLLEXP_ PcrValue : public TpmStructure
+class TPM_DLLEXP PcrValue : public TpmStructure
 {
 public:
     /// <summary> PCR Index </summary>
@@ -16526,7 +16526,7 @@ public:
 }; // class PcrValue
 
 /// <summary> Structure representing a session block in a command buffer [TSS] </summary>
-class _DLLEXP_ SessionIn : public TpmStructure
+class TPM_DLLEXP SessionIn : public TpmStructure
 {
 public:
     /// <summary> Session handle </summary>
@@ -16567,7 +16567,7 @@ public:
 }; // class SessionIn
 
 /// <summary> Structure representing a session block in a response buffer [TSS] </summary>
-class _DLLEXP_ SessionOut : public TpmStructure
+class TPM_DLLEXP SessionOut : public TpmStructure
 {
 public:
     /// <summary> TPM nonce </summary>
@@ -16605,7 +16605,7 @@ public:
 }; // class SessionOut
 
 /// <summary> Command header [TSS] </summary>
-class _DLLEXP_ CommandHeader : public TpmStructure
+class TPM_DLLEXP CommandHeader : public TpmStructure
 {
 public:
     /// <summary> Command tag (sessions, or no sessions) </summary>
@@ -16643,7 +16643,7 @@ public:
 }; // class CommandHeader
 
 /// <summary> Contains the public and private part of a TPM key </summary>
-class _DLLEXP_ TSS_KEY : public TpmStructure
+class TPM_DLLEXP TSS_KEY : public TpmStructure
 {
 public:
     /// <summary> Public part of key </summary>
@@ -16696,7 +16696,7 @@ public:
 
 /// <summary> Auto-derived from TPM2B_DIGEST to provide unique GetUnionSelector()
 /// implementation </summary>
-class _DLLEXP_ TPM2B_DIGEST_SYMCIPHER : public TPM2B_DIGEST
+class TPM_DLLEXP TPM2B_DIGEST_SYMCIPHER : public TPM2B_DIGEST
 {
 public:
 public:
@@ -16721,7 +16721,7 @@ public:
 }; // class TPM2B_DIGEST_SYMCIPHER
 
 /// <summary> Auto-derived from TPM2B_DIGEST </summary>
-class _DLLEXP_ TPM2B_DIGEST_KEYEDHASH : public TPM2B_DIGEST
+class TPM_DLLEXP TPM2B_DIGEST_KEYEDHASH : public TPM2B_DIGEST
 {
 public:
 public:

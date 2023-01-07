@@ -20,7 +20,7 @@ enum class SerializationType
 };
 
 /// <summary> Base class for all TPM structures. </summary>
-class _DLLEXP_ TpmStructure : public TpmMarshaller, public Serializable
+class TPM_DLLEXP TpmStructure : public TpmMarshaller, public Serializable
 {
     friend class Tpm2;
     friend class Crypto;
@@ -145,7 +145,7 @@ struct SessEncInfo
 /// the TpmStructure class in that their handle fields are not marshaled by their toTpm() and
 /// initFrom() methods, but rather are acceesed and manipulated via an interface defined by
 /// this structs and its derivatives ReqStructure and RespStructure. </remarks>
-class _DLLEXP_ CmdStructure : public TpmStructure
+class TPM_DLLEXP CmdStructure : public TpmStructure
 {
 public:
     /// <returns> Number of TPM handles contained (as fields) in this data structure </returns>
@@ -160,7 +160,7 @@ public:
 
 /// <summary> Base class for custom (not TPM 2.0 spec defined) auto-generated data structures
 /// representing a TPM command parameters and handles, if any. </summary>
-class _DLLEXP_ ReqStructure : public CmdStructure
+class TPM_DLLEXP ReqStructure : public CmdStructure
 {
 public:
     /// <returns> A vector of TPM handles contained in this request data structure </returns>
@@ -175,7 +175,7 @@ public:
 
 /// <summary> Base class for custom (not TPM 2.0 spec defined) auto-generated data structures
 /// representing a TPM response parameters and handles, if any. </summary>
-class _DLLEXP_ RespStructure : public CmdStructure
+class TPM_DLLEXP RespStructure : public CmdStructure
 {
 public:
     /// <returns> this structure's handle field value </returns>

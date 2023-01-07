@@ -30,7 +30,7 @@ namespace TpmCpp {
 /// <summary> AUTH_SESSION represents authorization sessions. </summary>
 /// <remarks> This class in instantiated using either AUTH_SESSION::PWAP() static method 
 /// or one of the Tpm2::StartAuthSession() command overloads. </remarks>
-class _DLLEXP_ AUTH_SESSION
+class TPM_DLLEXP AUTH_SESSION
 {
     friend class Tpm2;
 
@@ -120,7 +120,7 @@ protected:
     bool NeedsHmac = false;
     // Include plain text password in the policy session
     bool NeedsPassword = false;
-}; // class _DLLEXP_ AUTH_SESSION
+}; // class TPM_DLLEXP AUTH_SESSION
 
 /// <summary> This class encapsulates the data needed to call Activate(). </summary>
 class ActivationData {

@@ -38,7 +38,7 @@ typedef ByteVec Buffer;
  *  thereof) to/from the binary wire representation defined by the TPM 2.0 specificiation.
  *  The contents of the buffer is always in the TPM wire format.
  */
-class _DLLEXP_ TpmBuffer
+class TPM_DLLEXP TpmBuffer
 {
 protected:
     ByteVec buf;
@@ -325,7 +325,7 @@ public:
     }
 }; // class TpmBuffer
 
-class _DLLEXP_ _TPMT_SYM_DEF_OBJECT;
-class _DLLEXP_ _TPMT_SYM_DEF;
+class TPM_DLLEXP _TPMT_SYM_DEF_OBJECT;
+class TPM_DLLEXP _TPMT_SYM_DEF;
 
 }

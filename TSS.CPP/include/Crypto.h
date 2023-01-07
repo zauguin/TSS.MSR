@@ -13,7 +13,7 @@ class TPMT_PUBLIC;
 
 /// <summary> Provides TSS with static methods implementing an interface to an underlying software 
 /// crypto library (currently OpenSSL). </summary>
-class _DLLEXP_ Crypto {
+class TPM_DLLEXP Crypto {
     public:
         /// <summary> Default RNG used by all TSS facilities. </summary>
         static ByteVec GetRand(size_t numBytes);

@@ -29,7 +29,7 @@ struct enumID {
 namespace Helpers
 {
     /// <summary> Generates the given number of random bytes. </summary>
-    _DLLEXP_ ByteVec RandomBytes(size_t numBytes);
+    TPM_DLLEXP ByteVec RandomBytes(size_t numBytes);
 
     /// <summary> Produces a random int in the range [0, upperBound) </summary>
     /// <param name="upperBound"> Non-inclusive upper bound of the range of random ints </param>
@@ -44,21 +44,21 @@ namespace Helpers
     }
 
     /// <summary> Concatenate two byte buffers </summary>
-    _DLLEXP_ ByteVec Concatenate(const ByteVec& buf1, const ByteVec& buf2);
+    TPM_DLLEXP ByteVec Concatenate(const ByteVec& buf1, const ByteVec& buf2);
 
     /// <summary> Concatenate an array of byte buffers </summary>
-    _DLLEXP_ ByteVec Concatenate(const vector<ByteVec>& v);
+    TPM_DLLEXP ByteVec Concatenate(const vector<ByteVec>& v);
 
     /// <summary> Returns a copy of the original byte buffer with the trailing zeroes removed </summary>
-    _DLLEXP_ ByteVec TrimTrailingZeros(const ByteVec& buf);
+    TPM_DLLEXP ByteVec TrimTrailingZeros(const ByteVec& buf);
 
     /// <summary> Shift an array right by numBits </summary>
-    _DLLEXP_ ByteVec ShiftRight(const ByteVec& buf, size_t numBits);
+    TPM_DLLEXP ByteVec ShiftRight(const ByteVec& buf, size_t numBits);
 } // namespace Helpers
 
 
-_DLLEXP_ string EnumToStr(uint32_t enumVal, const EnumID *enumID);
-_DLLEXP_ uint32_t StrToEnum(const string& enumName, const EnumID *enumID);
+TPM_DLLEXP string EnumToStr(uint32_t enumVal, const EnumID *enumID);
+TPM_DLLEXP uint32_t StrToEnum(const string& enumName, const EnumID *enumID);
 
 /// <summary>  Get the string representation of the given enum or bitfield value </summary>
 template<class E>
@@ -140,11 +140,11 @@ inline ByteVec Int32ToTpm(uint32_t val) { return IntToTpm(val); }
 inline ByteVec Int16ToTpm(uint16_t val) { return IntToTpm(val); }
 
 /// <summary>  Output a formatted byte-stream </summary>
-_DLLEXP_ std::ostream& operator<<(std::ostream& s, const ByteVec& b);
+TPM_DLLEXP std::ostream& operator<<(std::ostream& s, const ByteVec& b);
 
 
-_DLLEXP_ string to_hex(uint64_t val, size_t width = 0);
-_DLLEXP_ uint64_t from_hex(const string& hex);
+TPM_DLLEXP string to_hex(uint64_t val, size_t width = 0);
+TPM_DLLEXP uint64_t from_hex(const string& hex);
 
 
 inline void Sleep(int numMillisecs)

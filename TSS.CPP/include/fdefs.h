@@ -10,10 +10,13 @@
 
 #ifdef _MSC_VER
 #   ifdef _TPMCPPLIB
-#       define _DLLEXP_ __declspec(dllexport)
+#       define TPM_DLLEXP __declspec(dllexport)
 #   else
-#       define _DLLEXP_ __declspec(dllimport)
+#       define TPM_DLLEXP __declspec(dllimport)
 #   endif
+#else
+#   undef TPM_DLLEXP
+#   define TPM_DLLEXP
 #endif // _MSC_VER
 
 #ifdef WIN32
@@ -37,9 +40,6 @@
 #   include <arpa/inet.h>
 #   include <assert.h>
 #   include <string.h>
-
-#   undef _DLLEXP_
-#   define _DLLEXP_
 #endif
 
 

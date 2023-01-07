@@ -142,7 +142,7 @@ namespace CodeGen
                 return;
 
             WriteComment(u);
-            Write("class _DLLEXP_ " + u.Name + ": public virtual TpmStructure");
+            Write("class TPM_DLLEXP " + u.Name + ": public virtual TpmStructure");
             TabIn("{");
 
             // Note: cannot sink GetUnionSelector() to the base TpmUnion interafce in C++,
@@ -190,7 +190,7 @@ namespace CodeGen
             }
 
             WriteComment(s);
-            Write($"class _DLLEXP_ {className} : public {virt}{classBases}");
+            Write($"class TPM_DLLEXP {className} : public {virt}{classBases}");
             Write("{");
             TabIn("public:");
 
@@ -355,7 +355,7 @@ namespace CodeGen
             foreach (TpmStruct s in commands)
                 GenCommand(s, CommandFlavor.Synch);
 
-            Write("class _DLLEXP_ AsyncMethods");
+            Write("class TPM_DLLEXP AsyncMethods");
             Write("{");
             Write("protected: Tpm2& theTpm;");
             Write("public: AsyncMethods(Tpm2& _tpm) : theTpm(_tpm) {}");

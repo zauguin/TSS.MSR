@@ -31,7 +31,7 @@ typedef void(*TpmResponseCallbackHandler)(const ByteVec& tpmCommand,
 /// <summary> Tpm2 provides methods to communicate with an underlying TPM2.0 device. Async-
 /// methods are provided via tpm.Async.*, and methods that change how Tpm2 behaves, or 
 /// fetches Tpm2 state are prefaced with an underscore, e.g. tpm._GetLastResponseCode(). </summary>
-class _DLLEXP_ Tpm2
+class TPM_DLLEXP Tpm2
 {
 public:
     /// <summary> Create a Tpm2 object without an underlying TPM-device.
@@ -2264,7 +2264,7 @@ public:
     /// <param name = "inputData"> Dummy data </param>
     /// <returns> outputData - Dummy data </returns>
     ByteVec Vendor_TCG_Test(const ByteVec& inputData);
-    class _DLLEXP_ AsyncMethods
+    class TPM_DLLEXP AsyncMethods
     {
     protected: Tpm2& theTpm;
     public: AsyncMethods(Tpm2& _tpm) : theTpm(_tpm) {}

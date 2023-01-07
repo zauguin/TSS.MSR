@@ -12,7 +12,7 @@ namespace TpmCpp {
 
 struct Serializer;
 
-struct _DLLEXP_ Serializable
+struct TPM_DLLEXP Serializable
 {
     virtual ~Serializable() {}
 
@@ -26,7 +26,7 @@ struct _DLLEXP_ Serializable
     virtual const char* TypeName () const = 0;
 };
 
-struct _DLLEXP_ Serializer
+struct TPM_DLLEXP Serializer
 {
 protected:
     /** Serializes an array of serializable objects */
@@ -176,7 +176,7 @@ public:
 }; // interface Serializer
 
 
-struct _DLLEXP_ BinarySerializer : Serializer
+struct TPM_DLLEXP BinarySerializer : Serializer
 {
     /** Initializes new deserialization sequence.
      *  @throws  exception if this serializer does not use binary representation. */
@@ -188,7 +188,7 @@ struct _DLLEXP_ BinarySerializer : Serializer
 };
 
 
-class _DLLEXP_ TextSerializer : public Serializer
+class TPM_DLLEXP TextSerializer : public Serializer
 {
     void BeginArrSizeOp();
     void EndArrSizeOp();
@@ -326,7 +326,7 @@ public:
 }; // class TextSerializer
 
 
-class _DLLEXP_ JsonSerializer : public TextSerializer
+class TPM_DLLEXP JsonSerializer : public TextSerializer
 {
 protected:
     static constexpr auto quote = '\"';
@@ -354,7 +354,7 @@ public:
 }; // class JsonSerializer
 
 
-class _DLLEXP_ PlainTextSerializer : public TextSerializer
+class TPM_DLLEXP PlainTextSerializer : public TextSerializer
 {
     /** Default value for `my_maxLineLen` */
     constexpr static std::size_t DefaultMaxLineLen = 120;

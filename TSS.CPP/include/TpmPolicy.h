@@ -30,7 +30,7 @@ namespace TpmCpp {
 //
 
 /// <summary> A PolicyNV-callback must provide the following information to TSS.C++. </summary>
-class _DLLEXP_ PolicyNVCallbackData
+class TPM_DLLEXP PolicyNVCallbackData
 {
 public:
     TPM_HANDLE AuthHandle;
@@ -49,7 +49,7 @@ typedef SignResponse (PolicySignedCallback)(const ByteVec& _nonceTpm,
 
 /// <summary> PABase is the base class for all TPM policy assertions. Derived classes must provide
 /// Execute() and PolicyHash() implementations </summary>
-class _DLLEXP_ PABase
+class TPM_DLLEXP PABase
 {
     friend class PolicyTree;
 
@@ -90,7 +90,7 @@ protected:
 }; // calss PABase
 
 /// <summary> TpmPolicy provides machinery for manipulating with TPM 2.0 policies </summary>
-class _DLLEXP_ PolicyTree
+class TPM_DLLEXP PolicyTree
 {
     friend class PolicyOr;
     friend class PolicyNV;
@@ -168,7 +168,7 @@ public:
 }; // class PolicyTree
 
 /// <summary> This command indicates that the authorization will be limited to a specific locality </summary>
-class _DLLEXP_ PolicyLocality : public PABase
+class TPM_DLLEXP PolicyLocality : public PABase
 {
 public:
     TPMA_LOCALITY Locality;
@@ -189,7 +189,7 @@ public:
 
 /// <summary>This command indicates that physical presence will need to be asserted
 /// at the time the authorization is performed. </summary>
-class _DLLEXP_ PolicyPhysicalPresence : public PABase
+class TPM_DLLEXP PolicyPhysicalPresence : public PABase
 {
 public:
     PolicyPhysicalPresence(const string& tag = "") : PABase(tag) {}
@@ -205,7 +205,7 @@ public:
 /// evaluate all of the options. If a policy may be satisfied by different sets of conditions,
 /// the TPM need only evaluate one set that satisfies the policy. This command will indicate
 /// that one of the required sets of conditions has been satisfied. </summary>
-class _DLLEXP_ PolicyOr : public PABase
+class TPM_DLLEXP PolicyOr : public PABase
 {
 public:
     vector<vector<PABase*>> Branches;
@@ -240,7 +240,7 @@ private:
 /// set of authorizations when the PCRs are in a different state. If this command is used
 /// for a trial policySession, the policyHash will be updated using the values from the command
 /// rather than the values from digest of the TPM PCR. </summary>
-class _DLLEXP_ PolicyPcr : public PABase
+class TPM_DLLEXP PolicyPcr : public PABase
 {
 public:
     vector<TPM2B_DIGEST> PcrValues;
@@ -262,7 +262,7 @@ public:
 
 /// <summary> This command indicates that the authorization will be limited to a
 /// specific command code. </summary>
-class _DLLEXP_ PolicyCommandCode : public PABase
+class TPM_DLLEXP PolicyCommandCode : public PABase
 {
 public:
     TPM_CC CommandCode;
@@ -282,7 +282,7 @@ public:
 
 /// <summary> This command is used to allow a policy to be bound to a specific command
 /// and command parameters. </summary>
-class _DLLEXP_ PolicyCpHash : public PABase
+class TPM_DLLEXP PolicyCpHash : public PABase
 {
 public:
     ByteVec CpHash;
@@ -302,7 +302,7 @@ public:
 
 /// <summary>This command is used to cause conditional gating of a policy based on the
 /// contents of the TPMS_TIME_INFO structure. </summary>
-class _DLLEXP_ PolicyCounterTimer : public PABase
+class TPM_DLLEXP PolicyCounterTimer : public PABase
 {
 public:
     ByteVec OperandB;
@@ -327,7 +327,7 @@ public:
 /// without being bound to the parameters of the command. This is most useful for
 /// commands such as TPM2_Duplicate() and for TPM2_PCR_Event() when the referenced
 /// PCR requires a policy. </summary>
-class _DLLEXP_ PolicyNameHash : public PABase
+class TPM_DLLEXP PolicyNameHash : public PABase
 {
 public:
     ByteVec NameHash;
@@ -346,7 +346,7 @@ public:
 };
 
 /// <summary> PolicyAuthValue indicates that an auth-value HMAC must be provided during policy use </summary>
-class _DLLEXP_ PolicyAuthValue : public PABase
+class TPM_DLLEXP PolicyAuthValue : public PABase
 {
 public:
     /// <summary> PolicyAuthValue indicates that an auth-value HMAC must be provided during policy use </summary>
@@ -361,7 +361,7 @@ public:
 
 /// <summary>This command allows a policy to be bound to the authorization value of the
 /// authorized object (PWAP). </summary>
-class _DLLEXP_ PolicyPassword : public PABase
+class TPM_DLLEXP PolicyPassword : public PABase
 {
 public:
     PolicyPassword(const string& tag = "") : PABase(tag) {}
@@ -375,7 +375,7 @@ public:
 
 /// <summary>This command is used to cause conditional gating of a policy based
 /// on the contents of an NV Index. </summary>
-class _DLLEXP_ PolicyNV : public PABase
+class TPM_DLLEXP PolicyNV : public PABase
 {
 public:
     ByteVec OperandB;
@@ -419,7 +419,7 @@ protected:
 };
 
 /// <summary>This command includes an asymmetrically signed authorization in a policy. </summary>
-class _DLLEXP_ PolicySigned : public PABase
+class TPM_DLLEXP PolicySigned : public PABase
 {
 public:
     bool IncludeTpmNonce;
@@ -462,7 +462,7 @@ protected:
 /// <summary> PolicyAuthorize transforms a policyHash into a value derived from a public
 /// key if the corresponding private key holder has authorized the pre-value with a
 /// signature </summary>
-class _DLLEXP_ PolicyAuthorize : public PABase
+class TPM_DLLEXP PolicyAuthorize : public PABase
 {
 public:
     ByteVec ApprovedPolicy;
@@ -494,7 +494,7 @@ public:
 /// <summary>This command includes a secret-based authorization to a policy.
 /// The caller proves knowledge of the secret value using either a password or 
 /// an HMAC-based authorization session. </summary>
-class _DLLEXP_ PolicySecret : public PABase
+class TPM_DLLEXP PolicySecret : public PABase
 {
 public:
     bool IncludeTpmNonce;
@@ -548,7 +548,7 @@ protected:
 /// <summary> This command is similar to TPM2_PolicySigned() except that it takes a
 /// ticket instead of a signed authorization. The ticket represents a validated
 /// authorization that had an expiration time associated with it. </summary>
-class _DLLEXP_ PolicyTicket : public PABase
+class TPM_DLLEXP PolicyTicket : public PABase
 {
 public:
     bool IncludeTpmNonce;
@@ -591,7 +591,7 @@ protected:
 
 /// <summary>This command allows qualification of duplication to allow duplication to
 /// a selected new parent. </summary>
-class _DLLEXP_ PolicyDuplicationSelect : public PABase
+class TPM_DLLEXP PolicyDuplicationSelect : public PABase
 {
 public:
     ByteVec ObjectName;

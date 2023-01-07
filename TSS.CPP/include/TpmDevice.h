@@ -56,7 +56,7 @@ enum TcpTpmCommands {
 /// <summary> Partially abstract base class for classes implementing communication 
 /// interface with TPM devices of different kinds (e.g. a simulator, 
 ///TBS interface on Windows or /dev/tpm0 on linux). </summary>
-class _DLLEXP_ TpmDevice
+class TPM_DLLEXP TpmDevice
 {
 protected:
     // A set of TSS_TPM_CONN_INFO flags
@@ -208,7 +208,7 @@ protected:
 
 /// <summary> TpmTcpDevice connects to a TPM-simulator over a TCP connection TpmTcpConnection
 /// can also be used to connect to a remote TPM via a network proxy. </summary>
-class _DLLEXP_ TpmTcpDevice : public TpmDevice
+class TPM_DLLEXP TpmTcpDevice : public TpmDevice
 {
 public:
     /// <summary> TpmTcpDevice connects to a TPM-simulator over a TCP protocol.
@@ -244,7 +244,7 @@ protected:
 };
 
 
-class _DLLEXP_ TpmTbsDevice : public TpmDevice
+class TPM_DLLEXP TpmTbsDevice : public TpmDevice
 {
 public:
     TpmTbsDevice() = default;
