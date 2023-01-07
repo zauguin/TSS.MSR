@@ -355,19 +355,17 @@ ByteVec Crypto::CFBXcrypt(bool encrypt, TPM_ALG_ID algId,
     if (data.empty())
         return ByteVec();
 
-    if (keyBytes.size() * 8 != 128)
-        throw domain_error("Invalid key length");
-
     ByteVec res(data.size());
 
-    byte nullVec[512] = {0};
-    byte *pIv = iv.empty() ? nullVec : &iv[0];
+    const byte nullVec[16] = {0};
+    const byte *pIv = iv.empty() ? nullVec : iv.data();
+    std::size_t ivLength = iv.empty() ? sizeof(nullVec) : iv.size(); // Must be the block size
 
     int num = 0;
 
     if (encrypt) {
       CryptoPP::CFB_Mode<CryptoPP::AES>::Encryption encryptor;
-      encryptor.SetKeyWithIV(keyBytes.data(), keyBytes.size(), pIv);
+      encryptor.SetKeyWithIV(keyBytes.data(), keyBytes.size(), pIv, ivLength);
       CryptoPP::StringSource source(data.data(), data.size(), true,
           new CryptoPP::StreamTransformationFilter(
             encryptor,
@@ -375,7 +373,7 @@ ByteVec Crypto::CFBXcrypt(bool encrypt, TPM_ALG_ID algId,
             CryptoPP::StreamTransformationFilter::NO_PADDING));
     } else {
       CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption decryptor;
-      decryptor.SetKeyWithIV(keyBytes.data(), keyBytes.size(), pIv);
+      decryptor.SetKeyWithIV(keyBytes.data(), keyBytes.size(), pIv, ivLength);
       CryptoPP::StringSource source(data.data(), data.size(), true,
           new CryptoPP::StreamTransformationFilter(
             decryptor,

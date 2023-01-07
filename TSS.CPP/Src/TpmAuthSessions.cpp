@@ -157,13 +157,12 @@ ByteVec AUTH_SESSION::ParamXcrypt(ByteVec& parm, bool request)
         nonceOlder = NonceCaller;
     }
 
-    if (Symmetric.algorithm != TPM_ALG_ID::AES || Symmetric.mode != TPM_ALG_ID::CFB ||
-        (Symmetric.keyBits & ~(128 | 256)))
+    if (Symmetric.algorithm != TPM_ALG_ID::AES || Symmetric.mode != TPM_ALG_ID::CFB)
     {
-        throw domain_error("Only 128- or 256-bit AES in CFB mode is supported");
+        throw domain_error("Only AES in CFB mode is supported");
     }
 
-    const int numKdfBits = 256;
+    const int numKdfBits = Symmetric.keyBits + 128;
 
     size_t keySize = Symmetric.keyBits / 8;
     ByteVec keyInfo = Crypto::KDFa(HashAlg, SessionKey, "CFB", nonceNewer, nonceOlder, numKdfBits);
