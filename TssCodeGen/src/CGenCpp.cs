@@ -149,7 +149,7 @@ namespace CodeGen
             // as some unions use different unrelated enums as return types.
             Write($"public: virtual {GetUnionSelectorType(u)} GetUnionSelector() const = 0;");
 
-            Write("public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };");
+            Write("public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };");
             TabOut("};");
         } // GenUnion()
 

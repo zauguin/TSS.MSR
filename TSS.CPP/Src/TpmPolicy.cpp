@@ -553,7 +553,7 @@ void PolicySecret::Execute(Tpm2& tpm, PolicyTree& p)
 
     if (CallbackNeeded) {
         // TODO: Get the object handle
-        _ASSERT(FALSE);
+        TPM_ASSERT(false);
     }
 
     tpm.PolicySecret(AuthHandle, *(p.Session), nonceTpm, CpHashA, PolicyRef, Expiration);
@@ -584,13 +584,13 @@ void PolicyDuplicationSelect::Execute(Tpm2& tpm, PolicyTree& p)
 // 
 void PolicyTicket::UpdatePolicyDigest(TPM_HASH& accumulator) const
 {
-    _ASSERT(FALSE);
+    TPM_ASSERT(false);
     return;
 }
 
 void PolicyTicket::Execute(Tpm2&, PolicyTree&)
 {
-    _ASSERT(FALSE);
+    TPM_ASSERT(false);
 }
 
 }

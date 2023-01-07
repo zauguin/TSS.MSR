@@ -432,7 +432,7 @@ bool Tpm2::DispatchIn(TPM_CC cmdCode, RespStructure& resp)
     // Get the handles
     if (resp.numHandles() > 0)
     {
-        _ASSERT(resp.numHandles() == 1);
+        TPM_ASSERT(resp.numHandles() == 1);
         resp.setHandle(TPM_HANDLE(respBuf.readInt()));
     }
 

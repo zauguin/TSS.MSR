@@ -3023,7 +3023,7 @@ const EnumID &enumID<TPMA_NV>::value;
 class _DLLEXP_ TPMU_CAPABILITIES: public virtual TpmStructure
 {
     public: virtual TPM_CAP GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> Table 132 Definition of TPMU_ATTEST Union [OUT] </summary>
@@ -3033,7 +3033,7 @@ class _DLLEXP_ TPMU_CAPABILITIES: public virtual TpmStructure
 class _DLLEXP_ TPMU_ATTEST: public virtual TpmStructure
 {
     public: virtual TPM_ST GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> This union allows additional parameters to be added for a symmetric cipher.
@@ -3044,7 +3044,7 @@ class _DLLEXP_ TPMU_ATTEST: public virtual TpmStructure
 class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> This structure allows a TPM2B_SENSITIVE_CREATE structure to carry either a
@@ -3055,7 +3055,7 @@ class _DLLEXP_ TPMU_SYM_DETAILS: public virtual TpmStructure
 class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> Table 157 Definition of TPMU_SCHEME_KEYEDHASH Union [IN/OUT] </summary>
@@ -3063,7 +3063,7 @@ class _DLLEXP_ TPMU_SENSITIVE_CREATE: public virtual TpmStructure
 class _DLLEXP_ TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> This is the union of all of the signature schemes. </summary>
@@ -3073,7 +3073,7 @@ class _DLLEXP_ TPMU_SCHEME_KEYEDHASH: public virtual TpmStructure
 class _DLLEXP_ TPMU_SIG_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> Table 166 Definition of TPMU_KDF_SCHEME Union [IN/OUT] </summary>
@@ -3083,7 +3083,7 @@ class _DLLEXP_ TPMU_SIG_SCHEME: public virtual TpmStructure
 class _DLLEXP_ TPMU_KDF_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> This union of all asymmetric schemes is used in each of the asymmetric
@@ -3096,7 +3096,7 @@ class _DLLEXP_ TPMU_KDF_SCHEME: public virtual TpmStructure
 class _DLLEXP_ TPMU_ASYM_SCHEME: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> A TPMU_SIGNATURE_COMPOSITE is a union of the various signatures that are
@@ -3108,7 +3108,7 @@ class _DLLEXP_ TPMU_ASYM_SCHEME: public virtual TpmStructure
 class _DLLEXP_ TPMU_SIGNATURE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> This is the union of all values allowed in in the unique field of a
@@ -3118,7 +3118,7 @@ class _DLLEXP_ TPMU_SIGNATURE: public virtual TpmStructure
 class _DLLEXP_ TPMU_PUBLIC_ID: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> Table 199 defines the possible parameter definition structures that may be
@@ -3129,7 +3129,7 @@ class _DLLEXP_ TPMU_PUBLIC_ID: public virtual TpmStructure
 class _DLLEXP_ TPMU_PUBLIC_PARMS: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> Table 205 Definition of TPMU_SENSITIVE_COMPOSITE Union [IN/OUT] </summary>
@@ -3138,7 +3138,7 @@ class _DLLEXP_ TPMU_PUBLIC_PARMS: public virtual TpmStructure
 class _DLLEXP_ TPMU_SENSITIVE_COMPOSITE: public virtual TpmStructure
 {
     public: virtual TPM_ALG_ID GetUnionSelector() const = 0;
-    public: virtual TpmStructure*  Clone() const { _ASSERT(FALSE); return NULL; };
+    public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return NULL; };
 };
 
 /// <summary> Handle of a loaded TPM key or other object [TSS] </summary>

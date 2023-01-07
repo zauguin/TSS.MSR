@@ -445,7 +445,7 @@ public:
     void SetKey(const TSS_KEY& _key)
     {
         FullKey = _key;
-        CallbackNeeded = FALSE;
+        CallbackNeeded = false;
     }
 
     virtual void UpdatePolicyDigest(TPM_HASH& accumulator) const;
@@ -576,7 +576,7 @@ public:
     void SetKey(const TSS_KEY& _key)
     {
         FullKey = _key;
-        CallbackNeeded = FALSE;
+        CallbackNeeded = false;
     }
 
     virtual void UpdatePolicyDigest(TPM_HASH& accumulator) const;

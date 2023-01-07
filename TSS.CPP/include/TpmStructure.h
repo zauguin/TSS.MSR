@@ -95,7 +95,7 @@ public:
     {
         TpmBuffer buf(buffer);
         initFromTpm(buf);
-        _ASSERT(buf.curPos() == buffer.size());
+        TPM_ASSERT(buf.curPos() == buffer.size());
     }
 
     /// <returns> 2B size-prefixed TPM binary representation of this object. </returns>
@@ -119,7 +119,7 @@ protected:
         TpmBuffer buf(buffer);
         T newObj;
         newObj.initFromTpm(buf);
-        _ASSERT(buf.curPos() == buffer.size());
+        TPM_ASSERT(buf.curPos() == buffer.size());
         return newObj;
     }
 }; // class TpmStructure

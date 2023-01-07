@@ -29,6 +29,8 @@
 #   include <winsock2.h>
 #   include <ws2tcpip.h>
 #   include <tchar.h>
+
+#   define TPM_ASSERT _ASSERT
 #endif // WIN32
 
 #ifdef __linux__
@@ -47,23 +49,7 @@
 #ifdef __linux__
 #include <memory>   // shared_ptr<>
 
-using BYTE = unsigned char;
-using INT8 = char;
-using UINT8 = unsigned char;
-using UINT16 = unsigned short;
-using UINT32 = unsigned int;
-using INT64 = long long;
-using UINT64 = unsigned long long;
-using INT16 = short;
-using INT32 = int;
-using SOCKET = int;
-using BOOL = bool;
-using WCHAR = wchar_t;
-
-#define FALSE false
-#define TRUE  true
-
-#define _ASSERT assert
+#define TPM_ASSERT assert
 #endif
 
 

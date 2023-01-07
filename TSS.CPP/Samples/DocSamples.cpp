@@ -112,10 +112,10 @@ void Samples::Structures()
     // And check that the reconstituted values are the same as the originals with
     // the built-in value-equality operators.
 
-    _ASSERT(pcrVal == fromJSON);
+    TPM_ASSERT(pcrVal == fromJSON);
     cout << "JSON Deserialization succeeded" << endl;
 
-    _ASSERT(pcrVal == fromBinary);
+    TPM_ASSERT(pcrVal == fromBinary);
     cout << "Binary serialization succeeded" << endl;
 } // Structures()
 
@@ -181,9 +181,9 @@ void Samples::HMACSessions()
     cout << "Data read from nv-slot:   " << dataRead << endl;
 
     // And make sure that it's good
-    _ASSERT(equal(toWrite.begin(), toWrite.end(), dataRead.begin() + Offset));
-    _ASSERT(all_of(dataRead.begin(), dataRead.begin() + Offset, [](TpmCpp::byte b){ return b == 0; }) ||
-            all_of(dataRead.begin(), dataRead.begin() + Offset, [](TpmCpp::byte b){ return b == 0xFF; }));
+    TPM_ASSERT(equal(toWrite.begin(), toWrite.end(), dataRead.begin() + Offset));
+    TPM_ASSERT(all_of(dataRead.begin(), dataRead.begin() + Offset, [](TpmCpp::byte b){ return b == 0; }) ||
+               all_of(dataRead.begin(), dataRead.begin() + Offset, [](TpmCpp::byte b){ return b == 0xFF; }));
 
     // Clean up
     if (tpm._GetDevice().PlatformAvailable())
@@ -242,7 +242,7 @@ void Samples::SigningPrimary()
     // Use TSS.C++ to validate the signature
     bool sigOk = newPrimary.outPublic.ValidateSignature(dataToSign, *sig);
     cout << "Signature is " << (sigOk ? "OK" : "BAD") << endl;
-    _ASSERT(sigOk);
+    TPM_ASSERT(sigOk);
 
     tpm.FlushContext(newPrimary.handle);
 } // SigningPrimary()
@@ -366,7 +366,7 @@ void Samples::ThreeElementPolicy()
 
     if (!worked)
         cout << "Policy failed after PCR-extend, as expected." << endl;
-    _ASSERT(!worked);
+    TPM_ASSERT(!worked);
 
     tpm.FlushContext(s);
 
@@ -392,7 +392,7 @@ void Samples::PolicyOrSample()
     policyTree.Execute(tpm, s, "loc-branch");
     auto policyDigest2 = tpm.PolicyGetDigest(s);
 
-    _ASSERT(policyDigest == policyDigest2);
+    TPM_ASSERT(policyDigest == policyDigest2);
     if (policyDigest == policyDigest2)
         cout << "PolicyOR (branch1) digest is as expected:" << endl << policyDigest2 << endl;
 
@@ -403,7 +403,7 @@ void Samples::PolicyOrSample()
     policyTree.Execute(tpm, s, "pp-branch");
     policyDigest2 = tpm.PolicyGetDigest(s);
 
-    _ASSERT(policyDigest == policyDigest2);
+    TPM_ASSERT(policyDigest == policyDigest2);
     if (policyDigest == policyDigest2)
         cout << "PolicyOR (branch1) digest is as expected:" << endl << policyDigest2 << endl;
 

@@ -453,7 +453,7 @@ void Samples::PCR()
         cout << "PCR values correct" << endl;
     else {
         cout << "Error: PCR values NOT correct" << endl;
-        _ASSERT(FALSE);
+        TPM_ASSERT(false);
     }
 
     // Extend a resettable PCR
@@ -467,7 +467,7 @@ void Samples::PCR()
     cout << "After reset:                 " << resettablePcrVal.pcrValues[0] << endl;
 
     // Check it really is all zeros
-    _ASSERT(resettablePcrVal.pcrValues[0].buffer == ByteVec(20));
+    TPM_ASSERT(resettablePcrVal.pcrValues[0].buffer == ByteVec(20));
 } // PCR()
 
 void Samples::Locality()
@@ -523,7 +523,7 @@ void Samples::Hash()
         auto hashResponse = tpm.Hash(data1, *it, TPM_RH_NULL);
         auto expected = Crypto::Hash(*it, data1);
 
-        _ASSERT(hashResponse.outHash == expected);
+        TPM_ASSERT(hashResponse.outHash == expected);
         cout << "Hash:: " << EnumToStr(*it) << endl;
         cout << "Expected:      " << expected << endl;
         cout << "TPM generated: " << hashResponse.outHash << endl;
@@ -551,7 +551,7 @@ void Samples::Hash()
         auto hashVal = tpm.SequenceComplete(hashHandle, data1, TPM_RH_NULL);
         auto expected = Crypto::Hash(*iterator, accumulator);
 
-        _ASSERT(hashVal.result == expected);
+        TPM_ASSERT(hashVal.result == expected);
         cout << "Hash:: " << EnumToStr(*iterator) << endl;
         cout << "Expected:      " << expected << endl;
         cout << "TPM generated: " << hashVal.result << endl;
@@ -580,7 +580,7 @@ void Samples::Hash()
 
     if (expectedPcr == finalPcr.pcrValues[0])
         cout << "EventSequenceComplete gives expected answer:  " << endl << expectedPcr.ToString(false) << endl;
-    _ASSERT(expectedPcr == finalPcr.pcrValues[0]);
+    TPM_ASSERT(expectedPcr == finalPcr.pcrValues[0]);
 } // Hash()
 
 void Samples::HMAC()
@@ -614,7 +614,7 @@ void Samples::HMAC()
     auto data = Helpers::Concatenate(data1, data1);
     auto expectedHmac = Crypto::HMAC(hashAlg, key, data);
 
-    _ASSERT(expectedHmac == hmacDigest.result);
+    TPM_ASSERT(expectedHmac == hmacDigest.result);
 
     cout <<  "HMAC[SHA1] of " << data << endl <<
              "with key      " << key << endl <<
@@ -804,7 +804,7 @@ void Samples::NV()
     cout << "Data read from nv-slot:   " << dataRead << endl;
 
     // And make sure that it's good
-    _ASSERT(equal(toWrite.begin(), toWrite.end(), dataRead.begin()));
+    TPM_ASSERT(equal(toWrite.begin(), toWrite.end(), dataRead.begin()));
 
     // We can also read the public area
     auto nvPub = tpm.NV_ReadPublic(nvHandle);
@@ -928,7 +928,7 @@ void Samples::NV()
     cout << "Extended NV slot:" << extendedData << endl;
 
     // Check the result is correct
-    _ASSERT(TPM_HASH(TPM_ALG_ID::SHA1).Extend(toExtend) == extendedData);
+    TPM_ASSERT(TPM_HASH(TPM_ALG_ID::SHA1).Extend(toExtend) == extendedData);
 
     // And then delete it
     tpm.NV_UndefineSpace(TPM_RH::OWNER, nvHandle);
@@ -985,7 +985,7 @@ void Samples::NV()
 
     // TODO: Does not work now
     // TSS.C++ tracks changes of auth-values and updates the relevant handle.
-    //_ASSERT_EXPR(nvHandle.GetAuth() == newAuth, L"Auth value stored in NV handlewas was not updated");
+    //TPM_ASSERT_EXPR(nvHandle.GetAuth() == newAuth, L"Auth value stored in NV handlewas was not updated");
 
     // Can no longer read with old password
     tpm._ExpectError(TPM_RC::AUTH_FAIL)
@@ -1040,7 +1040,7 @@ void Samples::PrimaryKeys()
     if (!tpm._LastCommandSucceeded())
     {
         // Some TPMs only allow primary keys of no lower than a particular strength.
-        _ASSERT(tpm._GetLastResponseCode() == TPM_RC::VALUE);
+        TPM_ASSERT(tpm._GetLastResponseCode() == TPM_RC::VALUE);
         dynamic_cast<TPMS_RSA_PARMS*>(&*templ.parameters)->keyBits = 2048;
         newPrimary = tpm.CreatePrimary(TPM_RH::OWNER, sensCreate, templ, null, null);
     }
@@ -1053,7 +1053,7 @@ void Samples::PrimaryKeys()
     cout << " Returned by TPM " << newPrimary.name << endl;
     cout << " Calculated      " << newPrimary.outPublic.GetName() << endl;
     cout << " Set in handle   " << newPrimary.handle.GetName() << endl;
-    _ASSERT(newPrimary.name == newPrimary.outPublic.GetName());
+    TPM_ASSERT(newPrimary.name == newPrimary.outPublic.GetName());
 
     // Sign something with the new key.  First set the auth-value in the handle
     TPM_HANDLE& signKey = newPrimary.handle;
@@ -1337,7 +1337,7 @@ void Samples::PolicyPCRSample()
     try {
         p.Execute(tpm, s);
         cerr << "Should NOT get here, because the policy evaluation should fail";
-        _ASSERT(FALSE);
+        TPM_ASSERT(false);
     }
     catch (const exception&) {
         // Expected
@@ -1470,10 +1470,10 @@ void Samples::ChildKeys()
     if (!tpm._LastCommandSucceeded())
         cout << "Signature verification of bad signature failed, as expected" << endl;
 
-    _ASSERT(!tpm._LastCommandSucceeded());
+    TPM_ASSERT(!tpm._LastCommandSucceeded());
 
     // And sofware verification should fail too
-    _ASSERT(!newSigKey.outPublic.ValidateSignature(dataToSign, *sig));
+    TPM_ASSERT(!newSigKey.outPublic.ValidateSignature(dataToSign, *sig));
 
     // Remove the primary key from the TPM
     tpm.FlushContext(publicKeyHandle);
@@ -1521,8 +1521,8 @@ void Samples::PolicyORSample()
     try {
         p.Execute(tpm, s, "pcr-branch");
 
-        // We should not hit this _ASSERT because the PCR-value is wrong
-        _ASSERT(FALSE);
+        // We should not hit this TPM_ASSERT because the PCR-value is wrong
+        TPM_ASSERT(false);
     }
     catch (const exception&) {
         cerr << "PolicyPcr failed, as expected" << endl;
@@ -1623,7 +1623,7 @@ void Samples::Attestation()
     bool sigOk = pubKey.outPublic.ValidateQuote(pcrVals, Nonce, quote);
     if (sigOk)
         cout << "The quote was verified correctly" << endl;
-    _ASSERT(sigOk);
+    TPM_ASSERT(sigOk);
 
     // Now change the PCR and do a new quote
     tpm.PCR_Event(TPM_HANDLE::Pcr(7), { 1, 2, 3 });
@@ -1633,7 +1633,7 @@ void Samples::Attestation()
     sigOk = pubKey.outPublic.ValidateQuote(pcrVals, Nonce, quote);
     if (!sigOk)
         cout << "The changed quote did not match, as expected" << endl;
-    _ASSERT(!sigOk);
+    TPM_ASSERT(!sigOk);
 
     // Get a time-attestation
     cout << ">> Time Quoting" << endl;
@@ -1656,7 +1656,7 @@ void Samples::Attestation()
     sigOk = pubKey.outPublic.ValidateGetTime(timeNonce, timeQuote);
     if (sigOk)
         cout << "Time-quote validated" << endl;
-    _ASSERT(sigOk);
+    TPM_ASSERT(sigOk);
 
     // Get a key attestation.  For simplicity we have the signingKey self-certify b
     cout << ">> Key Quoting" << endl;
@@ -1675,7 +1675,7 @@ void Samples::Attestation()
     sigOk = pubKey.outPublic.ValidateCertify(pubKey.outPublic, nonce, keyInfo);
     if (sigOk)
         cout << "Key certification validated" << endl;
-    _ASSERT(sigOk);
+    TPM_ASSERT(sigOk);
 
     // CertifyCreation provides a "birth certificate" for a newly createed object
     TPMT_PUBLIC templ(TPM_ALG_ID::SHA1,
@@ -1699,7 +1699,7 @@ void Samples::Attestation()
     sigOk = pubKey.outPublic.ValidateCertifyCreation(nonce, newSigKey.creationHash, createQuote);
     if (sigOk)
         cout << "Key creation certification validated" << endl;
-    _ASSERT(sigOk);
+    TPM_ASSERT(sigOk);
 
     // NV-index quoting.
     
@@ -1733,7 +1733,7 @@ void Samples::Attestation()
     sigOk = pubKey.outPublic.ValidateCertifyNV(nonce, toWrite, 0, nvQuote);
     if (sigOk)
         cout << "Key creation certification validated" << endl;
-    _ASSERT(sigOk);
+    TPM_ASSERT(sigOk);
 
     tpm.NV_UndefineSpace(TPM_RH::OWNER, nvHandle);
     tpm.FlushContext(sigKey);
@@ -1760,7 +1760,7 @@ void Samples::Admin()
         // ... and make sure that they are the same
         auto pub1 = tpm.ReadPublic(h1);
         auto pub2 = tpm.ReadPublic(h2);
-        _ASSERT(pub1.name == pub2.name);
+        TPM_ASSERT(pub1.name == pub2.name);
 
         // Clear the TPM
         tpm.Clear(TPM_RH::LOCKOUT);
@@ -1770,7 +1770,7 @@ void Samples::Admin()
 
         cout << "Name before clear " << pub1.name << endl;
         cout << "Name after clear  " << pub3.name << endl;
-        _ASSERT(pub1.name != pub3.name);
+        TPM_ASSERT(pub1.name != pub3.name);
 
         tpm.FlushContext(h3);
 
@@ -1785,7 +1785,7 @@ void Samples::Admin()
     tpm.HierarchyChangeAuth(TPM_RH::OWNER, newOwnerAuth);
 
     // TSS.C++ tracks changes of auth-values and updates the relevant handle.
-    _ASSERT(tpm._AdminOwner.GetAuth() == newOwnerAuth);
+    TPM_ASSERT(tpm._AdminOwner.GetAuth() == newOwnerAuth);
 
     // Because we have the new auth-value we can continue managing the TPM
     tpm.HierarchyChangeAuth(TPM_RH::OWNER, null);
@@ -2099,7 +2099,7 @@ void Samples::Unseal()
     ByteVec unsealedData = tpm[sess].Unseal(sealedKey);
     tpm.FlushContext(sess);
     cout << "Unsealed data: " << unsealedData << endl;
-    _ASSERT(unsealedData == dataToSeal);
+    TPM_ASSERT(unsealedData == dataToSeal);
 
     // Now show we can't read it without the auth-value
     sealedKey.SetAuth(null);
@@ -2119,8 +2119,8 @@ void Samples::Unseal()
     try {
         p.Execute(tpm, sess);
 
-        // An _ASSERT we shouldn't hit, see catch().
-        _ASSERT(FALSE);
+        // An TPM_ASSERT we shouldn't hit, see catch().
+        TPM_ASSERT(false);
     }
     catch (const exception&) {
         // Error is expected because the PCR values are wrong
@@ -2184,7 +2184,7 @@ void Samples::Serializer()
 
     if (reconstitutedPub.toBytes() == pubKey.toBytes())
         cout << "TPMT_PUBLIC Original and Original->Binary->Reconstituted are the same" << endl;
-    _ASSERT(reconstitutedPub.toBytes() == pubKey.toBytes());
+    TPM_ASSERT(reconstitutedPub.toBytes() == pubKey.toBytes());
 
     // PCR-values
     ByteVec pcrValsBinary = pcrVals.toBytes();
@@ -2196,7 +2196,7 @@ void Samples::Serializer()
     // Check that they're the same:
     if (pcrValsRedux.toBytes() == pcrVals.toBytes())
         cout << "PCR Original and Original->Binary->Reconstituted are the same" << endl;
-    _ASSERT(pcrValsRedux.toBytes() == pcrVals.toBytes());
+    TPM_ASSERT(pcrValsRedux.toBytes() == pcrVals.toBytes());
 
     // Next demonstrate JSON serialization
     // First the PCR-values structure
@@ -2206,7 +2206,7 @@ void Samples::Serializer()
 
     if (pcrValsRedux == pcrVals)
         cout << "JSON serializer of PCR values OK" << endl;
-    _ASSERT(pcrValsRedux == pcrVals);
+    TPM_ASSERT(pcrValsRedux == pcrVals);
 
     // Next a full key (pub + priv)
     string keyJson = newSigningKey.Serialize(SerializationType::JSON);
@@ -2216,7 +2216,7 @@ void Samples::Serializer()
 
     if (keyRedux == newSigningKey)
         cout << "JSON serializer of TPM key-container is OK" << endl;
-    _ASSERT(keyRedux == newSigningKey);
+    TPM_ASSERT(keyRedux == newSigningKey);
 
     // Now plain text representation
     string keyText = newSigningKey.Serialize(SerializationType::Text);
@@ -2228,12 +2228,12 @@ void Samples::Serializer()
     pcrValsRedux.Deserialize(SerializationType::Text, pcrValsText);
     if (pcrValsRedux == pcrVals)
         cout << "TEXT serializer of PCR values OK" << endl;
-    _ASSERT(pcrValsRedux == pcrVals);
+    TPM_ASSERT(pcrValsRedux == pcrVals);
 
     keyRedux.Deserialize(SerializationType::Text, keyText);
     if (keyRedux == newSigningKey)
         cout << "TEXT serializer of TPM key-container is OK" << endl;
-    _ASSERT(keyRedux == newSigningKey);
+    TPM_ASSERT(keyRedux == newSigningKey);
 } // Serializer()
 
 void Samples::SessionEncryption()
@@ -2285,7 +2285,7 @@ void Samples::SessionEncryption()
 
     if (plaintextRead == encryptedRead)
         cout << "Return parameter encryption succeeded" << endl;
-    _ASSERT(plaintextRead == encryptedRead);
+    TPM_ASSERT(plaintextRead == encryptedRead);
 
     tpm.FlushContext(sess);
     tpm.FlushContext(storagePrimary);
@@ -2403,7 +2403,7 @@ void Samples::ImportDuplicate()
     auto impKeySig = tpm.Sign(importedSwKey, dataToSign, TPMS_NULL_SIG_SCHEME(), null);
     // And verify
     bool swKeySig = swKey.publicPart.ValidateSignature(dataToSign, *impKeySig);
-    _ASSERT(swKeySig);
+    TPM_ASSERT(swKeySig);
 
     if (swKeySig)
         cout << "Imported SW-key works" << endl;
@@ -2545,7 +2545,7 @@ void Samples::MiscAdmin()
         // --- REVISIT: The GetCap shows this as not working
         auto resp = tpm.PCR_Allocate(TPM_RH::PLATFORM, {{TPM_ALG_ID::SHA1, vector<std::uint32_t>{0, 1, 2, 3, 4}},
                                                         {TPM_ALG_ID::SHA256, vector<std::uint32_t>{0, 23}} });
-        _ASSERT(resp.allocationSuccess);
+        TPM_ASSERT(resp.allocationSuccess);
 
         // We have to restart the TPM for this to take effect
         tpm.Shutdown(TPM_SU::CLEAR);
@@ -2575,7 +2575,7 @@ void Samples::MiscAdmin()
         iota(standardPcr.begin(), standardPcr.end(), 0);
         resp = tpm.PCR_Allocate(TPM_RH::PLATFORM, { {TPM_ALG_ID::SHA1, standardPcr},
                                                     {TPM_ALG_ID::SHA256, standardPcr} });
-        _ASSERT(resp.allocationSuccess);
+        TPM_ASSERT(resp.allocationSuccess);
 
         // We have to restart the TPM for this to take effect
         tpm.Shutdown(TPM_SU::CLEAR);
@@ -2630,7 +2630,7 @@ void Samples::RsaEncryptDecrypt()
     cout << "decrypted data: " << dec << endl;
     if (dec == dataToEncrypt)
         cout << "Decryption worked" << endl;
-    _ASSERT(dataToEncrypt == dec);
+    TPM_ASSERT(dataToEncrypt == dec);
 
     // Now encrypt using TSS.C++ library functions
     ByteVec mySecret = Helpers::RandomBytes(20);
@@ -2638,7 +2638,7 @@ void Samples::RsaEncryptDecrypt()
     dec = tpm.RSA_Decrypt(keyHandle, enc, TPMS_NULL_ASYM_SCHEME(), null);
     cout << "My           secret: " << mySecret << endl;
     cout << "My decrypted secret: " << dec << endl;
-    _ASSERT(mySecret == dec);
+    TPM_ASSERT(mySecret == dec);
 
     // Now with padding
     ByteVec pad { 1, 2, 3, 4, 5, 6, 0 };
@@ -2646,7 +2646,7 @@ void Samples::RsaEncryptDecrypt()
     dec = tpm.RSA_Decrypt(keyHandle, enc, TPMS_NULL_ASYM_SCHEME(), pad);
     cout << "My           secret: " << mySecret << endl;
     cout << "My decrypted secret: " << dec << endl;
-    _ASSERT(mySecret == dec);
+    TPM_ASSERT(mySecret == dec);
 
     tpm.FlushContext(keyHandle);
 } // RsaEncryptDecrypt()
@@ -2706,7 +2706,7 @@ void Samples::Audit()
     // Compare this to the value we are maintaining in the TPM context
     cout << "TPM reported command digest:" << cmdAuditInfo->auditDigest << endl;
     cout << "TSS.C++ calculated         :" << expectedAuditHash.digest << endl;
-    _ASSERT(expectedAuditHash == cmdAuditInfo->auditDigest);
+    TPM_ASSERT(expectedAuditHash == cmdAuditInfo->auditDigest);
 
     // And now we can quote the audit. Make a protected signing key.
     TPM_HANDLE primaryKey = MakeStoragePrimary();
@@ -2717,7 +2717,7 @@ void Samples::Audit()
                                            null, TPMS_NULL_SIG_SCHEME());
     bool quoteOk = pubKey.outPublic.ValidateCommandAudit(expectedAuditHash, null, quote);
     cout << "Command audit quote " << (quoteOk ? "OK" : "FAILED") << endl;
-    _ASSERT(quoteOk);
+    TPM_ASSERT(quoteOk);
 
     // Session-audit cryptographically tracks commands issued in the context of the session
     AUTH_SESSION s = tpm.StartAuthSession(TPM_SE::HMAC,  TPM_ALG_ID::SHA1,
@@ -2737,7 +2737,7 @@ void Samples::Audit()
 
     quoteOk = pubKey.outPublic.ValidateSessionAudit(expectedHash, null, sessionQuote);
     cout << "Session audit quote " << (quoteOk ? "OK" : "FAILED") << endl;
-    _ASSERT(quoteOk);
+    TPM_ASSERT(quoteOk);
 
     tpm.FlushContext(s);
     tpm.FlushContext(signingKey);
@@ -2770,7 +2770,7 @@ void Samples::Activate()
     cout << "Secret:                         " << secret << endl;
     cout << "Secret recovered from Activate: " << recoveredSecret << endl;
 
-    _ASSERT(secret == recoveredSecret);
+    TPM_ASSERT(secret == recoveredSecret);
 
     // You can also use the TPM to make the activation credential
     auto tpmActivator = tpm.MakeCredential(ekHandle, secret, nameOfKeyToActivate);
@@ -2780,7 +2780,7 @@ void Samples::Activate()
 
     cout << "TPM-created activation blob: Secret recovered from Activate: " << recoveredSecret << endl;
     
-    _ASSERT(secret == recoveredSecret);
+    TPM_ASSERT(secret == recoveredSecret);
 
     tpm.FlushContext(ekHandle);
     tpm.FlushContext(keyToActivate);
@@ -2820,7 +2820,7 @@ void Samples::SoftwareKeys()
         if (swValidatedSig)
             cout << "External key imported into the TPM works for signing" << endl;
 
-        _ASSERT(swValidatedSig);
+        TPM_ASSERT(swValidatedSig);
 
         // Next make an exportable key in the TPM and export it to a SW-key
 
@@ -2866,7 +2866,7 @@ void Samples::SoftwareKeys()
         swValidatedSig = k.publicPart.ValidateSignature(toSign, *sig);
         if (swValidatedSig)
             cout << "Key created in the TPM and then exported can sign (as expected)" << endl;
-        _ASSERT(swValidatedSig);
+        TPM_ASSERT(swValidatedSig);
 
         // Now sign with the duplicate key and check that we can validate the
         // sig with the public key still in the TPM.
@@ -2874,7 +2874,7 @@ void Samples::SoftwareKeys()
 
         // Check the SW generated sig is validated with the SW verifier
         bool sigOk = k.publicPart.ValidateSignature(toSign, *swSig.signature);
-        _ASSERT(sigOk);
+        TPM_ASSERT(sigOk);
 
         // And finally check that the key still in the TPM can validate the duplicated key sig
         auto sigVerify = tpm.VerifySignature(h2, toSign, *swSig.signature);
@@ -3102,7 +3102,7 @@ void Samples::EncryptDecryptSample()
             "enc: " << encrypted.outData << endl <<
             "dec: " << decrypted.outData << endl;
 
-    _ASSERT(decrypted.outData == toEncrypt);
+    TPM_ASSERT(decrypted.outData == toEncrypt);
 
     tpm.FlushContext(prim);
     tpm.FlushContext(aesHandle);
@@ -3219,7 +3219,7 @@ void Samples::PolicyNVSample()
         policyFailed = true;
     }
 
-    _ASSERT(policyFailed);
+    TPM_ASSERT(policyFailed);
 
     tpm.FlushContext(s);
 

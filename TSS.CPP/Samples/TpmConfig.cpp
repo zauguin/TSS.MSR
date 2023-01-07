@@ -22,7 +22,7 @@ void TpmConfig::Init(Tpm2& tpm)
 {
     if (ImplementedCommands.size() > 0)
     {
-        _ASSERT(ImplementedAlgs.size() > 0 && HashAlgs.size() > 0);
+        TPM_ASSERT(ImplementedAlgs.size() > 0 && HashAlgs.size() > 0);
         return;
     }
 

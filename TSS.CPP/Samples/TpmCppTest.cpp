@@ -103,10 +103,10 @@ int main(int argc, char *argv[])
 
 #ifdef WIN32
     HMODULE h = LoadLibrary(_T("TSS.CPP.dll"));
-    _ASSERT(h != NULL);
+    TPM_ASSERT(h != NULL);
 
     BOOL ok = FreeLibrary(h);
-    _ASSERT(ok);
+    TPM_ASSERT(ok);
     _CrtMemDumpAllObjectsSince(&MemState);
 #endif
 

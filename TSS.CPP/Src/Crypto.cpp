@@ -97,7 +97,7 @@ class NoopHash : public CryptoPP::HashTransformation {
     }
     unsigned DigestSize() const override { return DIGESTSIZE; }
     void TruncatedFinal(CryptoPP::byte *digest, std::size_t length) override {
-        _ASSERT(written == hash.end());
+        TPM_ASSERT(written == hash.end());
         std::memcpy(digest, hash.data(), length);
     }
     static const char *StaticAlgorithmName() {
@@ -338,7 +338,7 @@ SignResponse Crypto::Sign(const TSS_KEY& key, const ByteVec& toSign,
 
     size_t sigLen = signer->SignMessage(getRNG(), toSign.data(), toSign.size(), signature);
 
-    _ASSERT(sigLen <= maxBuf);
+    TPM_ASSERT(sigLen <= maxBuf);
 
     SignResponse resp;
     resp.signature = make_shared<TPMS_SIGNATURE_RSASSA>(scheme->hashAlg,

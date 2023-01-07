@@ -86,7 +86,7 @@ ByteVec AUTH_SESSION::GetAuthHmac(const ByteVec& parmHash, bool directionIn,
                                   const ByteVec& nonceDec, const ByteVec& nonceEnc,
                                   const TPM_HANDLE* authHandle)
 {
-    _ASSERT(SessionInitted);
+    TPM_ASSERT(SessionInitted);
 
     // Special case: If this is a policy session and the session includes PolicyPassword the 
     // TPM expects and assumes that the HMAC field will have the plaintext entity field as in 
@@ -131,7 +131,7 @@ ByteVec AUTH_SESSION::GetAuthHmac(const ByteVec& parmHash, bool directionIn,
 
 void AUTH_SESSION::CalcSessionKey()
 {
-    _ASSERT(SessionKey.empty());
+    TPM_ASSERT(SessionKey.empty());
 
     // Compute Handle.Auth in accordance with Part 1, 19.6.8.
     if (Salt.empty() && BindObject == TPM_RH_NULL)
