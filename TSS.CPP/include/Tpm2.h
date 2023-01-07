@@ -157,7 +157,7 @@ public:
     /// <summary> Get random bytes from NON-TPM rng (this is *not* tpm.GetRandom()).
     /// Fetches data from the default or programmer-installed SW-RNG. </summary>
     [[deprecated("Use Helpers::RandomBytes() instead")]]
-    ByteVec _GetRandLocal(UINT32 numBytes) { return Helpers::RandomBytes(numBytes); }
+    ByteVec _GetRandLocal(std::uint32_t numBytes) { return Helpers::RandomBytes(numBytes); }
 
 
     /// <summary> Install a callback to be invoked after the TPM command has been submitted

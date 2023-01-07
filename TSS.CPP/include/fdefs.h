@@ -74,7 +74,7 @@ using std::map;
 using std::string;
 using std::shared_ptr;
 
-using ByteVec = vector<BYTE>;
+using ByteVec = vector<std::uint8_t>;
 
 class TPMS_PCR_SELECTION;
 class TPM_HANDLE;

@@ -496,6 +496,10 @@ namespace CodeGen
                     {
                         expr = expr.Replace(token, t.StripTypedefs().Name);
                     }
+                    else if (TargetLang.Cpp)
+                    {
+                        expr = expr.Replace(token, t.Name);
+                    }
                 }
                 else
                 {

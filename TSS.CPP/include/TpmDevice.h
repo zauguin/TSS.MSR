@@ -60,7 +60,7 @@ class _DLLEXP_ TpmDevice
 {
 protected:
     // A set of TSS_TPM_CONN_INFO flags
-    UINT32      TpmInfo = 0;
+    std::uint32_t TpmInfo = 0;
 
 public:
     TpmDevice() {}
@@ -95,7 +95,7 @@ public:
 
     /// <summary> Sets the locality for subsequent commands. </summary>
     /// <remarks> Only implemented for TPM simulators and TPM vendors test harness. </remarks> 
-    virtual void SetLocality(UINT32 locality);
+    virtual void SetLocality(std::uint32_t locality);
 
     /// <summary>
     /// Queries whether the TPM device supports sending/emulation of platform signals,
@@ -233,14 +233,14 @@ public:
 
     virtual void PowerCtl(bool on);
     virtual void AssertPhysicalPresence(bool on);
-    virtual void SetLocality(UINT32 locality);
+    virtual void SetLocality(std::uint32_t locality);
 
 protected:
     string HostName;
     int Port;
     SOCKET commandSocket = INVALID_SOCKET;
     SOCKET signalSocket = INVALID_SOCKET;
-    BYTE   Locality = 0;
+    std::uint8_t Locality = 0;
 };
 
 
@@ -260,8 +260,8 @@ public:
 protected:
 #ifdef WIN32
     void *context = nullptr;
-    BYTE resultBuffer[4096];
-    UINT32 resSize = 0;
+    std::uint8_t resultBuffer[4096];
+    std::uint32_t resSize = 0;
 #elif __linux__
     bool ConnectToLinuxuserModeTrm();
 
