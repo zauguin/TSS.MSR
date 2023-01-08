@@ -7508,6 +7508,9 @@ public:
     /// <summary> Encrypt session salt: currently only RSA/OAEP </summary>
     ByteVec EncryptSessionSalt(const ByteVec& _secret) const;
 
+    /// <summary> Generate session salt: currently only RSA/OAEP </summary>
+    std::pair<ByteVec, ByteVec> GenerateSessionSalt() const;
+
     /// <summary> Create an object that we can Import() to the storage key associated with this public key. </summary>
     class DuplicationBlob GetDuplicationBlob(Tpm2& tpm, const TPMT_PUBLIC& pub, const TPMT_SENSITIVE& sensitive,
                                              const TPMT_SYM_DEF_OBJECT& innerWrapper) const;

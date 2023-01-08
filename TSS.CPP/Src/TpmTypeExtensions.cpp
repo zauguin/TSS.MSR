@@ -243,6 +243,13 @@ ByteVec TPMT_PUBLIC::Encrypt(const ByteVec& secret, const ByteVec& encodingParms
     return Crypto::Encrypt(*this, secret, encodingParms);
 }
 
+std::pair<ByteVec, ByteVec> TPMT_PUBLIC::GenerateSessionSalt() const
+{
+    ByteVec secret = Crypto::GetRand(Crypto::HashLength(nameAlg));
+    ByteVec encrypted = EncryptSessionSalt(secret);
+    return {std::move(secret), std::move(encrypted)};
+}
+
 ByteVec TPMT_PUBLIC::EncryptSessionSalt(const ByteVec& secret) const
 {
     string idString = string("SECRET");
