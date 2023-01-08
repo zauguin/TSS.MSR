@@ -149,6 +149,14 @@ template<>
 struct GetVerifier<void> {
     using type = CryptoPP::PK_Verifier;
 };
+template<typename Hash>
+struct GetEncryptor {
+    using type = typename CryptoPP::RSAES<CryptoPP::OAEP<Hash>>::Encryptor;
+};
+template<>
+struct GetEncryptor<void> {
+    using type = CryptoPP::PK_Encryptor;
+};
 
 CryptoPP::RandomNumberGenerator &getRNG() {
     thread_local static CryptoPP::DefaultAutoSeededRNG rng;
@@ -268,6 +276,18 @@ ByteVec Crypto::Encrypt(const TPMT_PUBLIC& pubKey,
     if (rsaParms == NULL)
         throw domain_error("Only RSA encryption is supported");
 
+    TPM_ALG hashAlg;
+    switch(rsaParms->schemeScheme()) {
+        case TPM_ALG::OAEP:
+            hashAlg = static_cast<const TPMS_SCHEME_OAEP *>(rsaParms->scheme.get())->hashAlg;
+            break;
+        case TPM_ALG_NULL:
+            hashAlg = pubKey.nameAlg;
+            break;
+        default:
+            throw domain_error("Only OAEP encryption is supported");
+    }
+
     TPM2B_PUBLIC_KEY_RSA *rsaPubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*pubKey.unique);
 
     CryptoPP::Integer n;
@@ -275,12 +295,12 @@ ByteVec Crypto::Encrypt(const TPMT_PUBLIC& pubKey,
     CryptoPP::RSA::PublicKey pkey;
     pkey.Initialize(n, rsaParms->exponent);
 
-    CryptoPP::RSAES_OAEP_SHA_Encryptor encryptor(pkey); // pubKey.nameAlg(?)
-    std::size_t encBlobSize = encryptor.CiphertextLength(secret.size());
+    auto encryptor = buildForHash<GetEncryptor>(hashAlg, pkey);
+    std::size_t encBlobSize = encryptor->CiphertextLength(secret.size());
 
     ByteVec res(encBlobSize);
 
-    encryptor.Encrypt(getRNG(), secret.data(), secret.size(), res.data(), MakeParameters
+    encryptor->Encrypt(getRNG(), secret.data(), secret.size(), res.data(), MakeParameters
         (CryptoPP::Name::EncodingParameters(), CryptoPP::ConstByteArrayParameter(encodingParms.data(), encodingParms.size()))
     );
 
