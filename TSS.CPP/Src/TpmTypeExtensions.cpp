@@ -245,9 +245,21 @@ ByteVec TPMT_PUBLIC::Encrypt(const ByteVec& secret, const ByteVec& encodingParms
 
 std::pair<ByteVec, ByteVec> TPMT_PUBLIC::GenerateSessionSalt() const
 {
-    ByteVec secret = Crypto::GetRand(Crypto::HashLength(nameAlg));
-    ByteVec encrypted = EncryptSessionSalt(secret);
-    return {std::move(secret), std::move(encrypted)};
+    switch (parameters->GetUnionSelector()) {
+        case TPM_ALG_ID::ECC: {
+            auto generated = Crypto::KeyGen(*this);
+            ByteVec secret = Crypto::KDFe(this->nameAlg, generated.second, "SECRET",
+                                          generated.first.x, static_cast<TPMS_ECC_POINT *>(unique.get())->x, 8 * Crypto::HashLength(this->nameAlg));
+            return {std::move(secret), generated.first.toBytes()};
+        }
+        case TPM_ALG_ID::RSA: {
+            ByteVec secret = Crypto::GetRand(Crypto::HashLength(nameAlg));
+            ByteVec encrypted = EncryptSessionSalt(secret);
+            return {std::move(secret), std::move(encrypted)};
+        }
+        default:
+            throw domain_error("Session key generation only supported for ECC and RSA");
+    }
 }
 
 ByteVec TPMT_PUBLIC::EncryptSessionSalt(const ByteVec& secret) const

@@ -10,6 +10,8 @@
 #include "cryptopp/filters.h"
 #include "cryptopp/modes.h"
 #include "cryptopp/osrng.h"
+#include "cryptopp/eccrypto.h"
+#include "cryptopp/oids.h"
 
 #if !defined(NO_SM3)
 #   define ALG_SM3_256  1
@@ -57,6 +59,22 @@ std::unique_ptr<typename Trait<void>::type> buildForHash(TPM_ALG_ID hashAlg, Arg
     throw domain_error("buildForHash: Unknown or not a hash algorithm");
 }
 
+namespace {
+CryptoPP::OID getCurve(TPM_ECC_CURVE curve) {
+    switch(curve) {
+        case TPM_ECC_CURVE::NIST_P192: return CryptoPP::ASN1::secp192r1();
+        case TPM_ECC_CURVE::NIST_P224: return CryptoPP::ASN1::secp224r1();
+        case TPM_ECC_CURVE::NIST_P256: return CryptoPP::ASN1::secp256r1();
+        case TPM_ECC_CURVE::NIST_P384: return CryptoPP::ASN1::secp384r1();
+        case TPM_ECC_CURVE::NIST_P521: return CryptoPP::ASN1::secp521r1();
+        case TPM_ECC_CURVE::SM2_P256: return CryptoPP::ASN1::sm2p256v1();
+        /* case TPM_ECC_CURVE::BN_P256: */
+        /* case TPM_ECC_CURVE::BN_P638: */
+        default:
+            throw std::domain_error("Unsupported curve");
+  }
+}
+}
 
 bool Crypto::IsImplemented(TPM_ALG_ID hashAlg)
 {
@@ -234,6 +252,35 @@ ByteVec Crypto::KDFa(TPM_ALG_ID hmacHash, const ByteVec& hmacKey, const string& 
     return Helpers::ShiftRight(kdfStream, bitsPerLoop * numLoops - numBitsRequired);
 }
 
+/// <summary> TPM KDF function for ECDH. Note, a zero is added to the end of label by this routine </summary>
+ByteVec Crypto::KDFe(TPM_ALG_ID hash, const TPMS_ECC_POINT& z, const string& label, const ByteVec& contextU,
+                     const ByteVec& contextV, uint32_t numBitsRequired)
+{
+    uint32_t bitsPerLoop = Crypto::HashLength(hash) * 8;
+    uint32_t numLoops = (numBitsRequired + bitsPerLoop - 1) / bitsPerLoop;
+    ByteVec kdfStream(numLoops * bitsPerLoop / 8);
+    ByteVec labelBytes(label.length());
+
+    for (size_t k = 0; k < label.size(); k++)
+        labelBytes[k] = label[k];
+
+    for (uint32_t i = 0; i < numLoops; ++i)
+    {
+        TpmBuffer toHash;
+        toHash.writeInt(i + 1);
+        toHash.writeByteBuf(z.x);
+        toHash.writeByteBuf(labelBytes);
+        toHash.writeByte(0);
+        toHash.writeByteBuf(contextU);
+        toHash.writeByteBuf(contextV);
+
+        auto frag = Crypto::Hash(hash, toHash.trim());
+        copy(frag.begin(), frag.end(), &kdfStream[i * bitsPerLoop / 8]);
+    }
+
+    return Helpers::ShiftRight(kdfStream, bitsPerLoop * numLoops - numBitsRequired);
+}
+
 bool Crypto::ValidateSignature(const TPMT_PUBLIC& pubKey, const ByteVec& signedDigest,
                                const TPMU_SIGNATURE& sig)
 {
@@ -267,6 +314,41 @@ void Crypto::CreateRsaKey(int bits, int exponent, ByteVec& outPublic, ByteVec& o
 
     outPrivate.resize(key.GetPrime1().MinEncodedSize());
     key.GetPrime1().Encode(outPrivate.data(), outPrivate.size());
+}
+
+std::pair<TPMS_ECC_POINT, TPMS_ECC_POINT> Crypto::KeyGen(const TPMT_PUBLIC& pubKey)
+{
+    TPMS_ECC_PARMS *eccParms = dynamic_cast<TPMS_ECC_PARMS*>(pubKey.parameters.get());
+    if (eccParms == NULL)
+        throw domain_error("Only ECC keygen is supported");
+
+    TPMS_ECC_POINT *eccPubKey = dynamic_cast<TPMS_ECC_POINT *>(pubKey.unique.get());
+
+    CryptoPP::DL_GroupParameters_EC<CryptoPP::ECP> parameters(getCurve(eccParms->curveID));
+
+    CryptoPP::Integer x, y;
+    x.Decode(eccPubKey->x.data(), eccPubKey->x.size());
+    y.Decode(eccPubKey->y.data(), eccPubKey->y.size());
+
+    CryptoPP::ECPPoint theirPub(x, y);
+
+    CryptoPP::Integer priv(getRNG(), 1, parameters.GetMaxExponent());
+    CryptoPP::ECPPoint ourPub = parameters.ExponentiateBase(priv);
+
+    TPMS_ECC_POINT encodedPub{};
+    encodedPub.x.resize(parameters.GetEncodedElementSize(false));
+    encodedPub.y.resize(parameters.GetEncodedElementSize(false));
+    ourPub.x.Encode(encodedPub.x.data(), encodedPub.x.size());
+    ourPub.y.Encode(encodedPub.y.data(), encodedPub.y.size());
+
+    CryptoPP::ECPPoint shared = parameters.ExponentiateElement(theirPub, priv);
+    TPMS_ECC_POINT encodedShared{};
+    encodedShared.x.resize(parameters.GetEncodedElementSize(false));
+    encodedShared.y.resize(parameters.GetEncodedElementSize(false));
+    shared.x.Encode(encodedShared.x.data(), encodedShared.x.size());
+    shared.y.Encode(encodedShared.y.data(), encodedShared.y.size());
+
+    return {std::move(encodedPub), std::move(encodedShared)};
 }
 
 ByteVec Crypto::Encrypt(const TPMT_PUBLIC& pubKey,

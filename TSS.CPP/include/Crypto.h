@@ -50,6 +50,9 @@ class TPM_DLLEXP Crypto {
                                const ByteVec& secret,
                                const ByteVec& encodingParms);
 
+        /// <summary> Generate point and shared secret </summary>
+        static std::pair<TPMS_ECC_POINT, TPMS_ECC_POINT> KeyGen(const TPMT_PUBLIC& pubKey);
+
         // Private asym key operations
 
         /// <summary>Sign the dataToSign byte array using the given key. 
@@ -83,6 +86,14 @@ class TPM_DLLEXP Crypto {
         static ByteVec KDFa(TPM_ALG_ID hmacHash, 
                             const ByteVec& hmacKey,
                             const string& label, 
+                            const ByteVec& contextU,
+                            const ByteVec& contextV,
+                            std::uint32_t numBitsRequired);
+
+        /// <summary> TPM KDFe key-derivation function </summary>
+        static ByteVec KDFe(TPM_ALG_ID hash,
+                            const TPMS_ECC_POINT& z,
+                            const string& label,
                             const ByteVec& contextU,
                             const ByteVec& contextV,
                             std::uint32_t numBitsRequired);
