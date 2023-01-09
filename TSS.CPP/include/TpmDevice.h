@@ -5,8 +5,6 @@
 
 #pragma once
 
-namespace TpmCpp {
-
 #if __linux__
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -29,6 +27,7 @@ typedef int SOCKET;
 
 #endif // __linux__
 
+namespace TpmCpp {
 
 enum TcpTpmCommands {
     SignalPowerOn = 1,
