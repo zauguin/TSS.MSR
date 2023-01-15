@@ -79,6 +79,7 @@ class Samples {
         void Audit();
         void Activate();
         void SoftwareKeys();
+        void ECCSoftwareKeys();
         void PolicySigned();
         void PolicyAuthorizeSample();
         void PolicySecretSample();

@@ -134,6 +134,8 @@ void Samples::RunAllSamples()
     _check;
     SoftwareKeys();
     _check;
+    ECCSoftwareKeys();
+    _check;
     PolicySigned();
     _check;
     PolicyAuthorizeSample();
@@ -2883,6 +2885,98 @@ void Samples::SoftwareKeys()
         tpm.FlushContext(primHandle);
         tpm.FlushContext(h2);
     } // End of loop over hash algs
+} // SoftwareKeys()
+
+// This sample illustrates various forms of import of externally created keys, 
+// and export of a TPM key to TSS.c++ where it can be used for cryptography.
+void Samples::ECCSoftwareKeys()
+{
+    Announce("ECCSoftwareKeys");
+
+    // First make a software key, and show how it can be imported into the TPM and used.
+    TPMT_PUBLIC templ(TPM_ALG::SHA256,
+                      TPMA_OBJECT::sign | TPMA_OBJECT::userWithAuth,
+                      null,  // No policy
+                      TPMS_ECC_PARMS(null, TPMS_SCHEME_ECDSA(TPM_ALG::SHA256), TPM_ECC_CURVE::NIST_P256, TPMS_NULL_KDF_SCHEME()),
+                      TPMS_ECC_POINT());
+
+    TSS_KEY k;
+    k.publicPart = templ;
+    k.CreateKey();
+
+    TPMT_SENSITIVE s(null, null, TPM2B_ECC_PARAMETER(k.privatePart));
+    TPM_HANDLE h2 = tpm.LoadExternal(s, k.publicPart, TPM_RH_NULL);
+
+    ByteVec toSign = TPM_HASH::FromHashOfString(TPM_ALG::SHA256, "hello");
+    auto sig = tpm.Sign(h2, toSign, TPMS_NULL_SIG_SCHEME(), null);
+
+    bool swValidatedSig = k.publicPart.ValidateSignature(toSign, *sig);
+
+    if (swValidatedSig)
+        cout << "External key imported into the TPM works for signing" << endl;
+
+    TPM_ASSERT(swValidatedSig);
+
+    // Next make an exportable key in the TPM and export it to a SW-key
+
+    auto primHandle = MakeStoragePrimary();
+
+    // Make a duplicatable signing key as a child. Note that duplication *requires* a policy session.
+    PolicyTree p(PolicyCommandCode(TPM_CC::Duplicate, ""));
+    TPM_HASH policyDigest = p.GetPolicyDigest(TPM_ALG::SHA256);
+
+    // Change the attributes since we want the TPM to make the sensitve area
+    templ.objectAttributes = TPMA_OBJECT::sign | TPMA_OBJECT::userWithAuth | TPMA_OBJECT::sensitiveDataOrigin;
+    templ.authPolicy = policyDigest;
+    auto keyData = tpm.Create(primHandle, null, templ, null, null);
+
+    TPM_HANDLE h = tpm.Load(primHandle, keyData.outPrivate, keyData.outPublic);
+
+    // Duplicate. Note we need a policy session.
+    AUTH_SESSION sess = tpm.StartAuthSession(TPM_SE::POLICY, TPM_ALG::SHA256);
+    p.Execute(tpm, sess);
+    auto dup = tpm[sess].Duplicate(h, TPM_RH_NULL, null, null);
+    tpm.FlushContext(sess);
+
+    // Import the key into a TSS_KEY. The privvate key is in a an encoded TPM2B_SENSITIVE.
+    TPM2B_SENSITIVE sens;
+    sens.initFromBytes(dup.duplicate.buffer);
+
+    // And the sensitive area is an ECC key in this case
+    TPM2B_ECC_PARAMETER *eccPriv = dynamic_cast<TPM2B_ECC_PARAMETER*>(&*sens.sensitiveArea.sensitive);
+
+    // Put this in a TSS.C++ defined structure for convenience
+    TSS_KEY swKey(keyData.outPublic, eccPriv->buffer);
+
+    // Now show that we can sign with the exported SW-key and validate the
+    // signature with the pubkey in the TPM.
+    TPMS_NULL_SIG_SCHEME nullScheme;
+    auto swSig2 = swKey.Sign(toSign, nullScheme);
+    auto sigResp = tpm.VerifySignature(h, toSign, *swSig2.signature);
+
+    // Sign with the TPM key
+    sig = tpm.Sign(h2, toSign, TPMS_NULL_SIG_SCHEME(), null);
+
+    // And validate with the SW-key (this only uses the public key, of course).
+    swValidatedSig = k.publicPart.ValidateSignature(toSign, *sig);
+    if (swValidatedSig)
+        cout << "Key created in the TPM and then exported can sign (as expected)" << endl;
+    TPM_ASSERT(swValidatedSig);
+
+    // Now sign with the duplicate key and check that we can validate the
+    // sig with the public key still in the TPM.
+    auto swSig = k.Sign(toSign, TPMS_NULL_SIG_SCHEME());
+
+    // Check the SW generated sig is validated with the SW verifier
+    bool sigOk = k.publicPart.ValidateSignature(toSign, *swSig.signature);
+    TPM_ASSERT(sigOk);
+
+    // And finally check that the key still in the TPM can validate the duplicated key sig
+    auto sigVerify = tpm.VerifySignature(h2, toSign, *swSig.signature);
+
+    tpm.FlushContext(h);
+    tpm.FlushContext(primHandle);
+    tpm.FlushContext(h2);
 } // SoftwareKeys()
 
 TSS_KEY *signingKey = NULL;
