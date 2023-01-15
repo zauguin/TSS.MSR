@@ -458,19 +458,37 @@ vector<std::uint32_t> TPMS_PCR_SELECTION::ToArray()
 
 void TSS_KEY::CreateKey()
 {
-    TPMS_RSA_PARMS *parms = dynamic_cast<TPMS_RSA_PARMS*>(&*this->publicPart.parameters);
+    switch (publicPart.parameters->GetUnionSelector()) {
+        case TPM_ALG::ECC:
+        {
+            const TPMS_ECC_PARMS &parms = static_cast<const TPMS_ECC_PARMS&>(*publicPart.parameters);
 
-    if (parms == NULL)
-        throw domain_error("Only RSA activation supported");
+            ByteVec x, y, priv;
+            Crypto::CreateEccKey(parms.curveID, x, y, priv);
 
-    int keySize = parms->keyBits;
-    std::uint32_t exponent = parms->exponent;
-    ByteVec pub, priv;
-    Crypto::CreateRsaKey(keySize, exponent, pub, priv);
+            TPMS_ECC_POINT &pubKey = static_cast<TPMS_ECC_POINT&>(*publicPart.unique);
+            pubKey.x = std::move(x);
+            pubKey.y = std::move(y);
+            this->privatePart = std::move(priv);
+            return;
+        }
+        case TPM_ALG::RSA:
+        {
+            const TPMS_RSA_PARMS &parms = static_cast<const TPMS_RSA_PARMS&>(*publicPart.parameters);
 
-    TPM2B_PUBLIC_KEY_RSA *pubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*publicPart.unique);
-    pubKey->buffer = pub;
-    this->privatePart = priv;
+            int keySize = parms.keyBits;
+            std::uint32_t exponent = parms.exponent;
+            ByteVec pub, priv;
+            Crypto::CreateRsaKey(keySize, exponent, pub, priv);
+
+            TPM2B_PUBLIC_KEY_RSA *pubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*publicPart.unique);
+            pubKey->buffer = pub;
+            this->privatePart = priv;
+            break;
+        }
+        default:
+            throw domain_error("Only RSA and ECC activation supported");
+    }
 }
 
 SignResponse TSS_KEY::Sign(const ByteVec& dataToSign, const TPMU_SIG_SCHEME& nonDefaultScheme) const

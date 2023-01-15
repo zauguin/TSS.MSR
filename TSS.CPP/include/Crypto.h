@@ -79,6 +79,11 @@ class TPM_DLLEXP Crypto {
                                  ByteVec& outPublic,
                                  ByteVec& outPrivate);
 
+        static void CreateEccKey(TPM_ECC_CURVE curve,
+                                 ByteVec& x,
+                                 ByteVec& y,
+                                 ByteVec& outPrivate);
+
         /// <summary> Converts to UTF8 and adds a terminating zero </summary>
         static ByteVec StringToEncodingParms(const string& s);
 

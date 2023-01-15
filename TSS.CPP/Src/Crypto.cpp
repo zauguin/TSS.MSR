@@ -316,6 +316,22 @@ void Crypto::CreateRsaKey(int bits, int exponent, ByteVec& outPublic, ByteVec& o
     key.GetPrime1().Encode(outPrivate.data(), outPrivate.size());
 }
 
+void Crypto::CreateEccKey(TPM_ECC_CURVE curve, ByteVec& x, ByteVec& y, ByteVec& outPrivate)
+{
+    CryptoPP::DL_GroupParameters_EC<CryptoPP::ECP> parameters(getCurve(curve));
+
+    CryptoPP::Integer priv(getRNG(), 1, parameters.GetMaxExponent());
+    CryptoPP::ECPPoint pub = parameters.ExponentiateBase(priv);
+
+    outPrivate.resize(parameters.GetMaxExponent().ByteCount());
+    priv.Encode(outPrivate.data(), outPrivate.size());
+
+    x.resize(parameters.GetEncodedElementSize(false));
+    y.resize(parameters.GetEncodedElementSize(false));
+    pub.x.Encode(x.data(), x.size());
+    pub.y.Encode(y.data(), y.size());
+}
+
 std::pair<TPMS_ECC_POINT, TPMS_ECC_POINT> Crypto::KeyGen(const TPMT_PUBLIC& pubKey)
 {
     TPMS_ECC_PARMS *eccParms = dynamic_cast<TPMS_ECC_PARMS*>(pubKey.parameters.get());
