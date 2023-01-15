@@ -168,6 +168,14 @@ struct GetVerifier<void> {
     using type = CryptoPP::PK_Verifier;
 };
 template<typename Hash>
+struct GetECDSAVerifier {
+    using type = typename CryptoPP::ECDSA<CryptoPP::ECP, NoopHash<Hash>>::Verifier;
+};
+template<>
+struct GetECDSAVerifier<void> {
+    using type = CryptoPP::PK_Verifier;
+};
+template<typename Hash>
 struct GetEncryptor {
     using type = typename CryptoPP::RSAES<CryptoPP::OAEP<Hash>>::Encryptor;
 };
@@ -284,24 +292,56 @@ ByteVec Crypto::KDFe(TPM_ALG_ID hash, const TPMS_ECC_POINT& z, const string& lab
 bool Crypto::ValidateSignature(const TPMT_PUBLIC& pubKey, const ByteVec& signedDigest,
                                const TPMU_SIGNATURE& sig)
 {
-    TPMS_RSA_PARMS *rsaParms = dynamic_cast<TPMS_RSA_PARMS*>(&*pubKey.parameters);
-    if (rsaParms == NULL)
-        throw domain_error("ValidateSignature: Only RSA is supported");
+    switch (pubKey.type()) {
+        case TPM_ALG_ID::RSA:
+        {
+            const TPMS_RSA_PARMS &rsaParms = static_cast<const TPMS_RSA_PARMS&>(*pubKey.parameters);
 
-    const TPMS_SIGNATURE_RSASSA *rsaSig = dynamic_cast<const TPMS_SIGNATURE_RSASSA*>(&sig);
-    if (rsaSig == NULL)
-        throw domain_error("ValidateSignature: Only RSASSA scheme is supported");
+            const TPMS_SIGNATURE_RSASSA *rsaSig = dynamic_cast<const TPMS_SIGNATURE_RSASSA*>(&sig);
+            if (rsaSig == NULL)
+                throw domain_error("ValidateSignature: Only RSASSA scheme is supported");
 
-    TPM2B_PUBLIC_KEY_RSA *rsaPubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*pubKey.unique);
+            TPM2B_PUBLIC_KEY_RSA *rsaPubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*pubKey.unique);
 
-    CryptoPP::Integer n;
-    n.Decode(rsaPubKey->buffer.data(), rsaPubKey->buffer.size());
-    CryptoPP::RSA::PublicKey pkey;
-    pkey.Initialize(n, rsaParms->exponent);
+            CryptoPP::Integer n;
+            n.Decode(rsaPubKey->buffer.data(), rsaPubKey->buffer.size());
+            CryptoPP::RSA::PublicKey pkey;
+            pkey.Initialize(n, rsaParms.exponent);
 
-    auto verifier = buildForHash<GetVerifier>(GetSigningHashAlg(pubKey), pkey);
+            auto verifier = buildForHash<GetVerifier>(GetSigningHashAlg(pubKey), pkey);
 
-    return verifier->VerifyMessage(signedDigest.data(), signedDigest.size(), rsaSig->sig.data(), rsaSig->sig.size());
+            return verifier->VerifyMessage(signedDigest.data(), signedDigest.size(), rsaSig->sig.data(), rsaSig->sig.size());
+        }
+        case TPM_ALG_ID::ECC:
+        {
+            const TPMS_ECC_PARMS &eccParams = dynamic_cast<const TPMS_ECC_PARMS&>(*pubKey.parameters);
+
+            const TPMS_SIGNATURE_ECDSA *ecdsaSig = dynamic_cast<const TPMS_SIGNATURE_ECDSA*>(&sig);
+            if (ecdsaSig == NULL)
+                throw domain_error("ValidateSignature: Only ECDSA scheme is supported");
+
+            const TPMS_ECC_POINT &eccPubKey = dynamic_cast<const TPMS_ECC_POINT &>(*pubKey.unique);
+
+            CryptoPP::DL_GroupParameters_EC<CryptoPP::ECP> parameters(getCurve(eccParams.curveID));
+
+            CryptoPP::Integer x, y;
+            x.Decode(eccPubKey.x.data(), eccPubKey.x.size());
+            y.Decode(eccPubKey.y.data(), eccPubKey.y.size());
+
+            CryptoPP::ECPPoint pubPoint(x, y);
+            CryptoPP::DL_PublicKey_EC<CryptoPP::ECP> pub;
+            pub.Initialize(parameters, pubPoint);
+
+            auto verifier = buildForHash<GetECDSAVerifier>(GetSigningHashAlg(pubKey), pub);
+
+            ByteVec combinedSignature(ecdsaSig->signatureR.size() + ecdsaSig->signatureS.size());
+            auto separator = std::copy(ecdsaSig->signatureR.begin(), ecdsaSig->signatureR.end(), combinedSignature.begin());
+            std::copy(ecdsaSig->signatureS.begin(), ecdsaSig->signatureS.end(), separator);
+            return verifier->VerifyMessage(signedDigest.data(), signedDigest.size(), combinedSignature.data(), combinedSignature.size());
+        }
+        default:
+            throw domain_error("ValidateSignature: Only RSA or ECC is supported");
+    }
 }
 
 void Crypto::CreateRsaKey(int bits, int exponent, ByteVec& outPublic, ByteVec& outPrivate)

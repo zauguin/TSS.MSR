@@ -128,14 +128,28 @@ ostream& operator<<(ostream& s, const ByteVec& b)
 
 TPM_ALG_ID GetSigningHashAlg(const TPMT_PUBLIC& pub)
 {
-    TPMS_RSA_PARMS *rsaParms = dynamic_cast<TPMS_RSA_PARMS*>(&*pub.parameters);
-    if (rsaParms == NULL)
-        throw domain_error("Only RSA signature verificaion is supported");
+    switch (pub.type()) {
+        case TPM_ALG_ID::RSA:
+        {
+            const TPMS_RSA_PARMS &rsaParms = static_cast<const TPMS_RSA_PARMS&>(*pub.parameters);
 
-    TPMS_SCHEME_RSASSA *scheme = dynamic_cast<TPMS_SCHEME_RSASSA*>(&*rsaParms->scheme);
-    if (!scheme)
-        throw domain_error("only RSASSA is supported");
-    return scheme->hashAlg;
+            TPMS_SCHEME_RSASSA *scheme = dynamic_cast<TPMS_SCHEME_RSASSA*>(&*rsaParms.scheme);
+            if (!scheme)
+                throw domain_error("only RSASSA is supported");
+            return scheme->hashAlg;
+        }
+        case TPM_ALG_ID::ECC:
+        {
+            const TPMS_ECC_PARMS &eccParms = static_cast<const TPMS_ECC_PARMS&>(*pub.parameters);
+
+            TPMS_SCHEME_HASH *scheme = dynamic_cast<TPMS_SCHEME_HASH*>(&*eccParms.scheme);
+            if (!scheme)
+                throw domain_error("ECDAA is not supported");
+            return scheme->hashAlg;
+        }
+        default:
+            throw domain_error("Only RSA or ECC signature verification is supported");
+    }
 }
 
 namespace Helpers
