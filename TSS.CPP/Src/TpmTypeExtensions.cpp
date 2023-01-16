@@ -337,7 +337,6 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
     DuplicationBlob blob;
     ByteVec encryptedSensitive;
     ByteVec innerWrapperKey;
-    ByteVec iv;
 
     if (innerWrapper.algorithm == TPM_ALG_NULL)
         encryptedSensitive = sensitive.asTpm2B();
@@ -354,9 +353,9 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
         ByteVec innerIntegrity = Helpers::ToTpm2B(Crypto::Hash(nameAlg, toHash));
         ByteVec innerData = Helpers::Concatenate(innerIntegrity, sens);
 
-        innerWrapperKey = Helpers::RandomBytes(innerWrapper.keyBits/8);
+        blob.InnerWrapperKey = Helpers::RandomBytes(innerWrapper.keyBits/8);
         encryptedSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES,
-                                               innerWrapperKey, iv, innerData);
+                                               blob.InnerWrapperKey, {}, innerData);
     }
 
     TPMS_RSA_PARMS *newParentParms = dynamic_cast<TPMS_RSA_PARMS*>(&*this->parameters);
@@ -368,26 +367,22 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
         throw domain_error("new parent symmetric key is not supported for import");
     }
 
-    // Otherwise we know we are AES128
+    // Otherwise we know we are AES
     ByteVec seed = Helpers::RandomBytes(Crypto::HashLength(pub.nameAlg));
     ByteVec parms = Crypto::StringToEncodingParms("DUPLICATE");
-    ByteVec encryptedSeed = this->Encrypt(seed, parms);
+    blob.EncryptedSeed = this->Encrypt(seed, parms);
 
     ByteVec symmKey = Crypto::KDFa(this->nameAlg, seed, "STORAGE",
                                    pub.GetName(), null, newParentSymDef.keyBits);
-    iv.clear();
-    ByteVec dupSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES, symmKey, iv, encryptedSensitive);
+    ByteVec dupSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES, symmKey, {}, encryptedSensitive);
 
     int npNameNumBits = Crypto::HashLength(nameAlg) * 8;
     ByteVec hmacKey = Crypto::KDFa(nameAlg, seed, "INTEGRITY", null, null, npNameNumBits);
     ByteVec outerDataToHmac = Helpers::Concatenate(dupSensitive, pub.GetName());
     ByteVec outerHmacBytes = Crypto::HMAC(nameAlg, hmacKey, outerDataToHmac);
     ByteVec outerHmac = Helpers::ToTpm2B(outerHmacBytes);
-    ByteVec DuplicationBlob = Helpers::Concatenate(outerHmac, dupSensitive);
+    blob.DuplicateObject = Helpers::Concatenate(outerHmac, dupSensitive);
 
-    blob.DuplicateObject = DuplicationBlob;
-    blob.EncryptedSeed = encryptedSeed;
-    blob.InnerWrapperKey = innerWrapperKey;
     return blob;
 } // TPMT_PUBLIC::GetDuplicationBlob()
 

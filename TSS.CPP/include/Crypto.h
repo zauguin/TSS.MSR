@@ -71,7 +71,7 @@ class TPM_DLLEXP Crypto {
         /// <summary> CFB Encryption (encrypt = true) or Decryption (decrypt = false) of x </summary>
         static ByteVec CFBXcrypt(bool encrypt, TPM_ALG_ID algId,
                                   const ByteVec& key,
-                                  ByteVec& iv,
+                                  const ByteVec& iv,
                                   const ByteVec& data);
 
         static void CreateRsaKey(int bits,

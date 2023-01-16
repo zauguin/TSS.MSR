@@ -571,7 +571,7 @@ SignResponse Crypto::Sign(const TSS_KEY& key, const ByteVec& toSign,
 }
 
 ByteVec Crypto::CFBXcrypt(bool encrypt, TPM_ALG_ID algId,
-                          const ByteVec& keyBytes, ByteVec& iv, const ByteVec& data)
+                          const ByteVec& keyBytes, const ByteVec& iv, const ByteVec& data)
 {
     if (algId != TPM_ALG_ID::AES)
         throw domain_error("unsuppported SymmCipher");
