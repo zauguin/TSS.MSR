@@ -4591,7 +4591,7 @@ public:
 public:
     TPMS_CAPABILITY_DATA() {}
     TPMS_CAPABILITY_DATA(const TPMU_CAPABILITIES& _data)
-      : data(dynamic_cast<TPMU_CAPABILITIES*>(_data.Clone()))
+      : data(_data.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -5036,7 +5036,7 @@ public:
 public:
     TPMS_ATTEST() {}
     TPMS_ATTEST(TPM_GENERATED _magic, const ByteVec& _qualifiedSigner, const ByteVec& _extraData, const TPMS_CLOCK_INFO& _clockInfo, std::uint64_t _firmwareVersion, const TPMU_ATTEST& _attested)
-      : magic(_magic), qualifiedSigner(_qualifiedSigner), extraData(_extraData), clockInfo(_clockInfo), firmwareVersion(_firmwareVersion), attested(dynamic_cast<TPMU_ATTEST*>(_attested.Clone()))
+      : magic(_magic), qualifiedSigner(_qualifiedSigner), extraData(_extraData), clockInfo(_clockInfo), firmwareVersion(_firmwareVersion), attested(_attested.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -5887,7 +5887,7 @@ public:
 public:
     TPMT_KEYEDHASH_SCHEME() {}
     TPMT_KEYEDHASH_SCHEME(const TPMU_SCHEME_KEYEDHASH& _details)
-      : details(dynamic_cast<TPMU_SCHEME_KEYEDHASH*>(_details.Clone()))
+      : details(_details.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -6108,7 +6108,7 @@ public:
 public:
     TPMT_SIG_SCHEME() {}
     TPMT_SIG_SCHEME(const TPMU_SIG_SCHEME& _details)
-      : details(dynamic_cast<TPMU_SIG_SCHEME*>(_details.Clone()))
+      : details(_details.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -6378,7 +6378,7 @@ public:
 public:
     TPMT_KDF_SCHEME() {}
     TPMT_KDF_SCHEME(const TPMU_KDF_SCHEME& _details)
-      : details(dynamic_cast<TPMU_KDF_SCHEME*>(_details.Clone()))
+      : details(_details.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -6443,7 +6443,7 @@ public:
 public:
     TPMT_ASYM_SCHEME() {}
     TPMT_ASYM_SCHEME(const TPMU_ASYM_SCHEME& _details)
-      : details(dynamic_cast<TPMU_ASYM_SCHEME*>(_details.Clone()))
+      : details(_details.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -6482,7 +6482,7 @@ public:
 public:
     TPMT_RSA_SCHEME() {}
     TPMT_RSA_SCHEME(const TPMU_ASYM_SCHEME& _details)
-      : details(dynamic_cast<TPMU_ASYM_SCHEME*>(_details.Clone()))
+      : details(_details.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -6521,7 +6521,7 @@ public:
 public:
     TPMT_RSA_DECRYPT() {}
     TPMT_RSA_DECRYPT(const TPMU_ASYM_SCHEME& _details)
-      : details(dynamic_cast<TPMU_ASYM_SCHEME*>(_details.Clone()))
+      : details(_details.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -6729,7 +6729,7 @@ public:
 public:
     TPMT_ECC_SCHEME() {}
     TPMT_ECC_SCHEME(const TPMU_ASYM_SCHEME& _details)
-      : details(dynamic_cast<TPMU_ASYM_SCHEME*>(_details.Clone()))
+      : details(_details.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -6807,7 +6807,7 @@ public:
 public:
     TPMS_ALGORITHM_DETAIL_ECC() {}
     TPMS_ALGORITHM_DETAIL_ECC(TPM_ECC_CURVE _curveID, std::uint16_t _keySize, const TPMU_KDF_SCHEME& _kdf, const TPMU_ASYM_SCHEME& _sign, const ByteVec& _p, const ByteVec& _a, const ByteVec& _b, const ByteVec& _gX, const ByteVec& _gY, const ByteVec& _n, const ByteVec& _h)
-      : curveID(_curveID), keySize(_keySize), kdf(dynamic_cast<TPMU_KDF_SCHEME*>(_kdf.Clone())), sign(dynamic_cast<TPMU_ASYM_SCHEME*>(_sign.Clone())), p(_p), a(_a), b(_b), gX(_gX), gY(_gY), n(_n), h(_h)
+      : curveID(_curveID), keySize(_keySize), kdf(_kdf.Clone()), sign(_sign.Clone()), p(_p), a(_a), b(_b), gX(_gX), gY(_gY), n(_n), h(_h)
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -7095,7 +7095,7 @@ public:
 public:
     TPMT_SIGNATURE() {}
     TPMT_SIGNATURE(const TPMU_SIGNATURE& _signature)
-      : signature(dynamic_cast<TPMU_SIGNATURE*>(_signature.Clone()))
+      : signature(_signature.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -7166,7 +7166,7 @@ public:
 public:
     TPMS_KEYEDHASH_PARMS() {}
     TPMS_KEYEDHASH_PARMS(const TPMU_SCHEME_KEYEDHASH& _scheme)
-      : scheme(dynamic_cast<TPMU_SCHEME_KEYEDHASH*>(_scheme.Clone()))
+      : scheme(_scheme.Clone())
     {}
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::KEYEDHASH; }
 
@@ -7216,7 +7216,7 @@ public:
 public:
     TPMS_ASYM_PARMS() {}
     TPMS_ASYM_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme)
-      : symmetric(_symmetric), scheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_scheme.Clone()))
+      : symmetric(_symmetric), scheme(_scheme.Clone())
     {}
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ANY; }
 
@@ -7280,7 +7280,7 @@ public:
 public:
     TPMS_RSA_PARMS() {}
     TPMS_RSA_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme, std::uint16_t _keyBits, std::uint32_t _exponent)
-      : symmetric(_symmetric), scheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_scheme.Clone())), keyBits(_keyBits), exponent(_exponent)
+      : symmetric(_symmetric), scheme(_scheme.Clone()), keyBits(_keyBits), exponent(_exponent)
     {}
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::RSA; }
 
@@ -7347,7 +7347,7 @@ public:
 public:
     TPMS_ECC_PARMS() {}
     TPMS_ECC_PARMS(const TPMT_SYM_DEF_OBJECT& _symmetric, const TPMU_ASYM_SCHEME& _scheme, TPM_ECC_CURVE _curveID, const TPMU_KDF_SCHEME& _kdf)
-      : symmetric(_symmetric), scheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_scheme.Clone())), curveID(_curveID), kdf(dynamic_cast<TPMU_KDF_SCHEME*>(_kdf.Clone()))
+      : symmetric(_symmetric), scheme(_scheme.Clone()), curveID(_curveID), kdf(_kdf.Clone())
     {}
     TPM_ALG_ID GetUnionSelector() const { return TPM_ALG_ID::ECC; }
 
@@ -7386,7 +7386,7 @@ public:
 public:
     TPMT_PUBLIC_PARMS() {}
     TPMT_PUBLIC_PARMS(const TPMU_PUBLIC_PARMS& _parameters)
-      : parameters(dynamic_cast<TPMU_PUBLIC_PARMS*>(_parameters.Clone()))
+      : parameters(_parameters.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -7444,7 +7444,7 @@ public:
 public:
     TPMT_PUBLIC() { nameAlg = TPM_ALG_ID::TPM_NULL; }
     TPMT_PUBLIC(TPM_ALG_ID _nameAlg, TPMA_OBJECT _objectAttributes, const ByteVec& _authPolicy, const TPMU_PUBLIC_PARMS& _parameters, const TPMU_PUBLIC_ID& _unique)
-      : nameAlg(_nameAlg), objectAttributes(_objectAttributes), authPolicy(_authPolicy), parameters(dynamic_cast<TPMU_PUBLIC_PARMS*>(_parameters.Clone())), unique(dynamic_cast<TPMU_PUBLIC_ID*>(_unique.Clone()))
+      : nameAlg(_nameAlg), objectAttributes(_objectAttributes), authPolicy(_authPolicy), parameters(_parameters.Clone()), unique(_unique.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -7654,7 +7654,7 @@ public:
 public:
     TPMT_SENSITIVE() {}
     TPMT_SENSITIVE(const ByteVec& _authValue, const ByteVec& _seedValue, const TPMU_SENSITIVE_COMPOSITE& _sensitive)
-      : authValue(_authValue), seedValue(_seedValue), sensitive(dynamic_cast<TPMU_SENSITIVE_COMPOSITE*>(_sensitive.Clone()))
+      : authValue(_authValue), seedValue(_seedValue), sensitive(_sensitive.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -9773,7 +9773,7 @@ public:
 public:
     TPM2_RSA_Encrypt_REQUEST() {}
     TPM2_RSA_Encrypt_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _message, const TPMU_ASYM_SCHEME& _inScheme, const ByteVec& _label)
-      : keyHandle(_keyHandle), message(_message), inScheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_inScheme.Clone())), label(_label)
+      : keyHandle(_keyHandle), message(_message), inScheme(_inScheme.Clone()), label(_label)
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -9869,7 +9869,7 @@ public:
 public:
     TPM2_RSA_Decrypt_REQUEST() {}
     TPM2_RSA_Decrypt_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _cipherText, const TPMU_ASYM_SCHEME& _inScheme, const ByteVec& _label)
-      : keyHandle(_keyHandle), cipherText(_cipherText), inScheme(dynamic_cast<TPMU_ASYM_SCHEME*>(_inScheme.Clone())), label(_label)
+      : keyHandle(_keyHandle), cipherText(_cipherText), inScheme(_inScheme.Clone()), label(_label)
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -10269,7 +10269,7 @@ public:
 public:
     TPM2_ECC_Encrypt_REQUEST() {}
     TPM2_ECC_Encrypt_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _plainText, const TPMU_KDF_SCHEME& _inScheme)
-      : keyHandle(_keyHandle), plainText(_plainText), inScheme(dynamic_cast<TPMU_KDF_SCHEME*>(_inScheme.Clone()))
+      : keyHandle(_keyHandle), plainText(_plainText), inScheme(_inScheme.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -10366,7 +10366,7 @@ public:
 public:
     TPM2_ECC_Decrypt_REQUEST() {}
     TPM2_ECC_Decrypt_REQUEST(const TPM_HANDLE& _keyHandle, const TPMS_ECC_POINT& _C1, const ByteVec& _C2, const ByteVec& _C3, const TPMU_KDF_SCHEME& _inScheme)
-      : keyHandle(_keyHandle), C1(_C1), C2(_C2), C3(_C3), inScheme(dynamic_cast<TPMU_KDF_SCHEME*>(_inScheme.Clone()))
+      : keyHandle(_keyHandle), C1(_C1), C2(_C2), C3(_C3), inScheme(_inScheme.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -11447,7 +11447,7 @@ public:
 public:
     TPM2_Certify_REQUEST() {}
     TPM2_Certify_REQUEST(const TPM_HANDLE& _objectHandle, const TPM_HANDLE& _signHandle, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme)
-      : objectHandle(_objectHandle), signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone()))
+      : objectHandle(_objectHandle), signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(_inScheme.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -11559,7 +11559,7 @@ public:
 public:
     TPM2_CertifyCreation_REQUEST() {}
     TPM2_CertifyCreation_REQUEST(const TPM_HANDLE& _signHandle, const TPM_HANDLE& _objectHandle, const ByteVec& _qualifyingData, const ByteVec& _creationHash, const TPMU_SIG_SCHEME& _inScheme, const TPMT_TK_CREATION& _creationTicket)
-      : signHandle(_signHandle), objectHandle(_objectHandle), qualifyingData(_qualifyingData), creationHash(_creationHash), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone())), creationTicket(_creationTicket)
+      : signHandle(_signHandle), objectHandle(_objectHandle), qualifyingData(_qualifyingData), creationHash(_creationHash), inScheme(_inScheme.Clone()), creationTicket(_creationTicket)
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -11659,7 +11659,7 @@ public:
 public:
     TPM2_Quote_REQUEST() {}
     TPM2_Quote_REQUEST(const TPM_HANDLE& _signHandle, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme, const vector<TPMS_PCR_SELECTION>& _PCRselect)
-      : signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone())), PCRselect(_PCRselect)
+      : signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(_inScheme.Clone()), PCRselect(_PCRselect)
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -11762,7 +11762,7 @@ public:
 public:
     TPM2_GetSessionAuditDigest_REQUEST() {}
     TPM2_GetSessionAuditDigest_REQUEST(const TPM_HANDLE& _privacyAdminHandle, const TPM_HANDLE& _signHandle, const TPM_HANDLE& _sessionHandle, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme)
-      : privacyAdminHandle(_privacyAdminHandle), signHandle(_signHandle), sessionHandle(_sessionHandle), qualifyingData(_qualifyingData), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone()))
+      : privacyAdminHandle(_privacyAdminHandle), signHandle(_signHandle), sessionHandle(_sessionHandle), qualifyingData(_qualifyingData), inScheme(_inScheme.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -11863,7 +11863,7 @@ public:
 public:
     TPM2_GetCommandAuditDigest_REQUEST() {}
     TPM2_GetCommandAuditDigest_REQUEST(const TPM_HANDLE& _privacyHandle, const TPM_HANDLE& _signHandle, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme)
-      : privacyHandle(_privacyHandle), signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone()))
+      : privacyHandle(_privacyHandle), signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(_inScheme.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -11964,7 +11964,7 @@ public:
 public:
     TPM2_GetTime_REQUEST() {}
     TPM2_GetTime_REQUEST(const TPM_HANDLE& _privacyAdminHandle, const TPM_HANDLE& _signHandle, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme)
-      : privacyAdminHandle(_privacyAdminHandle), signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone()))
+      : privacyAdminHandle(_privacyAdminHandle), signHandle(_signHandle), qualifyingData(_qualifyingData), inScheme(_inScheme.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -12071,7 +12071,7 @@ public:
 public:
     TPM2_CertifyX509_REQUEST() {}
     TPM2_CertifyX509_REQUEST(const TPM_HANDLE& _objectHandle, const TPM_HANDLE& _signHandle, const ByteVec& _reserved, const TPMU_SIG_SCHEME& _inScheme, const ByteVec& _partialCertificate)
-      : objectHandle(_objectHandle), signHandle(_signHandle), reserved(_reserved), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone())), partialCertificate(_partialCertificate)
+      : objectHandle(_objectHandle), signHandle(_signHandle), reserved(_reserved), inScheme(_inScheme.Clone()), partialCertificate(_partialCertificate)
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -12340,7 +12340,7 @@ public:
 public:
     TPM2_VerifySignature_REQUEST() {}
     TPM2_VerifySignature_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _digest, const TPMU_SIGNATURE& _signature)
-      : keyHandle(_keyHandle), digest(_digest), signature(dynamic_cast<TPMU_SIGNATURE*>(_signature.Clone()))
+      : keyHandle(_keyHandle), digest(_digest), signature(_signature.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -12428,7 +12428,7 @@ public:
 public:
     TPM2_Sign_REQUEST() {}
     TPM2_Sign_REQUEST(const TPM_HANDLE& _keyHandle, const ByteVec& _digest, const TPMU_SIG_SCHEME& _inScheme, const TPMT_TK_HASHCHECK& _validation)
-      : keyHandle(_keyHandle), digest(_digest), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone())), validation(_validation)
+      : keyHandle(_keyHandle), digest(_digest), inScheme(_inScheme.Clone()), validation(_validation)
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -13000,7 +13000,7 @@ public:
 public:
     TPM2_PolicySigned_REQUEST() {}
     TPM2_PolicySigned_REQUEST(const TPM_HANDLE& _authObject, const TPM_HANDLE& _policySession, const ByteVec& _nonceTPM, const ByteVec& _cpHashA, const ByteVec& _policyRef, std::int32_t _expiration, const TPMU_SIGNATURE& _auth)
-      : authObject(_authObject), policySession(_policySession), nonceTPM(_nonceTPM), cpHashA(_cpHashA), policyRef(_policyRef), expiration(_expiration), auth(dynamic_cast<TPMU_SIGNATURE*>(_auth.Clone()))
+      : authObject(_authObject), policySession(_policySession), nonceTPM(_nonceTPM), cpHashA(_cpHashA), policyRef(_policyRef), expiration(_expiration), auth(_auth.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -14669,7 +14669,7 @@ public:
 public:
     TPM2_FieldUpgradeStart_REQUEST() {}
     TPM2_FieldUpgradeStart_REQUEST(const TPM_HANDLE& _authorization, const TPM_HANDLE& _keyHandle, const ByteVec& _fuDigest, const TPMU_SIGNATURE& _manifestSignature)
-      : authorization(_authorization), keyHandle(_keyHandle), fuDigest(_fuDigest), manifestSignature(dynamic_cast<TPMU_SIGNATURE*>(_manifestSignature.Clone()))
+      : authorization(_authorization), keyHandle(_keyHandle), fuDigest(_fuDigest), manifestSignature(_manifestSignature.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -15289,7 +15289,7 @@ public:
 public:
     TPM2_TestParms_REQUEST() {}
     TPM2_TestParms_REQUEST(const TPMU_PUBLIC_PARMS& _parameters)
-      : parameters(dynamic_cast<TPMU_PUBLIC_PARMS*>(_parameters.Clone()))
+      : parameters(_parameters.Clone())
     {}
 
     void toTpm(TpmBuffer& buf) const;
@@ -15995,7 +15995,7 @@ public:
 public:
     TPM2_NV_Certify_REQUEST() {}
     TPM2_NV_Certify_REQUEST(const TPM_HANDLE& _signHandle, const TPM_HANDLE& _authHandle, const TPM_HANDLE& _nvIndex, const ByteVec& _qualifyingData, const TPMU_SIG_SCHEME& _inScheme, std::uint16_t _size, std::uint16_t _offset)
-      : signHandle(_signHandle), authHandle(_authHandle), nvIndex(_nvIndex), qualifyingData(_qualifyingData), inScheme(dynamic_cast<TPMU_SIG_SCHEME*>(_inScheme.Clone())), size(_size), offset(_offset)
+      : signHandle(_signHandle), authHandle(_authHandle), nvIndex(_nvIndex), qualifyingData(_qualifyingData), inScheme(_inScheme.Clone()), size(_size), offset(_offset)
     {}
 
     void toTpm(TpmBuffer& buf) const;

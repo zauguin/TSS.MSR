@@ -261,7 +261,7 @@ namespace CodeGen
                 else
                 {
                     string memInitList = string.Join(", ", ctorParams.Select(p => p.Type is TpmUnion
-                                ? $"{p.Name}(dynamic_cast<{p.Type.Name}*>(_{p.Name}.Clone()))"
+                                ? $"{p.Name}(_{p.Name}.Clone())"
                                 : $"{p.Name}(_{p.Name})"
                             ));
                     Write($"  : {memInitList}");
