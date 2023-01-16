@@ -3246,7 +3246,7 @@ public:
 /// An empty union element does not contain any data to marshal.
 /// This data structure can be used in place of any other union
 /// initialized with its own empty element. </summary>
-class TPM_DLLEXP TPMS_NULL_UNION : public virtual TpmStructure, public TPMU_SYM_DETAILS, public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_NULL_UNION : public TPMU_SYM_DETAILS, public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
 {
 public:
 public:
@@ -3270,7 +3270,7 @@ public:
 /// <summary> This structure is used as a placeholder. In some cases, a union will have a
 /// selector value with no data to unmarshal when that type is selected. Rather than leave
 /// the entry empty, TPMS_EMPTY may be selected. </summary>
-class TPM_DLLEXP TPMS_EMPTY : public virtual TpmStructure, public TPMU_ASYM_SCHEME
+class TPM_DLLEXP TPMS_EMPTY : public TPMU_ASYM_SCHEME
 {
 public:
 public:
@@ -3329,7 +3329,7 @@ public:
 /// <summary> Table 80 shows the basic hash-agile structure used in this specification. To
 /// handle hash agility, this structure uses the hashAlg parameter to indicate the
 /// algorithm used to compute the digest and, by implication, the size of the digest. </summary>
-class TPM_DLLEXP TPMT_HA : public virtual TpmStructure, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMT_HA : public TPMU_SIGNATURE
 {
 public:
     /// <summary> Selector of the hash contained in the digest that implies the size of the digest
@@ -3413,7 +3413,7 @@ public:
 
 /// <summary> This structure is used for a sized buffer that cannot be larger than the
 /// largest digest produced by any hash algorithm implemented on the TPM. </summary>
-class TPM_DLLEXP TPM2B_DIGEST : public virtual TpmStructure, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPM2B_DIGEST : public TPMU_PUBLIC_ID
 {
 public:
     /// <summary> The buffer area that can be no larger than a digest </summary>
@@ -4107,7 +4107,7 @@ public:
 
 /// <summary> A list of command codes may be input to the TPM or returned by the TPM
 /// depending on the command. </summary>
-class TPM_DLLEXP TPML_CC : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_CC : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> A list of command codes
@@ -4143,7 +4143,7 @@ public:
 
 /// <summary> This list is only used in TPM2_GetCapability(capability = TPM_CAP_COMMANDS).
 /// </summary>
-class TPM_DLLEXP TPML_CCA : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_CCA : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> A list of command codes attributes </summary>
@@ -4210,7 +4210,7 @@ public:
 
 /// <summary> This structure is used when the TPM returns a list of loaded handles when
 /// the capability in TPM2_GetCapability() is TPM_CAP_HANDLE. </summary>
-class TPM_DLLEXP TPML_HANDLE : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_HANDLE : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> An array of handles </summary>
@@ -4312,7 +4312,7 @@ public:
 
 /// <summary> This list is used to indicate the PCR that are included in a selection when
 /// more than one PCR value may be selected. </summary>
-class TPM_DLLEXP TPML_PCR_SELECTION : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_PCR_SELECTION : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> List of selections </summary>
@@ -4346,7 +4346,7 @@ public:
 
 /// <summary> This list is used to report on a list of algorithm attributes. It is
 /// returned in a TPM2_GetCapability(). </summary>
-class TPM_DLLEXP TPML_ALG_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_ALG_PROPERTY : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> List of properties </summary>
@@ -4380,7 +4380,7 @@ public:
 
 /// <summary> This list is used to report on a list of properties that are
 /// TPMS_TAGGED_PROPERTY values. It is returned by a TPM2_GetCapability(). </summary>
-class TPM_DLLEXP TPML_TAGGED_TPM_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_TAGGED_TPM_PROPERTY : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> An array of tagged properties </summary>
@@ -4414,7 +4414,7 @@ public:
 
 /// <summary> This list is used to report on a list of properties that are TPMS_PCR_SELECT
 /// values. It is returned by a TPM2_GetCapability(). </summary>
-class TPM_DLLEXP TPML_TAGGED_PCR_PROPERTY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_TAGGED_PCR_PROPERTY : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> A tagged PCR selection </summary>
@@ -4448,7 +4448,7 @@ public:
 
 /// <summary> This list is used to report the ECC curve ID values supported by the TPM. It
 /// is returned by a TPM2_GetCapability(). </summary>
-class TPM_DLLEXP TPML_ECC_CURVE : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_ECC_CURVE : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> Array of ECC curve identifiers </summary>
@@ -4483,7 +4483,7 @@ public:
 /// <summary> This list is used to report the authorization policy values for permanent
 /// handles. This is list may be generated by TPM2_GetCapabiltiy(). A permanent handle
 /// that cannot have a policy is not included in the list. </summary>
-class TPM_DLLEXP TPML_TAGGED_POLICY : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_TAGGED_POLICY : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> Array of tagged policies </summary>
@@ -4517,7 +4517,7 @@ public:
 
 /// <summary> This list is used to report the timeout and state for the ACT. This list may
 /// be generated by TPM2_GetCapabilty(). Only implemented ACT are present in the list </summary>
-class TPM_DLLEXP TPML_ACT_DATA : public virtual TpmStructure, public TPMU_CAPABILITIES
+class TPM_DLLEXP TPML_ACT_DATA : public TPMU_CAPABILITIES
 {
 public:
     /// <summary> Array of ACT data </summary>
@@ -4670,7 +4670,7 @@ public:
 }; // class TPMS_TIME_INFO
 
 /// <summary> This structure is used when the TPM performs TPM2_GetTime. </summary>
-class TPM_DLLEXP TPMS_TIME_ATTEST_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_TIME_ATTEST_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> The Time, Clock, resetCount, restartCount, and Safe indicator </summary>
@@ -4706,7 +4706,7 @@ public:
 }; // class TPMS_TIME_ATTEST_INFO
 
 /// <summary> This is the attested data for TPM2_Certify(). </summary>
-class TPM_DLLEXP TPMS_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_CERTIFY_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the certified object </summary>
@@ -4742,7 +4742,7 @@ public:
 }; // class TPMS_CERTIFY_INFO
 
 /// <summary> This is the attested data for TPM2_Quote(). </summary>
-class TPM_DLLEXP TPMS_QUOTE_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_QUOTE_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> Information on algID, PCR selected and digest </summary>
@@ -4778,7 +4778,7 @@ public:
 }; // class TPMS_QUOTE_INFO
 
 /// <summary> This is the attested data for TPM2_GetCommandAuditDigest(). </summary>
-class TPM_DLLEXP TPMS_COMMAND_AUDIT_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_COMMAND_AUDIT_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> The monotonic audit counter </summary>
@@ -4820,7 +4820,7 @@ public:
 }; // class TPMS_COMMAND_AUDIT_INFO
 
 /// <summary> This is the attested data for TPM2_GetSessionAuditDigest(). </summary>
-class TPM_DLLEXP TPMS_SESSION_AUDIT_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_SESSION_AUDIT_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> Current exclusive status of the session
@@ -4858,7 +4858,7 @@ public:
 }; // class TPMS_SESSION_AUDIT_INFO
 
 /// <summary> This is the attested data for TPM2_CertifyCreation(). </summary>
-class TPM_DLLEXP TPMS_CREATION_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_CREATION_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the object </summary>
@@ -4895,7 +4895,7 @@ public:
 
 /// <summary> This structure contains the Name and contents of the selected NV Index that
 /// is certified by TPM2_NV_Certify(). </summary>
-class TPM_DLLEXP TPMS_NV_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_NV_CERTIFY_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the NV Index </summary>
@@ -4936,7 +4936,7 @@ public:
 /// <summary> This structure contains the Name and hash of the contents of the selected NV
 /// Index that is certified by TPM2_NV_Certify(). The data is hashed using hash of the
 /// signing scheme. </summary>
-class TPM_DLLEXP TPMS_NV_DIGEST_CERTIFY_INFO : public virtual TpmStructure, public TPMU_ATTEST
+class TPM_DLLEXP TPMS_NV_DIGEST_CERTIFY_INFO : public TPMU_ATTEST
 {
 public:
     /// <summary> Name of the NV Index </summary>
@@ -5402,7 +5402,7 @@ public:
 
 /// <summary> This structure is used to hold a symmetric key in the sensitive area of an
 /// asymmetric object. </summary>
-class TPM_DLLEXP TPM2B_SYM_KEY : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_SYM_KEY : public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     /// <summary> The key </summary>
@@ -5435,7 +5435,7 @@ public:
 }; // class TPM2B_SYM_KEY
 
 /// <summary> This structure contains the parameters for a symmetric block cipher object. </summary>
-class TPM_DLLEXP TPMS_SYMCIPHER_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_SYMCIPHER_PARMS : public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> A symmetric block cipher </summary>
@@ -5504,7 +5504,7 @@ public:
 /// <summary> This structure contains the label and context fields for a derived object.
 /// These values are used in the derivation KDF. The values in the unique field of
 /// inPublic area template take precedence over the values in the inSensitive parameter. </summary>
-class TPM_DLLEXP TPMS_DERIVE : public virtual TpmStructure, public TPMU_SENSITIVE_CREATE, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPMS_DERIVE : public TPMU_SENSITIVE_CREATE, public TPMU_PUBLIC_ID
 {
 public:
     ByteVec label;
@@ -5569,7 +5569,7 @@ public:
 }; // class TPM2B_DERIVE
 
 /// <summary> This buffer wraps the TPMU_SENSITIVE_CREATE structure. </summary>
-class TPM_DLLEXP TPM2B_SENSITIVE_DATA : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_SENSITIVE_DATA : public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     /// <summary> Symmetric data for a created object or the label and context for a derived
@@ -5674,7 +5674,7 @@ public:
 
 /// <summary> This structure is the scheme data for schemes that only require a hash to
 /// complete their definition. </summary>
-class TPM_DLLEXP TPMS_SCHEME_HASH : public virtual TpmStructure, public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_SCHEME_HASH : public TPMU_SCHEME_KEYEDHASH, public TPMU_SIG_SCHEME, public TPMU_KDF_SCHEME, public TPMU_ASYM_SCHEME, public TPMU_SIGNATURE
 {
 public:
     /// <summary> The hash algorithm used to digest the message </summary>
@@ -5707,7 +5707,7 @@ public:
 }; // class TPMS_SCHEME_HASH
 
 /// <summary> This definition is for split signing schemes that require a commit count. </summary>
-class TPM_DLLEXP TPMS_SCHEME_ECDAA : public virtual TpmStructure, public TPMU_SIG_SCHEME, public TPMU_ASYM_SCHEME
+class TPM_DLLEXP TPMS_SCHEME_ECDAA : public TPMU_SIG_SCHEME, public TPMU_ASYM_SCHEME
 {
 public:
     /// <summary> The hash algorithm used to digest the message </summary>
@@ -5768,7 +5768,7 @@ public:
 }; // class TPMS_SCHEME_HMAC
 
 /// <summary> This structure is for the XOR encryption scheme. </summary>
-class TPM_DLLEXP TPMS_SCHEME_XOR : public virtual TpmStructure, public TPMU_SCHEME_KEYEDHASH
+class TPM_DLLEXP TPMS_SCHEME_XOR : public TPMU_SCHEME_KEYEDHASH
 {
 public:
     /// <summary> The hash algorithm used to digest the message </summary>
@@ -6497,7 +6497,7 @@ public:
 }; // class TPMT_RSA_DECRYPT
 
 /// <summary> This sized buffer holds the largest RSA public key supported by the TPM. </summary>
-class TPM_DLLEXP TPM2B_PUBLIC_KEY_RSA : public virtual TpmStructure, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPM2B_PUBLIC_KEY_RSA : public TPMU_PUBLIC_ID
 {
 public:
     /// <summary> Value </summary>
@@ -6530,7 +6530,7 @@ public:
 }; // class TPM2B_PUBLIC_KEY_RSA
 
 /// <summary> This sized buffer holds the largest RSA prime number supported by the TPM. </summary>
-class TPM_DLLEXP TPM2B_PRIVATE_KEY_RSA : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_PRIVATE_KEY_RSA : public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     ByteVec buffer;
@@ -6563,7 +6563,7 @@ public:
 
 /// <summary> This sized buffer holds the largest ECC parameter (coordinate) supported by
 /// the TPM. </summary>
-class TPM_DLLEXP TPM2B_ECC_PARAMETER : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_ECC_PARAMETER : public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     /// <summary> The parameter data </summary>
@@ -6597,7 +6597,7 @@ public:
 
 /// <summary> This structure holds two ECC coordinates that, together, make up an ECC
 /// point. </summary>
-class TPM_DLLEXP TPMS_ECC_POINT : public virtual TpmStructure, public TPMU_PUBLIC_ID
+class TPM_DLLEXP TPMS_ECC_POINT : public TPMU_PUBLIC_ID
 {
 public:
     /// <summary> X coordinate </summary>
@@ -6780,7 +6780,7 @@ public:
 }; // class TPMS_ALGORITHM_DETAIL_ECC
 
 /// <summary> Table 185 Definition of {RSA} TPMS_SIGNATURE_RSA Structure </summary>
-class TPM_DLLEXP TPMS_SIGNATURE_RSA : public virtual TpmStructure, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_SIGNATURE_RSA : public TPMU_SIGNATURE
 {
 public:
     /// <summary> The hash algorithm used to digest the message
@@ -6867,7 +6867,7 @@ public:
 }; // class TPMS_SIGNATURE_RSAPSS
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
-class TPM_DLLEXP TPMS_SIGNATURE_ECC : public virtual TpmStructure, public TPMU_SIGNATURE
+class TPM_DLLEXP TPMS_SIGNATURE_ECC : public TPMU_SIGNATURE
 {
 public:
     /// <summary> The hash algorithm used in the signature process
@@ -7099,7 +7099,7 @@ public:
 
 /// <summary> This structure describes the parameters that would appear in the public area
 /// of a KEYEDHASH object. </summary>
-class TPM_DLLEXP TPMS_KEYEDHASH_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_KEYEDHASH_PARMS : public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> Selects the scheme </summary>
@@ -7140,7 +7140,7 @@ public:
 /// <summary> This structure contains the common public area parameters for an asymmetric
 /// key. The first two parameters of the parameter definition structures of an asymmetric
 /// key shall have the same two first components. </summary>
-class TPM_DLLEXP TPMS_ASYM_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_ASYM_PARMS : public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> The companion symmetric algorithm for a restricted decryption key and shall
@@ -7192,7 +7192,7 @@ public:
 /// the default of 216 + 1. Support for other values is optional. Use of other exponents
 /// in duplicated keys is not recommended because the resulting keys would not be
 /// interoperable with other TPMs. </summary>
-class TPM_DLLEXP TPMS_RSA_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_RSA_PARMS : public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> For a restricted decryption key, shall be set to a supported symmetric
@@ -7252,7 +7252,7 @@ public:
 }; // class TPMS_RSA_PARMS
 
 /// <summary> This structure contains the parameters for prime modulus ECC. </summary>
-class TPM_DLLEXP TPMS_ECC_PARMS : public virtual TpmStructure, public TPMU_PUBLIC_PARMS
+class TPM_DLLEXP TPMS_ECC_PARMS : public TPMU_PUBLIC_PARMS
 {
 public:
     /// <summary> For a restricted decryption key, shall be set to a supported symmetric
@@ -7540,7 +7540,7 @@ public:
 /// other values will be computed so that computations using the private key will not need
 /// to start with just one prime factor. This structure can be used to store the results
 /// of such vendor-specific calculations. </summary>
-class TPM_DLLEXP TPM2B_PRIVATE_VENDOR_SPECIFIC : public virtual TpmStructure, public TPMU_SENSITIVE_COMPOSITE
+class TPM_DLLEXP TPM2B_PRIVATE_VENDOR_SPECIFIC : public TPMU_SENSITIVE_COMPOSITE
 {
 public:
     ByteVec buffer;

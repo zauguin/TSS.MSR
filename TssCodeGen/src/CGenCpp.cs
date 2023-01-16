@@ -179,18 +179,15 @@ namespace CodeGen
             string classBases = hasBase ? s.DerivedFrom.Name
                               : !s.IsCmdStruct() ? "TpmStructure"
                               : s.Info.IsRequest() ? "ReqStructure" : "RespStructure";
-            string virt = "";
             // If this struct is not derived from another one and is a member of one or more unions,
             // it must implement the corresponding union interfaces
             if (!s.IsCmdStruct() && !hasBase && s.ContainingUnions.Count > 0)
             {
-                foreach (var u in s.ContainingUnions)
-                    classBases += ", public " + u.Name;
-                virt = "virtual ";
+                classBases = string.Join(", public ", s.ContainingUnions.Select(u => u.Name));
             }
 
             WriteComment(s);
-            Write($"class TPM_DLLEXP {className} : public {virt}{classBases}");
+            Write($"class TPM_DLLEXP {className} : public {classBases}");
             Write("{");
             TabIn("public:");
 
@@ -428,9 +425,6 @@ namespace CodeGen
 
         void GenEnumMap()
         {
-            var Enum2Str = new List<string>();
-            var Str2Enum = new List<string>();
-
             foreach (var e in EnumMap)
             {
                 Write("");
