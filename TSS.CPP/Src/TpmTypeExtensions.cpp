@@ -332,7 +332,7 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
                                                 const TPMT_SYM_DEF_OBJECT& innerWrapper) const
 {
     if (type() != TPM_ALG_ID::RSA)
-        throw new domain_error("Only import of keys to RSA storage parents supported");
+        throw domain_error("Only import of keys to RSA storage parents supported");
 
     DuplicationBlob blob;
     ByteVec encryptedSensitive;
@@ -342,10 +342,10 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
     if (innerWrapper.algorithm == TPM_ALG_NULL)
         encryptedSensitive = sensitive.asTpm2B();
     else {
-        if (innerWrapper.algorithm != TPM_ALG_ID::AES &&
-            innerWrapper.keyBits != 128 &&
+        if (innerWrapper.algorithm != TPM_ALG_ID::AES ||
+            innerWrapper.keyBits % 8 != 0 ||
             innerWrapper.mode != TPM_ALG_ID::CFB) {
-            throw new domain_error("innerWrapper KeyDef is not supported for import");
+            throw domain_error("innerWrapper KeyDef is not supported for import");
         }
 
         ByteVec sens = sensitive.asTpm2B();
@@ -354,7 +354,7 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
         ByteVec innerIntegrity = Helpers::ToTpm2B(Crypto::Hash(nameAlg, toHash));
         ByteVec innerData = Helpers::Concatenate(innerIntegrity, sens);
 
-        innerWrapperKey = Helpers::RandomBytes(16);
+        innerWrapperKey = Helpers::RandomBytes(innerWrapper.keyBits/8);
         encryptedSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES,
                                                innerWrapperKey, iv, innerData);
     }
@@ -362,11 +362,10 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
     TPMS_RSA_PARMS *newParentParms = dynamic_cast<TPMS_RSA_PARMS*>(&*this->parameters);
     TPMT_SYM_DEF_OBJECT newParentSymDef = newParentParms->symmetric;
 
-    if (newParentSymDef.algorithm != TPM_ALG_ID::AES &&
-        newParentSymDef.keyBits != 128 && 
+    if (newParentSymDef.algorithm != TPM_ALG_ID::AES ||
         newParentSymDef.mode != TPM_ALG_ID::CFB)
     {
-        throw new domain_error("new parent symmetric key is not supported for import");
+        throw domain_error("new parent symmetric key is not supported for import");
     }
 
     // Otherwise we know we are AES128
@@ -375,7 +374,7 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
     ByteVec encryptedSeed = this->Encrypt(seed, parms);
 
     ByteVec symmKey = Crypto::KDFa(this->nameAlg, seed, "STORAGE",
-                                   pub.GetName(), null, 128);
+                                   pub.GetName(), null, newParentSymDef.keyBits);
     iv.clear();
     ByteVec dupSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES, symmKey, iv, encryptedSensitive);
 
