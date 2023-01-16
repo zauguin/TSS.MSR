@@ -535,20 +535,10 @@ SignResponse Crypto::Sign(const TSS_KEY& key, const ByteVec& toSign,
 
             CryptoPP::DL_GroupParameters_EC<CryptoPP::ECP> parameters(getCurve(eccParms.curveID));
 
-            /* CryptoPP::Integer x, y; */
-            /* x.Decode(eccPubKey.x.data(), eccPubKey.x.size()); */
-            /* y.Decode(eccPubKey.y.data(), eccPubKey.y.size()); */
-            /* CryptoPP::ECPPoint pubPoint(x, y); */
-
             CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::PrivateKey priv; // Hash here doesn't matter
             CryptoPP::Integer privExponent;
             privExponent.Decode(key.privatePart.data(), key.privatePart.size());
             priv.Initialize(parameters, privExponent);
-
-            /* ByteVec combinedSignature(ecdsaSig->signatureR.size() + ecdsaSig->signatureS.size()); */
-            /* auto separator = std::copy(ecdsaSig->signatureR.begin(), ecdsaSig->signatureR.end(), combinedSignature.begin()); */
-            /* std::copy(ecdsaSig->signatureS.begin(), ecdsaSig->signatureS.end(), separator); */
-            /* return verifier->VerifyMessage(signedDigest.data(), signedDigest.size(), combinedSignature.data(), combinedSignature.size()); */
 
             const int maxBuf = 4096;
             byte signature[maxBuf];
