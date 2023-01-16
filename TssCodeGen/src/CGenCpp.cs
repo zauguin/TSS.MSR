@@ -149,7 +149,7 @@ namespace CodeGen
             // as some unions use different unrelated enums as return types.
             Write($"public: virtual {GetUnionSelectorType(u)} GetUnionSelector() const = 0;");
 
-            Write("public: virtual TpmStructure*  Clone() const { TPM_ASSERT(false); return nullptr; };");
+            Write($"public: virtual {u.Name}* Clone() const = 0;");
             TabOut("};");
         } // GenUnion()
 
@@ -310,7 +310,7 @@ namespace CodeGen
             // Cloning and metadata
             //
             Write("");
-            Write($"virtual TpmStructure* Clone() const {{ return new {className}(*this); }}");
+            Write($"virtual {className}* Clone() const {{ return new {className}(*this); }}");
 
             var info = s.IsCmdStruct() ? s.Info as CmdStructInfo : null;
             if (info != null && (info.NumHandles != 0 || info.SessEncSizeLen != 0))
