@@ -160,6 +160,14 @@ struct GetSigner<void> {
     using type = CryptoPP::PK_Signer;
 };
 template<typename Hash>
+struct GetECDSASigner {
+    using type = typename CryptoPP::ECDSA<CryptoPP::ECP, NoopHash<Hash>>::Signer;
+};
+template<>
+struct GetECDSASigner<void> {
+    using type = CryptoPP::PK_Signer;
+};
+template<typename Hash>
 struct GetVerifier {
     using type = typename CryptoPP::RSASS<CryptoPP::PKCS1v15, NoopHash<Hash>>::Verifier;
 };
@@ -450,58 +458,116 @@ SignResponse Crypto::Sign(const TSS_KEY& key, const ByteVec& toSign,
 {
     // Set the selectors
     const TPMT_PUBLIC& pubKey = key.publicPart;
-    TPMS_RSA_PARMS *rsaParms = dynamic_cast<TPMS_RSA_PARMS*>(&*pubKey.parameters);
-    if (rsaParms == NULL)
-        throw domain_error("Only RSA signing is supported");
+    switch (pubKey.type()) {
+        case TPM_ALG_ID::RSA:
+        {
+            const TPMS_RSA_PARMS &rsaParms = static_cast<const TPMS_RSA_PARMS &>(*pubKey.parameters);
 
-    TPM2B_PUBLIC_KEY_RSA *rsaPubKey = dynamic_cast<TPM2B_PUBLIC_KEY_RSA*>(&*pubKey.unique);
+            const TPM2B_PUBLIC_KEY_RSA &rsaPubKey = static_cast<const TPM2B_PUBLIC_KEY_RSA &>(*pubKey.unique);
 
-    TPM_ALG_ID schemeAlg = rsaParms->schemeScheme(),
-               expSchemeAlg = explicitScheme.GetUnionSelector();
-    auto *scheme = dynamic_cast<const TPMS_SCHEME_RSASSA*>(&*rsaParms->scheme);
+            TPM_ALG_ID schemeAlg = rsaParms.schemeScheme(),
+                       expSchemeAlg = explicitScheme.GetUnionSelector();
+            auto *scheme = dynamic_cast<const TPMS_SCHEME_RSASSA*>(&*rsaParms.scheme);
 
-    if (schemeAlg == TPM_ALG_NULL)
-    {
-        schemeAlg = expSchemeAlg;
-        scheme = dynamic_cast<const TPMS_SCHEME_RSASSA*>(&explicitScheme);
-        if (schemeAlg == TPM_ALG_NULL)
-            throw domain_error("Crypto::Sign: No signing scheme specified");
-        else if (schemeAlg != TPM_ALG::RSASSA)
-            throw domain_error("Crypto::Sign: Only RSASSA is supported");
+            if (schemeAlg == TPM_ALG_NULL)
+            {
+                schemeAlg = expSchemeAlg;
+                scheme = dynamic_cast<const TPMS_SCHEME_RSASSA*>(&explicitScheme);
+                if (schemeAlg == TPM_ALG_NULL)
+                    throw domain_error("Crypto::Sign: No signing scheme specified");
+                else if (schemeAlg != TPM_ALG::RSASSA)
+                    throw domain_error("Crypto::Sign: Only RSASSA is supported");
+            }
+            else if (expSchemeAlg != TPM_ALG_NULL)
+                throw domain_error("Crypto::Sign: Non-default scheme can only be used for a key with no scheme of its own");
+
+            CryptoPP::Integer n;
+            n.Decode(rsaPubKey.buffer.data(), rsaPubKey.buffer.size());
+            CryptoPP::Integer e = rsaParms.exponent;
+            CryptoPP::Integer p;
+            p.Decode(key.privatePart.data(), key.privatePart.size());
+
+            CryptoPP::Integer q = n/p;
+            CryptoPP::Integer phi = n;
+            phi -= p;
+            phi -= q;
+            phi += 1;
+
+            CryptoPP::Integer d = e.InverseMod(phi);
+
+            CryptoPP::RSA::PrivateKey pkey;
+            pkey.Initialize(n, e, d);
+
+            const int maxBuf = 4096;
+            byte signature[maxBuf];
+
+            auto signer = buildForHash<GetSigner>(scheme->hashAlg, pkey);
+
+            size_t sigLen = signer->SignMessage(getRNG(), toSign.data(), toSign.size(), signature);
+
+            TPM_ASSERT(sigLen <= maxBuf);
+
+            SignResponse resp;
+            resp.signature = make_shared<TPMS_SIGNATURE_RSASSA>(scheme->hashAlg,
+                                                                ByteVec{signature, signature + sigLen});
+            return resp;
+        }
+        case TPM_ALG_ID::ECC:
+        {
+            const TPMS_ECC_PARMS &eccParms = static_cast<const TPMS_ECC_PARMS &>(*pubKey.parameters);
+            const TPMS_ECC_POINT &eccPubKey = static_cast<const TPMS_ECC_POINT &>(*pubKey.unique);
+
+            TPM_ALG_ID schemeAlg = eccParms.schemeScheme(),
+                       expSchemeAlg = explicitScheme.GetUnionSelector();
+            auto *scheme = dynamic_cast<const TPMS_SCHEME_ECDSA*>(&*eccParms.scheme);
+
+            if (schemeAlg == TPM_ALG_NULL)
+            {
+                schemeAlg = expSchemeAlg;
+                scheme = dynamic_cast<const TPMS_SCHEME_ECDSA*>(&explicitScheme);
+                if (schemeAlg == TPM_ALG_NULL)
+                    throw domain_error("Crypto::Sign: No signing scheme specified");
+                else if (schemeAlg != TPM_ALG::ECDSA)
+                    throw domain_error("Crypto::Sign: Only ECDSA is supported");
+            }
+            else if (expSchemeAlg != TPM_ALG_NULL)
+                throw domain_error("Crypto::Sign: Non-default scheme can only be used for a key with no scheme of its own");
+
+            CryptoPP::DL_GroupParameters_EC<CryptoPP::ECP> parameters(getCurve(eccParms.curveID));
+
+            /* CryptoPP::Integer x, y; */
+            /* x.Decode(eccPubKey.x.data(), eccPubKey.x.size()); */
+            /* y.Decode(eccPubKey.y.data(), eccPubKey.y.size()); */
+            /* CryptoPP::ECPPoint pubPoint(x, y); */
+
+            CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::PrivateKey priv; // Hash here doesn't matter
+            CryptoPP::Integer privExponent;
+            privExponent.Decode(key.privatePart.data(), key.privatePart.size());
+            priv.Initialize(parameters, privExponent);
+
+            /* ByteVec combinedSignature(ecdsaSig->signatureR.size() + ecdsaSig->signatureS.size()); */
+            /* auto separator = std::copy(ecdsaSig->signatureR.begin(), ecdsaSig->signatureR.end(), combinedSignature.begin()); */
+            /* std::copy(ecdsaSig->signatureS.begin(), ecdsaSig->signatureS.end(), separator); */
+            /* return verifier->VerifyMessage(signedDigest.data(), signedDigest.size(), combinedSignature.data(), combinedSignature.size()); */
+
+            const int maxBuf = 4096;
+            byte signature[maxBuf];
+
+            auto signer = buildForHash<GetECDSASigner>(scheme->hashAlg, priv);
+
+            size_t sigLen = signer->SignMessage(getRNG(), toSign.data(), toSign.size(), signature);
+
+            TPM_ASSERT(sigLen <= maxBuf);
+
+            SignResponse resp;
+            resp.signature = make_shared<TPMS_SIGNATURE_ECDSA>(scheme->hashAlg,
+                                                               ByteVec{signature, signature + sigLen/2},
+                                                               ByteVec{signature + sigLen/2, signature + sigLen});
+            return resp;
+        }
+        default:
+            throw domain_error("Only RSA and ECC signing is supported");
     }
-    else if (expSchemeAlg != TPM_ALG_NULL)
-        throw domain_error("Crypto::Sign: Non-default scheme can only be used for a key with no scheme of its own");
-
-    CryptoPP::Integer n;
-    n.Decode(rsaPubKey->buffer.data(), rsaPubKey->buffer.size());
-    CryptoPP::Integer e = rsaParms->exponent;
-    CryptoPP::Integer p;
-    p.Decode(key.privatePart.data(), key.privatePart.size());
-
-    CryptoPP::Integer q = n/p;
-    CryptoPP::Integer phi = n;
-    phi -= p;
-    phi -= q;
-    phi += 1;
-
-    CryptoPP::Integer d = e.InverseMod(phi);
-
-    CryptoPP::RSA::PrivateKey pkey;
-    pkey.Initialize(n, e, d);
-
-    const int maxBuf = 4096;
-    byte signature[maxBuf];
-
-    auto signer = buildForHash<GetSigner>(scheme->hashAlg, pkey);
-
-    size_t sigLen = signer->SignMessage(getRNG(), toSign.data(), toSign.size(), signature);
-
-    TPM_ASSERT(sigLen <= maxBuf);
-
-    SignResponse resp;
-    resp.signature = make_shared<TPMS_SIGNATURE_RSASSA>(scheme->hashAlg,
-                                                        ByteVec{signature, signature + sigLen});
-    return resp;
 }
 
 ByteVec Crypto::CFBXcrypt(bool encrypt, TPM_ALG_ID algId,
