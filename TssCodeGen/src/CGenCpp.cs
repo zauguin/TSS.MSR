@@ -310,7 +310,10 @@ namespace CodeGen
             // Cloning and metadata
             //
             Write("");
-            Write($"virtual {className}* Clone() const {{ return new {className}(*this); }}");
+            if (!s.IsCmdStruct() && (hasBase || s.ContainingUnions.Count > 0))
+            {
+                Write($"{className}* Clone() const override {{ return new {className}(*this); }}");
+            }
 
             var info = s.IsCmdStruct() ? s.Info as CmdStructInfo : null;
             if (info != null && (info.NumHandles != 0 || info.SessEncSizeLen != 0))

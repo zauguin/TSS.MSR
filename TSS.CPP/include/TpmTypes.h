@@ -3170,8 +3170,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM_HANDLE* Clone() const { return new TPM_HANDLE(*this); }
-
     operator std::uint32_t() const { return handle; }
 
     /// <summary> Create a NULL TPM_HANDLE. </summary>
@@ -3266,7 +3264,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_NULL_UNION* Clone() const { return new TPMS_NULL_UNION(*this); }
+    TPMS_NULL_UNION* Clone() const override { return new TPMS_NULL_UNION(*this); }
 }; // class TPMS_NULL_UNION
 
 /// <summary> This structure is used as a placeholder. In some cases, a union will have a
@@ -3290,7 +3288,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_EMPTY* Clone() const { return new TPMS_EMPTY(*this); }
+    TPMS_EMPTY* Clone() const override { return new TPMS_EMPTY(*this); }
 }; // class TPMS_EMPTY
 
 /// <summary> This structure is a return value for a TPM2_GetCapability() that reads the
@@ -3326,7 +3324,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ALGORITHM_DESCRIPTION* Clone() const { return new TPMS_ALGORITHM_DESCRIPTION(*this); }
 }; // class TPMS_ALGORITHM_DESCRIPTION
 
 /// <summary> Table 80 shows the basic hash-agile structure used in this specification. To
@@ -3367,7 +3364,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_HA* Clone() const { return new TPMT_HA(*this); }
+    TPMT_HA* Clone() const override { return new TPMT_HA(*this); }
 
     operator const ByteVec&() const { return digest; }
     operator const TPM_ALG_ID() const { return hashAlg; }
@@ -3445,7 +3442,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_DIGEST* Clone() const { return new TPM2B_DIGEST(*this); }
+    TPM2B_DIGEST* Clone() const override { return new TPM2B_DIGEST(*this); }
 
     operator ByteVec&() { return buffer; }
     operator const ByteVec&() const { return buffer; }
@@ -3480,7 +3477,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_DATA* Clone() const { return new TPM2B_DATA(*this); }
 }; // class TPM2B_DATA
 
 /// <summary> Table 83 Definition of Types for TPM2B_NONCE </summary>
@@ -3528,7 +3524,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_EVENT* Clone() const { return new TPM2B_EVENT(*this); }
 }; // class TPM2B_EVENT
 
 /// <summary> This type is a sized buffer that can hold a maximally sized buffer for
@@ -3562,7 +3557,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_MAX_BUFFER* Clone() const { return new TPM2B_MAX_BUFFER(*this); }
 }; // class TPM2B_MAX_BUFFER
 
 /// <summary> This type is a sized buffer that can hold a maximally sized buffer for NV
@@ -3596,7 +3590,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_MAX_NV_BUFFER* Clone() const { return new TPM2B_MAX_NV_BUFFER(*this); }
 }; // class TPM2B_MAX_NV_BUFFER
 
 /// <summary> This TPM-dependent structure is used to provide the timeout value for an
@@ -3629,7 +3622,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_TIMEOUT* Clone() const { return new TPM2B_TIMEOUT(*this); }
 }; // class TPM2B_TIMEOUT
 
 /// <summary> This structure is used for passing an initial value for a symmetric block
@@ -3663,7 +3655,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_IV* Clone() const { return new TPM2B_IV(*this); }
 }; // class TPM2B_IV
 
 /// <summary> This buffer holds a Name for any entity type. </summary>
@@ -3695,7 +3686,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_NAME* Clone() const { return new TPM2B_NAME(*this); }
 }; // class TPM2B_NAME
 
 /// <summary> This structure provides a standard method of specifying a list of PCR. </summary>
@@ -3727,7 +3717,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_PCR_SELECT* Clone() const { return new TPMS_PCR_SELECT(*this); }
 }; // class TPMS_PCR_SELECT
 
 /// <summary> Table 94 Definition of TPMS_PCR_SELECTION Structure </summary>
@@ -3761,8 +3750,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPMS_PCR_SELECTION* Clone() const { return new TPMS_PCR_SELECTION(*this); }
 
     /// <summary> Create a TPMS_PCR_SELECTION naming a single-PCR. </summary>
     TPMS_PCR_SELECTION(TPM_ALG_ID alg, std::uint32_t pcr);
@@ -3826,7 +3813,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_TK_CREATION* Clone() const { return new TPMT_TK_CREATION(*this); }
 }; // class TPMT_TK_CREATION
 
 /// <summary> This ticket is produced by TPM2_VerifySignature(). This formulation is used
@@ -3863,7 +3849,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_TK_VERIFIED* Clone() const { return new TPMT_TK_VERIFIED(*this); }
 }; // class TPMT_TK_VERIFIED
 
 /// <summary> This ticket is produced by TPM2_PolicySigned() and TPM2_PolicySecret() when
@@ -3903,7 +3888,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_TK_AUTH* Clone() const { return new TPMT_TK_AUTH(*this); }
 }; // class TPMT_TK_AUTH
 
 /// <summary> This ticket is produced by TPM2_SequenceComplete() or TPM2_Hash() when the
@@ -3939,8 +3923,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPMT_TK_HASHCHECK* Clone() const { return new TPMT_TK_HASHCHECK(*this); }
 
     [[deprecated("Use default ctor instead")]]
     static TPMT_TK_HASHCHECK NullTicket() { return TPMT_TK_HASHCHECK(); }
@@ -3979,7 +3961,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ALG_PROPERTY* Clone() const { return new TPMS_ALG_PROPERTY(*this); }
 }; // class TPMS_ALG_PROPERTY
 
 /// <summary> This structure is used to report the properties that are UINT32 values. It
@@ -4015,7 +3996,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_TAGGED_PROPERTY* Clone() const { return new TPMS_TAGGED_PROPERTY(*this); }
 }; // class TPMS_TAGGED_PROPERTY
 
 /// <summary> This structure is used in TPM2_GetCapability() to return the attributes of
@@ -4051,7 +4031,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_TAGGED_PCR_SELECT* Clone() const { return new TPMS_TAGGED_PCR_SELECT(*this); }
 }; // class TPMS_TAGGED_PCR_SELECT
 
 /// <summary> This structure is used in TPM2_GetCapability() to return the policy
@@ -4087,7 +4066,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_TAGGED_POLICY* Clone() const { return new TPMS_TAGGED_POLICY(*this); }
 }; // class TPMS_TAGGED_POLICY
 
 /// <summary> This structure is used in TPM2_GetCapability() to return the ACT data. </summary>
@@ -4125,7 +4103,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ACT_DATA* Clone() const { return new TPMS_ACT_DATA(*this); }
 }; // class TPMS_ACT_DATA
 
 /// <summary> A list of command codes may be input to the TPM or returned by the TPM
@@ -4161,7 +4138,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_CC* Clone() const { return new TPML_CC(*this); }
+    TPML_CC* Clone() const override { return new TPML_CC(*this); }
 }; // class TPML_CC
 
 /// <summary> This list is only used in TPM2_GetCapability(capability = TPM_CAP_COMMANDS).
@@ -4195,7 +4172,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_CCA* Clone() const { return new TPML_CCA(*this); }
+    TPML_CCA* Clone() const override { return new TPML_CCA(*this); }
 }; // class TPML_CCA
 
 /// <summary> This list is returned by TPM2_IncrementalSelfTest(). </summary>
@@ -4229,7 +4206,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_ALG* Clone() const { return new TPML_ALG(*this); }
 }; // class TPML_ALG
 
 /// <summary> This structure is used when the TPM returns a list of loaded handles when
@@ -4263,7 +4239,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_HANDLE* Clone() const { return new TPML_HANDLE(*this); }
+    TPML_HANDLE* Clone() const override { return new TPML_HANDLE(*this); }
 }; // class TPML_HANDLE
 
 /// <summary> This list is used to convey a list of digest values. This type is used in
@@ -4299,7 +4275,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_DIGEST* Clone() const { return new TPML_DIGEST(*this); }
 }; // class TPML_DIGEST
 
 /// <summary> This list is used to convey a list of digest values. This type is returned
@@ -4333,7 +4308,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_DIGEST_VALUES* Clone() const { return new TPML_DIGEST_VALUES(*this); }
 }; // class TPML_DIGEST_VALUES
 
 /// <summary> This list is used to indicate the PCR that are included in a selection when
@@ -4367,7 +4341,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_PCR_SELECTION* Clone() const { return new TPML_PCR_SELECTION(*this); }
+    TPML_PCR_SELECTION* Clone() const override { return new TPML_PCR_SELECTION(*this); }
 }; // class TPML_PCR_SELECTION
 
 /// <summary> This list is used to report on a list of algorithm attributes. It is
@@ -4401,7 +4375,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_ALG_PROPERTY* Clone() const { return new TPML_ALG_PROPERTY(*this); }
+    TPML_ALG_PROPERTY* Clone() const override { return new TPML_ALG_PROPERTY(*this); }
 }; // class TPML_ALG_PROPERTY
 
 /// <summary> This list is used to report on a list of properties that are
@@ -4435,7 +4409,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_TAGGED_TPM_PROPERTY* Clone() const { return new TPML_TAGGED_TPM_PROPERTY(*this); }
+    TPML_TAGGED_TPM_PROPERTY* Clone() const override { return new TPML_TAGGED_TPM_PROPERTY(*this); }
 }; // class TPML_TAGGED_TPM_PROPERTY
 
 /// <summary> This list is used to report on a list of properties that are TPMS_PCR_SELECT
@@ -4469,7 +4443,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_TAGGED_PCR_PROPERTY* Clone() const { return new TPML_TAGGED_PCR_PROPERTY(*this); }
+    TPML_TAGGED_PCR_PROPERTY* Clone() const override { return new TPML_TAGGED_PCR_PROPERTY(*this); }
 }; // class TPML_TAGGED_PCR_PROPERTY
 
 /// <summary> This list is used to report the ECC curve ID values supported by the TPM. It
@@ -4503,7 +4477,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_ECC_CURVE* Clone() const { return new TPML_ECC_CURVE(*this); }
+    TPML_ECC_CURVE* Clone() const override { return new TPML_ECC_CURVE(*this); }
 }; // class TPML_ECC_CURVE
 
 /// <summary> This list is used to report the authorization policy values for permanent
@@ -4538,7 +4512,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_TAGGED_POLICY* Clone() const { return new TPML_TAGGED_POLICY(*this); }
+    TPML_TAGGED_POLICY* Clone() const override { return new TPML_TAGGED_POLICY(*this); }
 }; // class TPML_TAGGED_POLICY
 
 /// <summary> This list is used to report the timeout and state for the ACT. This list may
@@ -4572,7 +4546,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_ACT_DATA* Clone() const { return new TPML_ACT_DATA(*this); }
+    TPML_ACT_DATA* Clone() const override { return new TPML_ACT_DATA(*this); }
 }; // class TPML_ACT_DATA
 
 /// <summary> This data area is returned in response to a TPM2_GetCapability(). </summary>
@@ -4610,7 +4584,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_CAPABILITY_DATA* Clone() const { return new TPMS_CAPABILITY_DATA(*this); }
 }; // class TPMS_CAPABILITY_DATA
 
 /// <summary> This structure is used in each of the attestation commands. </summary>
@@ -4658,7 +4631,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_CLOCK_INFO* Clone() const { return new TPMS_CLOCK_INFO(*this); }
 }; // class TPMS_CLOCK_INFO
 
 /// <summary> This structure is used in, e.g., the TPM2_GetTime() attestation and
@@ -4695,7 +4667,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_TIME_INFO* Clone() const { return new TPMS_TIME_INFO(*this); }
 }; // class TPMS_TIME_INFO
 
 /// <summary> This structure is used when the TPM performs TPM2_GetTime. </summary>
@@ -4731,7 +4702,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_TIME_ATTEST_INFO* Clone() const { return new TPMS_TIME_ATTEST_INFO(*this); }
+    TPMS_TIME_ATTEST_INFO* Clone() const override { return new TPMS_TIME_ATTEST_INFO(*this); }
 }; // class TPMS_TIME_ATTEST_INFO
 
 /// <summary> This is the attested data for TPM2_Certify(). </summary>
@@ -4767,7 +4738,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_CERTIFY_INFO* Clone() const { return new TPMS_CERTIFY_INFO(*this); }
+    TPMS_CERTIFY_INFO* Clone() const override { return new TPMS_CERTIFY_INFO(*this); }
 }; // class TPMS_CERTIFY_INFO
 
 /// <summary> This is the attested data for TPM2_Quote(). </summary>
@@ -4803,7 +4774,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_QUOTE_INFO* Clone() const { return new TPMS_QUOTE_INFO(*this); }
+    TPMS_QUOTE_INFO* Clone() const override { return new TPMS_QUOTE_INFO(*this); }
 }; // class TPMS_QUOTE_INFO
 
 /// <summary> This is the attested data for TPM2_GetCommandAuditDigest(). </summary>
@@ -4845,7 +4816,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_COMMAND_AUDIT_INFO* Clone() const { return new TPMS_COMMAND_AUDIT_INFO(*this); }
+    TPMS_COMMAND_AUDIT_INFO* Clone() const override { return new TPMS_COMMAND_AUDIT_INFO(*this); }
 }; // class TPMS_COMMAND_AUDIT_INFO
 
 /// <summary> This is the attested data for TPM2_GetSessionAuditDigest(). </summary>
@@ -4883,7 +4854,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SESSION_AUDIT_INFO* Clone() const { return new TPMS_SESSION_AUDIT_INFO(*this); }
+    TPMS_SESSION_AUDIT_INFO* Clone() const override { return new TPMS_SESSION_AUDIT_INFO(*this); }
 }; // class TPMS_SESSION_AUDIT_INFO
 
 /// <summary> This is the attested data for TPM2_CertifyCreation(). </summary>
@@ -4919,7 +4890,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_CREATION_INFO* Clone() const { return new TPMS_CREATION_INFO(*this); }
+    TPMS_CREATION_INFO* Clone() const override { return new TPMS_CREATION_INFO(*this); }
 }; // class TPMS_CREATION_INFO
 
 /// <summary> This structure contains the Name and contents of the selected NV Index that
@@ -4959,7 +4930,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_NV_CERTIFY_INFO* Clone() const { return new TPMS_NV_CERTIFY_INFO(*this); }
+    TPMS_NV_CERTIFY_INFO* Clone() const override { return new TPMS_NV_CERTIFY_INFO(*this); }
 }; // class TPMS_NV_CERTIFY_INFO
 
 /// <summary> This structure contains the Name and hash of the contents of the selected NV
@@ -4997,7 +4968,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_NV_DIGEST_CERTIFY_INFO* Clone() const { return new TPMS_NV_DIGEST_CERTIFY_INFO(*this); }
+    TPMS_NV_DIGEST_CERTIFY_INFO* Clone() const override { return new TPMS_NV_DIGEST_CERTIFY_INFO(*this); }
 }; // class TPMS_NV_DIGEST_CERTIFY_INFO
 
 /// <summary> This structure is used on each TPM-generated signed structure. The signature
@@ -5055,7 +5026,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ATTEST* Clone() const { return new TPMS_ATTEST(*this); }
 }; // class TPMS_ATTEST
 
 /// <summary> This sized buffer to contain the signed structure. The attestationData is
@@ -5088,7 +5058,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_ATTEST* Clone() const { return new TPM2B_ATTEST(*this); }
 }; // class TPM2B_ATTEST
 
 /// <summary> This is the format used for each of the authorizations in the session area
@@ -5130,7 +5099,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_AUTH_COMMAND* Clone() const { return new TPMS_AUTH_COMMAND(*this); }
 }; // class TPMS_AUTH_COMMAND
 
 /// <summary> This is the format for each of the authorizations in the session area of the
@@ -5171,7 +5139,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_AUTH_RESPONSE* Clone() const { return new TPMS_AUTH_RESPONSE(*this); }
 }; // class TPMS_AUTH_RESPONSE
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5195,7 +5162,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_TDES_SYM_DETAILS* Clone() const { return new TPMS_TDES_SYM_DETAILS(*this); }
+    TPMS_TDES_SYM_DETAILS* Clone() const override { return new TPMS_TDES_SYM_DETAILS(*this); }
 }; // class TPMS_TDES_SYM_DETAILS
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5218,7 +5185,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_AES_SYM_DETAILS* Clone() const { return new TPMS_AES_SYM_DETAILS(*this); }
+    TPMS_AES_SYM_DETAILS* Clone() const override { return new TPMS_AES_SYM_DETAILS(*this); }
 }; // class TPMS_AES_SYM_DETAILS
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5241,7 +5208,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SM4_SYM_DETAILS* Clone() const { return new TPMS_SM4_SYM_DETAILS(*this); }
+    TPMS_SM4_SYM_DETAILS* Clone() const override { return new TPMS_SM4_SYM_DETAILS(*this); }
 }; // class TPMS_SM4_SYM_DETAILS
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5265,7 +5232,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_CAMELLIA_SYM_DETAILS* Clone() const { return new TPMS_CAMELLIA_SYM_DETAILS(*this); }
+    TPMS_CAMELLIA_SYM_DETAILS* Clone() const override { return new TPMS_CAMELLIA_SYM_DETAILS(*this); }
 }; // class TPMS_CAMELLIA_SYM_DETAILS
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5288,7 +5255,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_ANY_SYM_DETAILS* Clone() const { return new TPMS_ANY_SYM_DETAILS(*this); }
+    TPMS_ANY_SYM_DETAILS* Clone() const override { return new TPMS_ANY_SYM_DETAILS(*this); }
 }; // class TPMS_ANY_SYM_DETAILS
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5311,7 +5278,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_XOR_SYM_DETAILS* Clone() const { return new TPMS_XOR_SYM_DETAILS(*this); }
+    TPMS_XOR_SYM_DETAILS* Clone() const override { return new TPMS_XOR_SYM_DETAILS(*this); }
 }; // class TPMS_XOR_SYM_DETAILS
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5335,7 +5302,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_NULL_SYM_DETAILS* Clone() const { return new TPMS_NULL_SYM_DETAILS(*this); }
+    TPMS_NULL_SYM_DETAILS* Clone() const override { return new TPMS_NULL_SYM_DETAILS(*this); }
 }; // class TPMS_NULL_SYM_DETAILS
 
 /// <summary> The TPMT_SYM_DEF structure is used to select an algorithm to be used for
@@ -5379,8 +5346,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPMT_SYM_DEF* Clone() const { return new TPMT_SYM_DEF(*this); }
 
     [[deprecated("Use default ctor instead")]]
     static TPMT_SYM_DEF NullObject() { return TPMT_SYM_DEF(); }
@@ -5431,8 +5396,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_SYM_DEF_OBJECT* Clone() const { return new TPMT_SYM_DEF_OBJECT(*this); }
-
     [[deprecated("Use default ctor instead")]]
     static TPMT_SYM_DEF_OBJECT NullObject() { return TPMT_SYM_DEF_OBJECT(); }
 }; // class TPMT_SYM_DEF_OBJECT
@@ -5468,7 +5431,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_SYM_KEY* Clone() const { return new TPM2B_SYM_KEY(*this); }
+    TPM2B_SYM_KEY* Clone() const override { return new TPM2B_SYM_KEY(*this); }
 }; // class TPM2B_SYM_KEY
 
 /// <summary> This structure contains the parameters for a symmetric block cipher object. </summary>
@@ -5501,7 +5464,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SYMCIPHER_PARMS* Clone() const { return new TPMS_SYMCIPHER_PARMS(*this); }
+    TPMS_SYMCIPHER_PARMS* Clone() const override { return new TPMS_SYMCIPHER_PARMS(*this); }
 }; // class TPMS_SYMCIPHER_PARMS
 
 /// <summary> This buffer holds a label or context value. For interoperability and
@@ -5536,7 +5499,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_LABEL* Clone() const { return new TPM2B_LABEL(*this); }
 }; // class TPM2B_LABEL
 
 /// <summary> This structure contains the label and context fields for a derived object.
@@ -5571,7 +5533,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_DERIVE* Clone() const { return new TPMS_DERIVE(*this); }
+    TPMS_DERIVE* Clone() const override { return new TPMS_DERIVE(*this); }
 }; // class TPMS_DERIVE
 
 /// <summary> Table 147 Definition of TPM2B_DERIVE Structure </summary>
@@ -5604,7 +5566,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_DERIVE* Clone() const { return new TPM2B_DERIVE(*this); }
 }; // class TPM2B_DERIVE
 
 /// <summary> This buffer wraps the TPMU_SENSITIVE_CREATE structure. </summary>
@@ -5638,7 +5599,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_SENSITIVE_DATA* Clone() const { return new TPM2B_SENSITIVE_DATA(*this); }
+    TPM2B_SENSITIVE_DATA* Clone() const override { return new TPM2B_SENSITIVE_DATA(*this); }
 }; // class TPM2B_SENSITIVE_DATA
 
 /// <summary> This structure defines the values to be placed in the sensitive area of a
@@ -5675,7 +5636,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SENSITIVE_CREATE* Clone() const { return new TPMS_SENSITIVE_CREATE(*this); }
 }; // class TPMS_SENSITIVE_CREATE
 
 /// <summary> This structure contains the sensitive creation data in a sized buffer. This
@@ -5710,7 +5670,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_SENSITIVE_CREATE* Clone() const { return new TPM2B_SENSITIVE_CREATE(*this); }
 }; // class TPM2B_SENSITIVE_CREATE
 
 /// <summary> This structure is the scheme data for schemes that only require a hash to
@@ -5744,7 +5703,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SCHEME_HASH* Clone() const { return new TPMS_SCHEME_HASH(*this); }
+    TPMS_SCHEME_HASH* Clone() const override { return new TPMS_SCHEME_HASH(*this); }
 }; // class TPMS_SCHEME_HASH
 
 /// <summary> This definition is for split signing schemes that require a commit count. </summary>
@@ -5780,7 +5739,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SCHEME_ECDAA* Clone() const { return new TPMS_SCHEME_ECDAA(*this); }
+    TPMS_SCHEME_ECDAA* Clone() const override { return new TPMS_SCHEME_ECDAA(*this); }
 }; // class TPMS_SCHEME_ECDAA
 
 /// <summary> Table 155 Definition of Types for HMAC_SIG_SCHEME </summary>
@@ -5805,7 +5764,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SCHEME_HMAC* Clone() const { return new TPMS_SCHEME_HMAC(*this); }
+    TPMS_SCHEME_HMAC* Clone() const override { return new TPMS_SCHEME_HMAC(*this); }
 }; // class TPMS_SCHEME_HMAC
 
 /// <summary> This structure is for the XOR encryption scheme. </summary>
@@ -5846,7 +5805,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SCHEME_XOR* Clone() const { return new TPMS_SCHEME_XOR(*this); }
+    TPMS_SCHEME_XOR* Clone() const override { return new TPMS_SCHEME_XOR(*this); }
 }; // class TPMS_SCHEME_XOR
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -5870,7 +5829,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_NULL_SCHEME_KEYEDHASH* Clone() const { return new TPMS_NULL_SCHEME_KEYEDHASH(*this); }
+    TPMS_NULL_SCHEME_KEYEDHASH* Clone() const override { return new TPMS_NULL_SCHEME_KEYEDHASH(*this); }
 }; // class TPMS_NULL_SCHEME_KEYEDHASH
 
 /// <summary> This structure is used for a hash signing object. </summary>
@@ -5906,7 +5865,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_KEYEDHASH_SCHEME* Clone() const { return new TPMT_KEYEDHASH_SCHEME(*this); }
 }; // class TPMT_KEYEDHASH_SCHEME
 
 /// <summary> These are the RSA schemes that only need a hash algorithm as a scheme
@@ -5932,7 +5890,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIG_SCHEME_RSASSA* Clone() const { return new TPMS_SIG_SCHEME_RSASSA(*this); }
+    TPMS_SIG_SCHEME_RSASSA* Clone() const override { return new TPMS_SIG_SCHEME_RSASSA(*this); }
 }; // class TPMS_SIG_SCHEME_RSASSA
 
 /// <summary> These are the RSA schemes that only need a hash algorithm as a scheme
@@ -5958,7 +5916,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIG_SCHEME_RSAPSS* Clone() const { return new TPMS_SIG_SCHEME_RSAPSS(*this); }
+    TPMS_SIG_SCHEME_RSAPSS* Clone() const override { return new TPMS_SIG_SCHEME_RSAPSS(*this); }
 }; // class TPMS_SIG_SCHEME_RSAPSS
 
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
@@ -5985,7 +5943,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIG_SCHEME_ECDSA* Clone() const { return new TPMS_SIG_SCHEME_ECDSA(*this); }
+    TPMS_SIG_SCHEME_ECDSA* Clone() const override { return new TPMS_SIG_SCHEME_ECDSA(*this); }
 }; // class TPMS_SIG_SCHEME_ECDSA
 
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
@@ -6012,7 +5970,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIG_SCHEME_SM2* Clone() const { return new TPMS_SIG_SCHEME_SM2(*this); }
+    TPMS_SIG_SCHEME_SM2* Clone() const override { return new TPMS_SIG_SCHEME_SM2(*this); }
 }; // class TPMS_SIG_SCHEME_SM2
 
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
@@ -6039,7 +5997,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIG_SCHEME_ECSCHNORR* Clone() const { return new TPMS_SIG_SCHEME_ECSCHNORR(*this); }
+    TPMS_SIG_SCHEME_ECSCHNORR* Clone() const override { return new TPMS_SIG_SCHEME_ECSCHNORR(*this); }
 }; // class TPMS_SIG_SCHEME_ECSCHNORR
 
 /// <summary> Most of the ECC signature schemes only require a hash algorithm to complete
@@ -6066,7 +6024,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIG_SCHEME_ECDAA* Clone() const { return new TPMS_SIG_SCHEME_ECDAA(*this); }
+    TPMS_SIG_SCHEME_ECDAA* Clone() const override { return new TPMS_SIG_SCHEME_ECDAA(*this); }
 }; // class TPMS_SIG_SCHEME_ECDAA
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -6089,7 +6047,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_NULL_SIG_SCHEME* Clone() const { return new TPMS_NULL_SIG_SCHEME(*this); }
+    TPMS_NULL_SIG_SCHEME* Clone() const override { return new TPMS_NULL_SIG_SCHEME(*this); }
 }; // class TPMS_NULL_SIG_SCHEME
 
 /// <summary> Table 162 Definition of TPMT_SIG_SCHEME Structure </summary>
@@ -6127,7 +6085,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_SIG_SCHEME* Clone() const { return new TPMT_SIG_SCHEME(*this); }
 }; // class TPMT_SIG_SCHEME
 
 /// <summary> These are the RSA encryption schemes that only need a hash algorithm as a
@@ -6153,7 +6110,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_ENC_SCHEME_OAEP* Clone() const { return new TPMS_ENC_SCHEME_OAEP(*this); }
+    TPMS_ENC_SCHEME_OAEP* Clone() const override { return new TPMS_ENC_SCHEME_OAEP(*this); }
 }; // class TPMS_ENC_SCHEME_OAEP
 
 /// <summary> These are the RSA encryption schemes that only need a hash algorithm as a
@@ -6176,7 +6133,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_ENC_SCHEME_RSAES* Clone() const { return new TPMS_ENC_SCHEME_RSAES(*this); }
+    TPMS_ENC_SCHEME_RSAES* Clone() const override { return new TPMS_ENC_SCHEME_RSAES(*this); }
 }; // class TPMS_ENC_SCHEME_RSAES
 
 /// <summary> These are the ECC schemes that only need a hash algorithm as a controlling
@@ -6202,7 +6159,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_KEY_SCHEME_ECDH* Clone() const { return new TPMS_KEY_SCHEME_ECDH(*this); }
+    TPMS_KEY_SCHEME_ECDH* Clone() const override { return new TPMS_KEY_SCHEME_ECDH(*this); }
 }; // class TPMS_KEY_SCHEME_ECDH
 
 /// <summary> These are the ECC schemes that only need a hash algorithm as a controlling
@@ -6228,7 +6185,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_KEY_SCHEME_ECMQV* Clone() const { return new TPMS_KEY_SCHEME_ECMQV(*this); }
+    TPMS_KEY_SCHEME_ECMQV* Clone() const override { return new TPMS_KEY_SCHEME_ECMQV(*this); }
 }; // class TPMS_KEY_SCHEME_ECMQV
 
 /// <summary> These structures are used to define the key derivation for symmetric secret
@@ -6255,7 +6212,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_KDF_SCHEME_MGF1* Clone() const { return new TPMS_KDF_SCHEME_MGF1(*this); }
+    TPMS_KDF_SCHEME_MGF1* Clone() const override { return new TPMS_KDF_SCHEME_MGF1(*this); }
 }; // class TPMS_KDF_SCHEME_MGF1
 
 /// <summary> These structures are used to define the key derivation for symmetric secret
@@ -6282,7 +6239,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_KDF_SCHEME_KDF1_SP800_56A* Clone() const { return new TPMS_KDF_SCHEME_KDF1_SP800_56A(*this); }
+    TPMS_KDF_SCHEME_KDF1_SP800_56A* Clone() const override { return new TPMS_KDF_SCHEME_KDF1_SP800_56A(*this); }
 }; // class TPMS_KDF_SCHEME_KDF1_SP800_56A
 
 /// <summary> These structures are used to define the key derivation for symmetric secret
@@ -6309,7 +6266,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_KDF_SCHEME_KDF2* Clone() const { return new TPMS_KDF_SCHEME_KDF2(*this); }
+    TPMS_KDF_SCHEME_KDF2* Clone() const override { return new TPMS_KDF_SCHEME_KDF2(*this); }
 }; // class TPMS_KDF_SCHEME_KDF2
 
 /// <summary> These structures are used to define the key derivation for symmetric secret
@@ -6336,7 +6293,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_KDF_SCHEME_KDF1_SP800_108* Clone() const { return new TPMS_KDF_SCHEME_KDF1_SP800_108(*this); }
+    TPMS_KDF_SCHEME_KDF1_SP800_108* Clone() const override { return new TPMS_KDF_SCHEME_KDF1_SP800_108(*this); }
 }; // class TPMS_KDF_SCHEME_KDF1_SP800_108
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -6359,7 +6316,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_NULL_KDF_SCHEME* Clone() const { return new TPMS_NULL_KDF_SCHEME(*this); }
+    TPMS_NULL_KDF_SCHEME* Clone() const override { return new TPMS_NULL_KDF_SCHEME(*this); }
 }; // class TPMS_NULL_KDF_SCHEME
 
 /// <summary> Table 167 Definition of TPMT_KDF_SCHEME Structure </summary>
@@ -6397,7 +6354,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_KDF_SCHEME* Clone() const { return new TPMT_KDF_SCHEME(*this); }
 }; // class TPMT_KDF_SCHEME
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -6421,7 +6377,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_NULL_ASYM_SCHEME* Clone() const { return new TPMS_NULL_ASYM_SCHEME(*this); }
+    TPMS_NULL_ASYM_SCHEME* Clone() const override { return new TPMS_NULL_ASYM_SCHEME(*this); }
 }; // class TPMS_NULL_ASYM_SCHEME
 
 /// <summary> This structure is defined to allow overlay of all of the schemes for any
@@ -6462,7 +6418,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_ASYM_SCHEME* Clone() const { return new TPMT_ASYM_SCHEME(*this); }
 }; // class TPMT_ASYM_SCHEME
 
 /// <summary> Table 172 Definition of {RSA} TPMT_RSA_SCHEME Structure </summary>
@@ -6501,7 +6456,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_RSA_SCHEME* Clone() const { return new TPMT_RSA_SCHEME(*this); }
 }; // class TPMT_RSA_SCHEME
 
 /// <summary> Table 174 Definition of {RSA} TPMT_RSA_DECRYPT Structure </summary>
@@ -6540,7 +6494,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_RSA_DECRYPT* Clone() const { return new TPMT_RSA_DECRYPT(*this); }
 }; // class TPMT_RSA_DECRYPT
 
 /// <summary> This sized buffer holds the largest RSA public key supported by the TPM. </summary>
@@ -6573,7 +6526,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_PUBLIC_KEY_RSA* Clone() const { return new TPM2B_PUBLIC_KEY_RSA(*this); }
+    TPM2B_PUBLIC_KEY_RSA* Clone() const override { return new TPM2B_PUBLIC_KEY_RSA(*this); }
 }; // class TPM2B_PUBLIC_KEY_RSA
 
 /// <summary> This sized buffer holds the largest RSA prime number supported by the TPM. </summary>
@@ -6605,7 +6558,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_PRIVATE_KEY_RSA* Clone() const { return new TPM2B_PRIVATE_KEY_RSA(*this); }
+    TPM2B_PRIVATE_KEY_RSA* Clone() const override { return new TPM2B_PRIVATE_KEY_RSA(*this); }
 }; // class TPM2B_PRIVATE_KEY_RSA
 
 /// <summary> This sized buffer holds the largest ECC parameter (coordinate) supported by
@@ -6639,7 +6592,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_ECC_PARAMETER* Clone() const { return new TPM2B_ECC_PARAMETER(*this); }
+    TPM2B_ECC_PARAMETER* Clone() const override { return new TPM2B_ECC_PARAMETER(*this); }
 }; // class TPM2B_ECC_PARAMETER
 
 /// <summary> This structure holds two ECC coordinates that, together, make up an ECC
@@ -6676,7 +6629,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ECC_POINT* Clone() const { return new TPMS_ECC_POINT(*this); }
+    TPMS_ECC_POINT* Clone() const override { return new TPMS_ECC_POINT(*this); }
 }; // class TPMS_ECC_POINT
 
 /// <summary> This structure is defined to allow a point to be a single sized parameter so
@@ -6709,7 +6662,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_ECC_POINT* Clone() const { return new TPM2B_ECC_POINT(*this); }
 }; // class TPM2B_ECC_POINT
 
 /// <summary> Table 183 Definition of (TPMT_SIG_SCHEME) {ECC} TPMT_ECC_SCHEME Structure </summary>
@@ -6748,7 +6700,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_ECC_SCHEME* Clone() const { return new TPMT_ECC_SCHEME(*this); }
 }; // class TPMT_ECC_SCHEME
 
 /// <summary> This structure is used to report on the curve parameters of an ECC curve. It
@@ -6826,7 +6777,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ALGORITHM_DETAIL_ECC* Clone() const { return new TPMS_ALGORITHM_DETAIL_ECC(*this); }
 }; // class TPMS_ALGORITHM_DETAIL_ECC
 
 /// <summary> Table 185 Definition of {RSA} TPMS_SIGNATURE_RSA Structure </summary>
@@ -6863,7 +6813,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SIGNATURE_RSA* Clone() const { return new TPMS_SIGNATURE_RSA(*this); }
+    TPMS_SIGNATURE_RSA* Clone() const override { return new TPMS_SIGNATURE_RSA(*this); }
 }; // class TPMS_SIGNATURE_RSA
 
 /// <summary> Table 185 Definition of {RSA} TPMS_SIGNATURE_RSA Structure </summary>
@@ -6888,7 +6838,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIGNATURE_RSASSA* Clone() const { return new TPMS_SIGNATURE_RSASSA(*this); }
+    TPMS_SIGNATURE_RSASSA* Clone() const override { return new TPMS_SIGNATURE_RSASSA(*this); }
 }; // class TPMS_SIGNATURE_RSASSA
 
 /// <summary> Table 185 Definition of {RSA} TPMS_SIGNATURE_RSA Structure </summary>
@@ -6913,7 +6863,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIGNATURE_RSAPSS* Clone() const { return new TPMS_SIGNATURE_RSAPSS(*this); }
+    TPMS_SIGNATURE_RSAPSS* Clone() const override { return new TPMS_SIGNATURE_RSAPSS(*this); }
 }; // class TPMS_SIGNATURE_RSAPSS
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
@@ -6949,7 +6899,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_SIGNATURE_ECC* Clone() const { return new TPMS_SIGNATURE_ECC(*this); }
+    TPMS_SIGNATURE_ECC* Clone() const override { return new TPMS_SIGNATURE_ECC(*this); }
 }; // class TPMS_SIGNATURE_ECC
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
@@ -6974,7 +6924,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIGNATURE_ECDSA* Clone() const { return new TPMS_SIGNATURE_ECDSA(*this); }
+    TPMS_SIGNATURE_ECDSA* Clone() const override { return new TPMS_SIGNATURE_ECDSA(*this); }
 }; // class TPMS_SIGNATURE_ECDSA
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
@@ -6999,7 +6949,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIGNATURE_ECDAA* Clone() const { return new TPMS_SIGNATURE_ECDAA(*this); }
+    TPMS_SIGNATURE_ECDAA* Clone() const override { return new TPMS_SIGNATURE_ECDAA(*this); }
 }; // class TPMS_SIGNATURE_ECDAA
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
@@ -7024,7 +6974,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIGNATURE_SM2* Clone() const { return new TPMS_SIGNATURE_SM2(*this); }
+    TPMS_SIGNATURE_SM2* Clone() const override { return new TPMS_SIGNATURE_SM2(*this); }
 }; // class TPMS_SIGNATURE_SM2
 
 /// <summary> Table 187 Definition of {ECC} TPMS_SIGNATURE_ECC Structure </summary>
@@ -7049,7 +6999,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_SIGNATURE_ECSCHNORR* Clone() const { return new TPMS_SIGNATURE_ECSCHNORR(*this); }
+    TPMS_SIGNATURE_ECSCHNORR* Clone() const override { return new TPMS_SIGNATURE_ECSCHNORR(*this); }
 }; // class TPMS_SIGNATURE_ECSCHNORR
 
 /// <summary> Custom data structure representing an empty element (i.e. the one with 
@@ -7072,7 +7022,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPMS_NULL_SIGNATURE* Clone() const { return new TPMS_NULL_SIGNATURE(*this); }
+    TPMS_NULL_SIGNATURE* Clone() const override { return new TPMS_NULL_SIGNATURE(*this); }
 }; // class TPMS_NULL_SIGNATURE
 
 /// <summary> Table 190 shows the basic algorithm-agile structure when a symmetric or
@@ -7114,7 +7064,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_SIGNATURE* Clone() const { return new TPMT_SIGNATURE(*this); }
 }; // class TPMT_SIGNATURE
 
 /// <summary> Table 192 Definition of TPM2B_ENCRYPTED_SECRET Structure </summary>
@@ -7146,7 +7095,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_ENCRYPTED_SECRET* Clone() const { return new TPM2B_ENCRYPTED_SECRET(*this); }
 }; // class TPM2B_ENCRYPTED_SECRET
 
 /// <summary> This structure describes the parameters that would appear in the public area
@@ -7186,7 +7134,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_KEYEDHASH_PARMS* Clone() const { return new TPMS_KEYEDHASH_PARMS(*this); }
+    TPMS_KEYEDHASH_PARMS* Clone() const override { return new TPMS_KEYEDHASH_PARMS(*this); }
 }; // class TPMS_KEYEDHASH_PARMS
 
 /// <summary> This structure contains the common public area parameters for an asymmetric
@@ -7236,7 +7184,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ASYM_PARMS* Clone() const { return new TPMS_ASYM_PARMS(*this); }
+    TPMS_ASYM_PARMS* Clone() const override { return new TPMS_ASYM_PARMS(*this); }
 }; // class TPMS_ASYM_PARMS
 
 /// <summary> A TPM compatible with this specification and supporting RSA shall support
@@ -7300,7 +7248,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_RSA_PARMS* Clone() const { return new TPMS_RSA_PARMS(*this); }
+    TPMS_RSA_PARMS* Clone() const override { return new TPMS_RSA_PARMS(*this); }
 }; // class TPMS_RSA_PARMS
 
 /// <summary> This structure contains the parameters for prime modulus ECC. </summary>
@@ -7367,7 +7315,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ECC_PARMS* Clone() const { return new TPMS_ECC_PARMS(*this); }
+    TPMS_ECC_PARMS* Clone() const override { return new TPMS_ECC_PARMS(*this); }
 }; // class TPMS_ECC_PARMS
 
 /// <summary> This structure is used in TPM2_TestParms() to validate that a set of
@@ -7405,7 +7353,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_PUBLIC_PARMS* Clone() const { return new TPMT_PUBLIC_PARMS(*this); }
 }; // class TPMT_PUBLIC_PARMS
 
 /// <summary> Table 201 defines the public area structure. The Name of the object is
@@ -7462,8 +7409,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPMT_PUBLIC* Clone() const { return new TPMT_PUBLIC(*this); }
 
     /// <summary> Return the name of this TPMT_PUBLIC object (the hash-alg-prepended hash of the public area). </summary>
     ByteVec GetName() const;
@@ -7556,7 +7501,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_PUBLIC* Clone() const { return new TPM2B_PUBLIC(*this); }
 }; // class TPM2B_PUBLIC
 
 /// <summary> This sized buffer is used to embed a TPMT_TEMPLATE for TPM2_CreateLoaded(). </summary>
@@ -7588,7 +7532,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_TEMPLATE* Clone() const { return new TPM2B_TEMPLATE(*this); }
 }; // class TPM2B_TEMPLATE
 
 /// <summary> This structure is defined for coding purposes. For IO to the TPM, the
@@ -7625,7 +7568,7 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_PRIVATE_VENDOR_SPECIFIC* Clone() const { return new TPM2B_PRIVATE_VENDOR_SPECIFIC(*this); }
+    TPM2B_PRIVATE_VENDOR_SPECIFIC* Clone() const override { return new TPM2B_PRIVATE_VENDOR_SPECIFIC(*this); }
 }; // class TPM2B_PRIVATE_VENDOR_SPECIFIC
 
 /// <summary> AuthValue shall not be larger than the size of the digest produced by the
@@ -7673,8 +7616,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMT_SENSITIVE* Clone() const { return new TPMT_SENSITIVE(*this); }
-
     /// <summary> Create an object suitable when the TPM needs a NULL-object input. </summary>
     [[deprecated("Use default ctor instead")]]
     static TPMT_SENSITIVE NullObject() { return TPMT_SENSITIVE(); };
@@ -7711,7 +7652,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_SENSITIVE* Clone() const { return new TPM2B_SENSITIVE(*this); }
 }; // class TPM2B_SENSITIVE
 
 /// <summary> This structure is defined to size the contents of a TPM2B_PRIVATE. This
@@ -7749,7 +7689,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual _PRIVATE* Clone() const { return new _PRIVATE(*this); }
 }; // class _PRIVATE
 
 /// <summary> The TPM2B_PRIVATE structure is used as a parameter in multiple commands that
@@ -7782,7 +7721,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_PRIVATE* Clone() const { return new TPM2B_PRIVATE(*this); }
 }; // class TPM2B_PRIVATE
 
 /// <summary> This structure is used for sizing the TPM2B_ID_OBJECT. </summary>
@@ -7821,7 +7759,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_ID_OBJECT* Clone() const { return new TPMS_ID_OBJECT(*this); }
 }; // class TPMS_ID_OBJECT
 
 /// <summary> This structure is an output from TPM2_MakeCredential() and is an input to
@@ -7854,7 +7791,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_ID_OBJECT* Clone() const { return new TPM2B_ID_OBJECT(*this); }
 }; // class TPM2B_ID_OBJECT
 
 /// <summary> This is the data that can be written to and read from a TPM_NT_PIN_PASS or
@@ -7894,7 +7830,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_NV_PIN_COUNTER_PARAMETERS* Clone() const { return new TPMS_NV_PIN_COUNTER_PARAMETERS(*this); }
 }; // class TPMS_NV_PIN_COUNTER_PARAMETERS
 
 /// <summary> This structure describes an NV Index. </summary>
@@ -7943,7 +7878,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_NV_PUBLIC* Clone() const { return new TPMS_NV_PUBLIC(*this); }
 }; // class TPMS_NV_PUBLIC
 
 /// <summary> This structure is used when a TPMS_NV_PUBLIC is sent on the TPM interface. </summary>
@@ -7975,7 +7909,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_NV_PUBLIC* Clone() const { return new TPM2B_NV_PUBLIC(*this); }
 }; // class TPM2B_NV_PUBLIC
 
 /// <summary> This structure holds the object or session context data. When saved, the
@@ -8008,7 +7941,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_CONTEXT_SENSITIVE* Clone() const { return new TPM2B_CONTEXT_SENSITIVE(*this); }
 }; // class TPM2B_CONTEXT_SENSITIVE
 
 /// <summary> This structure holds the integrity value and the encrypted data for a
@@ -8044,7 +7976,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_CONTEXT_DATA* Clone() const { return new TPMS_CONTEXT_DATA(*this); }
 }; // class TPMS_CONTEXT_DATA
 
 /// <summary> This structure is used in a TPMS_CONTEXT. </summary>
@@ -8075,7 +8006,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_CONTEXT_DATA* Clone() const { return new TPM2B_CONTEXT_DATA(*this); }
 }; // class TPM2B_CONTEXT_DATA
 
 /// <summary> This structure is used in TPM2_ContextLoad() and TPM2_ContextSave(). If the
@@ -8121,7 +8051,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_CONTEXT* Clone() const { return new TPMS_CONTEXT(*this); }
 }; // class TPMS_CONTEXT
 
 /// <summary> This structure provides information relating to the creation environment for
@@ -8183,7 +8112,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_CREATION_DATA* Clone() const { return new TPMS_CREATION_DATA(*this); }
 }; // class TPMS_CREATION_DATA
 
 /// <summary> This structure is created by TPM2_Create() and TPM2_CreatePrimary(). It is
@@ -8215,7 +8143,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2B_CREATION_DATA* Clone() const { return new TPM2B_CREATION_DATA(*this); }
 }; // class TPM2B_CREATION_DATA
 
 /// <summary> TPMS_AC_OUTPUT is used to return information about an AC. The tag structure
@@ -8251,7 +8178,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPMS_AC_OUTPUT* Clone() const { return new TPMS_AC_OUTPUT(*this); }
 }; // class TPMS_AC_OUTPUT
 
 /// <summary> This list is only used in TPM2_AC_GetCapability(). </summary>
@@ -8283,7 +8209,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPML_AC_CAPABILITIES* Clone() const { return new TPML_AC_CAPABILITIES(*this); }
 }; // class TPML_AC_CAPABILITIES
 
 /// <summary> TPM2_Startup() is always preceded by _TPM_Init, which is the physical
@@ -8320,7 +8245,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Startup_REQUEST* Clone() const { return new TPM2_Startup_REQUEST(*this); }
 }; // class TPM2_Startup_REQUEST
 
 /// <summary> This command is used to prepare the TPM for a power cycle. The shutdownType
@@ -8353,7 +8277,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Shutdown_REQUEST* Clone() const { return new TPM2_Shutdown_REQUEST(*this); }
 }; // class TPM2_Shutdown_REQUEST
 
 /// <summary> This command causes the TPM to perform a test of its capabilities. If the
@@ -8388,7 +8311,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_SelfTest_REQUEST* Clone() const { return new TPM2_SelfTest_REQUEST(*this); }
 }; // class TPM2_SelfTest_REQUEST
 
 /// <summary> This command causes the TPM to perform a test of the selected algorithms. </summary>
@@ -8420,8 +8342,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_IncrementalSelfTest_REQUEST* Clone() const { return new TPM2_IncrementalSelfTest_REQUEST(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {4, 2}; }
 }; // class TPM2_IncrementalSelfTest_REQUEST
@@ -8452,8 +8372,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual IncrementalSelfTestResponse* Clone() const { return new IncrementalSelfTestResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {4, 2}; }
 }; // class IncrementalSelfTestResponse
@@ -8477,7 +8395,6 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPM2_GetTestResult_REQUEST* Clone() const { return new TPM2_GetTestResult_REQUEST(*this); }
 }; // class TPM2_GetTestResult_REQUEST
 
 /// <summary> This command returns manufacturer-specific information regarding the results
@@ -8508,8 +8425,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual GetTestResultResponse* Clone() const { return new GetTestResultResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -8573,8 +8488,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_StartAuthSession_REQUEST* Clone() const { return new TPM2_StartAuthSession_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -8614,8 +8527,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual StartAuthSessionResponse* Clone() const { return new StartAuthSessionResponse(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual TPM_HANDLE getHandle() const { return handle; }
@@ -8654,8 +8565,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyRestart_REQUEST* Clone() const { return new TPM2_PolicyRestart_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -8713,8 +8622,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Create_REQUEST* Clone() const { return new TPM2_Create_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -8768,7 +8675,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual CreateResponse* Clone() const { return new CreateResponse(*this); }
 }; // class CreateResponse
 
 /// <summary> This command is used to load objects into the TPM. This command is used when
@@ -8810,8 +8716,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Load_REQUEST* Clone() const { return new TPM2_Load_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -8848,8 +8752,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual LoadResponse* Clone() const { return new LoadResponse(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -8896,8 +8798,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_LoadExternal_REQUEST* Clone() const { return new TPM2_LoadExternal_REQUEST(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class TPM2_LoadExternal_REQUEST
@@ -8933,8 +8833,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual LoadExternalResponse* Clone() const { return new LoadExternalResponse(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual TPM_HANDLE getHandle() const { return handle; }
@@ -8969,8 +8867,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_ReadPublic_REQUEST* Clone() const { return new TPM2_ReadPublic_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -9009,8 +8905,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual ReadPublicResponse* Clone() const { return new ReadPublicResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -9059,8 +8953,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ActivateCredential_REQUEST* Clone() const { return new TPM2_ActivateCredential_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -9097,8 +8989,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual ActivateCredentialResponse* Clone() const { return new ActivateCredentialResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -9142,8 +9032,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_MakeCredential_REQUEST* Clone() const { return new TPM2_MakeCredential_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -9183,8 +9071,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual MakeCredentialResponse* Clone() const { return new MakeCredentialResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class MakeCredentialResponse
@@ -9216,8 +9102,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_Unseal_REQUEST* Clone() const { return new TPM2_Unseal_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -9251,8 +9135,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual UnsealResponse* Clone() const { return new UnsealResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -9297,8 +9179,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ObjectChangeAuth_REQUEST* Clone() const { return new TPM2_ObjectChangeAuth_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -9334,7 +9214,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual ObjectChangeAuthResponse* Clone() const { return new ObjectChangeAuthResponse(*this); }
 }; // class ObjectChangeAuthResponse
 
 /// <summary> This command creates an object and loads it in the TPM. This command allows
@@ -9379,8 +9258,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_CreateLoaded_REQUEST* Clone() const { return new TPM2_CreateLoaded_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -9429,8 +9306,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual CreateLoadedResponse* Clone() const { return new CreateLoadedResponse(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -9485,8 +9360,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Duplicate_REQUEST* Clone() const { return new TPM2_Duplicate_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -9532,8 +9405,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual DuplicateResponse* Clone() const { return new DuplicateResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -9590,8 +9461,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Rewrap_REQUEST* Clone() const { return new TPM2_Rewrap_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -9633,7 +9502,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual RewrapResponse* Clone() const { return new RewrapResponse(*this); }
 }; // class RewrapResponse
 
 /// <summary> This command allows an object to be encrypted using the symmetric encryption
@@ -9694,8 +9562,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Import_REQUEST* Clone() const { return new TPM2_Import_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -9733,7 +9599,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual ImportResponse* Clone() const { return new ImportResponse(*this); }
 }; // class ImportResponse
 
 /// <summary> This command performs RSA encryption using the indicated padding scheme
@@ -9792,8 +9657,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_RSA_Encrypt_REQUEST* Clone() const { return new TPM2_RSA_Encrypt_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -9831,8 +9694,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual RSA_EncryptResponse* Clone() const { return new RSA_EncryptResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -9888,8 +9749,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_RSA_Decrypt_REQUEST* Clone() const { return new TPM2_RSA_Decrypt_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -9925,8 +9784,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual RSA_DecryptResponse* Clone() const { return new RSA_DecryptResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class RSA_DecryptResponse
@@ -9959,8 +9816,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_ECDH_KeyGen_REQUEST* Clone() const { return new TPM2_ECDH_KeyGen_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -9998,8 +9853,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual ECDH_KeyGenResponse* Clone() const { return new ECDH_KeyGenResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10042,8 +9895,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ECDH_ZGen_REQUEST* Clone() const { return new TPM2_ECDH_ZGen_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -10082,8 +9933,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual ECDH_ZGenResponse* Clone() const { return new ECDH_ZGenResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class ECDH_ZGenResponse
@@ -10118,7 +9967,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ECC_Parameters_REQUEST* Clone() const { return new TPM2_ECC_Parameters_REQUEST(*this); }
 }; // class TPM2_ECC_Parameters_REQUEST
 
 /// <summary> This command returns the parameters of an ECC curve identified by its
@@ -10148,7 +9996,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual ECC_ParametersResponse* Clone() const { return new ECC_ParametersResponse(*this); }
 }; // class ECC_ParametersResponse
 
 /// <summary> This command supports two-phase key exchange protocols. The command is used
@@ -10198,8 +10045,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ZGen_2Phase_REQUEST* Clone() const { return new TPM2_ZGen_2Phase_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -10239,8 +10084,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual ZGen_2PhaseResponse* Clone() const { return new ZGen_2PhaseResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10288,8 +10131,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ECC_Encrypt_REQUEST* Clone() const { return new TPM2_ECC_Encrypt_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -10329,8 +10170,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual ECC_EncryptResponse* Clone() const { return new ECC_EncryptResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10385,8 +10224,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ECC_Decrypt_REQUEST* Clone() const { return new TPM2_ECC_Decrypt_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -10420,8 +10257,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual ECC_DecryptResponse* Clone() const { return new ECC_DecryptResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10473,8 +10308,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_EncryptDecrypt_REQUEST* Clone() const { return new TPM2_EncryptDecrypt_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -10510,8 +10343,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual EncryptDecryptResponse* Clone() const { return new EncryptDecryptResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10563,8 +10394,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_EncryptDecrypt2_REQUEST* Clone() const { return new TPM2_EncryptDecrypt2_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -10602,8 +10431,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual EncryptDecrypt2Response* Clone() const { return new EncryptDecrypt2Response(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10645,8 +10472,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Hash_REQUEST* Clone() const { return new TPM2_Hash_REQUEST(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class TPM2_Hash_REQUEST
@@ -10682,8 +10507,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual HashResponse* Clone() const { return new HashResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10727,8 +10550,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_HMAC_REQUEST* Clone() const { return new TPM2_HMAC_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -10763,8 +10584,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual HMACResponse* Clone() const { return new HMACResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10808,8 +10627,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_MAC_REQUEST* Clone() const { return new TPM2_MAC_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -10845,8 +10662,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual MACResponse* Clone() const { return new MACResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class MACResponse
@@ -10881,7 +10696,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_GetRandom_REQUEST* Clone() const { return new TPM2_GetRandom_REQUEST(*this); }
 }; // class TPM2_GetRandom_REQUEST
 
 /// <summary> This command returns the next bytesRequested octets from the random number
@@ -10910,8 +10724,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual GetRandomResponse* Clone() const { return new GetRandomResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10945,8 +10757,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_StirRandom_REQUEST* Clone() const { return new TPM2_StirRandom_REQUEST(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -10991,8 +10801,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_HMAC_Start_REQUEST* Clone() const { return new TPM2_HMAC_Start_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -11025,8 +10833,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual HMAC_StartResponse* Clone() const { return new HMAC_StartResponse(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -11073,8 +10879,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_MAC_Start_REQUEST* Clone() const { return new TPM2_MAC_Start_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -11107,8 +10911,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual MAC_StartResponse* Clone() const { return new MAC_StartResponse(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -11152,8 +10954,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_HashSequenceStart_REQUEST* Clone() const { return new TPM2_HashSequenceStart_REQUEST(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class TPM2_HashSequenceStart_REQUEST
@@ -11183,8 +10983,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual HashSequenceStartResponse* Clone() const { return new HashSequenceStartResponse(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -11226,8 +11024,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_SequenceUpdate_REQUEST* Clone() const { return new TPM2_SequenceUpdate_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -11275,8 +11071,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_SequenceComplete_REQUEST* Clone() const { return new TPM2_SequenceComplete_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -11316,8 +11110,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual SequenceCompleteResponse* Clone() const { return new SequenceCompleteResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -11367,8 +11159,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_EventSequenceComplete_REQUEST* Clone() const { return new TPM2_EventSequenceComplete_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -11407,8 +11197,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual EventSequenceCompleteResponse* Clone() const { return new EventSequenceCompleteResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {4, 66}; }
@@ -11466,8 +11254,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Certify_REQUEST* Clone() const { return new TPM2_Certify_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -11515,8 +11301,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual CertifyResponse* Clone() const { return new CertifyResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -11578,8 +11362,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_CertifyCreation_REQUEST* Clone() const { return new TPM2_CertifyCreation_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -11625,8 +11407,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual CertifyCreationResponse* Clone() const { return new CertifyCreationResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -11678,8 +11458,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Quote_REQUEST* Clone() const { return new TPM2_Quote_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -11722,8 +11500,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual QuoteResponse* Clone() const { return new QuoteResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -11781,8 +11557,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_GetSessionAuditDigest_REQUEST* Clone() const { return new TPM2_GetSessionAuditDigest_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 3; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -11825,8 +11599,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual GetSessionAuditDigestResponse* Clone() const { return new GetSessionAuditDigestResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -11882,8 +11654,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_GetCommandAuditDigest_REQUEST* Clone() const { return new TPM2_GetCommandAuditDigest_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -11928,8 +11698,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual GetCommandAuditDigestResponse* Clone() const { return new GetCommandAuditDigestResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -11983,8 +11751,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_GetTime_REQUEST* Clone() const { return new TPM2_GetTime_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -12027,8 +11793,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual GetTimeResponse* Clone() const { return new GetTimeResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -12090,8 +11854,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_CertifyX509_REQUEST* Clone() const { return new TPM2_CertifyX509_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -12144,8 +11906,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual CertifyX509Response* Clone() const { return new CertifyX509Response(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class CertifyX509Response
@@ -12193,8 +11953,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Commit_REQUEST* Clone() const { return new TPM2_Commit_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -12241,8 +11999,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual CommitResponse* Clone() const { return new CommitResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class CommitResponse
@@ -12277,7 +12033,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_EC_Ephemeral_REQUEST* Clone() const { return new TPM2_EC_Ephemeral_REQUEST(*this); }
 }; // class TPM2_EC_Ephemeral_REQUEST
 
 /// <summary> TPM2_EC_Ephemeral() creates an ephemeral key for use in a two-phase key
@@ -12309,8 +12064,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual EC_EphemeralResponse* Clone() const { return new EC_EphemeralResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -12359,8 +12112,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_VerifySignature_REQUEST* Clone() const { return new TPM2_VerifySignature_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -12395,7 +12146,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual VerifySignatureResponse* Clone() const { return new VerifySignatureResponse(*this); }
 }; // class VerifySignatureResponse
 
 /// <summary> This command causes the TPM to sign an externally provided hash with the
@@ -12447,8 +12197,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Sign_REQUEST* Clone() const { return new TPM2_Sign_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -12490,7 +12238,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual SignResponse* Clone() const { return new SignResponse(*this); }
 }; // class SignResponse
 
 /// <summary> This command may be used by the Privacy Administrator or platform to change
@@ -12536,8 +12283,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_SetCommandCodeAuditStatus_REQUEST* Clone() const { return new TPM2_SetCommandCodeAuditStatus_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -12581,8 +12326,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PCR_Extend_REQUEST* Clone() const { return new TPM2_PCR_Extend_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -12625,8 +12368,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PCR_Event_REQUEST* Clone() const { return new TPM2_PCR_Event_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -12660,8 +12401,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual PCR_EventResponse* Clone() const { return new PCR_EventResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {4, 66}; }
 }; // class PCR_EventResponse
@@ -12694,8 +12433,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PCR_Read_REQUEST* Clone() const { return new TPM2_PCR_Read_REQUEST(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {4, 3}; }
@@ -12734,7 +12471,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual PCR_ReadResponse* Clone() const { return new PCR_ReadResponse(*this); }
 }; // class PCR_ReadResponse
 
 /// <summary> This command is used to set the desired PCR allocation of PCR and
@@ -12771,8 +12507,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PCR_Allocate_REQUEST* Clone() const { return new TPM2_PCR_Allocate_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -12818,7 +12552,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual PCR_AllocateResponse* Clone() const { return new PCR_AllocateResponse(*this); }
 }; // class PCR_AllocateResponse
 
 /// <summary> This command is used to associate a policy with a PCR or group of PCR. The
@@ -12862,8 +12595,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PCR_SetAuthPolicy_REQUEST* Clone() const { return new TPM2_PCR_SetAuthPolicy_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -12906,8 +12637,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PCR_SetAuthValue_REQUEST* Clone() const { return new TPM2_PCR_SetAuthValue_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -12946,8 +12675,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PCR_Reset_REQUEST* Clone() const { return new TPM2_PCR_Reset_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13019,8 +12746,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicySigned_REQUEST* Clone() const { return new TPM2_PolicySigned_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13062,8 +12787,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual PolicySignedResponse* Clone() const { return new PolicySignedResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -13127,8 +12850,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicySecret_REQUEST* Clone() const { return new TPM2_PolicySecret_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -13171,8 +12892,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual PolicySecretResponse* Clone() const { return new PolicySecretResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -13229,8 +12948,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyTicket_REQUEST* Clone() const { return new TPM2_PolicyTicket_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13274,8 +12991,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyOR_REQUEST* Clone() const { return new TPM2_PolicyOR_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13325,8 +13040,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyPCR_REQUEST* Clone() const { return new TPM2_PolicyPCR_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13368,8 +13081,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyLocality_REQUEST* Clone() const { return new TPM2_PolicyLocality_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13427,8 +13138,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyNV_REQUEST* Clone() const { return new TPM2_PolicyNV_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 3; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -13477,8 +13186,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyCounterTimer_REQUEST* Clone() const { return new TPM2_PolicyCounterTimer_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13521,8 +13228,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyCommandCode_REQUEST* Clone() const { return new TPM2_PolicyCommandCode_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13556,8 +13261,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyPhysicalPresence_REQUEST* Clone() const { return new TPM2_PolicyPhysicalPresence_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13598,8 +13301,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyCpHash_REQUEST* Clone() const { return new TPM2_PolicyCpHash_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13644,8 +13345,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyNameHash_REQUEST* Clone() const { return new TPM2_PolicyNameHash_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13695,8 +13394,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyDuplicationSelect_REQUEST* Clone() const { return new TPM2_PolicyDuplicationSelect_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13750,8 +13447,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyAuthorize_REQUEST* Clone() const { return new TPM2_PolicyAuthorize_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13788,8 +13483,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyAuthValue_REQUEST* Clone() const { return new TPM2_PolicyAuthValue_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13823,8 +13516,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyPassword_REQUEST* Clone() const { return new TPM2_PolicyPassword_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -13861,8 +13552,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyGetDigest_REQUEST* Clone() const { return new TPM2_PolicyGetDigest_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13896,8 +13585,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual PolicyGetDigestResponse* Clone() const { return new PolicyGetDigestResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -13939,8 +13626,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PolicyNvWritten_REQUEST* Clone() const { return new TPM2_PolicyNvWritten_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -13981,8 +13666,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyTemplate_REQUEST* Clone() const { return new TPM2_PolicyTemplate_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -14031,8 +13714,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_PolicyAuthorizeNV_REQUEST* Clone() const { return new TPM2_PolicyAuthorizeNV_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 3; }
@@ -14088,8 +13769,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_CreatePrimary_REQUEST* Clone() const { return new TPM2_CreatePrimary_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14144,8 +13823,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual CreatePrimaryResponse* Clone() const { return new CreatePrimaryResponse(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual TPM_HANDLE getHandle() const { return handle; }
@@ -14193,8 +13870,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_HierarchyControl_REQUEST* Clone() const { return new TPM2_HierarchyControl_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -14245,8 +13920,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_SetPrimaryPolicy_REQUEST* Clone() const { return new TPM2_SetPrimaryPolicy_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14283,8 +13956,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_ChangePPS_REQUEST* Clone() const { return new TPM2_ChangePPS_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -14325,8 +13996,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ChangeEPS_REQUEST* Clone() const { return new TPM2_ChangeEPS_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14360,8 +14029,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_Clear_REQUEST* Clone() const { return new TPM2_Clear_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -14404,8 +14071,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ClearControl_REQUEST* Clone() const { return new TPM2_ClearControl_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14447,8 +14112,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_HierarchyChangeAuth_REQUEST* Clone() const { return new TPM2_HierarchyChangeAuth_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14486,8 +14149,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_DictionaryAttackLockReset_REQUEST* Clone() const { return new TPM2_DictionaryAttackLockReset_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -14537,8 +14198,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_DictionaryAttackParameters_REQUEST* Clone() const { return new TPM2_DictionaryAttackParameters_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14585,8 +14244,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_PP_Commands_REQUEST* Clone() const { return new TPM2_PP_Commands_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14629,8 +14286,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_SetAlgorithmSet_REQUEST* Clone() const { return new TPM2_SetAlgorithmSet_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -14688,8 +14343,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_FieldUpgradeStart_REQUEST* Clone() const { return new TPM2_FieldUpgradeStart_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -14731,8 +14384,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_FieldUpgradeData_REQUEST* Clone() const { return new TPM2_FieldUpgradeData_REQUEST(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class TPM2_FieldUpgradeData_REQUEST
@@ -14771,7 +14422,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual FieldUpgradeDataResponse* Clone() const { return new FieldUpgradeDataResponse(*this); }
 }; // class FieldUpgradeDataResponse
 
 /// <summary> This command is used to read a copy of the current firmware installed in the
@@ -14805,7 +14455,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_FirmwareRead_REQUEST* Clone() const { return new TPM2_FirmwareRead_REQUEST(*this); }
 }; // class TPM2_FirmwareRead_REQUEST
 
 /// <summary> This command is used to read a copy of the current firmware installed in the
@@ -14834,8 +14483,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual FirmwareReadResponse* Clone() const { return new FirmwareReadResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -14869,8 +14516,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ContextSave_REQUEST* Clone() const { return new TPM2_ContextSave_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -14903,7 +14548,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual ContextSaveResponse* Clone() const { return new ContextSaveResponse(*this); }
 }; // class ContextSaveResponse
 
 /// <summary> This command is used to reload a context that has been saved by
@@ -14936,7 +14580,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ContextLoad_REQUEST* Clone() const { return new TPM2_ContextLoad_REQUEST(*this); }
 }; // class TPM2_ContextLoad_REQUEST
 
 /// <summary> This command is used to reload a context that has been saved by
@@ -14962,8 +14605,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual ContextLoadResponse* Clone() const { return new ContextLoadResponse(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -15002,7 +14643,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_FlushContext_REQUEST* Clone() const { return new TPM2_FlushContext_REQUEST(*this); }
 }; // class TPM2_FlushContext_REQUEST
 
 /// <summary> This command allows certain Transient Objects to be made persistent or a
@@ -15047,8 +14687,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_EvictControl_REQUEST* Clone() const { return new TPM2_EvictControl_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -15074,7 +14712,6 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPM2_ReadClock_REQUEST* Clone() const { return new TPM2_ReadClock_REQUEST(*this); }
 }; // class TPM2_ReadClock_REQUEST
 
 /// <summary> This command reads the current TPMS_TIME_INFO structure that contains the
@@ -15103,7 +14740,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual ReadClockResponse* Clone() const { return new ReadClockResponse(*this); }
 }; // class ReadClockResponse
 
 /// <summary> This command is used to advance the value of the TPMs Clock. The command
@@ -15143,8 +14779,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_ClockSet_REQUEST* Clone() const { return new TPM2_ClockSet_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -15186,8 +14820,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_ClockRateAdjust_REQUEST* Clone() const { return new TPM2_ClockRateAdjust_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -15231,7 +14863,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_GetCapability_REQUEST* Clone() const { return new TPM2_GetCapability_REQUEST(*this); }
 }; // class TPM2_GetCapability_REQUEST
 
 /// <summary> This command returns various information regarding the TPM and its current
@@ -15270,7 +14901,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual GetCapabilityResponse* Clone() const { return new GetCapabilityResponse(*this); }
 }; // class GetCapabilityResponse
 
 /// <summary> This command is used to check to see if specific combinations of algorithm
@@ -15308,7 +14938,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_TestParms_REQUEST* Clone() const { return new TPM2_TestParms_REQUEST(*this); }
 }; // class TPM2_TestParms_REQUEST
 
 /// <summary> This command defines the attributes of an NV Index and causes the TPM to
@@ -15350,8 +14979,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_NV_DefineSpace_REQUEST* Clone() const { return new TPM2_NV_DefineSpace_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -15391,8 +15018,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_NV_UndefineSpace_REQUEST* Clone() const { return new TPM2_NV_UndefineSpace_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 2; }
@@ -15434,8 +15059,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_NV_UndefineSpaceSpecial_REQUEST* Clone() const { return new TPM2_NV_UndefineSpaceSpecial_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -15470,8 +15093,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_NV_ReadPublic_REQUEST* Clone() const { return new TPM2_NV_ReadPublic_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -15509,8 +15130,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual NV_ReadPublicResponse* Clone() const { return new NV_ReadPublicResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -15558,8 +15177,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_NV_Write_REQUEST* Clone() const { return new TPM2_NV_Write_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -15600,8 +15217,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_NV_Increment_REQUEST* Clone() const { return new TPM2_NV_Increment_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 2; }
@@ -15647,8 +15262,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_NV_Extend_REQUEST* Clone() const { return new TPM2_NV_Extend_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 2; }
@@ -15698,8 +15311,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_NV_SetBits_REQUEST* Clone() const { return new TPM2_NV_SetBits_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -15740,8 +15351,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_NV_WriteLock_REQUEST* Clone() const { return new TPM2_NV_WriteLock_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -15776,8 +15385,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_NV_GlobalWriteLock_REQUEST* Clone() const { return new TPM2_NV_GlobalWriteLock_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -15828,8 +15435,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_NV_Read_REQUEST* Clone() const { return new TPM2_NV_Read_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 2; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -15862,8 +15467,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual NV_ReadResponse* Clone() const { return new NV_ReadResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -15901,8 +15504,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_NV_ReadLock_REQUEST* Clone() const { return new TPM2_NV_ReadLock_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 2; }
@@ -15943,8 +15544,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TPM2_NV_ChangeAuth_REQUEST* Clone() const { return new TPM2_NV_ChangeAuth_REQUEST(*this); }
 
 protected:
     virtual uint16_t numHandles() const { return 1; }
@@ -16014,8 +15613,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_NV_Certify_REQUEST* Clone() const { return new TPM2_NV_Certify_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 3; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -16061,8 +15658,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual NV_CertifyResponse* Clone() const { return new NV_CertifyResponse(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class NV_CertifyResponse
@@ -16104,8 +15699,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_AC_GetCapability_REQUEST* Clone() const { return new TPM2_AC_GetCapability_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -16142,7 +15735,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual AC_GetCapabilityResponse* Clone() const { return new AC_GetCapabilityResponse(*this); }
 }; // class AC_GetCapabilityResponse
 
 /// <summary> The purpose of this command is to send (copy) a loaded object from the TPM
@@ -16189,8 +15781,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_AC_Send_REQUEST* Clone() const { return new TPM2_AC_Send_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 3; }
     virtual uint16_t numAuthHandles() const { return 2; }
@@ -16226,7 +15816,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual AC_SendResponse* Clone() const { return new AC_SendResponse(*this); }
 }; // class AC_SendResponse
 
 /// <summary> This command allows qualification of the sending (copying) of an Object to
@@ -16275,8 +15864,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Policy_AC_SendSelect_REQUEST* Clone() const { return new TPM2_Policy_AC_SendSelect_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 0; }
@@ -16320,8 +15907,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_ACT_SetTimeout_REQUEST* Clone() const { return new TPM2_ACT_SetTimeout_REQUEST(*this); }
-
 protected:
     virtual uint16_t numHandles() const { return 1; }
     virtual uint16_t numAuthHandles() const { return 1; }
@@ -16357,8 +15942,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TPM2_Vendor_TCG_Test_REQUEST* Clone() const { return new TPM2_Vendor_TCG_Test_REQUEST(*this); }
-
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
 }; // class TPM2_Vendor_TCG_Test_REQUEST
@@ -16388,8 +15971,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual Vendor_TCG_TestResponse* Clone() const { return new Vendor_TCG_TestResponse(*this); }
 
 protected:
     virtual SessEncInfo sessEncInfo() const { return {2, 1}; }
@@ -16490,7 +16071,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual TssObject* Clone() const { return new TssObject(*this); }
 }; // class TssObject
 
 /// <summary> Contains a PCR index and associated hash(pcr-value) [TSS] </summary>
@@ -16525,7 +16105,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual PcrValue* Clone() const { return new PcrValue(*this); }
 }; // class PcrValue
 
 /// <summary> Structure representing a session block in a command buffer [TSS] </summary>
@@ -16566,7 +16145,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual SessionIn* Clone() const { return new SessionIn(*this); }
 }; // class SessionIn
 
 /// <summary> Structure representing a session block in a response buffer [TSS] </summary>
@@ -16604,7 +16182,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual SessionOut* Clone() const { return new SessionOut(*this); }
 }; // class SessionOut
 
 /// <summary> Command header [TSS] </summary>
@@ -16642,7 +16219,6 @@ public:
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
 
-    virtual CommandHeader* Clone() const { return new CommandHeader(*this); }
 }; // class CommandHeader
 
 /// <summary> Contains the public and private part of a TPM key </summary>
@@ -16676,8 +16252,6 @@ public:
     using TpmStructure::Deserialize;
     void Serialize(Serializer& buf) const;
     void Deserialize(Serializer& buf);
-
-    virtual TSS_KEY* Clone() const { return new TSS_KEY(*this); }
 
     operator const TPMT_PUBLIC& () const { return publicPart; }
 
@@ -16720,7 +16294,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPM2B_DIGEST_SYMCIPHER* Clone() const { return new TPM2B_DIGEST_SYMCIPHER(*this); }
+    TPM2B_DIGEST_SYMCIPHER* Clone() const override { return new TPM2B_DIGEST_SYMCIPHER(*this); }
 }; // class TPM2B_DIGEST_SYMCIPHER
 
 /// <summary> Auto-derived from TPM2B_DIGEST </summary>
@@ -16745,7 +16319,7 @@ public:
     using TpmStructure::Serialize;
     using TpmStructure::Deserialize;
 
-    virtual TPM2B_DIGEST_KEYEDHASH* Clone() const { return new TPM2B_DIGEST_KEYEDHASH(*this); }
+    TPM2B_DIGEST_KEYEDHASH* Clone() const override { return new TPM2B_DIGEST_KEYEDHASH(*this); }
 }; // class TPM2B_DIGEST_KEYEDHASH
 
 }
