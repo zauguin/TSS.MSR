@@ -56,7 +56,7 @@ public:
 
     /// <summary> Serialize this object using the given text format </summary>
     /// <returns>true in case of success</returns>
-    string Serialize(SerializationType serializationFormat);
+    string Serialize(SerializationType serializationFormat) const;
 
     /// <summary> Deserialize from JSON (other formats TBD) </summary>
     /// <returns>true in case of success</returns>

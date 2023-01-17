@@ -331,46 +331,71 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
                                                 const TPMT_SENSITIVE& sensitive,
                                                 const TPMT_SYM_DEF_OBJECT& innerWrapper) const
 {
-    if (type() != TPM_ALG_ID::RSA)
-        throw domain_error("Only import of keys to RSA storage parents supported");
-
     DuplicationBlob blob;
     ByteVec encryptedSensitive;
     ByteVec innerWrapperKey;
 
-    if (innerWrapper.algorithm == TPM_ALG_NULL)
-        encryptedSensitive = sensitive.asTpm2B();
-    else {
-        if (innerWrapper.algorithm != TPM_ALG_ID::AES ||
-            innerWrapper.keyBits % 8 != 0 ||
-            innerWrapper.mode != TPM_ALG_ID::CFB) {
-            throw domain_error("innerWrapper KeyDef is not supported for import");
+    switch (innerWrapper.algorithm) {
+        case TPM_ALG_NULL:
+            encryptedSensitive = sensitive.asTpm2B();
+            break;
+        case TPM_ALG_ID::AES:
+        {
+            if (innerWrapper.algorithm != TPM_ALG_ID::AES ||
+                innerWrapper.keyBits % 8 != 0 ||
+                innerWrapper.mode != TPM_ALG_ID::CFB) {
+                throw domain_error("innerWrapper KeyDef is not supported for import");
+            }
+
+            ByteVec sens = sensitive.asTpm2B();
+            ByteVec toHash = Helpers::Concatenate(sens, pub.GetName());
+
+            ByteVec innerIntegrity = Helpers::ToTpm2B(Crypto::Hash(nameAlg, toHash));
+            ByteVec innerData = Helpers::Concatenate(innerIntegrity, sens);
+
+            blob.InnerWrapperKey = Helpers::RandomBytes(innerWrapper.keyBits/8);
+            encryptedSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES,
+                                                   blob.InnerWrapperKey, {}, innerData);
+            break;
         }
-
-        ByteVec sens = sensitive.asTpm2B();
-        ByteVec toHash = Helpers::Concatenate(sens, pub.GetName());
-
-        ByteVec innerIntegrity = Helpers::ToTpm2B(Crypto::Hash(nameAlg, toHash));
-        ByteVec innerData = Helpers::Concatenate(innerIntegrity, sens);
-
-        blob.InnerWrapperKey = Helpers::RandomBytes(innerWrapper.keyBits/8);
-        encryptedSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES,
-                                               blob.InnerWrapperKey, {}, innerData);
+        default:
+            throw domain_error("innerWrapper KeyDef is not supported for import");
     }
 
-    TPMS_RSA_PARMS *newParentParms = dynamic_cast<TPMS_RSA_PARMS*>(&*this->parameters);
-    TPMT_SYM_DEF_OBJECT newParentSymDef = newParentParms->symmetric;
+    ByteVec seed;
+    TPMT_SYM_DEF_OBJECT newParentSymDef;
+    switch (type())
+    {
+        case TPM_ALG_ID::RSA:
+        {
+            const TPMS_RSA_PARMS &newParentParms = static_cast<const TPMS_RSA_PARMS &>(*this->parameters);
+            newParentSymDef = newParentParms.symmetric;
+
+            seed = Helpers::RandomBytes(Crypto::HashLength(pub.nameAlg));
+            ByteVec parms = Crypto::StringToEncodingParms("DUPLICATE");
+            blob.EncryptedSeed = this->Encrypt(seed, parms);
+            break;
+        }
+        case TPM_ALG_ID::ECC:
+        {
+            const TPMS_ECC_PARMS &newParentParms = static_cast<const TPMS_ECC_PARMS &>(*this->parameters);
+            newParentSymDef = newParentParms.symmetric;
+
+            auto generated = Crypto::KeyGen(*this);
+            seed = Crypto::KDFe(this->nameAlg, generated.second, "DUPLICATE",
+                                generated.first.x, static_cast<TPMS_ECC_POINT *>(unique.get())->x, 8 * Crypto::HashLength(this->nameAlg));
+            blob.EncryptedSeed = generated.first.toBytes();
+            break;
+        }
+        default:
+            throw domain_error("Only import of keys to RSA storage parents supported");
+    }
 
     if (newParentSymDef.algorithm != TPM_ALG_ID::AES ||
         newParentSymDef.mode != TPM_ALG_ID::CFB)
     {
         throw domain_error("new parent symmetric key is not supported for import");
     }
-
-    // Otherwise we know we are AES
-    ByteVec seed = Helpers::RandomBytes(Crypto::HashLength(pub.nameAlg));
-    ByteVec parms = Crypto::StringToEncodingParms("DUPLICATE");
-    blob.EncryptedSeed = this->Encrypt(seed, parms);
 
     ByteVec symmKey = Crypto::KDFa(this->nameAlg, seed, "STORAGE",
                                    pub.GetName(), null, newParentSymDef.keyBits);

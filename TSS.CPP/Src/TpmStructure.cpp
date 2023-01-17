@@ -7,7 +7,7 @@
 
 namespace TpmCpp {
 
-string TpmStructure::Serialize(SerializationType format)
+string TpmStructure::Serialize(SerializationType format) const
 {
     if (format == SerializationType::JSON)
     {
