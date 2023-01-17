@@ -350,7 +350,7 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
             ByteVec sens = sensitive.asTpm2B();
             ByteVec toHash = Helpers::Concatenate(sens, pub.GetName());
 
-            ByteVec innerIntegrity = Helpers::ToTpm2B(Crypto::Hash(nameAlg, toHash));
+            ByteVec innerIntegrity = Helpers::ToTpm2B(Crypto::Hash(pub.nameAlg, toHash));
             ByteVec innerData = Helpers::Concatenate(innerIntegrity, sens);
 
             blob.InnerWrapperKey = Helpers::RandomBytes(innerWrapper.keyBits/8);
@@ -371,7 +371,7 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
             const TPMS_RSA_PARMS &newParentParms = static_cast<const TPMS_RSA_PARMS &>(*this->parameters);
             newParentSymDef = newParentParms.symmetric;
 
-            seed = Helpers::RandomBytes(Crypto::HashLength(pub.nameAlg));
+            seed = Helpers::RandomBytes(Crypto::HashLength(nameAlg));
             ByteVec parms = Crypto::StringToEncodingParms("DUPLICATE");
             blob.EncryptedSeed = this->Encrypt(seed, parms);
             break;
@@ -382,8 +382,8 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
             newParentSymDef = newParentParms.symmetric;
 
             auto generated = Crypto::KeyGen(*this);
-            seed = Crypto::KDFe(this->nameAlg, generated.second, "DUPLICATE",
-                                generated.first.x, static_cast<TPMS_ECC_POINT *>(unique.get())->x, 8 * Crypto::HashLength(this->nameAlg));
+            seed = Crypto::KDFe(nameAlg, generated.second, "DUPLICATE",
+                                generated.first.x, static_cast<TPMS_ECC_POINT *>(unique.get())->x, 8 * Crypto::HashLength(nameAlg));
             blob.EncryptedSeed = generated.first.toBytes();
             break;
         }
