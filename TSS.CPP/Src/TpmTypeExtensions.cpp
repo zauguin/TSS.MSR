@@ -275,53 +275,58 @@ ByteVec TPMT_PUBLIC::EncryptSessionSalt(const ByteVec& secret) const
 
 ActivationData TPMT_PUBLIC::CreateActivation(const ByteVec& secret, const ByteVec& activatedName) const
 {
-    TPMS_RSA_PARMS *parms = dynamic_cast<TPMS_RSA_PARMS*>(&*this->parameters);
-
-    if (parms == NULL)
-        throw domain_error("Only RSA activation supported");
-
-    TPMT_SYM_DEF_OBJECT& symDef = parms->symmetric;
-
-    if ((symDef.algorithm != TPM_ALG_ID::AES) ||
-        (symDef.keyBits != 128) ||
-        (symDef.mode != TPM_ALG_ID::CFB)) {
-        throw domain_error("Unsupported wrapping scheme");
-    }
-
-    ByteVec seed = Crypto::GetRand(16);
+    const TPMT_SYM_DEF_OBJECT *symDef;
+    ByteVec seed;
     ActivationData act;
 
-    // Encrypt the seed with the label IDENTITY
-    string idString = string("IDENTITY");
-    ByteVec label(idString.length() + 1);
+    switch (parameters->GetUnionSelector()) {
+        case TPM_ALG_ID::ECC:
+        {
+            const TPMS_ECC_PARMS &newParentParms = static_cast<const TPMS_ECC_PARMS &>(*this->parameters);
+            symDef = &newParentParms.symmetric;
 
-    for (size_t j = 0; j < idString.length(); j++)
-        label[j] = (byte)idString[j];
+            auto generated = Crypto::KeyGen(*this);
+            seed = Crypto::KDFe(nameAlg, generated.second, "IDENTITY",
+                                generated.first.x, static_cast<TPMS_ECC_POINT *>(unique.get())->x, 8 * Crypto::HashLength(nameAlg));
+            act.Secret = generated.first.toBytes();
+            break;
+        }
+        case TPM_ALG_ID::RSA:
+        {
+            const TPMS_RSA_PARMS &parms = static_cast<const TPMS_RSA_PARMS&>(*parameters);
 
-    act.Secret = this->Encrypt(seed, label);
-    ByteVec nullVec;
+            symDef = &parms.symmetric;
 
-    // Now make the activation blob.
+            seed = Crypto::GetRand(Crypto::HashLength(nameAlg));
+            ByteVec label = Crypto::StringToEncodingParms("IDENTITY");
+            act.Secret = this->Encrypt(seed, label);
+            break;
+        }
+        default:
+            throw domain_error("Only ECC and RSA activation supported");
+    }
+
+    if ((symDef->algorithm != TPM_ALG_ID::AES) ||
+        (symDef->keyBits % 8 != 0) ||
+        (symDef->mode != TPM_ALG_ID::CFB)) {
+        throw domain_error("Unsupported wrapping scheme");
+    }
 
     TPM2B_DIGEST secretStruct(secret);
     ByteVec lengthPrependedSecret = secretStruct.toBytes();
     // Then make the cred blob. First the encrypted secret.  Make the key then encrypt.
-    ByteVec symKey = Crypto::KDFa(this->nameAlg, seed, "STORAGE",
-                                  activatedName, nullVec, 128);
 
-    ByteVec encIdentity = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES, symKey, nullVec,
-                                            lengthPrependedSecret);
+    ByteVec symKey = Crypto::KDFa(this->nameAlg, seed, "STORAGE",
+                                   activatedName, {}, symDef->keyBits);
+    ByteVec encIdentity = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES, symKey, {}, lengthPrependedSecret);
+
     // Next the HMAC protection
-    int hmacKeyLen = Crypto::HashLength(this->nameAlg);
-    ByteVec hmacKey = Crypto::KDFa(this->nameAlg, seed, "INTEGRITY",
-                                   nullVec, nullVec, hmacKeyLen * 8);
+    int npNameNumBits = Crypto::HashLength(nameAlg) * 8;
+    ByteVec hmacKey = Crypto::KDFa(nameAlg, seed, "INTEGRITY",
+                                   null, null, npNameNumBits);
     // Next the outer HMAC
     ByteVec outerHmac = Crypto::HMAC(this->nameAlg, hmacKey,
                                      Helpers::Concatenate(encIdentity, activatedName));
-    // Assemble the activation blob
-    //TPM2B_DIGEST outerHmac2bx(outerHmac);
-    //auto outerHmac2b = outerHmac2bx.toBytes();
-    //ByteVec activationBlob = Helpers::Concatenate(outerHmac2b, encIdentity);
 
     act.CredentialBlob = TPMS_ID_OBJECT(outerHmac, encIdentity);
     return act;
@@ -341,8 +346,7 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
             break;
         case TPM_ALG_ID::AES:
         {
-            if (innerWrapper.algorithm != TPM_ALG_ID::AES ||
-                innerWrapper.keyBits % 8 != 0 ||
+            if (innerWrapper.keyBits % 8 != 0 ||
                 innerWrapper.mode != TPM_ALG_ID::CFB) {
                 throw domain_error("innerWrapper KeyDef is not supported for import");
             }
@@ -363,13 +367,13 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
     }
 
     ByteVec seed;
-    TPMT_SYM_DEF_OBJECT newParentSymDef;
+    const TPMT_SYM_DEF_OBJECT *newParentSymDef;
     switch (type())
     {
         case TPM_ALG_ID::RSA:
         {
             const TPMS_RSA_PARMS &newParentParms = static_cast<const TPMS_RSA_PARMS &>(*this->parameters);
-            newParentSymDef = newParentParms.symmetric;
+            newParentSymDef = &newParentParms.symmetric;
 
             seed = Helpers::RandomBytes(Crypto::HashLength(nameAlg));
             ByteVec parms = Crypto::StringToEncodingParms("DUPLICATE");
@@ -379,7 +383,7 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
         case TPM_ALG_ID::ECC:
         {
             const TPMS_ECC_PARMS &newParentParms = static_cast<const TPMS_ECC_PARMS &>(*this->parameters);
-            newParentSymDef = newParentParms.symmetric;
+            newParentSymDef = &newParentParms.symmetric;
 
             auto generated = Crypto::KeyGen(*this);
             seed = Crypto::KDFe(nameAlg, generated.second, "DUPLICATE",
@@ -391,14 +395,14 @@ DuplicationBlob TPMT_PUBLIC::GetDuplicationBlob(Tpm2& _tpm, const TPMT_PUBLIC& p
             throw domain_error("Only import of keys to RSA storage parents supported");
     }
 
-    if (newParentSymDef.algorithm != TPM_ALG_ID::AES ||
-        newParentSymDef.mode != TPM_ALG_ID::CFB)
+    if (newParentSymDef->algorithm != TPM_ALG_ID::AES ||
+        newParentSymDef->mode != TPM_ALG_ID::CFB)
     {
         throw domain_error("new parent symmetric key is not supported for import");
     }
 
     ByteVec symmKey = Crypto::KDFa(this->nameAlg, seed, "STORAGE",
-                                   pub.GetName(), null, newParentSymDef.keyBits);
+                                   pub.GetName(), null, newParentSymDef->keyBits);
     ByteVec dupSensitive = Crypto::CFBXcrypt(true, TPM_ALG_ID::AES, symmKey, {}, encryptedSensitive);
 
     int npNameNumBits = Crypto::HashLength(nameAlg) * 8;
